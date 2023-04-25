@@ -29,7 +29,14 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                <div class="grid grid-cols-2 p-4">
+                    <div>
+                        @include('layouts.sidenav')
+                    </div>
+                    <div>
+                        {{ $slot }}
+                    </div>
+                </div>
             </main>
         </div>
     </body>
