@@ -21,7 +21,7 @@
             <!-- Page Content -->
             <main>
                 <div class="grid grid-cols-5 gap-3">
-                    <div class="p-4">
+                    <div class="py-10 px-6">
                         @include('layouts.sidenav')
                     </div>
                     <div class="col-span-4">
