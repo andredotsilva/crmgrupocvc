@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function getIsClientAttribute()
+    {
+        return $this->roles()->where('id', 3)->exists();
+    }
 }
