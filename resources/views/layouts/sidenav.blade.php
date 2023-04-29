@@ -1,48 +1,55 @@
 <aside class="flex flex-col px-5 py-8 h-auto overflow-y-auto bg-white rounded-2xl border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
-    <a href="#">
-        <img class="w-auto h-8" src="../img/icon.png" alt="">
-    </a>
+    
+    <div class="grid grid-flow-col gap-3">
+        <div class="col-span-1">
+            <a href="#">
+                <img class="w-auto h-8" src="../img/icon.png" alt="">
+            </a>
+        </div>
+        <div class="col-span-4">
+            <!-- Settings Dropdown -->
+            <div class="hidden sm:flex sm:ml-6">
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            <div>Bem vindo, {{ Auth::user()->name }}</div>
 
-    <!-- Settings Dropdown -->
-    <div class="hidden sm:flex sm:ml-6">
-        <x-dropdown align="right" width="48">
-            <x-slot name="trigger">
-                <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                    <div>Bem vindo, {{ Auth::user()->name }}</div>
+                            <div class="ml-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                    </x-slot>
 
-                    <div class="ml-1">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                </button>
-            </x-slot>
+                    <x-slot name="content">
+                        <x-dropdown-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
 
-            <x-slot name="content">
-                <x-dropdown-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-dropdown-link>
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                            <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-dropdown-link>
+                        </form>
 
-                    <x-dropdown-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-dropdown-link>
-                </form>
-
-                <x-dropdown-link>
-                    <button x-cloak x-on:click="darkMode = !darkMode;">
-                        <x-heroicon-o-moon x-show="!darkMode" class="p-2 ml-3 w-8 h-8 text-gray-700 bg-gray-100 rounded-md transition cursor-pointer hover:bg-gray-200" />
-                        <x-heroicon-o-sun x-show="darkMode" class="p-2 ml-3 w-8 h-8 text-gray-100 bg-gray-700 rounded-md transition cursor-pointer dark:hover:bg-gray-600" />
-                    </button>
-                </x-dropdown-link>
-            </x-slot>
-        </x-dropdown>
+                        <x-dropdown-link>
+                            <button x-cloak x-on:click="darkMode = !darkMode;">
+                                <x-heroicon-o-moon x-show="!darkMode" class="p-2 ml-3 w-8 h-8 text-gray-700 bg-gray-100 rounded-md transition cursor-pointer hover:bg-gray-200" />
+                                <x-heroicon-o-sun x-show="darkMode" class="p-2 ml-3 w-8 h-8 text-gray-100 bg-gray-700 rounded-md transition cursor-pointer dark:hover:bg-gray-600" />
+                            </button>
+                        </x-dropdown-link>
+                    </x-slot>
+                </x-dropdown>
+            </div>
+        </div>
     </div>
+    
 
     <div class="flex flex-col justify-between flex-1 mt-6">
         <nav class="-mx-3 space-y-6 ">
