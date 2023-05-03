@@ -1,4 +1,4 @@
-@props(['contracts','contractsCount'])
+@props(['contracts', 'contractsCount'])
 
 <section class="container px-4 mx-auto">
     <div class="flex items-center gap-x-3">
