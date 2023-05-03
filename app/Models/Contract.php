@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,5 +19,14 @@ class Contract extends Model
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    protected static function booted(): void
+    {
+        if (auth()->check() && auth()->user()->is_client) {
+            static::addGlobalScope('client', function (Builder $builder) {
+                $builder->where('client_id', auth()->id());
+            });
+        }
     }
 }
