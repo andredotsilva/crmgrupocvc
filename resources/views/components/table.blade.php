@@ -60,8 +60,6 @@
                                 <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">PT0002000065163206PT</td>
                                 <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                     <div class="inline-flex items-center gap-x-3">
-                                        <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700">
-
                                         <div class="flex items-center gap-x-2">
                                             <div>
                                                 <h2 class="font-medium text-gray-800 dark:text-white ">ENTREPOSTO GESTAO PARTICIPACOES SGPS SA</h2>

@@ -1,7 +1,7 @@
 <aside class="flex flex-col px-5 py-8 h-auto overflow-y-auto bg-white rounded-2xl border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
     
-    <div class="grid grid-flow-col gap-3">
-        <div class="col-span-1">
+    <div class="m-auto grid grid-cols-2">
+        <div class="col-span-2">
             <a href="#">
                 <img class="w-auto h-8" src="../img/icon.png" alt="">
             </a>
