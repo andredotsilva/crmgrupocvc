@@ -76,9 +76,12 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                             @foreach ($contracts as $contract)
+                                {{-- @php
+                                    dd($contract);
+                                @endphp --}}
                                 <tr>
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->client_id }}
+                                        {{ $contract->contador }}
                                     </td>
                                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                         <div class="inline-flex items-center gap-x-3">
@@ -95,7 +98,8 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        PT50000000001</td>
+                                        {{ $contract->nif }}
+                                    </td>
                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                         <div
                                             class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
@@ -106,7 +110,8 @@
                                     </td>
 
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        RPE-MT</td>
+                                        {{ $contract->tensao }}
+                                    </td>
 
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <div class="flex items-center gap-x-6">
