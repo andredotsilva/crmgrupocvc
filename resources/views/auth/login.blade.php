@@ -5,7 +5,7 @@
 <div class="h-screen flex">
     <div class="flex w-1/2 bg-gradient-to-tr from-blue-400 to-green-400 i justify-around items-center">
       <div>
-        <img src="../img/energia.webp" class="w-6/12" alt="">
+        <img src="../img/energia.webp" class="w-36" alt="">
         <p class="text-white mt-1 text-2xl">Serviços exclusivos para condomínios</p>
         <button type="submit" class="block w-28 bg-white text-indigo-800 mt-6 py-2 rounded-2xl font-bold mb-2">{{ __('Ver website') }}</button>
       </div>
