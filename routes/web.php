@@ -26,18 +26,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::resource('/contracts', ContractsController::class);
-//Route::resource('/contracts/:id', ContractsController::class);
-//Route::resource('/contracts/:id/edit', ContractsController::class);
-//Route::resource('/contracts/:id/delete', ContractsController::class);
-
-Route::get('/inserirContrato', function () {
-    return view('layouts/formContrato');
-});
-Route::get('/listaContrato', function () {
-    return view('contractList');
-});
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -15,8 +15,7 @@ class ContractsController extends Controller
         $contracts = Contrato::all();
         $contractsCount = $contracts->count();
 
-        return view('dashboard', compact(['contracts', 'contractsCount']));
-        
+        return view('contractList', compact(['contracts', 'contractsCount']));
     }
 
     public function create()
