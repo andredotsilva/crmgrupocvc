@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
                                     <div class="text-sm text-gray-500">Contratos</div>
-                                    <div class="font-bold text-lg">230</div>
+                                    <div class="font-bold text-lg">{{$contracts->count()}}</div>
                                 </div>
                             </div>
                         </div>
