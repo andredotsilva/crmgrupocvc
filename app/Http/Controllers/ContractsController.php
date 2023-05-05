@@ -16,6 +16,7 @@ class ContractsController extends Controller
         $contractsCount = $contracts->count();
 
         return view('dashboard', compact(['contracts', 'contractsCount']));
+        
     }
 
     public function create()
