@@ -5,15 +5,22 @@
         </h2>
     </x-slot>
 
-    <div class="py-2">
+    <div class="p-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="p-10">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <x-table :contracts="$contracts" :contractsCount="$contractsCount" />
-                        </div>
-                    </div>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <a href="{{ route('contracts.create') }}"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">{{ __('Inserir Novo Contrato') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-1">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <x-table :contracts="$contracts" :contractsCount="$contractsCount" />
                 </div>
             </div>
         </div>

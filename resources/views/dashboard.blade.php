@@ -12,7 +12,7 @@
                 <div class="p-4 w-full">
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                            <div class="flex flex-row bg-white shadow-sm rounded p-4 dark:bg-gray-800 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -23,13 +23,13 @@
                                     </svg>
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500">Utilizadores</div>
+                                    <div class="text-sm text-gray-500 dark:text-slate-400">Utilizadores</div>
                                     <div class="font-bold text-lg">1259</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                            <div class="flex flex-row bg-white shadow-sm rounded p-4 dark:bg-gray-800 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-green-100 text-green-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -39,13 +39,13 @@
                                     </svg>
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500">Contratos</div>
-                                    <div class="font-bold text-lg">{{ $contracts->count() }}</div>
+                                    <div class="text-sm text-gray-500 dark:text-slate-400">Contratos</div>
+                                    <div class="font-bold text-lg">{{ $contractsCount }}</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                            <div class="flex flex-row bg-white shadow-sm rounded p-4 dark:bg-gray-800 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-orange-100 text-orange-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -56,13 +56,13 @@
                                     </svg>
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500">Dados a Inserir</div>
+                                    <div class="text-sm text-gray-500 dark:text-slate-400">Dados a Inserir</div>
                                     <div class="font-bold text-lg">190</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div class="flex flex-row bg-white shadow-sm rounded p-4">
+                            <div class="flex flex-row bg-white shadow-sm rounded p-4 dark:bg-gray-800 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-red-100 text-red-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -73,7 +73,7 @@
                                     </svg>
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500">Dados a Inserir</div>
+                                    <div class="text-sm text-gray-500 dark:text-slate-400">Dados a Inserir</div>
                                     <div class="font-bold text-lg">32</div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                 <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-lg">
                                     <div class="px-6 py-4">
                                         <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                                        <p class="text-gray-700 text-base">
+                                        <p class="text-gray-700 text-base dark:text-slate-400">
                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia,
                                             nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                                         </p>
@@ -128,7 +128,7 @@
                                 <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-lg">
                                     <div class="px-6 py-4">
                                         <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                                        <p class="text-gray-700 text-base">
+                                        <p class="text-gray-700 text-base dark:text-slate-400">
                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia,
                                             nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                                         </p>
@@ -145,7 +145,7 @@
                                 <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-lg">
                                     <div class="px-6 py-4">
                                         <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                                        <p class="text-gray-700 text-base">
+                                        <p class="text-gray-700 text-base dark:text-slate-400">
                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia,
                                             nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
                                         </p>
