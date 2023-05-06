@@ -24,6 +24,7 @@ const iconToggle = () => {
 
 // Theme Check
 const themeCheck = () => { 
+    // if (userTheme === "dark" || (!userTheme && systemTheme))
     if (userTheme === "dark" || (!userTheme && systemTheme)) {
         document.body.classList.add("dark-mode");
         moonIcon.classList.add("display-none");

@@ -59,8 +59,8 @@
                     </x-slot>
                 </x-dropdown>
                 <div class="flex items-start">
-                    <img class="moon cursor-pointer" src="../img/moon.svg" style="width: 1.8rem; height: 100%;" alt="">
-                    <img class="sun cursor-pointer" src="../img/sun.svg" style="width: 1.8rem; height: 100%;" alt="">
+                    <img class="moon cursor-pointer" src="../img/moon.svg" style="width: 1.2rem; height: 100%;" alt="">
+                    <img class="sun cursor-pointer" src="../img/sun.svg" style="width: 1.2rem; height: 100%; fill:white" alt="">
                 </div>
             </div>
 
