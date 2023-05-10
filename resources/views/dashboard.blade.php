@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
+    <x-slot name="header" class="pt-8">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
@@ -164,5 +164,16 @@
             </div>
         </div>
     </div>
+
+    <!--Footer container-->
+<footer class="fixed bottom-0 left-0 right-0">
+      
+    <div class="flex items-center p-6 bg-white text-gray-800 dark:bg-gray-800 h-12">
+        <div><p class="text-black dark:text-blue-400 text-xs">© 2023 Copyright: Desenvolvido pela </p></div>
+        <div class="mx-2"><a class="text-black dark:text-blue-400 text-xs" href="https://caseof.pt/"
+            >CaseOf Creative Agency</a
+          ></div>
+      </div>
+  </footer>
 
 </x-app-layout>
