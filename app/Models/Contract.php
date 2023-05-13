@@ -11,9 +11,14 @@ class Contract extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'contract_date',
+        'bo_id',
         'client_id',
+
+        // Datas de contrato
+        'inserted_at',
+        'signed_at',
+        'effective_at',
+        'renewal_at',
     ];
 
     public function client()
