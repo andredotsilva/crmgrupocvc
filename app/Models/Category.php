@@ -5,14 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Meter extends Model
+class Category extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'tariff_id',
-        'nif',
-        'cpe',
-        'power',
-    ];
 }

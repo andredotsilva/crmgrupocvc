@@ -12,10 +12,40 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contracts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->date('contract_date');
+            $table->ulid('id')->primary();
+
+            $table->foreignUuid('back_officer_id')->nullable()->references('id')->on('users');
+            $table->foreignUuid('commercial_id')->nullable()->references('id')->on('users');
+
+            $table->foreignId('client_type_id')->references('id')->on('client_types');
+            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('service_id')->references('id')->on('services');
+
             $table->foreignUuid('client_id')->references('id')->on('users');
+
+            $table->foreignUuid('provider_id')->nullable()->references('id')->on('providers');
+            $table->foreignUuid('plan_id')->nullable()->references('id')->on('plans');
+            $table->foreignUuid('documentation_status')->nullable()->references('id')->on('documentation_statuses');
+
+            $table->string('archive')->nullable();
+
+            $table->foreignUuid('meter_id')->nullable()->references('id')->on('meters');
+            $table->foreignUuid('comission_id')->nullable()->references('id')->on('comissions');
+
+
+            $table->date('inserted_at')->nullable();
+            $table->date('signed_at')->nullable();
+            $table->date('effective_at')->nullable();
+            $table->date('renewal_at')->nullable();
+
+            $table->string('nib')->nullable();
+            $table->foreignId('invoice_type')->nullable()->references('id')->on('invoice_types');
+
+            $table->string('signatory_email')->nullable();
+            $table->string('signatory_phone')->nullable();
+
+            // $table->string('comission_id');
+
             $table->timestamps();
         });
     }
