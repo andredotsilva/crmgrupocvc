@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permission_user', function (Blueprint $table) {
-            $table->foreignId('permission_id')->references('id')->on('permissions');
-            $table->foreignId('role_id')->references('id')->on('roles');
-            $table->timestamps();
+        Schema::create('tariffs', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('description');
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permissions_users');
+        Schema::dropIfExists('tariffs');
     }
 };
