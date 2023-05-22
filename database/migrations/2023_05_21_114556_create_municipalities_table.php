@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
-            $table->integer('cae');
-            $table->timestamps();
+            $table->integer('code')->nullable();
+            $table->string('title')->nullable();
+
+            $table->foreignId('district_id')->nullable()->references('id')->on('districts');
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('municipalities');
     }
 };

@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('commissions', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->ulid('id')->primary();
             $table->integer('cvc_paid_amount')->nullable();
             $table->integer('administrator_paid_amount')->nullable();
             $table->integer('commercial_paid_amount')->nullable();

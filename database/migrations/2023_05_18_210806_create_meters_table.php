@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('meters', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->ulid('id')->primary();
             $table->string('cpe')->nullable();
             $table->string('nif')->nullable();
             $table->decimal('power', 8, 2)->nullable();
-            $table->foreignId('tariff_id')->references('id')->on('tariffs');
+            $table->foreignId('tariff_id')->nullable()->references('id')->on('tariffs');
             $table->float('flat')->nullable();
             $table->float('peak')->nullable();
             $table->float('standard')->nullable();

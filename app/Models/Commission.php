@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commission extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        ''
+        'cvc_paid_amount',
+        'administrator_paid_amount',
+        'commercial_paid_amount',
+        'cvc_payment_date',
+        'administrator_payment_date',
+        'commercial_payment_date'
     ];
 }
