@@ -23,15 +23,14 @@ return new class extends Migration
 
             $table->foreignUuid('client_id')->references('id')->on('users');
 
-            $table->foreignUuid('provider_id')->nullable()->references('id')->on('providers');
-            $table->foreignUuid('plan_id')->nullable()->references('id')->on('plans');
-            $table->foreignUuid('documentation_status')->nullable()->references('id')->on('documentation_statuses');
+            $table->foreignId('provider_id')->nullable()->references('id')->on('providers');
+            $table->foreignId('plan_id')->nullable()->references('id')->on('plans');
+            $table->foreignId('documentation_status')->nullable()->references('id')->on('documentation_statuses');
 
             $table->string('archive')->nullable();
 
-            $table->foreignUuid('meter_id')->nullable()->references('id')->on('meters');
-            $table->foreignUuid('comission_id')->nullable()->references('id')->on('comissions');
-
+            $table->foreignUlid('meter_id')->nullable()->references('id')->on('meters');
+            $table->foreignUlid('commission_id')->nullable()->references('id')->on('commissions');
 
             $table->date('inserted_at')->nullable();
             $table->date('signed_at')->nullable();
@@ -44,8 +43,7 @@ return new class extends Migration
             $table->string('signatory_email')->nullable();
             $table->string('signatory_phone')->nullable();
 
-            // $table->string('comission_id');
-
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
