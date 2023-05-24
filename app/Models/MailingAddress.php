@@ -5,22 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class MailingAddress extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'cae',
-        'administrator_name',
-        'condominium_administrator',
-        'name',
         'address',
         'door',
-        'floor',
         'post_code',
-        'dmp_code', //district_municipality_parish_code
         'parish_id',
         'municipality_id',
         'district_id',
+        'email',
+        'phone_number',
+        'nif',
+        'client_id'
     ];
 }

@@ -19,7 +19,6 @@ class Contract extends Model
         'client_type_id',
         'category_id',
         'service_id',
-        'condo_administration',
 
         // Datas de contrato
         'inserted_at',

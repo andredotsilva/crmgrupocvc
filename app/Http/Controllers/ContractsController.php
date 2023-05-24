@@ -12,10 +12,10 @@ class ContractsController extends Controller
     //
     public function index()
     {
-        $contracts = Contrato::all();
-        $contractsCount = $contracts->count();
+        // $contracts = Contrato::all();
+        // $contractsCount = $contracts->count();
 
-        return view('contractList', compact(['contracts', 'contractsCount']));
+        return view('contractList');
     }
 
     public function create()

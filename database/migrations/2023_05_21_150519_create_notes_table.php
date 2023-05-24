@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('districts', function (Blueprint $table) {
+        Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->integer('code');
-            $table->string('title');
+            $table->longText('text')->nullable();
+            $table->foreignUlid('contract_id')->nullable()->references('id')->on('contracts');
+            $table->foreignUuid('back_officer_id')->nullable()->references('id')->on('users');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('notes');
     }
 };
