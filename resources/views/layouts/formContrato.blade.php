@@ -8,7 +8,7 @@
   <div class="py-2">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-        <ul class="grid grid-flow-col text-center text-gray-500 bg-gray-100 rounded-full pt-20">    
+        <ul class="grid grid-flow-col text-center text-gray-500 rounded-full pt-20">    
             <li>      
                 <a href="#backofficesection" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Back Office
                 </a>    
@@ -60,16 +60,20 @@
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome Comercial</label>
+                            <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nome Comercial</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                <select id="name" name="name" autocomplete="name"
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                    <option>Jorge Martinho</option>
+                                    <option>Teste</option>
+                                    <option>Teste</option>
+                                </select>
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
+                            <label for="services" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="services" id="services" autocomplete="services"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
@@ -109,16 +113,16 @@
                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS DA ORGANIZAÇÃO</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
+                            <label for="provider" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="provider" name="provider" id="provider" autocomplete="provider"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="nivel-tensao" class="block text-sm font-medium leading-6 text-gray-900">Campanha</label>
+                            <label for="plan" class="block text-sm font-medium leading-6 text-gray-900">Campanha</label>
                             <div class="mt-2">
-                                <select id="nivel-tensao" name="tensao" autocomplete="nivel-tensao"
+                                <select id="plan" name="plan" autocomplete="plan"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
                                     <option>Energia Verde</option>
                                     <option>Teste</option>
@@ -128,16 +132,16 @@
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
+                            <label for="documentation_status" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="documentation_status" id="documentation_status" autocomplete="documentation_status"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Arquivo do Cliente</label>
+                            <label for="archive" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Arquivo do Cliente</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="archive" id="archive" autocomplete="archive"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
@@ -149,9 +153,9 @@
                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS Contador</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-2">
-                            <label for="nivel-tensao" class="block text-sm font-medium leading-6 text-gray-900">Tenção</label>
+                            <label for="tariff" class="block text-sm font-medium leading-6 text-gray-900">Tenção</label>
                             <div class="mt-2">
-                                <select id="nivel-tensao" name="tensao" autocomplete="nivel-tensao"
+                                <select id="tariff" name="tariff" autocomplete="tariff"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
                                     <option>BTN</option>
                                     <option>BTE</option>
@@ -169,16 +173,16 @@
                         </div>
                         
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CPE</label>
+                            <label for="cpe" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CPE</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="cpe" id="cpe" autocomplete="cpe"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Potência</label>
+                            <label for="power" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Potência</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="power" id="power" autocomplete="power"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
@@ -192,37 +196,37 @@
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                         <div class="sm:col-span-2">
-                            <label for="nif" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Simples</label>
+                            <label for="flat" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Simples</label>
                             <div class="mt-2">
-                                <input type="nif" name="nif" id="nif" autocomplete="nif"
+                                <input type="text" name="flat" id="flat" autocomplete="flat"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Pontas</label>
+                            <label for="peak" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Pontas</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="peak" id="peak" autocomplete="peak"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Cheias</label>
+                            <label for="standard" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Cheias</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="standard" id="standard" autocomplete="standard"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Vazio</label>
+                            <label for="off-peak" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Vazio</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="off-peak" id="off-peak" autocomplete="off-peak"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Super Vazio</label>
+                            <label for="super_off-peak" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Super Vazio</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="super_off-peak" id="super_off-peak" autocomplete="super_off-peak"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
@@ -236,37 +240,37 @@
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                         <div class="sm:col-span-2">
-                            <label for="nif" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CAE</label>
+                            <label for="cae" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CAE</label>
                             <div class="mt-2">
-                                <input type="nif" name="nif" id="nif" autocomplete="nif"
+                                <input type="text" name="cae" id="cae" autocomplete="cae"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome Cliente</label>
+                            <label for="name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome Cliente</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="name" id="name" autocomplete="name"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Morada De Fornecimento</label>
+                            <label for="address" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Morada De Fornecimento</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="address" id="address" autocomplete="address"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Andar/Fração</label>
+                            <label for="floor" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Andar/Fração</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="floor" id="floor" autocomplete="floor"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="nivel-tensao" class="block text-sm font-medium leading-6 text-gray-900">Codigo Postal</label>
+                            <label for="post_code" class="block text-sm font-medium leading-6 text-gray-900">Codigo Postal</label>
                             <div class="mt-2">
-                                <select id="nivel-tensao" name="tensao" autocomplete="nivel-tensao"
+                                <select id="npost_code" name="post_code" autocomplete="post_code"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
                                     <option>4000-011</option>
                                     <option>4000-211</option>
@@ -275,16 +279,16 @@
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo Freguesia</label>
+                            <label for="dmp_code" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo Freguesia</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="dmp_code" id="dmp_code" autocomplete="dmp_code"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="nivel-tensao" class="block text-sm font-medium leading-6 text-gray-900">Freguesia</label>
+                            <label for="parish_id" class="block text-sm font-medium leading-6 text-gray-900">Freguesia</label>
                             <div class="mt-2">
-                                <select id="nivel-tensao" name="tensao" autocomplete="nivel-tensao"
+                                <select id="parish_id" name="parish_id" autocomplete="parish_id"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
                                     <option>Foz do Douro</option>
                                     <option>Massarelos</option>
@@ -293,16 +297,16 @@
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Conselho</label>
+                            <label for="municipality_id" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Conselho</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="municipality_id" id="municipality_id" autocomplete="municipality_id"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
+                            <label for="district_id" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
                             <div class="mt-2">
-                                <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
+                                <input type="text" name="district_id" id="district_id" autocomplete="district_id"
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                             </div>
                         </div>
@@ -464,134 +468,19 @@
                             <label for="nif" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Data Pagamento ao Comercial</label>
                             <div class="mt-2">
                                 <input type="nif" name="nif" id="nif" autocomplete="nif"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="nif" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Onservações</label>
+                            <label for="nif" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
                             <div class="mt-2">
-                                <input type="nif" name="nif" id="nif" autocomplete="nif"
-                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--END Comissões-->
-            
-                  <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 bg-slate-200 p-6 rounded-2xl dark:bg-gray-800">
-                      <div class="sm:col-span-2">
-                          <label for="cod-contador" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CPE</label>
-                          <div class="mt-2">
-                              <input type="text" name="contador" id="cod-contador" autocomplete="given-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                          </div>
-                      </div>
-  
-                      <div class="sm:col-span-2">
-                          <label for="name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome</label>
-                          <div class="mt-2">
-                              <input type="text" name="name" id="name" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-  
-                      <div class="sm:col-span-2">
-                          <label for="nif" class="block text-sm font-medium leading-6 text-gray-900">NIF</label>
-                          <div class="mt-2">
-                              <input type="text" name="nif" id="nif" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-  
-                      <div class="sm:col-span-2">
-                          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
-                          <div class="mt-2">
-                              <input id="email" name="email" type="email" autocomplete="email"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-  
-                      <div class="sm:col-span-2">
-                          <label for="cod_freguesia" class="block text-sm font-medium leading-6 text-gray-900">COD
-                              Freguesia</label>
-                          <div class="mt-2">
-                              <input type="text" name="cod_freguesia" id="cod_freguesia" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-                      <div class="sm:col-span-2">
-                          <label for="desc-freguesia" class="block text-sm font-medium leading-6 text-gray-900">Designação
-                              Freguesia</label>
-                          <div class="mt-2">
-                              <input type="text" name="freguesia" id="desc-freguesia" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-                      <div class="sm:col-span-2">
-                          <label for="conselho" class="block text-sm font-medium leading-6 text-gray-900">Conselho</label>
-                          <div class="mt-2">
-                              <input type="text" name="concelho" id="conselho" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-                      <div class="sm:col-span-2">
-                          <label for="distrito" class="block text-sm font-medium leading-6 text-gray-900">Distrito</label>
-                          <div class="mt-2">
-                              <input type="text" name="distrito" id="distrito" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-                      <div class="sm:col-span-2">
-                          <label for="morada" class="block text-sm font-medium leading-6 text-gray-900">Rua e
-                              Porta</label>
-                          <div class="mt-2">
-                              <input type="text" name="morada" id="morada" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-                      <div class="sm:col-span-2">
-                          <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Cod
-                              Postal</label>
-                          <div class="mt-2">
-                              <input type="text" name="postal" id="postal-code" autocomplete="family-name"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-  
-  
-                      <div class="sm:col-span-2">
-                          <label for="nivel-tensao" class="block text-sm font-medium leading-6 text-gray-900">Nível de
-                              Tensão</label>
-                          <div class="mt-2">
-                              <select id="nivel-tensao" name="tensao" autocomplete="nivel-tensao"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                  <option>RPE-MT</option>
-                                  <option>RPE-AT</option>
-                                  <option>RPE-BTN</option>
-                                  <option>RPE-BTE</option>
-                              </select>
-                          </div>
-                      </div>
-  
-                      <div class="sm:col-span-2">
-                          <label for="potencia-contratada"
-                              class="block text-sm font-medium leading-6 text-gray-900">Potência Contratada</label>
-                          <div class="mt-2">
-                              <input type="text" name="potencia" id="potencia-contratada"
-                                  autocomplete="potencia-contratada"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-  
-                      <div class="sm:col-span-2">
-                          <label for="andar-fracao"
-                              class="block text-sm font-medium leading-6 text-gray-900">Andar/Fração</label>
-                          <div class="mt-2">
-                              <input type="text" name="andar" id="andar-fracao" autocomplete="andar-fracao"
-                                  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                          </div>
-                      </div>
-                  </div>
               </div>
           </div>
   
