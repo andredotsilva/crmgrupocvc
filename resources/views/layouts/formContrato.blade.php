@@ -7,13 +7,42 @@
 
   <div class="py-2">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+        <ul class="grid grid-flow-col text-center text-gray-500 bg-gray-100 rounded-full pt-20">    
+            <li>      
+                <a href="#backofficesection" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Back Office
+                </a>    
+            </li>    
+            <li>      
+                <a href="#dadosorg" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Dados Organização
+                </a>    
+            </li>    
+            <li>      
+                <a href="#dadoscontador" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Dados Contador</a>    
+            </li>    
+            <li>      
+                <a href="#dadoscliente" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Dados Cliente</a>    
+            </li>   
+            <li>      
+                <a href="#pagamento" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Forma Pagamento</a>    
+            </li>  
+            <li>      
+                <a href="#corespondencia" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Correspondência</a>    
+            </li>  
+            <li>      
+                <a href="#assinatura" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Assinatura</a>    
+            </li>    
+            <li>      
+                <a href="#comissoes" class="flex justify-center bg-white rounded-full shadow text-indigo-900 py-2">Comissões - Data Pagamento</a>    
+            </li>    
+        </ul>
+
         <form action="{{ route('contracts.store') }}" method="POST">
           @csrf
           <div class="space-y-12">
-            
               <div class="border-b border-gray-900/10 pb-12">
-
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
+                 <!--Dados Back Office-->
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800" id="backofficesection">
                     <h1 class="text-lg pb-4 dark:text-gray-200">Back Office</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-2">
@@ -75,7 +104,8 @@
                     </div>
                 </div>
 
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <!--Dados ORGANIZAÇÃO-->
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="dadosorg">
                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS DA ORGANIZAÇÃO</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-2">
@@ -115,7 +145,7 @@
                 </div>
 
                 <!--Dados Contador-->
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="dadoscontador">
                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS Contador</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-2">
@@ -157,7 +187,7 @@
                 <!--END Dados Contador-->
 
                 <!--Consumos-->
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="consumos">
                     <h1 class="text-lg pb-4 dark:text-gray-200">Consumos</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -201,7 +231,7 @@
                 <!--END Consumos-->
 
                 <!--Dados Cliente-->
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="dadoscliente">
                     <h1 class="text-lg pb-4 dark:text-gray-200">Dados Cliente</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -281,7 +311,7 @@
                 <!--END Dados Cliente-->
 
                 <!--Forma Pagamento-->
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="pagamento">
                     <h1 class="text-lg pb-4 dark:text-gray-200">Forma de Pagamento</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -307,7 +337,7 @@
                 <!--END Forma Pagamento-->
 
                 <!--Dados Correspondência-->
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="corespondencia">
                     <h1 class="text-lg pb-4 dark:text-gray-200">Dados de Correspondência</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -382,7 +412,7 @@
                 <!--END Dados Correspondência-->
 
                 <!--Assinatura-->
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="assinatura">
                     <h1 class="text-lg pb-4 dark:text-gray-200">Assinatura</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -405,7 +435,7 @@
                 <!--END Assinatura-->
 
                 <!--Comissões-->
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" >
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="comissoes">
                     <h1 class="text-lg pb-4 dark:text-gray-200">Comissões e Data de Pagamento</h1>
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
