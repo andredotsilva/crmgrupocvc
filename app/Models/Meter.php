@@ -2,17 +2,24 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Meter extends Model
 {
     use HasFactory;
+    use HasUlids;
 
     protected $fillable = [
         'tariff_id',
         'nif',
         'cpe',
         'power',
+        'flat',
+        'peak',
+        'standard',
+        'off_peak',
+        'super_off_peak',
     ];
 }

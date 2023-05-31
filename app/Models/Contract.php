@@ -13,12 +13,14 @@ class Contract extends Model
     use HasUlids;
 
     protected $fillable = [
-        'bo_id',
-        'comercial_id',
+        'back_officer_id',
+        'commercial_id',
         'client_id',
         'client_type_id',
         'category_id',
         'service_id',
+        'documentation_status_id',
+        'archive',
 
         // Datas de contrato
         'inserted_at',
@@ -33,7 +35,6 @@ class Contract extends Model
         // ASSINATURA
         'signatory_email',
         'signatory_phone',
-
 
     ];
 

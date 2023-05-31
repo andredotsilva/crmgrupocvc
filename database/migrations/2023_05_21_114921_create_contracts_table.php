@@ -17,16 +17,15 @@ return new class extends Migration
             $table->foreignUuid('back_officer_id')->nullable()->references('id')->on('users');
             $table->foreignUuid('commercial_id')->nullable()->references('id')->on('users');
 
-            $table->foreignId('client_type_id')->references('id')->on('client_types');
-            $table->foreignId('category_id')->references('id')->on('categories');
-            $table->foreignId('service_id')->references('id')->on('services');
+            $table->foreignId('client_type_id')->nullable()->references('id')->on('client_types');
+            $table->foreignId('category_id')->nullable()->references('id')->on('categories');
+            $table->foreignId('service_id')->nullable()->references('id')->on('services');
 
-            $table->foreignUuid('client_id')->references('id')->on('users');
+            $table->foreignUlid('client_id')->nullable()->references('id')->on('clients');
 
             $table->foreignId('provider_id')->nullable()->references('id')->on('providers');
             $table->foreignId('plan_id')->nullable()->references('id')->on('plans');
-            $table->foreignId('documentation_status')->nullable()->references('id')->on('documentation_statuses');
-
+            $table->foreignId('documentation_status_id')->nullable()->references('id')->on('documentation_statuses');
             $table->string('archive')->nullable();
 
             $table->foreignUlid('meter_id')->nullable()->references('id')->on('meters');
@@ -38,7 +37,7 @@ return new class extends Migration
             $table->date('renewal_at')->nullable();
 
             $table->string('nib')->nullable();
-            $table->foreignId('invoice_type')->nullable()->references('id')->on('invoice_types');
+            $table->foreignId('invoice_type_id')->nullable()->references('id')->on('invoice_types');
 
             $table->string('signatory_email')->nullable();
             $table->string('signatory_phone')->nullable();
