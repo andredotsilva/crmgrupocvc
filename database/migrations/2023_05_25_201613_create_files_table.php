@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->foreignUlid('contract_id')->nullable()->references('id')->on('contracts');
+            $table->string('filename');
+            $table->string('original_name');
+            $table->string('path');
+            $table->string('size');
+            $table->string('mime_type');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('files');
     }
 };

@@ -11,26 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-
-            $table->integer('cae')->nullable();
-            $table->string('administrator_name')->nullable();
-            $table->string('condominium_administrator')->nullable();
-            $table->string('name')->nullable();
+        Schema::create('mailing_addresses', function (Blueprint $table) {
+            $table->id();
             $table->string('address')->nullable();
             $table->string('door')->nullable();
             $table->string('floor')->nullable();
             $table->string('post_code')->nullable();
-
-            $table->integer('dmp_code')->nullable();
             $table->foreignId('parish_id')->nullable()->references('id')->on('parishes');
             $table->foreignId('municipality_id')->nullable()->references('id')->on('municipalities');
             $table->foreignId('district_id')->nullable()->references('id')->on('districts');
-
-            $table->foreignUuid('user_id')->nullable()->references('id')->on('users');
-
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('email')->nullable();
+            $table->string('nif')->nullable();
+            $table->foreignUlid('client_id')->nullable()->references('id')->on('clients');
+            $table->string('phone_number')->nullable();
             $table->timestamps();
         });
     }
@@ -40,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('mailing_addresses');
     }
 };
