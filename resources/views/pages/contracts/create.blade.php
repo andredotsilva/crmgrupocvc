@@ -345,34 +345,41 @@
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
+
+                                <div class="sm:col-span-2">
+                                    <label for="district_id"
+                                        class="block text-sm font-medium leading-6 text-gray-900">Distrito</label>
+                                    <div class="mt-2">
+                                        <select id="district_id" name="district_id" autocomplete="district_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                            @foreach ($districts as $district)
+                                                <option value="{{ $district->id }}">{{ $district->title }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label for="municipality_id"
+                                        class="block text-sm font-medium leading-6 text-gray-900">Concelho</label>
+                                    <div class="mt-2">
+                                        <select id="municipality_id" name="municipality_id"
+                                            autocomplete="municipality_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                            <option value="" selected>Escolher Concelho</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="sm:col-span-2">
                                     <label for="parish_id"
                                         class="block text-sm font-medium leading-6 text-gray-900">Freguesia</label>
                                     <div class="mt-2">
                                         <select id="parish_id" name="parish_id" autocomplete="parish_id"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                            <option>Foz do Douro</option>
-                                            <option>Massarelos</option>
-                                            <option>Bomfim</option>
+                                            <option value="" selected>Escolher Freguesia</option>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label for="municipality_id"
-                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Conselho</label>
-                                    <div class="mt-2">
-                                        <input type="text" name="municipality_id" id="municipality_id"
-                                            autocomplete="municipality_id"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                    </div>
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label for="district_id"
-                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
-                                    <div class="mt-2">
-                                        <input type="text" name="district_id" id="district_id"
-                                            autocomplete="district_id"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
                             </div>
@@ -432,6 +439,53 @@
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
+                                    <label for="nif"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
+                                        Postal</label>
+                                    <div class="mt-2">
+                                        <input type="text" name="mail_postal_code" id="mail_postal_code"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600"
+                                            oninput="postCodeFormatter(this)" onblur="postCodeValidator(this)">
+                                        <span id="mail_postal_code_error" style="color: red;"></span>
+                                    </div>
+
+                                    <script>
+                                        function postCodeValidator(input) {
+                                            var postalCode = input.value.trim().replace('-', ''); // Remover o traço (-) do código postal
+                                            var postCodeError = document.getElementById('mail_postal_code_error');
+                                            var regex = /^\d{4}\d{3}$/;
+
+                                            if (!regex.test(postalCode)) {
+                                                postCodeError.textContent = 'Formato inválido. Digite no formato XXXX-XXX';
+                                            } else if (!/^\d+$/.test(postalCode)) {
+                                                postCodeError.textContent = 'Digite apenas números no código postal';
+                                            } else {
+                                                postCodeError.textContent = '';
+                                            }
+                                        }
+
+                                        function postCodeFormatter(input) {
+                                            var postCode = input.value.trim().replace(/[-\s]/g, '');
+                                            var formattedPostCode = '';
+
+                                            if (postCode.length > 7) {
+                                                postCode = postCode.substring(0, 7);
+                                            }
+
+                                            if (postCode.length <= 4) {
+                                                formattedPostCode = postCode;
+                                            } else if (postCode.length <= 7) {
+                                                formattedPostCode = postCode.substring(0, 4) + "-" + postCode.substring(4, 7);
+                                            }
+                                            input.value = formattedPostCode;
+                                        }
+                                    </script>
+                                </div>
+
+
+
+
+                                {{-- <div class="sm:col-span-2">
                                     <label for="nivel-tensao"
                                         class="block text-sm font-medium leading-6 text-gray-900">Codigo Postal</label>
                                     <div class="mt-2">
@@ -441,7 +495,16 @@
                                             <option>4000-022</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
+                                {{-- <div>
+                                    <label for="codigo_postal">Código Postal:</label>
+                                    <input type="text" name="codigo_postal" id="codigo_postal" required
+                                        pattern="[0-9]{4}-[0-9]{3}"
+                                        title="Formato inválido. Digite no formato XXXX-XXX"
+                                        onblur="validarCodigoPostal(this)">
+                                    <span id="codigo_postal_error" style="color: red;"></span>
+                                </div> --}}
+
                                 <div class="sm:col-span-2">
                                     <label for="nif"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
@@ -595,10 +658,83 @@
                     <button type="submit"
                         class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Guardar</button>
                 </div>
+
+
+
+
             </form>
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    document.getElementById('district_id').addEventListener('change', function() {
+        var state = document.getElementById('municipality_id');
+        var url = "{{ route('municipality.index') }}";
+        var params = "district_id=" + encodeURIComponent(this.value);
+
+        fetch(url + '?' + params)
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro na solicitação AJAX.');
+                }
+            })
+            .then(function(data) {
+                state.innerHTML = '<option value="" selected>Escolher Concelho</option>';
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var value = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = value;
+                        state.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+
+        document.getElementById('municipality_id').value = "";
+        document.getElementById('parish_id').value = "";
+    });
+
+    document.getElementById('municipality_id').addEventListener('change', function() {
+        var $parish = document.getElementById('parish_id');
+        var url = "{{ route('parish.index') }}";
+        var mparams = "municipality_id=" + encodeURIComponent(this.value);
+
+        console.log(mparams);
+
+        fetch(url + '?' + mparams)
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro na solicitação AJAX.');
+                }
+            })
+            .then(function(data) {
+                console.log(data);
+                $parish.innerHTML = '<option value="" selected>Escolher Freguesia</option>';
+
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var title = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = title;
+                        $parish.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    });
+</script>
 
 <script>
     // Get a reference to the file input element

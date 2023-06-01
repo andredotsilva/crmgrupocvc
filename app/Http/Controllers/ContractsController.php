@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContractRequest;
 use App\Models\Client;
+use App\Models\Commission;
 use App\Models\Meter;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Contract;
 use App\Models\Contrato;
+use App\Models\District;
 use App\Models\MailingAddress;
 use App\Models\Tariff;
 use App\Models\TemporaryFile;
@@ -29,9 +32,11 @@ class ContractsController extends Controller
     {
 
         $tariffs = Tariff::all();
+        $districts = District::all();
 
         return view('pages.contracts.create', [
-            'tariffs' => $tariffs
+            'tariffs' => $tariffs,
+            'districts' => $districts,
         ]);
     }
 
@@ -77,29 +82,8 @@ class ContractsController extends Controller
     //     return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
     // }
 
-    public function store(Request $request)
+    public function store(StoreContractRequest $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'contador' => 'required',
-        //     'name' => 'required',
-        //     'nif' => 'required',
-        //     'email' => 'required|email',
-        //     'cod_freguesia' => 'required',
-        //     'freguesia' => 'required',
-        //     'concelho' => 'required',
-        //     'distrito' => 'required',
-        //     'morada' => 'required',
-        //     'postal' => 'required',
-        //     'tensao' => 'required',
-        //     'potencia' => 'required',
-        //     'andar' => 'nullable',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json(['errors' => $validator->errors()], 422);
-        // }
-
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -117,16 +101,17 @@ class ContractsController extends Controller
         $client->floor = $request->floor;
         $client->post_code = $request->post_code;
         $client->dmp_code = $request->dmp_code;
-        // $client->parish_id = $request->parish_id;
-        $client->parish_id = 1;
-        // $client->municipality_id = $request->municipality_id;
-        $client->municipality_id = 1;
-        // $client->district_id = $request->district_id;
-        $client->district_id = 1;
+        $client->parish_id = $request->parish_id;
+        $client->municipality_id = $request->municipality_id;
+        $client->district_id = $request->district_id;
+
+        $client->user_id = $user->id;
 
         $client->save();
 
         $contract = new Contract();
+
+        dd(auth()->id());
 
         $contract->back_officer_id = '994729af-f5ef-463f-942e-9703883e8799';
         $contract->commercial_id = '994729af-f5ef-463f-942e-9703883e8799';
@@ -202,7 +187,17 @@ class ContractsController extends Controller
 
         $mailingAddress->save();
 
-        // $temporaryFile = TemporaryFile::where('folder', )
+        // $comission = new Commission();
+
+        // $comission->cvc_paid_amount = $request->cvc_paid_amount;
+        // $comission->administrator_paid_amount = $request->administrator_paid_amount;
+        // $comission->commercial_paid_amount = $request->commercial_paid_amount;
+        // $comission->cvc_payment_date = $request->cvc_payment_date;
+        // $comission->administrator_payment_date = $request->administrator_payment_date;
+        // $comission->commercial_payment_date = $request->commercial_payment_date;
+
+        // $comission->save();
+        // // $temporaryFile = TemporaryFile::where('folder', )
 
         // $file 
 
