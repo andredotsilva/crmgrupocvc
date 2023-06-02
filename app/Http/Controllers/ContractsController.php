@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContractRequest;
 use App\Models\Client;
+use App\Models\ClientType;
 use App\Models\Commission;
+use App\Models\File;
 use App\Models\Meter;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +17,9 @@ use App\Models\District;
 use App\Models\MailingAddress;
 use App\Models\Tariff;
 use App\Models\TemporaryFile;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContractsController extends Controller
 {
@@ -33,10 +37,17 @@ class ContractsController extends Controller
 
         $tariffs = Tariff::all();
         $districts = District::all();
+        $clientTypes = ClientType::all();
+        $comercials = User::whereHas('roles', function ($query) {
+            $query->where('role_id', 3);
+        })->get();
+
 
         return view('pages.contracts.create', [
             'tariffs' => $tariffs,
             'districts' => $districts,
+            'clientTypes' => $clientTypes,
+            'comercials' => $comercials
         ]);
     }
 
@@ -84,6 +95,16 @@ class ContractsController extends Controller
 
     public function store(StoreContractRequest $request)
     {
+        $temporaryImages = TemporaryFile::all();
+
+        // if (validator->fails()) {
+
+        //     foreach ($temporaryImages as $temporaryImage) {
+        //         Storage::deleteDirectory('files/tmp/' . $temporaryImage->folder);
+        //         $temporaryImage->delete();
+        //     }
+        // }
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -187,30 +208,31 @@ class ContractsController extends Controller
 
         $mailingAddress->save();
 
-        // $comission = new Commission();
+        $comission = new Commission();
 
         // $comission->cvc_paid_amount = $request->cvc_paid_amount;
-        // $comission->administrator_paid_amount = $request->administrator_paid_amount;
-        // $comission->commercial_paid_amount = $request->commercial_paid_amount;
+        $comission->administrator_paid_amount = $request->administrator_paid_amount;
+        $comission->commercial_paid_amount = $request->commercial_paid_amount;
         // $comission->cvc_payment_date = $request->cvc_payment_date;
         // $comission->administrator_payment_date = $request->administrator_payment_date;
         // $comission->commercial_payment_date = $request->commercial_payment_date;
 
         // $comission->save();
-        // // $temporaryFile = TemporaryFile::where('folder', )
 
-        // $file 
+        if ($request->hasFile('filepond')) {
+            foreach ($temporaryImages as $temporaryImage) {
+                Storage::copy('files/tmp/' . $temporaryImage->folder . '/' . $temporaryImage->filename, 'files/' . $temporaryImage->folder . '/' . $temporaryImage->filename);
 
-        // $files = [];
+                $file = new File();
 
-        // if ($request->hasFile('filepond')) {
-        //     $files = $request->file('filepond');
+                $file->contract_id = $contract->id;
+                $file->filename = $temporaryImage->filename;
+                $file->path = $temporaryImage->folder . '/' . $temporaryImage->filename;
 
-        //     foreach ($files as $file) {
-        //         // Aqui você pode realizar ações com cada arquivo, como salvá-los ou exibir informações
-        //         dd($file);
-        //     }
-        // }
+                Storage::deleteDirectory('files/tmp/' . $temporaryImage->folder);
+                $temporaryImage->delete();
+            }
+        }
 
         return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
     }

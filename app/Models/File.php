@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class File extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'filename',
+        'original_name',
+        'path',
+        'size',
+        'mime_type',
+        'contract_id',
+    ];
+}
