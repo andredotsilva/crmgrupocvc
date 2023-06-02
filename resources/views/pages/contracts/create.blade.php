@@ -634,7 +634,7 @@
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                     </div>
                                 </div>
-                                <div class="sm:col-span-2">
+                                <div class="sm:col-span-4">
                                     <label for="nif"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
                                     <div class="mt-2">
@@ -644,12 +644,25 @@
 
                                     </div>
                                 </div>
+
+                                
                             </div>
                         </div>
                         <!--END Comissões-->
 
-                        <input type="file" class="filepond" name="filepond" multiple data-allow-reorder="true"
-                            data-max-file-size="3MB" data-max-files="5">
+                        <!--Ficheiros-->
+                        <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
+                            id="assinatura">
+                            <h1 class="text-lg pb-4 dark:text-gray-200">Inserir Ficheiros</h1>
+                            <div class="sm:col-span-2">
+                                <div class="mt-2">
+                                    <input type="file" class="filepond" name="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="5">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--END Ficheiros-->
+                        
                     </div>
                 </div>
 
