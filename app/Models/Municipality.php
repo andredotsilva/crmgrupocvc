@@ -15,4 +15,10 @@ class Municipality extends Model
         'district_id',
     ];
     public $timestamps = false;
+
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

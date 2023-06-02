@@ -16,4 +16,9 @@ class Parish extends Model
     ];
 
     public $timestamps = false;
+
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class);
+    }
 }

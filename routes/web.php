@@ -38,11 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload', [FilesUploadController::class, 'store']);
 });
 
-Route::post('/district', [DistrictController::class, 'store']);
-Route::post('/municipality', [MunicipalityController::class, 'store']);
-Route::post('/parish', [ParishController::class, 'store']);
-
-
-
+Route::apiResource('/district', DistrictController::class);
+Route::apiResource('/municipality', MunicipalityController::class);
+Route::apiResource('/parish', ParishController::class);
 
 require __DIR__ . '/auth.php';
