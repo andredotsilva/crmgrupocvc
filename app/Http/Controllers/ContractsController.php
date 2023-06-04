@@ -9,16 +9,12 @@ use App\Models\Commission;
 use App\Models\File;
 use App\Models\Meter;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Contract;
-use App\Models\Contrato;
 use App\Models\District;
 use App\Models\MailingAddress;
 use App\Models\Tariff;
+use App\Models\Provider;
 use App\Models\TemporaryFile;
-use Illuminate\Contracts\Cache\Store;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ContractsController extends Controller
@@ -41,13 +37,19 @@ class ContractsController extends Controller
         $comercials = User::whereHas('roles', function ($query) {
             $query->where('role_id', 3);
         })->get();
+        $backofficers = User::whereHas('roles', function ($query) {
+            $query->where('role_id', 2);
+        })->get();
+        $providers = Provider::all();
 
 
         return view('pages.contracts.create', [
             'tariffs' => $tariffs,
             'districts' => $districts,
             'clientTypes' => $clientTypes,
-            'comercials' => $comercials
+            'comercials' => $comercials,
+            'providers' => $providers,
+            'backofficers' => $backofficers,
         ]);
     }
 
@@ -95,15 +97,6 @@ class ContractsController extends Controller
 
     public function store(StoreContractRequest $request)
     {
-        $temporaryImages = TemporaryFile::all();
-
-        // if (validator->fails()) {
-
-        //     foreach ($temporaryImages as $temporaryImage) {
-        //         Storage::deleteDirectory('files/tmp/' . $temporaryImage->folder);
-        //         $temporaryImage->delete();
-        //     }
-        // }
 
         $user = new User();
         $user->name = $request->name;
@@ -111,6 +104,23 @@ class ContractsController extends Controller
         $user->password = 'adwkweqnqkne213352sddas';
 
         $user->save();
+
+        $comission = new Commission();
+
+        // $convertedAdministratorPaidAmount = NumericValueConverter::convertValues([$administratorPaidAmount])[0] * 100;
+        // $convertedCommercialPaidAmount = NumericValueConverter::convertValues([$commercialPaidAmount])[0] * 100;
+
+        // dd([$request->administrator_paid_amount, $request->commercial_paid_amount]);
+        // $comission->cvc_paid_amount = $request->cvc_paid_amount;
+        $comission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
+        $comission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
+        // $comission->cvc_payment_date = $request->cvc_payment_date;
+        // $comission->administrator_payment_date = $request->administrator_payment_date;
+        // $comission->commercial_payment_date = $request->commercial_payment_date;
+
+
+
+        $comission->save();
 
         $client = new Client();
 
@@ -131,8 +141,6 @@ class ContractsController extends Controller
         $client->save();
 
         $contract = new Contract();
-
-        dd(auth()->id());
 
         $contract->back_officer_id = '994729af-f5ef-463f-942e-9703883e8799';
         $contract->commercial_id = '994729af-f5ef-463f-942e-9703883e8799';
@@ -208,18 +216,10 @@ class ContractsController extends Controller
 
         $mailingAddress->save();
 
-        $comission = new Commission();
 
-        // $comission->cvc_paid_amount = $request->cvc_paid_amount;
-        $comission->administrator_paid_amount = $request->administrator_paid_amount;
-        $comission->commercial_paid_amount = $request->commercial_paid_amount;
-        // $comission->cvc_payment_date = $request->cvc_payment_date;
-        // $comission->administrator_payment_date = $request->administrator_payment_date;
-        // $comission->commercial_payment_date = $request->commercial_payment_date;
+        $temporaryImages = TemporaryFile::where('upload_by', auth()->id())->get();
 
-        // $comission->save();
-
-        if ($request->hasFile('filepond')) {
+        if ($request->filepond) {
             foreach ($temporaryImages as $temporaryImage) {
                 Storage::copy('files/tmp/' . $temporaryImage->folder . '/' . $temporaryImage->filename, 'files/' . $temporaryImage->folder . '/' . $temporaryImage->filename);
 
@@ -227,7 +227,12 @@ class ContractsController extends Controller
 
                 $file->contract_id = $contract->id;
                 $file->filename = $temporaryImage->filename;
+                $file->original_name = 'as';
+                $file->size = 'dsd';
+                $file->mime_type = 'dssd';
                 $file->path = $temporaryImage->folder . '/' . $temporaryImage->filename;
+
+                $file->save();
 
                 Storage::deleteDirectory('files/tmp/' . $temporaryImage->folder);
                 $temporaryImage->delete();
@@ -235,5 +240,16 @@ class ContractsController extends Controller
         }
 
         return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
+    }
+
+    function formatarNumero($numero)
+    {
+        $numero = str_replace(',', '.', $numero);
+        $numeroSemEspacos = str_replace(' ', '', $numero);
+        $numero_formatado = floatval($numeroSemEspacos);
+
+        $numero_em_centimos = intval(str_replace('.', '', $numero_formatado * 100));
+
+        return $numero_em_centimos;
     }
 }

@@ -22,6 +22,7 @@ class FilesUploadController extends Controller
             TemporaryFile::create([
                 'folder' => $folder,
                 'filename' => $filename,
+                'upload_by' => auth()->id()
             ]);
 
             return $folder;

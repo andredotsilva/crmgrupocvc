@@ -139,7 +139,27 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+
+                        {{-- Teste BO --}}
+                        <div class="sm:col-span-2">
+                            <label for="provider"
+                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
+                            <div class="mt-2">
+                                <select name="user_id" class="form-control">
+                                    @foreach ($backofficers as $backofficer)
+                                        <option value="{{ $backofficer->id }}"
+                                            {{ old('user_id') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
+                                            {{ $backofficer->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+
+
 
                         <!--Dados ORGANIZAÇÃO-->
                         <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
@@ -150,9 +170,13 @@
                                     <label for="provider"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
                                     <div class="mt-2">
-                                        <input type="provider" name="provider_id" id="provider"
-                                            autocomplete="provider"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                        <select id="provider" name="provider_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                            @foreach ($providers as $provider)
+                                                <option value="{{ $provider->id }}"> {{ $provider->acronym }} -
+                                                    {{ $provider->title }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
@@ -229,8 +253,15 @@
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Potência</label>
                                     <div class="mt-2">
                                         <input type="text" name="power" id="power" autocomplete="power"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                            value="{{ old('power') }}"
+                                            class="form-control @error('power') is-invalid @enderror block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
+                                    {{-- @error('power')
+                                        <div class="alert alert-danger">{{ json_decode($message) }}</div>
+                                    @enderror --}}
+                                    @error('power')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -246,7 +277,7 @@
                                     <label for="flat"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Simples</label>
                                     <div class="mt-2">
-                                        <input type="text" name="flat" id="flat" autocomplete="flat"
+                                        <input type="number" name="flat" id="flat" autocomplete="flat"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
@@ -254,7 +285,7 @@
                                     <label for="peak"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Pontas</label>
                                     <div class="mt-2">
-                                        <input type="text" name="peak" id="peak" autocomplete="peak"
+                                        <input type="number" name="peak" id="peak" autocomplete="peak"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
@@ -262,7 +293,7 @@
                                     <label for="standard"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Cheias</label>
                                     <div class="mt-2">
-                                        <input type="text" name="standard" id="standard" autocomplete="standard"
+                                        <input type="number" name="standard" id="standard" autocomplete="standard"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
@@ -270,16 +301,16 @@
                                     <label for="off-peak"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Vazio</label>
                                     <div class="mt-2">
-                                        <input type="text" name="off-peak" id="off-peak" autocomplete="off-peak"
+                                        <input type="number" name="off-peak" id="off-peak" autocomplete="off-peak"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="super_off-peak"
+                                    <label for="super_off_peak"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Super
                                         Vazio</label>
                                     <div class="mt-2">
-                                        <input type="text" name="super_off-peak" id="super_off-peak"
+                                        <input type="number" name="super_off_peak" id="super_off_peak"
                                             autocomplete="super_off-peak"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
@@ -345,7 +376,7 @@
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
                                         Freguesia</label>
                                     <div class="mt-2">
-                                        <input type="text" name="dmp_code" id="dmp_code" autocomplete="dmp_code"
+                                        <input type="number" name="dmp_code" id="dmp_code" autocomplete="dmp_code"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
@@ -400,7 +431,7 @@
                                     <label for="nif"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIB</label>
                                     <div class="mt-2">
-                                        <input type="nif" name="nif" id="nif" autocomplete="nif"
+                                        <input type="number" name="nif" id="nif" autocomplete="nif"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
@@ -549,7 +580,7 @@
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
                                         Telefónico</label>
                                     <div class="mt-2">
-                                        <input type="nif" name="phone_number" id="nif" autocomplete="nif"
+                                        <input type="tel" name="phone_number" id="nif" autocomplete="nif"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
@@ -603,66 +634,91 @@
                             <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                 <div class="sm:col-span-2">
-                                    <label for="price"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Valor
-                                        Pago ao Administrador</label>
+                                    <label for="administrator_paid_amount"
+                                        class="block text-sm font-medium leading-6 text-gray-900">Valor Pago ao
+                                        Administrador</label>
                                     <div class="relative mt-2 rounded-md shadow-sm">
                                         <div
                                             class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                             <span class="text-gray-500 sm:text-sm">€</span>
                                         </div>
-                                        <input type="text" name="price" id="price"
-                                            class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            placeholder="0.00">
+                                        <input type="text" name="administrator_paid_amount"
+                                            id="administrator_paid_amount"
+                                            class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            placeholder="0,00" oninput="formatarNumero(this)">
                                     </div>
                                 </div>
-                                <div class="sm:col-span-2">
-                                    <div class="relative max-w-sm">
-                                        <div
-                                            class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                                fill="currentColor" viewBox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </div>
-                                        <input datepicker datepicker-buttons type="text"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Select date">
-                                    </div>
 
-                                </div>
                                 <div class="sm:col-span-2">
-                                    <label for="price"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Valor
-                                        Pago ao Comercial</label>
+                                    <label for="commercial_paid_amount"
+                                        class="block text-sm font-medium leading-6 text-gray-900">Valor Pago ao
+                                        Comercial</label>
                                     <div class="relative mt-2 rounded-md shadow-sm">
                                         <div
                                             class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                             <span class="text-gray-500 sm:text-sm">€</span>
                                         </div>
-                                        <input type="text" name="price" id="price"
-                                            class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            placeholder="0.00">
+                                        <input type="text" name="commercial_paid_amount"
+                                            id="commercial_paid_amount"
+                                            class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            placeholder="0,00" oninput="formatarNumero(this)">
                                     </div>
                                 </div>
 
+                                <script>
+                                    function formatarNumero(input) {
+                                        let numero = input.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos, exceto vírgula
+                                        let partes = numero.split(','); // Separa a parte inteira da parte decimal
+
+                                        // Remove todos os espaços da parte inteira
+                                        partes[0] = partes[0].replace(/\s/g, '');
+
+                                        // Formata a parte inteira com espaços como separador de milhares
+                                        partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+                                        // Limita a parte decimal a dois dígitos
+                                        if (partes.length > 1) {
+                                            partes[1] = partes[1] ? partes[1].slice(0, 2) : ''; // Verifica se há parte decimal
+                                        }
+
+                                        // Atualiza o valor do input com o número formatado
+                                        input.value = partes.join(',') + (partes.length > 1 ? ',' : '');
+                                    }
+
+                                    // Adiciona evento para limitar o número de vírgulas nos campos "Valor Pago ao Administrador" e "Valor Pago ao Comercial"
+                                    document.getElementById('administrator_paid_amount').addEventListener('input', function() {
+                                        let partes = this.value.split(',');
+
+                                        if (partes.length > 2) {
+                                            partes.splice(2);
+                                            this.value = partes.join(',');
+                                        }
+                                    });
+
+                                    document.getElementById('commercial_paid_amount').addEventListener('input', function() {
+                                        let partes = this.value.split(',');
+
+                                        if (partes.length > 2) {
+                                            partes.splice(2);
+                                            this.value = partes.join(',');
+                                        }
+                                    });
+                                </script>
 
                                 <div class="sm:col-span-2">
-                                    <label for="nif"
+                                    <label for="administrator_payment_date"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Data
                                         Pagamento ao Administrador</label>
                                     <div class="mt-2">
-                                        <input type="nif" name="nif" id="nif" autocomplete="nif"
+                                        <input type="nif" name="administrator_payment_date" id="nif"
+                                            autocomplete="nif"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label for="nif"
-                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Data
-                                        Pagamento ao Comercial</label>
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+                                        Data Pagamento ao Comercial</label>
                                     <div class="mt-2">
                                         <input type="nif" name="nif" id="nif" autocomplete="nif"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
@@ -675,7 +731,6 @@
                                         <textarea id="message" rows="4"
                                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500"
                                             placeholder="Write your thoughts here..."></textarea>
-
                                     </div>
                                 </div>
                             </div>
@@ -696,6 +751,8 @@
         </div>
     </div>
 </x-app-layout>
+
+
 
 <script>
     document.getElementById('district_id').addEventListener('change', function() {
