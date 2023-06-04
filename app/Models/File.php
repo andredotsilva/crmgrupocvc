@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Provider extends Model
+class File extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'acronym',
-        'title',
+        'filename',
+        'original_name',
+        'path',
+        'size',
+        'mime_type',
+        'contract_id',
     ];
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('folder');
             $table->string('filename');
+            $table->foreignUuid('upload_by')->nullable()->references('id')->on('users');
             $table->timestamps();
         });
     }

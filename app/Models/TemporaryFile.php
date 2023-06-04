@@ -12,5 +12,6 @@ class TemporaryFile extends Model
     protected $fillable = [
         'folder',
         'filename',
+        'upload_by',
     ];
 }

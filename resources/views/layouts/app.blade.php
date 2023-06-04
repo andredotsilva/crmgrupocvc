@@ -34,6 +34,7 @@
             {{ $slot }}
         </main>
     </div>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 </body>
 
