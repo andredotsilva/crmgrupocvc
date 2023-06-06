@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContractRequest;
+use App\Models\Category;
 use App\Models\Client;
 use App\Models\ClientType;
 use App\Models\Commission;
@@ -14,6 +15,7 @@ use App\Models\District;
 use App\Models\MailingAddress;
 use App\Models\Tariff;
 use App\Models\Provider;
+use App\Models\Service;
 use App\Models\TemporaryFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +24,7 @@ class ContractsController extends Controller
     //
     public function index()
     {
-        // $contracts = Contrato::all();
+        // $contracts = Contract::with('files')->get();
         // $contractsCount = $contracts->count();
 
         return view('pages.contracts.index');
@@ -34,67 +36,28 @@ class ContractsController extends Controller
         $tariffs = Tariff::all();
         $districts = District::all();
         $clientTypes = ClientType::all();
-        $comercials = User::whereHas('roles', function ($query) {
+        $commercials = User::whereHas('roles', function ($query) {
             $query->where('role_id', 3);
         })->get();
         $backofficers = User::whereHas('roles', function ($query) {
             $query->where('role_id', 2);
         })->get();
         $providers = Provider::all();
+        $services = Service::all();
+        $categories = Category::all();
 
 
         return view('pages.contracts.create', [
             'tariffs' => $tariffs,
             'districts' => $districts,
             'clientTypes' => $clientTypes,
-            'comercials' => $comercials,
+            'commercials' => $commercials,
             'providers' => $providers,
             'backofficers' => $backofficers,
+            'services' => $services,
+            'categories' => $categories,
         ]);
     }
-
-    // public function store(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'contador' => 'required',
-    //         'name' => 'required',
-    //         'nif' => 'required',
-    //         'email' => 'required|email',
-    //         'cod_freguesia' => 'required',
-    //         'freguesia' => 'required',
-    //         'concelho' => 'required',
-    //         'distrito' => 'required',
-    //         'morada' => 'required',
-    //         'postal' => 'required',
-    //         'tensao' => 'required',
-    //         'potencia' => 'required',
-    //         'andar' => 'nullable',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json(['errors' => $validator->errors()], 422);
-    //     }
-
-    //     $contrato = new Contrato();
-    //     $contrato->contador = $request->contador;
-    //     $contrato->name = $request->name;
-    //     $contrato->nif = $request->nif;
-    //     $contrato->email = $request->email;
-    //     $contrato->cod_freguesia = $request->cod_freguesia;
-    //     $contrato->freguesia = $request->freguesia;
-    //     $contrato->concelho = $request->concelho;
-    //     $contrato->distrito = $request->distrito;
-    //     $contrato->morada = $request->morada;
-    //     $contrato->postal = $request->postal;
-    //     $contrato->tensao = $request->tensao;
-    //     $contrato->potencia = $request->potencia;
-    //     $contrato->andar = $request->andar;
-    //     $contrato->client_id = auth()->id();
-    //     $contrato->save();
-
-    //     return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
-    // }
-
     public function store(StoreContractRequest $request)
     {
 
@@ -183,8 +146,8 @@ class ContractsController extends Controller
         $meter->cpe = $request->cpe;
         $meter->power = $request->power;
         $meter->nif = $request->nif;
-        // $meter->tariff_id = $request->tariff_id;
-        $meter->tariff_id = 1;
+        $meter->tariff_id = $request->tariff_id;
+        // $meter->tariff_id = 1;
         $meter->flat = $request->flat;
         $meter->peak = $request->peak;
         $meter->standard = $request->standard;
@@ -251,5 +214,15 @@ class ContractsController extends Controller
         $numero_em_centimos = intval(str_replace('.', '', $numero_formatado * 100));
 
         return $numero_em_centimos;
+    }
+
+    public function show($id)
+    {
+
+        $contract = Contract::with('files')->where('id', $id)->first();
+
+        return view('pages.contracts.index', [
+            'contract' => $contract
+        ]);
     }
 }
