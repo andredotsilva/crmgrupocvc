@@ -56,14 +56,23 @@
                             <h1 class="text-lg pb-4 dark:text-gray-200">Back Office</h1>
                             <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-2">
-                                    <label for="cod-contador"
-                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">BO</label>
+                                    <label for="provider"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Back
+                                        Office</label>
                                     <div class="mt-2">
-                                        <input type="text" name="back_officer_id" id="cod-contador"
-                                            autocomplete="given-name"
+                                        <select name="user_id"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                            <option value="">Escolha</option>
+                                            @foreach ($backofficers as $backofficer)
+                                                <option value="{{ $backofficer->id }}"
+                                                    {{ old('backofficer') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
+                                                    {{ $backofficer->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+
                                 <div class="sm:col-span-2">
                                     <label for="cod-contador"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Código
@@ -75,34 +84,47 @@
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Nome
-                                        Comercial</label>
+                                    <label for="provider"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
                                     <div class="mt-2">
-                                        <select id="name" name="name" autocomplete="name"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-
-                                            @foreach ($comercials as $comercial)
-                                                <option value="{{ $comercial->id }}">{{ $comercial->name }}</option>
+                                        <select name="user_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                            <option value="">Escolha</option>
+                                            @foreach ($backofficers as $backofficer)
+                                                <option value="{{ $backofficer->id }}"
+                                                    {{ old('backofficer') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
+                                                    {{ $backofficer->name }}
+                                                </option>
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
+
+                                <div class="sm:col-span-2">
+                                    <label for="service_id"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
+                                    <div class="mt-2">
+                                        <select id="service_id" name="service_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                            @foreach ($services as $service)
+                                                <option value="{{ $service->id }}">
+                                                    {{ $service->title }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="services"
-                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
-                                    <div class="mt-2">
-                                        <input type="text" name="service_id" id="services" autocomplete="services"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                    </div>
-                                </div>
-                                <div class="sm:col-span-2">
-                                    <label for="cod-contador"
+                                    <label for="category_id"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Soluções</label>
                                     <div class="mt-2">
-                                        <input type="text" name="category_id" id="cod-contador"
-                                            autocomplete="given-name"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                        <select id="category_id" name="category_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">
+                                                    {{ $category->title }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
@@ -113,7 +135,8 @@
                                         <select id="client_type_id" name="client_type_id" autocomplete="tariff"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
                                             @foreach ($clientTypes as $clientType)
-                                                <option value="{{ $clientType->id }}">{{ $clientType->title }}</option>
+                                                <option value="{{ $clientType->id }}">{{ $clientType->title }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -143,21 +166,6 @@
                         </div>
 
                         {{-- Teste BO --}}
-                        <div class="sm:col-span-2">
-                            <label for="provider"
-                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
-                            <div class="mt-2">
-                                <select name="user_id" class="form-control">
-                                    @foreach ($backofficers as $backofficer)
-                                        <option value="{{ $backofficer->id }}"
-                                            {{ old('user_id') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
-                                            {{ $backofficer->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
 
 
 
@@ -734,7 +742,7 @@
                                     </div>
                                 </div>
 
-                                
+
                             </div>
                         </div>
                         <!--END Comissões-->
@@ -745,13 +753,14 @@
                             <h1 class="text-lg pb-4 dark:text-gray-200">Inserir Ficheiros</h1>
                             <div class="sm:col-span-2">
                                 <div class="mt-2">
-                                    <input type="file" class="filepond" name="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="5">
+                                    <input type="file" class="filepond" name="filepond" multiple
+                                        data-allow-reorder="true" data-max-file-size="3MB" data-max-files="5">
 
                                 </div>
                             </div>
                         </div>
                         <!--END Ficheiros-->
-                        
+
                     </div>
                 </div>
 

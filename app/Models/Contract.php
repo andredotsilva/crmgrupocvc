@@ -43,6 +43,11 @@ class Contract extends Model
         return $this->belongsTo(User::class, 'client_id');
     }
 
+    public function files()
+    {
+        return $this->hasMany(File::class);
+    }
+
     protected static function booted(): void
     {
         if (auth()->check() && auth()->user()->is_client) {
