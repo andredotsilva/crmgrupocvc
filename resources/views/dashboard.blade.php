@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-2 bg-slate-100">
+    <div class="py-2 bg-slate-100 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- component -->
             <div class="flex items-center text-gray-800">
