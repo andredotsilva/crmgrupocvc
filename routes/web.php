@@ -8,6 +8,7 @@ use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServicosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,8 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::apiResource('/servicos', ServicosController::class);
 
 
 Route::middleware('auth')->group(function () {
