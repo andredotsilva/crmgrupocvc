@@ -9,6 +9,6 @@ class ServicosController extends Controller
 {
     public function index()
     {
-        return view('servicos');
+        return view('pages.servicos.index');
     }
 }
