@@ -33,6 +33,14 @@
         <main>
             {{ $slot }}
         </main>
+
+        <footer class="w-full h-8 bg-white
+            fixed left-0 bottom-0
+            flex justify-center items-center
+            text-sm text-gray-500 dark:bg-gray-700 dark:text-blue-400
+            ">
+            Desenvolvido pela CaseOf Creative Agency
+        </footer>
     </div>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>

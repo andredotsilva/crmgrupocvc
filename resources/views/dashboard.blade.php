@@ -13,7 +13,7 @@
                     <div class="grid grid-cols-12 gap-4">
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
                             <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-800 dark:text-blue-400">
+                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
                             <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-800 dark:text-blue-400">
+                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-green-100 text-green-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -48,7 +48,7 @@
                         </div>
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
                             <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-800 dark:text-blue-400">
+                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-orange-100 text-orange-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -59,14 +59,14 @@
                                     </svg>
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500 dark:text-slate-400">Dados a Inserir</div>
-                                    <div class="font-bold text-lg">190</div>
+                                    <div class="text-sm text-gray-500 dark:text-slate-400">Contratos a Expirar</div>
+                                    <div class="font-bold text-lg">20</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-span-12 sm:col-span-6 md:col-span-3">
                             <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-800 dark:text-blue-400">
+                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
                                 <div
                                     class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-red-100 text-red-500">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -104,81 +104,6 @@
         </div>
     </div>
 
-    <div class="p-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="container mx-auto">
-                        <div class="grid grid-cols-3 gap-3 p-4">
-                            <div>
-                                <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-lg">
-                                    <div class="px-6 py-4">
-                                        <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                                        <p class="text-gray-700 text-base dark:text-slate-400">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia,
-                                            nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                                        </p>
-                                    </div>
-                                    <div class="px-6 pt-4 pb-2">
-                                        <button
-                                            class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                                            Primary
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ... -->
-                            <div>
-                                <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-lg">
-                                    <div class="px-6 py-4">
-                                        <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                                        <p class="text-gray-700 text-base dark:text-slate-400">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia,
-                                            nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                                        </p>
-                                    </div>
-                                    <div class="px-6 pt-4 pb-2">
-                                        <button
-                                            class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                                            Primary
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="max-w-sm rounded overflow-hidden shadow-lg rounded-lg">
-                                    <div class="px-6 py-4">
-                                        <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                                        <p class="text-gray-700 text-base dark:text-slate-400">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia,
-                                            nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                                        </p>
-                                    </div>
-                                    <div class="px-6 pt-4 pb-2">
-                                        <button
-                                            class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                                            Primary
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--Footer container-->
-    <footer class="fixed bottom-0 left-0 right-0">
-
-        <div class="flex items-center p-6 bg-white text-gray-800 dark:bg-gray-800 h-12">
-            <div>
-                <p class="text-black dark:text-blue-400 text-xs">© 2023 Copyright: Desenvolvido pela </p>
-            </div>
-            <div class="mx-2"><a class="text-black dark:text-blue-400 text-xs" href="https://caseof.pt/">CaseOf
-                    Creative Agency</a></div>
-        </div>
-    </footer>
+    
 
 </x-app-layout>
