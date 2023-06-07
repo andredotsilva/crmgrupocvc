@@ -9,6 +9,7 @@ use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServicosController;
+use App\Http\Controllers\EnergiagasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::get('/servicos', [ServicosController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('servicos');
+
+Route::get('/energia-gas', [EnergiagasController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('energia');
 
 //Route::apiResource('/servicos', ServicosController::class);
 
