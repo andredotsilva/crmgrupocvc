@@ -26,12 +26,12 @@
     <div class="py-2 bg-slate-100 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- component -->
-            <div class="min-w-screen  bg-gray-100 flex items-center justify-center bg-gray-100">
+            <div class="min-w-screen  bg-gray-100 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
                 <div class="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
                     <div class="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 
                         <div class="w-full lg:w-1/4">
-                            <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-blue-400">
+                            <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-blue-400 dark:bg-gray-700">
                                 <div class="flex items-center">
                                     <div class="icon w-14 p-3.5 bg-blue-400 text-white rounded-full mr-3">
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -39,7 +39,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex flex-col justify-center">
-                                        <div class="text-xl text-gray-700">
+                                        <div class="text-xl text-gray-700 dark:text-blue-400">
                                             <a href="{{ route('energia') }}">
                                                 {{ __('Energia e Gás') }}
                                             </a>
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="w-full lg:w-1/4">
-                            <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-yellow-400">
+                            <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-yellow-400 dark:bg-gray-700">
                                 <div class="flex items-center">
                                     <div class="icon w-14 p-3.5 bg-yellow-400 text-white rounded-full mr-3">
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,7 +58,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex flex-col justify-center">
-                                        <div class="text-xl text-gray-700">
+                                        <div class="text-xl text-gray-700 dark:text-blue-400">
                                             <a href="{{ route('servicos') }}">
                                                 {{ __('Inserir Serviço') }}
                                             </a>
