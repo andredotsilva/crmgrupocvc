@@ -74,7 +74,7 @@
                 </li>
             </ul>
 
-            <form action="{{ route('contracts.store') }}" method="POST">
+            <form action="{{ route('contracts.store') }}" method="POST" style="margin-bottom: 100px;">
                 @csrf
                 <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-12">
