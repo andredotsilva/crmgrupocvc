@@ -22,4 +22,9 @@ class Meter extends Model
         'off_peak',
         'super_off_peak',
     ];
+
+    public function tariff()
+    {
+        return $this->belongsTo(Tariff::class, 'tariff_id');
+    }
 }

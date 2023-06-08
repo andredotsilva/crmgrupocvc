@@ -55,6 +55,6 @@ class User extends Authenticatable
 
     public function getIsClientAttribute()
     {
-        return $this->roles()->where('id', 3)->exists();
+        return $this->roles()->where('id', 4)->exists();
     }
 }

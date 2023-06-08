@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DocumentStatus extends Model
+class InvoiceType extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'nomenclature',
-        'description',
+        'title'
     ];
 }

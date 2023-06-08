@@ -7,12 +7,16 @@ use App\Models\Category;
 use App\Models\Client;
 use App\Models\ClientType;
 use App\Models\Commission;
+use App\Models\DocumentationStatus;
 use App\Models\File;
 use App\Models\Meter;
 use App\Models\User;
 use App\Models\Contract;
 use App\Models\District;
+use App\Models\DocumentStatus;
+use App\Models\InvoiceType;
 use App\Models\MailingAddress;
+use App\Models\Plan;
 use App\Models\Tariff;
 use App\Models\Provider;
 use App\Models\Service;
@@ -24,10 +28,13 @@ class ContractsController extends Controller
     //
     public function index()
     {
-        // $contracts = Contract::with('files')->get();
-        // $contractsCount = $contracts->count();
+        $contracts = Contract::with(['meter.tariff', 'client'])->paginate(10);
+        $contractsCount = $contracts->count();
 
-        return view('pages.contracts.index');
+        return view('pages.contracts.index', [
+            'contracts' => $contracts,
+            'contractsCount' => $contractsCount
+        ]);
     }
 
     public function create()
@@ -45,7 +52,9 @@ class ContractsController extends Controller
         $providers = Provider::all();
         $services = Service::all();
         $categories = Category::all();
-
+        $plans = Plan::all();
+        $documentationStatus = DocumentationStatus::all();
+        $invoiceTypes = InvoiceType::all();
 
         return view('pages.contracts.create', [
             'tariffs' => $tariffs,
@@ -56,6 +65,9 @@ class ContractsController extends Controller
             'backofficers' => $backofficers,
             'services' => $services,
             'categories' => $categories,
+            'plans' => $plans,
+            'documentationStatus' => $documentationStatus,
+            'invoiceTypes' => $invoiceTypes,
         ]);
     }
     public function store(StoreContractRequest $request)
@@ -81,9 +93,20 @@ class ContractsController extends Controller
         // $comission->administrator_payment_date = $request->administrator_payment_date;
         // $comission->commercial_payment_date = $request->commercial_payment_date;
 
-
-
         $comission->save();
+
+        $meter = new Meter();
+        $meter->cpe = $request->cpe;
+        $meter->power = $request->power;
+        $meter->nif = $request->nif;
+        $meter->tariff_id = $request->tariff_id;
+        $meter->flat = $request->flat;
+        $meter->peak = $request->peak;
+        $meter->standard = $request->standard;
+        $meter->off_peak = $request->off_peak;
+        $meter->super_off_peak = $request->super_off_peak;
+
+        $meter->save();
 
         $client = new Client();
 
@@ -109,24 +132,25 @@ class ContractsController extends Controller
         $contract->commercial_id = '994729af-f5ef-463f-942e-9703883e8799';
         $contract->client_type_id = 1;
 
-        // $contract->service_id = $request->service_id;
-        $contract->service_id = 1;
+        $contract->service_id = $request->service_id;
+        // $contract->service_id = 1;
 
-        // $contract->category_id = $request->category_id;
-        $contract->category_id = 1;
+        $contract->category_id = $request->category_id;
+        // $contract->category_id = 1;
 
-        // $contract->provider_id = $request->provider_id;
-        $contract->provider_id = 1;
+        $contract->provider_id = $request->provider_id;
+        // $contract->provider_id = 1;
 
-        // $contract->plan_id = $request->plan_id;
-        $contract->plan_id = 1;
-        // $contract->documentation_status_id = $request->documentation_status_id;
-        $contract->documentation_status_id = 1;
+        $contract->plan_id = $request->plan_id;
+        // $contract->plan_id = 1;
+
+        $contract->documentation_status_id = $request->documentation_status_id;
+        // $contract->documentation_status_id = 1;
 
         $contract->archive = $request->archive;
 
-        // dd($client->id);
         $contract->client_id = $client->id;
+        $contract->meter_id = $meter->id;
 
         $contract->inserted_at = $request->inserted_at;
         $contract->signed_at = $request->signed_at;
@@ -134,27 +158,13 @@ class ContractsController extends Controller
         $contract->renewal_at = $request->renewal_at;
 
         $contract->nib = $request->nib;
-        // $contract->invoice_type_id = $request->invoice_type_id;
-        $contract->invoice_type_id = 1;
+        $contract->invoice_type_id = $request->invoice_type_id;
+        // $contract->invoice_type_id = 1;
 
         $contract->signatory_email = $request->signatory_email;
         $contract->signatory_phone = $request->signatory_phone;
 
         $contract->save();
-
-        $meter = new Meter();
-        $meter->cpe = $request->cpe;
-        $meter->power = $request->power;
-        $meter->nif = $request->nif;
-        $meter->tariff_id = $request->tariff_id;
-        // $meter->tariff_id = 1;
-        $meter->flat = $request->flat;
-        $meter->peak = $request->peak;
-        $meter->standard = $request->standard;
-        $meter->off_peak = $request->off_peak;
-        $meter->super_off_peak = $request->super_off_peak;
-
-        $meter->save();
 
         $mailingAddress = new MailingAddress();
 

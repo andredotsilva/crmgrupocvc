@@ -102,11 +102,11 @@
                                 </div>
 
                                 <div class="sm:col-span-2">
-                                    <label for="cod-contador"
+                                    <label for="commercial_id"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Código
                                         Comerciante</label>
                                     <div class="mt-2">
-                                        <input type="text" name="commercial_id" id="cod-contador"
+                                        <input type="text" name="commercial_id" id="commercial_id"
                                             autocomplete="given-name"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
@@ -118,10 +118,10 @@
                                         <select name="user_id"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             <option value="">Escolha</option>
-                                            @foreach ($backofficers as $backofficer)
-                                                <option value="{{ $backofficer->id }}"
-                                                    {{ old('backofficer') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
-                                                    {{ $backofficer->name }}
+                                            @foreach ($commercials as $commercial)
+                                                <option value="{{ $commercial->id }}"
+                                                    {{ old('commercial') == $commercial->id || $commercial->id == auth()->id() ? 'selected' : '' }}>
+                                                    {{ $commercial->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -190,12 +190,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
-                        {{-- Teste BO --}}
-
-
 
                         <!--Dados ORGANIZAÇÃO-->
                         <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
@@ -216,25 +211,29 @@
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="plan"
+                                    <label for="plan_id"
                                         class="block text-sm font-medium leading-6 text-gray-900">Campanha</label>
                                     <div class="mt-2">
-                                        <select id="plan" name="plan_id" autocomplete="plan"
+                                        <select id="plan_id" name="plan_id"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                            <option>Energia Verde</option>
-                                            <option>Teste</option>
-                                            <option>Teste</option>
-                                            <option>Teste</option>
+                                            @foreach ($plans as $plan)
+                                                <option value="{{ $plan->id }}"> {{ $plan->acronym }} -
+                                                    {{ $plan->title }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="documentation_status"
+                                    <label for="documentation_status_id"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
                                     <div class="mt-2">
-                                        <input type="text" name="documentation_status_id"
-                                            id="documentation_status" autocomplete="documentation_status"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                        <select id="documentation_status_id" name="documentation_status_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                            @foreach ($documentationStatus as $documentationStatus)
+                                                <option value="{{ $documentationStatus->id }}">
+                                                    {{ $documentationStatus->title }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
@@ -272,8 +271,10 @@
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIF</label>
                                     <div class="mt-2">
                                         <input type="nif" name="nif" id="nif" autocomplete="nif"
+                                            oninput="validateNIF(this)"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
+
                                 </div>
 
                                 <div class="sm:col-span-2">
@@ -334,10 +335,10 @@
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="off-peak"
+                                    <label for="off_peak"
                                         class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Vazio</label>
                                     <div class="mt-2">
-                                        <input type="number" name="off-peak" id="off-peak" autocomplete="off-peak"
+                                        <input type="number" name="off_peak" id="off_peak"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                     </div>
                                 </div>
@@ -354,6 +355,51 @@
                             </div>
                         </div>
                         <!--END Consumos-->
+
+                        <!--Datas Contrato-->
+                        <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
+                            id="assinatura">
+                            <h1 class="text-lg pb-4 dark:text-gray-200">Datas de contrato</h1>
+                            <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div class="sm:col-span-2">
+                                    <label for="inserted_at"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Inserido</label>
+                                    <div class="mt-2">
+                                        <input type="date" name="inserted_at" id="inserted_at"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="signed_at"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Assinado</label>
+                                    <div class="mt-2">
+                                        <input type="date" name="signed_at" id="signed_at"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="effective_at"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Alta</label>
+                                    <div class="mt-2">
+                                        <input type="date" name="effective_at" id="effective_at"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="renewal_at"
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Renovação</label>
+                                    <div class="mt-2">
+                                        @php
+                                            $renewalAt = isset($renewalAt) ? date('Y-m-d', strtotime($renewalAt)) : '';
+                                        @endphp
+                                        <input type="date" name="renewal_at" id="renewal_at"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600"
+                                            value="{{ $renewalAt }}">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
                         <!--Dados Cliente-->
                         <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
@@ -399,7 +445,7 @@
                                     <label for="post_code"
                                         class="block text-sm font-medium leading-6 text-gray-900">Codigo Postal</label>
                                     <div class="mt-2">
-                                        <select id="npost_code" name="post_code" autocomplete="post_code"
+                                        <select id="post_code" name="post_code" autocomplete="post_code"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
                                             <option>4000-011</option>
                                             <option>4000-211</option>
@@ -472,13 +518,16 @@
                                     </div>
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label for="nivel-tensao"
+                                    <label for="invoice_type_id"
                                         class="block text-sm font-medium leading-6 text-gray-900">Fatura</label>
                                     <div class="mt-2">
-                                        <select id="nivel-tensao" name="invoice_type_id" autocomplete="nivel-tensao"
+                                        <select id="invoice_type_id" name="invoice_type_id"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                            <option>Eletronica</option>
-                                            <option>Papel</option>
+                                            @foreach ($invoiceTypes as $invoiceType)
+                                                <option value="{{ $invoiceType->id }}">{{ $invoiceType->title }}
+                                                </option>
+                                            @endforeach
+
                                         </select>
                                     </div>
                                 </div>
@@ -552,29 +601,6 @@
                                         }
                                     </script>
                                 </div>
-
-
-
-
-                                {{-- <div class="sm:col-span-2">
-                                    <label for="nivel-tensao"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Codigo Postal</label>
-                                    <div class="mt-2">
-                                        <select id="mail_postal_code" name="tensao" autocomplete="nivel-tensao"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                            <option>4040-123</option>
-                                            <option>4000-022</option>
-                                        </select>
-                                    </div>
-                                </div> --}}
-                                {{-- <div>
-                                    <label for="codigo_postal">Código Postal:</label>
-                                    <input type="text" name="codigo_postal" id="codigo_postal" required
-                                        pattern="[0-9]{4}-[0-9]{3}"
-                                        title="Formato inválido. Digite no formato XXXX-XXX"
-                                        onblur="validarCodigoPostal(this)">
-                                    <span id="codigo_postal_error" style="color: red;"></span>
-                                </div> --}}
 
                                 <div class="sm:col-span-2">
                                     <label for="nif"
@@ -802,6 +828,20 @@
     </div>
 </x-app-layout>
 
+<script>
+    function validateNIF(input) {
+        // Remover caracteres especiais (espaços, traços, pontos)
+        var nif = input.replace(/[\s\-.]/g, '');
+
+        // Verificar se restaram 9 dígitos
+        if (nif.length !== 9) {
+            return false;
+        }
+
+        // Validar os 9 dígitos restantes
+        return /^\d{9}$/.test(nif);
+    }
+</script>
 
 
 <script>
@@ -887,6 +927,5 @@
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             }
         }
-
     });
 </script>

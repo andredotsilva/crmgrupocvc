@@ -38,6 +38,16 @@ class Contract extends Model
 
     ];
 
+    public function meter()
+    {
+        return $this->belongsTo(Meter::class, 'meter_id');
+    }
+
+    public function tariff()
+    {
+        return $this->belongsTo(Tariff::class, 'tariff_id');
+    }
+
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
