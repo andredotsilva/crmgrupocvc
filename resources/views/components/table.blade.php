@@ -82,6 +82,9 @@
                                             <div class="flex items-center gap-x-2">
                                                 <div>
                                                     <h2 class="font-medium text-gray-800 dark:text-white ">
+                                                        {{-- @php
+                                                            dd($contract);
+                                                        @endphp --}}
                                                         {{ $contract->client ? $contract->client->name : 'Sem informação' }}
                                                     </h2>
                                                 </div>
