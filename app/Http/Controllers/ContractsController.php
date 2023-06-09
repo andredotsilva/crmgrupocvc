@@ -29,7 +29,7 @@ class ContractsController extends Controller
     public function index()
     {
         $contracts = Contract::with(['meter.tariff', 'client'])->paginate(10);
-        $contractsCount = $contracts->count();
+        $contractsCount = Contract::all()->count();
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,

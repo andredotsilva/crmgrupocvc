@@ -24,8 +24,8 @@
                                     </svg>
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500 dark:text-slate-400">Utilizadores</div>
-                                    <div class="font-bold text-lg">1259</div>
+                                    <div class="text-sm text-gray-500 dark:text-slate-400">Clientes</div>
+                                    <div class="font-bold text-lg">{{ $clientsCount }}</div>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="flex flex-col flex-grow ml-4">
                                     <div class="text-sm text-gray-500 dark:text-slate-400">Contratos a Expirar</div>
-                                    <div class="font-bold text-lg">20</div>
+                                    <div class="font-bold text-lg">{{ $contractsFinishing }}</div>
                                 </div>
                             </div>
                         </div>
@@ -106,6 +106,6 @@
         </div>
     </div>
 
-    
+
 
 </x-app-layout>

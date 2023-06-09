@@ -46,7 +46,6 @@
                         {{ __('Filtrar por:') }}
                     </h4>
                 </div>
-                <!--Filtros-->
                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 px-6 pb-2 rounded-2xl bg-white dark:bg-gray-800"
                     id="dadosorg">
                     <div class="grid grid-cols-5 gap-x-5 gap-y-5 pb-5 sm:grid-cols-10">
@@ -127,7 +126,6 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
