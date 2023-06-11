@@ -35,7 +35,7 @@
     <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="h-screen flex" style="margin-bottom: 100px;">
+            <div class="flex" style="margin-bottom: 100px;">
                 
                 <!-- Fixed sidebar -->
                 <div class="w-64 pt-12 ">
@@ -102,13 +102,13 @@
                     </div>
                     <div class="py-1">
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('documentos')">
+                            onclick="scrollToSection('documentacao')">
                                 Documentação
                           </button>
                     </div>
                 </div>
                 <!-- Scroll wrapper -->
-                <div class="flex-1 overflow-hidden overflow-y-scroll">
+                <div class="flex-1 overflow-hidden overflow-y-scroll scrollbar-hidden" id="scrollableColumn" style="max-height: 600px">
                   <!-- Scrollable container -->
                     <!-- Your content -->
                     <form action="{{ route('contracts.store') }}" method="POST" style="margin-bottom: 40px;">
@@ -979,6 +979,17 @@
 <script>
     function scrollToSection(sectionId) {
         const section = document.getElementById(sectionId);
+        const scrollableColumn = document.getElementById('scrollableColumn');
+        
+        scrollableColumn.scrollTop = section.offsetTop - scrollableColumn.offsetTop;
         section.scrollIntoView({ behavior: 'smooth' });
     }
+
+    const scrollableColumn = document.getElementById('scrollableColumn');
+        scrollableColumn.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        scrollableColumn.scrollTop += event.deltaY;
+    });
+   
+
 </script>
