@@ -259,11 +259,12 @@ class ContractsController extends Controller
 
         $file = File::where('contract_id', '01h2nnqewab3h0xvtychmggmdz')->first();
 
-
-
-
         // dd($contract->files[0]);
+        if ($teste = Storage::disk('local')->exists('app/files/6485fac1f3101-1686502081/ficheiro.pdf')) {
+            dd('ok');
+        }
 
+        dd($teste);
         $path = Storage::disk('local')->path('files/6485fac1f3101-1686502081/' . $file->filename);
         dd($path);
         $content = file_get_contents($path);
