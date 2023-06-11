@@ -22,13 +22,39 @@ use App\Models\Provider;
 use App\Models\Service;
 use App\Models\TemporaryFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
 
 class ContractsController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $contracts = Contract::with(['meter.tariff', 'client'])->paginate(10);
+        // $microcredentials = Microcredential::with(['courseUnits', 'qualificationLevel'])
+        //         ->when($request->filled('nomenclature'), function ($query) use ($request) {
+        //             return $query->where('nomenclature', 'like', '%' . $request->input('nomenclature') . '%');
+        //         })
+        // ->when($request->filled('cnaef_id'), function ($query) use ($request) {
+        //     return $query->where('cnaef_id', $request->input('cnaef_id'));
+        // })
+
+        $contracts = Contract::with(['meter.tariff', 'client'])
+            ->when($request->filled('nif'), function ($query) use ($request) {
+                $query->whereHas('meter', function ($q) use ($request) {
+                    $q->where('nif', 'like', '%' . $request->input('nif') . '%');
+                });
+            })
+            ->when($request->filled('year'), function ($query) use ($request) {
+                return $query->where('effective_at', $request->input('year'));
+            })
+            ->when($request->filled('cpe'), function ($query) use ($request) {
+                $query->whereHas('meter', function ($q) use ($request) {
+                    $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
+                });
+            })
+
+            ->paginate(10);
+
         $contractsCount = Contract::all()->count();
 
         return view('pages.contracts.index', [
@@ -229,10 +255,35 @@ class ContractsController extends Controller
     public function show($id)
     {
 
-        $contract = Contract::with('files')->where('id', $id)->first();
+        // $contract = Contract::with('files')->where('id', $id)->first();
 
-        return view('pages.contracts.index', [
-            'contract' => $contract
+        $file = File::where('contract_id', '01h2nnqewab3h0xvtychmggmdz')->first();
+
+
+
+
+        // dd($contract->files[0]);
+
+        $path = Storage::disk('local')->path('files/6485fac1f3101-1686502081/' . $file->filename);
+        dd($path);
+        $content = file_get_contents($path);
+
+        return response($content)->withHeaders([
+            'Content-Type' => mime_content_type($path)
         ]);
     }
+
+    // public function show($id, $filename)
+    // {
+    //     $path = storage_path('app/public/files/' . $id . '/' . $filename);
+
+    //     if (!Storage::exists($path)) {
+    //         abort(404);
+    //     }
+
+    //     $file = Storage::get($path);
+    //     $type = Storage::mimeType($path);
+
+    //     return response($file, 200)->header('Content-Type', $type);
+    // }
 }

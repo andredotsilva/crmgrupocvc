@@ -3,26 +3,31 @@
         <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
             <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    <path
+                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
             </a>
 
             <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" />
                 </svg>
             </span>
-        
+
             <a href="{{ route('contracts.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
                 {{ __('Lista de Contratos') }}
             </a>
-        
+
             <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" />
                 </svg>
             </span>
-        
+
             <a href="{{ route('contracts.create') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
                 {{ __('Inserir Novo Contrato') }}
             </a>
@@ -113,7 +118,8 @@
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label for="provider"
-                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome Comercial</label>
+                                        class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome
+                                        Comercial</label>
                                     <div class="mt-2">
                                         <select name="user_id"
                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
@@ -923,6 +929,7 @@
     FilePond.setOptions({
         server: {
             url: '/upload',
+            revert: '/destroy'
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             }
