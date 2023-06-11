@@ -30,7 +30,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-    
+
 Route::get('/servicos', [ServicosController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('servicos');
@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/contracts', ContractsController::class);
     Route::post('/upload', [FilesUploadController::class, 'store']);
+    Route::post('/destroy', [FilesUploadController::class, 'store']);
 });
 
 Route::apiResource('/district', DistrictController::class);

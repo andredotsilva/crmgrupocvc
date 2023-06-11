@@ -30,4 +30,8 @@ class FilesUploadController extends Controller
 
         return '';
     }
+
+    public function destroy()
+    {
+    }
 }
