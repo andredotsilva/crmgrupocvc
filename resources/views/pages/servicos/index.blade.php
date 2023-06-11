@@ -30,43 +30,31 @@
                 <div class="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
                     <div class="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 
-                        <div class="w-full lg:w-1/4">
-                            <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-blue-400 dark:bg-gray-700">
-                                <div class="flex items-center">
-                                    <div class="icon w-14 p-3.5 bg-blue-400 text-white rounded-full mr-3">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex flex-col justify-center">
-                                        <div class="text-xl text-gray-700 dark:text-blue-400">
-                                            <a href="{{ route('energia') }}">
-                                                {{ __('Energia e Gás') }}
-                                            </a>
+                            <div class="p-4 w-full">
+                                <div class="grid grid-cols-12 gap-4">
+                                    <div class="col-span-12 sm:col-span-6 md:col-span-3">
+                                        <div
+                                            class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
+                                            <div
+                                                class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="flex flex-col flex-grow ml-4 ">
+                                                <div class="text-xl text-gray-500 dark:text-slate-400">
+                                                    <a href="{{ route('energia') }}">
+                                                        {{ __('Energia e Gás') }}
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="w-full lg:w-1/4">
-                            <div class="widget w-full p-4 rounded-lg bg-white border-l-4 border-yellow-400 dark:bg-gray-700">
-                                <div class="flex items-center">
-                                    <div class="icon w-14 p-3.5 bg-yellow-400 text-white rounded-full mr-3">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex flex-col justify-center">
-                                        <div class="text-xl text-gray-700 dark:text-blue-400">
-                                            <a href="{{ route('servicos') }}">
-                                                {{ __('Inserir Serviço') }}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
