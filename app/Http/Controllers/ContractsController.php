@@ -31,14 +31,6 @@ class ContractsController extends Controller
     //
     public function index(Request $request)
     {
-        // $microcredentials = Microcredential::with(['courseUnits', 'qualificationLevel'])
-        //         ->when($request->filled('nomenclature'), function ($query) use ($request) {
-        //             return $query->where('nomenclature', 'like', '%' . $request->input('nomenclature') . '%');
-        //         })
-        // ->when($request->filled('cnaef_id'), function ($query) use ($request) {
-        //     return $query->where('cnaef_id', $request->input('cnaef_id'));
-        // })
-
         $contracts = Contract::with(['meter.tariff', 'client'])
             ->when($request->filled('nif'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
@@ -53,24 +45,19 @@ class ContractsController extends Controller
                     $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
                 });
             })
-
             ->paginate(10);
 
-        $contractsCount = Contract::all()->count();
-
-        $contractsFinishing = 0;
+        $contractsExpiringCount = 0;
         foreach ($contracts as $contract) {
-            $dataEfetivacao = new DateTime($contract->effective_at);
-            $dataInicio = $dataEfetivacao->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
-            // dd($dataInicio);
-            $dataFim = clone $dataEfetivacao;
-            $dataFim->add(new DateInterval('P12M'));
+            $effective_at = new DateTime($contract->effective_at);
+            $oneMonthFromExpiring = $effective_at->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
+            $expiringDate = clone $effective_at;
+            $expiringDate->add(new DateInterval('P12M'));
 
-            $hoje = new DateTime();
-            // dd([$dataEfetivacao, $dataInicio, $dataFim, $hoje]);
-            // dd(($hoje >= $dataInicio && $hoje <= $dataFim));
-            if (($hoje >= $dataInicio && $hoje <= $dataFim)) {
-                $contractsFinishing++;
+            $today = new DateTime();
+
+            if (($today >= $oneMonthFromExpiring && $today <= $expiringDate)) {
+                $contractsExpiringCount++;
                 $contract->status = 1;
             } else {
                 $contract->status = 0;
@@ -79,7 +66,7 @@ class ContractsController extends Controller
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
-            'contractsCount' => $contractsCount
+            'contractsCount' => $contractsExpiringCount
         ]);
     }
 
