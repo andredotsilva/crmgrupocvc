@@ -122,7 +122,7 @@
                             Comissões Mensais
                         </button>
                     </div>
-                    
+
                     <div class="py-1">
                         <button
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
@@ -150,7 +150,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Back
                                                 Office</label>
                                             <div class="mt-2">
-                                                <select name="user_id"
+                                                <select name="back_officer_id"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                                     <option value="">Escolha</option>
                                                     @foreach ($backofficers as $backofficer)
@@ -178,7 +178,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome
                                                 Comercial</label>
                                             <div class="mt-2">
-                                                <select name="user_id"
+                                                <select name="commercial_id"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                                     <option value="">Escolha</option>
                                                     @foreach ($commercials as $commercial)
@@ -429,23 +429,23 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Gás</label>
                                             <div class="flex">
                                                 <label class="inline-flex items-center mr-6">
-                                                  <input type="checkbox" class="form-checkbox">
-                                                  <span class="ml-2">1</span>
+                                                    <input type="checkbox" class="form-checkbox">
+                                                    <span class="ml-2">1</span>
                                                 </label>
                                                 <label class="inline-flex items-center mr-6">
-                                                  <input type="checkbox" class="form-checkbox">
-                                                  <span class="ml-2">2</span>
+                                                    <input type="checkbox" class="form-checkbox">
+                                                    <span class="ml-2">2</span>
                                                 </label>
                                                 <label class="inline-flex items-center mr-6">
-                                                  <input type="checkbox" class="form-checkbox">
-                                                  <span class="ml-2">3</span>
+                                                    <input type="checkbox" class="form-checkbox">
+                                                    <span class="ml-2">3</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
-                                                  <input type="checkbox" class="form-checkbox">
-                                                  <span class="ml-2">4</span>
+                                                    <input type="checkbox" class="form-checkbox">
+                                                    <span class="ml-2">4</span>
                                                 </label>
-                                              </div>
-                                              
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -617,7 +617,7 @@
                                                 <label for="nif"
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIB</label>
                                                 <div class="mt-2">
-                                                    <input type="number" name="nif" id="nif"
+                                                    <input type="number" name="nib" id="nif"
                                                         autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                                 </div>
@@ -805,7 +805,8 @@
                                 <!--Comissões-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="comissoesdatas">
-                                    <h1 class="text-md pb-4 dark:text-gray-200">Comissões, Data de Pagamento e Devoluções</h1>
+                                    <h1 class="text-md pb-4 dark:text-gray-200">Comissões, Data de Pagamento e
+                                        Devoluções</h1>
                                     <div class="grid grid-cols-3 gap-4">
                                         <div>
                                             <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
@@ -815,9 +816,9 @@
                                                     Valor Pago ao Administrador</label>
                                                 <div class="mt-2">
                                                     <input type="text" name="administrator_paid_amount"
-                                                    id="administrator_paid_amount"
-                                                    class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                    placeholder="0,00" oninput="formatarNumero(this)">    
+                                                        id="administrator_paid_amount"
+                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        placeholder="0,00" oninput="formatarNumero(this)">
                                                 </div>
                                             </div>
                                             <div class="sm:col-span-2">
@@ -825,7 +826,7 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Data Pagamento ao Administrador</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
+                                                    <input type="date" name="nif" id="nif"
                                                         autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
@@ -845,8 +846,8 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Data Devolução ao Administrador</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
+                                                    <input type="date" name="administrator_payment_date"
+                                                        id="nif" autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
                                             </div>
@@ -859,9 +860,9 @@
                                                     Valor Pago ao Comercial</label>
                                                 <div class="mt-2">
                                                     <input type="text" name="commercial_paid_amount"
-                                                    id="commercial_paid_amount"
-                                                    class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                    placeholder="0,00" oninput="formatarNumero(this)">
+                                                        id="commercial_paid_amount"
+                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        placeholder="0,00" oninput="formatarNumero(this)">
                                                 </div>
                                             </div>
                                             <div class="sm:col-span-2">
@@ -869,8 +870,8 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Data Pagamento ao Comercial</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
+                                                    <input type="date" name="commercial_payment_date"
+                                                        id="nif" autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
                                             </div>
@@ -889,7 +890,7 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Data Devolução ao Comercial</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
+                                                    <input type="date" name="nif" id="nif"
                                                         autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
@@ -902,7 +903,7 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Valor Pago ao CVC</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
+                                                    <input type="nif" name="cvc_paid_amount" id="nif"
                                                         autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
@@ -912,7 +913,7 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Data Pagamento ao CVC</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
+                                                    <input type="date" name="cvc_payment_date" id="nif"
                                                         autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
@@ -932,7 +933,7 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Data Devolução ao CVC</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
+                                                    <input type="date" name="nif" id="nif"
                                                         autocomplete="nif"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
@@ -941,35 +942,35 @@
                                                 function formatarNumero(input) {
                                                     let numero = input.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos, exceto vírgula
                                                     let partes = numero.split(','); // Separa a parte inteira da parte decimal
-    
+
                                                     // Remove todos os espaços da parte inteira
                                                     partes[0] = partes[0].replace(/\s/g, '');
-    
+
                                                     // Formata a parte inteira com espaços como separador de milhares
                                                     partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-    
+
                                                     // Limita a parte decimal a dois dígitos
                                                     if (partes.length > 1) {
                                                         partes[1] = partes[1] ? partes[1].slice(0, 2) : ''; // Verifica se há parte decimal
                                                     }
-    
+
                                                     // Atualiza o valor do input com o número formatado
                                                     input.value = partes.join(',') + (partes.length > 1 ? ',' : '');
                                                 }
-    
+
                                                 // Adiciona evento para limitar o número de vírgulas nos campos "Valor Pago ao Administrador" e "Valor Pago ao Comercial"
                                                 document.getElementById('administrator_paid_amount').addEventListener('input', function() {
                                                     let partes = this.value.split(',');
-    
+
                                                     if (partes.length > 2) {
                                                         partes.splice(2);
                                                         this.value = partes.join(',');
                                                     }
                                                 });
-    
+
                                                 document.getElementById('commercial_paid_amount').addEventListener('input', function() {
                                                     let partes = this.value.split(',');
-    
+
                                                     if (partes.length > 2) {
                                                         partes.splice(2);
                                                         this.value = partes.join(',');
@@ -977,21 +978,27 @@
                                                 });
                                             </script>
                                         </div>
-                                      </div>
-                                      
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    </div>
+                                </div>
+                                <!--END Comissões-->
+
+                                <div
+                                    class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800">
+                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8">
                                         <div class="sm:col-span-4">
-                                            <label for="nif"
+                                            <label for="message"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
                                             <div class="mt-2">
                                                 <textarea id="message" rows="4"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500"
-                                                    placeholder="Write your thoughts here..."></textarea>
+                                                    placeholder=""></textarea>
                                             </div>
                                         </div>
+                                        <!-- Adicione mais elementos aqui, se necessário -->
                                     </div>
                                 </div>
-                                <!--END Comissões-->
+
+
 
                                 <!--comissões mensais-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
@@ -1002,8 +1009,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">1_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1011,8 +1017,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">2_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1020,8 +1025,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">3_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1029,8 +1033,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">4_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1038,8 +1041,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">5_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1047,8 +1049,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">6_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1056,8 +1057,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">7_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1065,8 +1065,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">8_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1074,8 +1073,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">9_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1083,8 +1081,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">10_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1092,8 +1089,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">11_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -1101,8 +1097,7 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">12_12</label>
                                             <div class="mt-2">
-                                                <input type="" name="" id=""
-                                                    autocomplete=""
+                                                <input type="" name="" id="" autocomplete=""
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>

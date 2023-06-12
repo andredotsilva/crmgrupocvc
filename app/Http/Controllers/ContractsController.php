@@ -113,20 +113,17 @@ class ContractsController extends Controller
 
         $user->save();
 
-        $comission = new Commission();
+        $commission = new Commission();
 
-        // $convertedAdministratorPaidAmount = NumericValueConverter::convertValues([$administratorPaidAmount])[0] * 100;
-        // $convertedCommercialPaidAmount = NumericValueConverter::convertValues([$commercialPaidAmount])[0] * 100;
+        $commission->cvc_paid_amount =  $this->formatarNumero($request->cvc_paid_amount);
+        $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
+        $commission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
 
-        // dd([$request->administrator_paid_amount, $request->commercial_paid_amount]);
-        // $comission->cvc_paid_amount = $request->cvc_paid_amount;
-        $comission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
-        $comission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
-        // $comission->cvc_payment_date = $request->cvc_payment_date;
-        // $comission->administrator_payment_date = $request->administrator_payment_date;
-        // $comission->commercial_payment_date = $request->commercial_payment_date;
+        $commission->cvc_payment_date = $request->cvc_payment_date;
+        $commission->administrator_payment_date = $request->administrator_payment_date;
+        $commission->commercial_payment_date = $request->commercial_payment_date;
 
-        $comission->save();
+        $commission->save();
 
         $meter = new Meter();
         $meter->cpe = $request->cpe;
@@ -161,29 +158,22 @@ class ContractsController extends Controller
 
         $contract = new Contract();
 
-        $contract->back_officer_id = '994729af-f5ef-463f-942e-9703883e8799';
-        $contract->commercial_id = '994729af-f5ef-463f-942e-9703883e8799';
-        $contract->client_type_id = 1;
+        $contract->back_officer_id = $request->back_officer_id;
+        $contract->commercial_id = $request->commercial_id;
+        $contract->client_type_id = $request->client_type_id;
 
         $contract->service_id = $request->service_id;
-        // $contract->service_id = 1;
-
         $contract->category_id = $request->category_id;
-        // $contract->category_id = 1;
 
         $contract->provider_id = $request->provider_id;
-        // $contract->provider_id = 1;
-
         $contract->plan_id = $request->plan_id;
-        // $contract->plan_id = 1;
 
         $contract->documentation_status_id = $request->documentation_status_id;
-        // $contract->documentation_status_id = 1;
-
         $contract->archive = $request->archive;
 
         $contract->client_id = $client->id;
         $contract->meter_id = $meter->id;
+        $contract->commission_id = $commission->id;
 
         $contract->inserted_at = $request->inserted_at;
         $contract->signed_at = $request->signed_at;
@@ -192,7 +182,6 @@ class ContractsController extends Controller
 
         $contract->nib = $request->nib;
         $contract->invoice_type_id = $request->invoice_type_id;
-        // $contract->invoice_type_id = 1;
 
         $contract->signatory_email = $request->signatory_email;
         $contract->signatory_phone = $request->signatory_phone;
