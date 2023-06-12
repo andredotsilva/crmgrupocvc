@@ -1119,15 +1119,12 @@
                                             <input type="file" class="filepond" name="filepond" multiple
                                                 data-allow-reorder="true" data-max-file-size="3MB"
                                                 data-max-files="5">
-
                                         </div>
                                     </div>
                                 </div>
                                 <!--END Ficheiros-->
-
                             </div>
                         </div>
-
                         <div class="mt-6 flex items-center justify-end gap-x-6">
                             <button type="button"
                                 class="text-sm font-semibold leading-6 text-gray-900">Cancelar</button>
@@ -1137,10 +1134,6 @@
                     </form>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </x-app-layout>

@@ -23,30 +23,50 @@ class DashboardController extends Controller
 
         $countTerminatingContracts = 0;
 
-        $nextMonth = (new DateTime())->add(new DateInterval('P1M'))->format('Y-m-d');
-        // $currentDate = new DateTime();
 
         foreach ($contracts as $contract) {
-            if ($contract->renewal_at !== null) {
-                if ($contract->renewal_at <= $nextMonth === 0) {
-                    $contract->is_finishing = 'A terminar';
-                    $countTerminatingContracts++;
-                } else {
-                    $contract->is_finishing = 'Normal';
-                }
+            $nextMonth = (new DateTime())->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'))->format('Y-m-d');
+        }
+        $nextMonth = (new DateTime())->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'))->format('Y-m-d');
+        // dd($nextMonth);
+        // $currentDate = new DateTime();
+
+        // foreach ($contracts as $contract) {
+        //     if ($contract->renewal_at !== null) {
+        //         if ($contract->renewal_at <= $nextMonth === 0) {
+        //             $contract->is_finishing = 'A terminar';
+        //             $countTerminatingContracts++;
+        //         } else {
+        //             $contract->is_finishing = 'Normal';
+        //         }
+        //     } else {
+        //         $contract->is_finishing = 'Normal';
+        //     }
+        // }
+        $contractsFinishing = 0;
+        foreach ($contracts as $contract) {
+            $dataEfetivacao = new DateTime($contract->effective_at);
+            $dataInicio = $dataEfetivacao->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
+            // dd($dataInicio);
+            $dataFim = clone $dataEfetivacao;
+            $dataFim->add(new DateInterval('P12M'));
+
+            $hoje = new DateTime();
+            // dd([$dataEfetivacao, $dataInicio, $dataFim, $hoje]);
+            // dd(($hoje >= $dataInicio && $hoje <= $dataFim));
+            if (($hoje >= $dataInicio && $hoje <= $dataFim)) {
+                $contractsFinishing++;
+                $contract->status = 1;
             } else {
-                $contract->is_finishing = 'Normal';
+                $contract->status = 0;
             }
         }
-
-        // $contractsFinishing = Contract::where('renewal_at', '>=', date("Y-m-d", strtotime("+1 month", strtotime((new DateTime())->add(new DateInterval('P1M'))->format('Y-m-d')))))->count();
-        $contractsFinishing = Contract::where('renewal_at', '<=', $nextMonth)->where('renewal_at', '>=', new DateTime())->count();
 
         return view('dashboard', [
             'contracts' => $contracts,
             'contractsCount' => $contractsCount,
             'contractsFinishing' => $contractsFinishing,
-            'clientsCount' => $clients
+            'clientsCount' => $clients,
         ]);
     }
 }

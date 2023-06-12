@@ -23,7 +23,8 @@ use App\Models\Service;
 use App\Models\TemporaryFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-
+use DateInterval;
+use DateTime;
 
 class ContractsController extends Controller
 {
@@ -56,6 +57,25 @@ class ContractsController extends Controller
             ->paginate(10);
 
         $contractsCount = Contract::all()->count();
+
+        $contractsFinishing = 0;
+        foreach ($contracts as $contract) {
+            $dataEfetivacao = new DateTime($contract->effective_at);
+            $dataInicio = $dataEfetivacao->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
+            // dd($dataInicio);
+            $dataFim = clone $dataEfetivacao;
+            $dataFim->add(new DateInterval('P12M'));
+
+            $hoje = new DateTime();
+            // dd([$dataEfetivacao, $dataInicio, $dataFim, $hoje]);
+            // dd(($hoje >= $dataInicio && $hoje <= $dataFim));
+            if (($hoje >= $dataInicio && $hoje <= $dataFim)) {
+                $contractsFinishing++;
+                $contract->status = 1;
+            } else {
+                $contract->status = 0;
+            }
+        }
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
@@ -255,23 +275,35 @@ class ContractsController extends Controller
     public function show($id)
     {
 
-        // $contract = Contract::with('files')->where('id', $id)->first();
+        $contract = Contract::with('files')->where('id', $id)->first();
 
-        $file = File::where('contract_id', '01h2nnqewab3h0xvtychmggmdz')->first();
+        // $file = File::where('contract_id', '01h2qc2tvbwmqmkjnpxfq78b0e')->first();
+        // return Storage::download('files/' . $file->path);
+
+        // $files = Storage::allFiles('/files');
+        // d
+
+        // $filepath = storage_path($file->path);
+        // return response()->file($files);
 
         // dd($contract->files[0]);
-        if ($teste = Storage::disk('local')->exists('app/files/6485fac1f3101-1686502081/ficheiro.pdf')) {
-            dd('ok');
-        }
+        // if (Storage::existe($f) {
+        //     dd('ok');
+        // }
 
-        dd($teste);
-        $path = Storage::disk('local')->path('files/6485fac1f3101-1686502081/' . $file->filename);
-        dd($path);
-        $content = file_get_contents($path);
 
-        return response($content)->withHeaders([
-            'Content-Type' => mime_content_type($path)
+        // $path = Storage::disk('local')->path('files/6485fac1f3101-1686502081/' . $file->filename);
+        // $content = file_get_contents($path);
+
+        return view('pages.contracts.teste', [
+            'contract' => $contract,
         ]);
+    }
+
+    public function download($id)
+    {
+        $file = File::where('id', $id)->first();
+        return Storage::download('files/' . $file->path);
     }
 
     // public function show($id, $filename)

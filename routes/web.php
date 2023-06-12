@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/contracts', ContractsController::class);
     Route::post('/upload', [FilesUploadController::class, 'store']);
     Route::post('/destroy', [FilesUploadController::class, 'store']);
+    Route::get('/download/{id}', [ContractsController::class, 'download'])->name('download');
 });
 
 Route::apiResource('/district', DistrictController::class);

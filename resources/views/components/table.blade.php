@@ -96,11 +96,20 @@
 
                                     </td>
                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                        <div
-                                            class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                                            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
 
-                                            <h2 class="text-sm font-normal text-emerald-500">Ativo</h2>
+                                        @php
+                                            $styles = [
+                                                '0' => ['Ativo', 'text-emerald-500', 'bg-green-500', 'bg-emerald-100/60', 'dark:bg-gray-800'], //Terminar
+                                                '1' => ['A terminar', 'text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'], //Ativo,
+                                            ];
+                                            $style = $styles[$contract->status];
+                                        @endphp
+                                        <div
+                                            class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 {{ $style[3] }} {{ $style[4] }}">
+                                            <span class="h-1.5 w-1.5 rounded-full {{ $style[2] }}"></span>
+                                            <h2 class="text-sm font-normal {{ $style[1] }}">
+                                                {{ $style[0] }}
+                                            </h2>
                                         </div>
                                     </td>
 
