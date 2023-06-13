@@ -12,6 +12,9 @@ Alpine.start();
 const sunIcon = document.querySelector(".sun");
 const moonIcon = document.querySelector(".moon");
 
+const whiteLogo = document.querySelector(".white");
+const blackLogo = document.querySelector(".black");
+
 //Theme vars
 const userTheme = localStorage.getItem("theme");
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -20,17 +23,20 @@ const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 const iconToggle = () => {
     moonIcon.classList.toggle("display-none");
     sunIcon.classList.toggle("display-none");
+    whiteLogo.classList.toggle("display-none");
+    blackLogo.classList.toggle("display-none");
 }
 
 // Theme Check
 const themeCheck = () => { 
-    // if (userTheme === "dark" || (!userTheme && systemTheme))
     if (userTheme === "dark" || (!userTheme && systemTheme)) {
         document.body.classList.add("dark-mode");
         moonIcon.classList.add("display-none");
+        blackLogo.classList.add("display-none");
         return;
     }
     sunIcon.classList.add("display-none");
+    whiteLogo.classList.add("display-none");
 }
 
 // Manual change Theme
