@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 sticky top-0 left-0 h-20" style="z-index: 2 !important;">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 sticky top-0 pt-2 left-0 h-20" style="z-index: 2 !important;">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="../img/icon.png" style="width: 2.8rem; height: 100%;" alt="">
+                        <img src="../img/energia-preto.webp" style="width: 7rem; height: 100%;" alt="">
                     </a>
                 </div>
 
@@ -93,7 +93,7 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="pt-4 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
