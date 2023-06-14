@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('/contracts', ContractsController::class);
     Route::post('/upload', [FilesUploadController::class, 'store']);
-    Route::post('/destroy', [FilesUploadController::class, 'store']);
+    Route::delete('/destroy', [FilesUploadController::class, 'destroy']);
     Route::get('/download/{id}', [ContractsController::class, 'download'])->name('download');
 });
 

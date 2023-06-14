@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TemporaryFile;
 use App\Models\TemporaryFiles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FilesUploadController extends Controller
 {
@@ -33,5 +34,13 @@ class FilesUploadController extends Controller
 
     public function destroy()
     {
+        $temporary = TemporaryFile::where('folder', request()->getContent())->first();
+
+        if ($temporary) {
+            Storage::deleteDirectory('files/tmp/' . $temporary->folder);
+            $temporary->delete();
+        }
+
+        return response()->noContent();
     }
 }

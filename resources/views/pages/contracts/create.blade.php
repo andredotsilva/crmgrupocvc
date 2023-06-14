@@ -1016,8 +1016,8 @@
                                     <div class="sm:col-span-2">
                                         <div class="mt-2">
                                             <input type="file" class="filepond" name="filepond" multiple
-                                                data-allow-reorder="true" data-max-file-size="3MB"
-                                                data-max-files="5">
+                                                data-allow-reorder="true" data-max-file-size="10MB"
+                                                data-max-files="10" credits="false">
                                         </div>
                                     </div>
                                 </div>

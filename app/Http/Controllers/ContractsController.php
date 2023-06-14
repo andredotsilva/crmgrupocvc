@@ -129,7 +129,7 @@ class ContractsController extends Controller
 
         $meter = new Meter();
         $meter->cpe = $request->cpe;
-        $meter->power = $request->$this->formatarNumero($request->power);
+        $meter->power = $this->formatarNumero($request->power);
         $meter->nif = $request->nif;
         $meter->tariff_id = $request->tariff_id;
         $meter->flat = $request->flat;
@@ -254,7 +254,7 @@ class ContractsController extends Controller
                 $file->contract_id = $contract->id;
                 $file->filename = $temporaryImage->filename;
                 $file->original_name = 'as';
-                $file->size = 'dsd';
+                // $file->size = 'dsd';
                 $file->mime_type = 'dssd';
                 $file->path = $temporaryImage->folder . '/' . $temporaryImage->filename;
 
