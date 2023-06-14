@@ -14,6 +14,16 @@
 
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+
 </head>
 
 <body class="font-sans antialiased">
@@ -34,7 +44,8 @@
             {{ $slot }}
         </main>
 
-        <footer class="w-full h-8 bg-white
+        <footer
+            class="w-full h-8 bg-white
             fixed left-0 bottom-0
             flex justify-center items-center
             text-sm text-gray-500 dark:bg-gray-700 dark:text-blue-400
