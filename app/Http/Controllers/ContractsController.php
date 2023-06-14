@@ -129,7 +129,7 @@ class ContractsController extends Controller
 
         $meter = new Meter();
         $meter->cpe = $request->cpe;
-        $meter->power = $request->power;
+        $meter->power = $request->$this->formatarNumero($request->power);
         $meter->nif = $request->nif;
         $meter->tariff_id = $request->tariff_id;
         $meter->flat = $request->flat;
