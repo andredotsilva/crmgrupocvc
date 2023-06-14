@@ -16,6 +16,12 @@ return new class extends Migration
             $table->date('cvc_payment_date')->nullable();
             $table->date('administrator_payment_date')->nullable();
             $table->date('commercial_payment_date')->nullable();
+            $table->integer('refund_cvc_paid_amount')->nullable();
+            $table->integer('refund_administrator_paid_amount')->nullable();
+            $table->integer('refund_commercial_paid_amount')->nullable();
+            $table->date('refund_cvc_payment_date')->nullable();
+            $table->date('refund_administrator_payment_date')->nullable();
+            $table->date('refund_commercial_payment_date')->nullable();
             $table->timestamps();
         });
     }

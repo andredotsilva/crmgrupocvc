@@ -10,6 +10,8 @@ use App\Models\Commission;
 use App\Models\DocumentationStatus;
 use App\Models\File;
 use App\Models\Meter;
+use App\Models\MonthlyCommission;
+use App\Models\Note;
 use App\Models\User;
 use App\Models\Contract;
 use App\Models\District;
@@ -135,6 +137,7 @@ class ContractsController extends Controller
         $meter->standard = $request->standard;
         $meter->off_peak = $request->off_peak;
         $meter->super_off_peak = $request->super_off_peak;
+        $meter->gas = $request->gas;
 
         $meter->save();
 
@@ -212,6 +215,34 @@ class ContractsController extends Controller
         $mailingAddress->save();
 
 
+        $monthlyComission = new MonthlyCommission();
+
+        $monthlyComission->amount_01_12 = $request->amount_01_12;
+        $monthlyComission->amount_02_12 = $request->amount_02_12;
+        $monthlyComission->amount_03_12 = $request->amount_03_12;
+        $monthlyComission->amount_04_12 = $request->amount_04_12;
+        $monthlyComission->amount_05_12 = $request->amount_05_12;
+        $monthlyComission->amount_06_12 = $request->amount_06_12;
+        $monthlyComission->amount_07_12 = $request->amount_07_12;
+        $monthlyComission->amount_08_12 = $request->amount_08_12;
+        $monthlyComission->amount_09_12 = $request->amount_09_12;
+        $monthlyComission->amount_10_12 = $request->amount_10_12;
+        $monthlyComission->amount_11_12 = $request->amount_11_12;
+        $monthlyComission->amount_12_12 = $request->amount_12_12;
+
+        $monthlyComission->contract_id = $contract->id;
+
+        $monthlyComission->save();
+
+
+        $note = new Note();
+
+        $note->text = $request->text;
+        $note->contract_id = $contract->id;
+        $note->back_officer_id = auth()->user()->id;
+
+        $note->save();
+
         $temporaryImages = TemporaryFile::where('upload_by', auth()->id())->get();
 
         if ($request->filepond) {
@@ -233,7 +264,6 @@ class ContractsController extends Controller
                 $temporaryImage->delete();
             }
         }
-
         return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
     }
 

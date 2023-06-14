@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('standard')->nullable();
             $table->float('off_peak')->nullable();
             $table->float('super_off_peak')->nullable();
+            $table->smallInteger('gas')->nullable();
             $table->timestamps();
         });
     }

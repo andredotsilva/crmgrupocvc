@@ -16,8 +16,8 @@ return new class extends Migration
 
             for ($i = 1; $i <= 12; $i++) {
                 $columnIndex = sprintf('%02d', $i);
-                $table->integer($columnIndex . '_12_amount')->nullable();
-                $table->date($columnIndex . '_12_date')->nullable();
+                $table->integer('amount_' . $columnIndex . '_12')->nullable();
+                $table->date('date_' . $columnIndex . '_12')->nullable();
             }
 
             $table->foreignUlid('contract_id')->nullable()->references('id')->on('contracts');

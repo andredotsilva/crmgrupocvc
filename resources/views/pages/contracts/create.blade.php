@@ -355,16 +355,25 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="power"
+                                            {{-- <label for="power"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Potência/Escalão</label>
                                             <div class="mt-2">
                                                 <input type="text" name="power" id="power"
                                                     autocomplete="power" value="{{ old('power') }}"
-                                                    class="form-control @error('power') is-invalid @enderror block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                                    class="form-control @error('power') is-invalid @enderror format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    placeholder="0,00" oninput="formatarNumero(this)">
+                                            </div> --}}
+                                            <div class="sm:col-span-2">
+                                                <label for="power"
+                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+                                                    Potência/Escalão
+                                                </label>
+                                                <div class="mt-2">
+                                                    <input type="text" name="power" id="power"
+                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        placeholder="0,00" oninput="formatarNumero(this)">
+                                                </div>
                                             </div>
-                                            {{-- @error('power')
-                                                <div class="alert alert-danger">{{ json_decode($message) }}</div>
-                                            @enderror --}}
                                             @error('power')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -424,29 +433,34 @@
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="super_off_peak"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Gás</label>
-                                            <div class="flex">
-                                                <label class="inline-flex items-center mr-6">
-                                                    <input type="checkbox" class="form-checkbox">
+                                        <div class="form-group">
+                                            <label for="radio-group" class="text-gray-700">Gás:</label>
+                                            <div class="mt-2 flex space-x-4">
+                                                <label class="inline-flex items-center">
+                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                        name="gas" value="1">
                                                     <span class="ml-2">1</span>
                                                 </label>
-                                                <label class="inline-flex items-center mr-6">
-                                                    <input type="checkbox" class="form-checkbox">
+                                                <label class="inline-flex items-center">
+                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                        name="gas" value="2">
                                                     <span class="ml-2">2</span>
                                                 </label>
-                                                <label class="inline-flex items-center mr-6">
-                                                    <input type="checkbox" class="form-checkbox">
+                                                <label class="inline-flex items-center">
+                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                        name="gas" value="3">
                                                     <span class="ml-2">3</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="form-checkbox">
+                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                        name="gas" value="4">
                                                     <span class="ml-2">4</span>
                                                 </label>
                                             </div>
-
                                         </div>
+
+
+
                                     </div>
                                 </div>
                                 <!--END Consumos-->
@@ -903,9 +917,9 @@
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Valor Pago ao CVC</label>
                                                 <div class="mt-2">
-                                                    <input type="nif" name="cvc_paid_amount" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
+                                                    <input type="text" name="cvc_paid_amount" id="cvc_paid_amount"
+                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        placeholder="0,00" oninput="formatarNumero(this)">
                                                 </div>
                                             </div>
                                             <div class="sm:col-span-2">
@@ -938,45 +952,7 @@
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
                                                 </div>
                                             </div>
-                                            <script>
-                                                function formatarNumero(input) {
-                                                    let numero = input.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos, exceto vírgula
-                                                    let partes = numero.split(','); // Separa a parte inteira da parte decimal
 
-                                                    // Remove todos os espaços da parte inteira
-                                                    partes[0] = partes[0].replace(/\s/g, '');
-
-                                                    // Formata a parte inteira com espaços como separador de milhares
-                                                    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-
-                                                    // Limita a parte decimal a dois dígitos
-                                                    if (partes.length > 1) {
-                                                        partes[1] = partes[1] ? partes[1].slice(0, 2) : ''; // Verifica se há parte decimal
-                                                    }
-
-                                                    // Atualiza o valor do input com o número formatado
-                                                    input.value = partes.join(',') + (partes.length > 1 ? ',' : '');
-                                                }
-
-                                                // Adiciona evento para limitar o número de vírgulas nos campos "Valor Pago ao Administrador" e "Valor Pago ao Comercial"
-                                                document.getElementById('administrator_paid_amount').addEventListener('input', function() {
-                                                    let partes = this.value.split(',');
-
-                                                    if (partes.length > 2) {
-                                                        partes.splice(2);
-                                                        this.value = partes.join(',');
-                                                    }
-                                                });
-
-                                                document.getElementById('commercial_paid_amount').addEventListener('input', function() {
-                                                    let partes = this.value.split(',');
-
-                                                    if (partes.length > 2) {
-                                                        partes.splice(2);
-                                                        this.value = partes.join(',');
-                                                    }
-                                                });
-                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -989,7 +965,7 @@
                                             <label for="message"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
                                             <div class="mt-2">
-                                                <textarea id="message" rows="4"
+                                                <textarea id="message" rows="4" name="text"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500"
                                                     placeholder=""></textarea>
                                             </div>
@@ -997,110 +973,38 @@
                                         <!-- Adicione mais elementos aqui, se necessário -->
                                     </div>
                                 </div>
-
-
-
                                 <!--comissões mensais-->
+                                @php
+                                    $values = [
+                                        '01_12' => 'amount_01_12',
+                                        '02_12' => 'amount_02_12',
+                                        '03_12' => 'amount_03_12',
+                                        '04_12' => 'amount_04_12',
+                                        '05_12' => 'amount_05_12',
+                                        '06_12' => 'amount_06_12',
+                                        '07_12' => 'amount_07_12',
+                                        '08_12' => 'amount_08_12',
+                                        '09_12' => 'amount_09_12',
+                                        '10_12' => 'amount_10_12',
+                                        '11_12' => 'amount_11_12',
+                                        '12_12' => 'amount_12_12',
+                                    ];
+                                @endphp
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="comissoesmensais">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">1_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                        @foreach ($values as $label => $name)
+                                            <div class="sm:col-span-1">
+                                                <label for="{{ $name }}"
+                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $label }}</label>
+                                                <div class="mt-2">
+                                                    <input type="number" name="{{ $name }}"
+                                                        id="{{ $name }}"
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">2_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">3_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">4_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">5_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">6_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">7_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">8_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">9_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">10_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">11_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-1">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">12_12</label>
-                                            <div class="mt-2">
-                                                <input type="" name="" id="" autocomplete=""
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <!--END comissões mensais-->
@@ -1134,20 +1038,62 @@
 </x-app-layout>
 
 <script>
-    function validateNIF(input) {
-        // Remover caracteres especiais (espaços, traços, pontos)
-        var nif = input.replace(/[\s\-.]/g, '');
+    function formatarNumero(input) {
+        let numero = input.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos, exceto vírgula
+        let partes = numero.split(','); // Separa a parte inteira da parte decimal
 
-        // Verificar se restaram 9 dígitos
-        if (nif.length !== 9) {
-            return false;
+        // Remove todos os espaços da parte inteira
+        partes[0] = partes[0].replace(/\s/g, '');
+
+        // Formata a parte inteira com espaços como separador de milhares
+        partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+        // Limita a parte decimal a dois dígitos
+        if (partes.length > 1) {
+            partes[1] = partes[1] ? partes[1].slice(0, 2) : ''; // Verifica se há parte decimal
         }
 
-        // Validar os 9 dígitos restantes
-        return /^\d{9}$/.test(nif);
+        // Atualiza o valor do input com o número formatado
+        input.value = partes.join(',') + (partes.length > 1 ? ',' : '');
     }
-</script>
 
+    // Adiciona evento para limitar o número de vírgulas nos campos "Valor Pago ao Administrador" e "Valor Pago ao Comercial"
+    document.getElementById('administrator_paid_amount').addEventListener('input', function() {
+        let partes = this.value.split(',');
+
+        if (partes.length > 2) {
+            partes.splice(2);
+            this.value = partes.join(',');
+        }
+    });
+
+    document.getElementById('commercial_paid_amount').addEventListener('input', function() {
+        let partes = this.value.split(',');
+
+        if (partes.length > 2) {
+            partes.splice(2);
+            this.value = partes.join(',');
+        }
+    });
+
+    document.getElementById('cvc_paid_amount').addEventListener('input', function() {
+        let partes = this.value.split(',');
+
+        if (partes.length > 2) {
+            partes.splice(2);
+            this.value = partes.join(',');
+        }
+    });
+
+    document.getElementById('power').addEventListener('input', function() {
+        let partes = this.value.split(',');
+
+        if (partes.length > 2) {
+            partes.splice(2);
+            this.value = partes.join(',');
+        }
+    });
+</script>
 
 <script>
     document.getElementById('district_id').addEventListener('change', function() {

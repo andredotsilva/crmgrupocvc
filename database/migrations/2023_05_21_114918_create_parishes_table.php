@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('parishes', function (Blueprint $table) {
             $table->id();
-            $table->integer('code')->nullable();
+            $table->string('code', 2)->nullable();
             $table->string('title')->nullable();
 
             $table->foreignId('municipality_id')->nullable()->references('id')->on('municipalities');

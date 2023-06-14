@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
         ]);
 
         // $role = Role::where('title', 'Cliente')->first();
-        $role = Role::where('id', 4)->first();
+        $role = Role::where('id', 3)->first();
 
         $user->roles()->attach($role);
 

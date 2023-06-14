@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->foreignUlid('contract_id')->nullable()->references('id')->on('contracts');
+            $table->foreignUlid('contract_id')->references('id')->on('contracts');
             $table->string('filename');
             $table->string('original_name');
             $table->string('path');
-            $table->string('size');
             $table->string('mime_type');
             $table->timestamps();
         });
