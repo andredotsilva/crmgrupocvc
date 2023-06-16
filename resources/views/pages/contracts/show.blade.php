@@ -103,9 +103,9 @@
                     <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                         <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Cliente / Administrador</div>
                         <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->clientType_id)
+                            @if ($contract->client_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->clientType->title }}
+                                    {{ $contract->client->name }}
                                 </h4>
                             @endif
                         </div>
@@ -113,9 +113,9 @@
                     <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                         <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Administração de Condominio</div>
                         <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->clientType_id)
+                            @if ($contract->client_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->clientType->title }}
+                                    {{ $contract->client->name }}
                                 </h4>
                             @endif
                         </div>
