@@ -58,6 +58,31 @@ class Contract extends Model
         return $this->hasMany(File::class);
     }
 
+    public function backofficer()
+    {
+        return $this->belongsTo(User::class, 'back_officer_id');
+    }
+
+    public function commercialId() {
+        return $this->belongsTo(User::class, 'commercial_id');
+    }
+
+    public function commercialName() {
+        return $this->belongsTo(User::class, 'commercial_name');
+    }
+
+    public function service() {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
+    public function solutions() {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function clientType() {
+        return $this->belongsTo(ClientType::class, 'clientType_id');
+    }
+
     protected static function booted(): void
     {
         if (auth()->check() && auth()->user()->is_client) {

@@ -57,3 +57,6 @@ Route::apiResource('/municipality', MunicipalityController::class);
 Route::apiResource('/parish', ParishController::class);
 
 require __DIR__ . '/auth.php';
+
+
+Route::get('/contracts/{id}', 'ContractController@show')->name('contracts.show');

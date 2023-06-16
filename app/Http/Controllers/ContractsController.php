@@ -280,6 +280,12 @@ class ContractsController extends Controller
 
     public function show($id)
     {
+        $contract = Contract::with('backofficer','commercialId', 'commercialName', 'service', 'solutions', 'clientType')->findOrFail($id);
+        return view('pages.contracts.show', compact('contract'));
+    }
+
+    /*public function show($id)
+    {
 
         $contract = Contract::with('files')->where('id', $id)->first();
 
@@ -304,7 +310,7 @@ class ContractsController extends Controller
         return view('pages.contracts.teste', [
             'contract' => $contract,
         ]);
-    }
+    }*/
 
     public function download($id)
     {
