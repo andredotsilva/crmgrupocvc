@@ -121,9 +121,17 @@ class ContractsController extends Controller
         $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
         $commission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
 
+        $commission->refund_cvc_paid_ammount = $this->formatarNumero($request->refund_cvc_paid_ammount);
+        $commission->refund_administrator_paid_ammount = $this->formatarNumero($refund_administrator_paid_ammount);
+        $commission->refund_commercial_paid_ammount = $this->formatarNumero($request->refund_commercial_paid_ammount);
+
         $commission->cvc_payment_date = $request->cvc_payment_date;
         $commission->administrator_payment_date = $request->administrator_payment_date;
         $commission->commercial_payment_date = $request->commercial_payment_date;
+
+        $commission->refund_commercial_payment_date = $request->refund_commercial_payment_date;
+        $commission->refund_adminstrator_payment_date = $request->refund_adminstrator_payment_date;
+        $commission->refund_cvc_payment_date = $request->refund_cvc_payment_date;
 
         $commission->save();
 
@@ -280,7 +288,9 @@ class ContractsController extends Controller
 
     public function show($id)
     {
-        $contract = Contract::with('backofficer','commercialId', 'commercialName', 'service', 'solutions', 'clientType')->findOrFail($id);
+        $contract = Contract::with('backofficer','commercialId', 'commercialName', 'service', 'solutions', 'clientType', 'provider', 
+            'documentation', 'archive', 'meter', 'nif', 'municipality', 'district', 'parish', 'invoiceType', 'commission', 'monthlyCommission',
+            'mailingAddress')->findOrFail($id);
         return view('pages.contracts.show', compact('contract'));
     }
 
