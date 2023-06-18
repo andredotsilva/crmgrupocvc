@@ -341,4 +341,10 @@ class ContractsController extends Controller
 
     //     return response($file, 200)->header('Content-Type', $type);
     // }
+
+    public function destroy($id) {
+        $contract = Contract::findOrFail($id);
+        $contract->delete();
+        return redirect()->route('contracts.index')->with('success', 'Contrato Apagado com sucesso!');
+    }
 }

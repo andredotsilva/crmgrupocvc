@@ -60,3 +60,4 @@ require __DIR__ . '/auth.php';
 
 
 Route::get('/contracts/{id}', 'ContractController@show')->name('contracts.show');
+Route::delete('/contracts/{id}', 'ContractController@destroy')->name('contracts.destroy');

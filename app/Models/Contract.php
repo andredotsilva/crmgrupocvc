@@ -137,7 +137,7 @@ class Contract extends Model
     }
 
     public function mailingAddress() {
-        return $this->belongsTo(Client::class, 'mailing_address_id');
+        return $this->belongsTo(MailingAddress::class, 'mailing_address_id');
     }
 
 
