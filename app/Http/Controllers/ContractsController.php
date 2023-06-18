@@ -47,7 +47,9 @@ class ContractsController extends Controller
                     $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
                 });
             })
-            ->paginate(10);
+            ->paginate(20);
+
+        $contractsCount = Contract::count();
 
         $contractsExpiringCount = 0;
         foreach ($contracts as $contract) {
@@ -68,7 +70,7 @@ class ContractsController extends Controller
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
-            'contractsCount' => $contractsExpiringCount
+            'contractsCount' => $contractsCount
         ]);
     }
 
@@ -261,7 +263,9 @@ class ContractsController extends Controller
             'commercialId',
             'commercialName',
             'service',
-            'client.mailingAddress',
+            'client.mailingAddress.district',
+            'client.mailingAddress.municipality',
+            'client.mailingAddress.parish',
             'solutions',
             'clientType',
             'provider',
@@ -284,6 +288,7 @@ class ContractsController extends Controller
     {
 
         $contract = Contract::with(['files', 'meter', 'monthlyCommission'])->where('id', $id)->first();
+        $contractsCount = Contract::count();
 
         $tariffs = Tariff::all();
         $districts = District::all();
@@ -301,24 +306,6 @@ class ContractsController extends Controller
         $documentationStatus = DocumentationStatus::all();
         $invoiceTypes = InvoiceType::all();
 
-        // $file = File::where('contract_id', '01h2qc2tvbwmqmkjnpxfq78b0e')->first();
-        // return Storage::download('files/' . $file->path);
-
-        // $files = Storage::allFiles('/files');
-        // d
-
-        // $filepath = storage_path($file->path);
-        // return response()->file($files);
-
-        // dd($contract->files[0]);
-        // if (Storage::existe($f) {
-        //     dd('ok');
-        // }
-
-
-        // $path = Storage::disk('local')->path('files/6485fac1f3101-1686502081/' . $file->filename);
-        // $content = file_get_contents($path);
-
         return view('pages.contracts.edit', [
             'contract' => $contract,
             'tariffs' => $tariffs,
@@ -330,6 +317,7 @@ class ContractsController extends Controller
             'services' => $services,
             'categories' => $categories,
             'plans' => $plans,
+            'contractsCount' => $contractsCount,
             'documentationStatus' => $documentationStatus,
             'invoiceTypes' => $invoiceTypes,
         ]);
@@ -389,7 +377,8 @@ class ContractsController extends Controller
     //     return response($file, 200)->header('Content-Type', $type);
     // }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $contract = Contract::findOrFail($id);
         $contract->delete();
         return redirect()->route('contracts.index')->with('success', 'Contrato Apagado com sucesso!');

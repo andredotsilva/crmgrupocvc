@@ -151,7 +151,7 @@
                                                 Office</label>
                                             <div class="mt-2">
                                                 <select name="back_officer_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 placeholder:text-gray-400 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option value="">Escolha</option>
                                                     @foreach ($backofficers as $backofficer)
                                                         <option value="{{ $backofficer->id }}"
@@ -180,7 +180,7 @@
                                                 Comercial</label>
                                             <div class="mt-2">
                                                 <select name="commercial_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option value="">Escolha</option>
                                                     @foreach ($commercials as $commercial)
                                                         <option value="{{ $commercial->id }}"
@@ -198,7 +198,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
                                             <div class="mt-2">
                                                 <select id="service_id" name="service_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($services as $service)
                                                         <option value="{{ $service->id }}">
                                                             {{ $service->title }}</option>
@@ -211,7 +211,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Soluções</label>
                                             <div class="mt-2">
                                                 <select id="category_id" name="category_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">
                                                             {{ $category->title }}</option>
@@ -226,7 +226,7 @@
                                             <div class="mt-2">
                                                 <select id="client_type_id" name="client_type_id"
                                                     autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($clientTypes as $clientType)
                                                         <option value="{{ $clientType->id }}">
                                                             {{ $clientType->title }}
@@ -268,7 +268,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
                                             <div class="mt-2">
                                                 <select id="provider" name="provider_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($providers as $provider)
                                                         <option value="{{ $provider->id }}"> {{ $provider->acronym }}
                                                             -
@@ -279,10 +279,10 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="plan_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Campanha</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Campanha</label>
                                             <div class="mt-2">
                                                 <select id="plan_id" name="plan_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($plans as $plan)
                                                         <option value="{{ $plan->id }}"> {{ $plan->acronym }} -
                                                             {{ $plan->title }}</option>
@@ -295,7 +295,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
                                             <div class="mt-2">
                                                 <select id="documentation_status_id" name="documentation_status_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($documentationStatus as $documentationStatus)
                                                         <option value="{{ $documentationStatus->id }}">
                                                             {{ $documentationStatus->title }}</option>
@@ -323,10 +323,10 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
                                             <label for="tariff"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Tenção</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Tensão</label>
                                             <div class="mt-2">
                                                 <select id="tariff" name="tariff_id" autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($tariffs as $tariff)
                                                         <option value="{{ $tariff->id }}">{{ $tariff->title }}
                                                         </option>
@@ -439,7 +439,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="radio-group" class="text-gray-700">Gás:</label>
+                                            <label for="radio-group"
+                                                class="text-gray-700 dark:text-gray-200">Gás:</label>
                                             <div class="mt-2 flex space-x-4">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio text-indigo-600"
@@ -451,19 +452,19 @@
                                                     <input type="radio" class="form-radio text-indigo-600"
                                                         name="gas" value="2"
                                                         {{ old('gas') == '2' ? 'checked' : '' }}>
-                                                    <span class="ml-2">2</span>
+                                                    <span class="ml-2 dark:text-gray-200">2</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio text-indigo-600"
                                                         name="gas" value="3"
                                                         {{ old('gas') == '3' ? 'checked' : '' }}>
-                                                    <span class="ml-2">3</span>
+                                                    <span class="ml-2 dark:text-gray-200">3</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio text-indigo-600"
                                                         name="gas" value="4"
                                                         {{ old('gas') == '4' ? 'checked' : '' }}>
-                                                    <span class="ml-2">4</span>
+                                                    <span class="ml-2 dark:text-gray-200">4</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -568,7 +569,7 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="post_code"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Codigo
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
                                                 Postal</label>
                                             <div class="mt-2">
                                                 <input type="text" name="post_code" id="post_code"
@@ -589,11 +590,11 @@
 
                                         <div class="sm:col-span-2">
                                             <label for="district_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Distrito</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
                                             <div class="mt-2">
                                                 <select id="district_id" name="district_id"
                                                     autocomplete="district_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option selected>Escolher Distrito</option>
                                                     @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}">{{ $district->title }}
@@ -605,11 +606,11 @@
 
                                         <div class="sm:col-span-2">
                                             <label for="municipality_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Concelho</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
                                             <div class="mt-2">
                                                 <select id="municipality_id" name="municipality_id"
                                                     autocomplete="municipality_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option selected>Escolher Concelho</option>
                                                 </select>
                                             </div>
@@ -617,10 +618,10 @@
 
                                         <div class="sm:col-span-2">
                                             <label for="parish_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Freguesia</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
                                             <div class="mt-2">
                                                 <select id="parish_id" name="parish_id" autocomplete="parish_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option value="" selected>Escolher Freguesia</option>
                                                 </select>
                                             </div>
@@ -647,10 +648,10 @@
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <label for="invoice_type_id"
-                                                    class="block text-sm font-medium leading-6 text-gray-900">Fatura</label>
+                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Fatura</label>
                                                 <div class="mt-2">
                                                     <select id="invoice_type_id" name="invoice_type_id"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                         @foreach ($invoiceTypes as $invoiceType)
                                                             <option value="{{ $invoiceType->id }}">
                                                                 {{ $invoiceType->title }}
@@ -744,10 +745,10 @@
 
                                         <div class="sm:col-span-2">
                                             <label for="mail_district_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Distrito</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
                                             <div class="mt-2">
                                                 <select id="mail_district_id" name="mail_district_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option selected>Escolher Distrito</option>
                                                     @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}">{{ $district->title }}
@@ -759,11 +760,11 @@
 
                                         <div class="sm:col-span-2">
                                             <label for="mail_municipality_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Concelho</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
                                             <div class="mt-2">
                                                 <select id="mail_municipality_id" name="mail_municipality_id"
                                                     autocomplete="municipality_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option selected>Escolher Concelho</option>
                                                 </select>
                                             </div>
@@ -771,10 +772,10 @@
 
                                         <div class="sm:col-span-2">
                                             <label for="mail_parish_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Freguesia</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
                                             <div class="mt-2">
                                                 <select id="mail_parish_id" name="mail_parish_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option selected>Escolher Freguesia</option>
                                                 </select>
                                             </div>

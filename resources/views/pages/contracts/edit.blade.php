@@ -1044,7 +1044,7 @@
                                                 <div class="mt-2">
                                                     <input type="number" name="{{ $name }}"
                                                         id="{{ $name }}"
-                                                        value="{{ $contract->monthlyCommission[$name] / 100 }}"
+                                                        value="{{ $contract->commission->administrator_paid_amount ?? $contract->monthlyCommission[$name] / 100 }}"
                                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                                 </div>
                                             </div>
@@ -1052,6 +1052,31 @@
                                     </div>
                                 </div>
                                 <!--END comissões mensais-->
+
+                                <div class="gap-x-6 gap-y-8 mt-5 bg-white p-6 rounded-2xl dark:bg-gray-800">
+                                    <h1 class="text-lg pb-4 dark:text-gray-200">Documentos deste Contrato</h1>
+                                    <div class="p-3">
+                                        @if ($contract->files->count() > 0)
+                                            <div class="grid grid-cols-6 gap-3">
+                                                @foreach ($contract->files as $file)
+                                                    <a href="{{ route('download', ['id' => $file->id]) }}"
+                                                        class="bg-gray-200 p-4 flex flex-col justify-center items-center rounded-sm">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                                            height="32" fill="#000000" viewBox="0 0 256 256">
+                                                            <path
+                                                                d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z">
+                                                            </path>
+                                                        </svg>
+                                                        {{ $file->filename }}
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <p class="text-grey-200">Nenhum arquivo associado a este contrato.</p>
+                                        @endif
+                                    </div>
+                                </div>
+
 
                                 <!--Ficheiros-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"

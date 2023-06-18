@@ -40,4 +40,9 @@ class Client extends Model
     {
         return $this->belongsTo(Municipality::class, 'municipality_id');
     }
+
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class, 'parish_id');
+    }
 }
