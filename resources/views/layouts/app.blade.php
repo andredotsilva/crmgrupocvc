@@ -27,6 +27,17 @@
 </head>
 
 <body class="font-sans antialiased">
+    <!--MODAL DELETE-->
+    <div id="deleteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-8 rounded shadow-lg">
+        <p>Are you sure you want to delete this contract?</p>
+        <div class="mt-4 flex justify-end">
+            <button id="cancelDelete" class="px-4 py-2 mr-2 bg-gray-300 rounded">Cancel</button>
+            <button id="confirmDelete" class="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
+        </div>
+        </div>
+    </div>
+  
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')
 
@@ -55,6 +66,27 @@
     </div>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const deleteButton = document.getElementById('deleteButton');
+          const deleteModal = document.getElementById('deleteModal');
+          const cancelDelete = document.getElementById('cancelDelete');
+          const confirmDelete = document.getElementById('confirmDelete');
+      
+          deleteButton.addEventListener('click', function () {
+            deleteModal.classList.remove('hidden');
+          });
+      
+          cancelDelete.addEventListener('click', function () {
+            deleteModal.classList.add('hidden');
+          });
+      
+          confirmDelete.addEventListener('click', function () {
+            deleteModal.classList.add('hidden');
+          });
+        });
+      </script>
 </body>
 
 </html>

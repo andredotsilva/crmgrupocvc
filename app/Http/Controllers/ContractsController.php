@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Requests\StoreContractRequest;
 use App\Models\Category;
 use App\Models\Client;
@@ -344,7 +346,14 @@ class ContractsController extends Controller
 
     public function destroy($id) {
         $contract = Contract::findOrFail($id);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        // dava erro por causa das chaves primaria e associações, solução by chatgpt (ver se é ok)
         $contract->delete();
         return redirect()->route('contracts.index')->with('success', 'Contrato Apagado com sucesso!');
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+        
     }
 }

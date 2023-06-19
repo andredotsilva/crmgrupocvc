@@ -133,7 +133,7 @@
                                             <form action="{{ route('contracts.destroy', ['id' => $contract->id]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button
+                                                <button id="deleteButton"
                                                 class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
