@@ -27,9 +27,9 @@ class StoreContractRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cae' => ['required'],
+            // 'cae' => ['required'],
             'email' => ['email', 'unique:users,email'],
-            'power' => ['required'],
+            // 'power' => ['required'],
 
         ];
     }

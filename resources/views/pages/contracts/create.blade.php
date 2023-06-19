@@ -151,7 +151,7 @@
                                                 Office</label>
                                             <div class="mt-2">
                                                 <select name="back_officer_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option value="">Escolha</option>
                                                     @foreach ($backofficers as $backofficer)
                                                         <option value="{{ $backofficer->id }}"
@@ -161,6 +161,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+
                                         </div>
 
                                         <div class="sm:col-span-2">
@@ -179,7 +180,7 @@
                                                 Comercial</label>
                                             <div class="mt-2">
                                                 <select name="commercial_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option value="">Escolha</option>
                                                     @foreach ($commercials as $commercial)
                                                         <option value="{{ $commercial->id }}"
@@ -197,7 +198,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
                                             <div class="mt-2">
                                                 <select id="service_id" name="service_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($services as $service)
                                                         <option value="{{ $service->id }}">
                                                             {{ $service->title }}</option>
@@ -210,7 +211,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Soluções</label>
                                             <div class="mt-2">
                                                 <select id="category_id" name="category_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}">
                                                             {{ $category->title }}</option>
@@ -225,7 +226,7 @@
                                             <div class="mt-2">
                                                 <select id="client_type_id" name="client_type_id"
                                                     autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($clientTypes as $clientType)
                                                         <option value="{{ $clientType->id }}">
                                                             {{ $clientType->title }}
@@ -267,7 +268,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
                                             <div class="mt-2">
                                                 <select id="provider" name="provider_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($providers as $provider)
                                                         <option value="{{ $provider->id }}"> {{ $provider->acronym }}
                                                             -
@@ -278,10 +279,10 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="plan_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Campanha</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Campanha</label>
                                             <div class="mt-2">
                                                 <select id="plan_id" name="plan_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($plans as $plan)
                                                         <option value="{{ $plan->id }}"> {{ $plan->acronym }} -
                                                             {{ $plan->title }}</option>
@@ -294,7 +295,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
                                             <div class="mt-2">
                                                 <select id="documentation_status_id" name="documentation_status_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($documentationStatus as $documentationStatus)
                                                         <option value="{{ $documentationStatus->id }}">
                                                             {{ $documentationStatus->title }}</option>
@@ -308,7 +309,7 @@
                                                 do Cliente</label>
                                             <div class="mt-2">
                                                 <input type="text" name="archive" id="archive"
-                                                    autocomplete="archive"
+                                                    autocomplete="archive" value="{{ old('archive') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -322,10 +323,10 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
                                             <label for="tariff"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Tenção</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Tensão</label>
                                             <div class="mt-2">
                                                 <select id="tariff" name="tariff_id" autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     @foreach ($tariffs as $tariff)
                                                         <option value="{{ $tariff->id }}">{{ $tariff->title }}
                                                         </option>
@@ -338,8 +339,9 @@
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIF</label>
                                             <div class="mt-2">
-                                                <input type="nif" name="nif" id="nif"
+                                                <input type="number" name="nif" id="nif"
                                                     autocomplete="nif" oninput="validateNIF(this)"
+                                                    value="{{ old('nif') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
 
@@ -363,7 +365,7 @@
                                                     class="form-control @error('power') is-invalid @enderror format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                     placeholder="0,00" oninput="formatarNumero(this)">
                                             </div> --}}
-                                            <div class="sm:col-span-2">
+                                            {{-- <div class="sm:col-span-2">
                                                 <label for="power"
                                                     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
                                                     Potência/Escalão
@@ -373,7 +375,9 @@
                                                         class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                         placeholder="0,00" oninput="formatarNumero(this)">
                                                 </div>
-                                            </div>
+                                            </div> --}}
+                                            <x-input-price title="Potência/Escalão" name="power" type="power" />
+
                                             @error('power')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -393,7 +397,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Simples</label>
                                             <div class="mt-2">
                                                 <input type="number" name="flat" id="flat"
-                                                    autocomplete="flat"
+                                                    value="{{ old('flat') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -402,7 +406,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Pontas</label>
                                             <div class="mt-2">
                                                 <input type="number" name="peak" id="peak"
-                                                    autocomplete="peak"
+                                                    value="{{ old('peak') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -411,7 +415,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Cheias</label>
                                             <div class="mt-2">
                                                 <input type="number" name="standard" id="standard"
-                                                    autocomplete="standard"
+                                                    value="{{ old('standard') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -420,6 +424,7 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Vazio</label>
                                             <div class="mt-2">
                                                 <input type="number" name="off_peak" id="off_peak"
+                                                    value="{{ old('off_peak') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -429,38 +434,40 @@
                                                 Vazio</label>
                                             <div class="mt-2">
                                                 <input type="number" name="super_off_peak" id="super_off_peak"
-                                                    autocomplete="super_off-peak"
+                                                    value="{{ old('super_off_peak') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="radio-group" class="text-gray-700">Gás:</label>
+                                            <label for="radio-group"
+                                                class="text-gray-700 dark:text-gray-200">Gás:</label>
                                             <div class="mt-2 flex space-x-4">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="1">
-                                                    <span class="ml-2">1</span>
+                                                        name="gas" value="1"
+                                                        {{ old('gas') == '1' ? 'checked' : '' }}>
+                                                    <span class="ml-2 dark:text-gray-200">1</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="2">
-                                                    <span class="ml-2">2</span>
+                                                        name="gas" value="2"
+                                                        {{ old('gas') == '2' ? 'checked' : '' }}>
+                                                    <span class="ml-2 dark:text-gray-200">2</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="3">
-                                                    <span class="ml-2">3</span>
+                                                        name="gas" value="3"
+                                                        {{ old('gas') == '3' ? 'checked' : '' }}>
+                                                    <span class="ml-2 dark:text-gray-200">3</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="4">
-                                                    <span class="ml-2">4</span>
+                                                        name="gas" value="4"
+                                                        {{ old('gas') == '4' ? 'checked' : '' }}>
+                                                    <span class="ml-2 dark:text-gray-200">4</span>
                                                 </label>
                                             </div>
                                         </div>
-
-
-
                                     </div>
                                 </div>
                                 <!--END Consumos-->
@@ -471,31 +478,35 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Datas de contrato</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <label for="inserted_at"
+                                            {{-- <label for="inserted_at"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Inserido</label>
                                             <div class="mt-2">
                                                 <input type="date" name="inserted_at" id="inserted_at"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            </div> --}}
+                                            <x-input-date title="Inserido" name="inserted_at" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="signed_at"
+                                            {{-- <label for="signed_at"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Assinado</label>
                                             <div class="mt-2">
                                                 <input type="date" name="signed_at" id="signed_at"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            </div> --}}
+                                            <x-input-date title="Assinado" name="signed_at" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="effective_at"
+                                            {{-- <label for="effective_at"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Alta</label>
                                             <div class="mt-2">
                                                 <input type="date" name="effective_at" id="effective_at"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            </div> --}}
+                                            <x-input-date title="Alta" name="effective_at" />
+
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="renewal_at"
+                                            {{-- <label for="renewal_at"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Renovação</label>
                                             <div class="mt-2">
                                                 @php
@@ -504,7 +515,9 @@
                                                 <input type="date" name="renewal_at" id="renewal_at"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600"
                                                     value="{{ $renewalAt }}">
-                                            </div>
+                                            </div> --}}
+                                            <x-input-date title="Renovação" name="renewal_at" />
+
                                         </div>
 
                                     </div>
@@ -550,21 +563,18 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Andar/Fração</label>
                                             <div class="mt-2">
                                                 <input type="text" name="floor" id="floor"
-                                                    autocomplete="floor"
+                                                    value="{{ old('floor') }}"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="post_code"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Codigo
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
                                                 Postal</label>
                                             <div class="mt-2">
-                                                <select id="post_code" name="post_code" autocomplete="post_code"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    <option>4000-011</option>
-                                                    <option>4000-211</option>
-                                                    <option>4000-445</option>
-                                                </select>
+                                                <input type="text" name="post_code" id="post_code"
+                                                    value="{{ old('post_code') }}"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
@@ -580,38 +590,38 @@
 
                                         <div class="sm:col-span-2">
                                             <label for="district_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Distrito</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
                                             <div class="mt-2">
                                                 <select id="district_id" name="district_id"
                                                     autocomplete="district_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option selected>Escolher Distrito</option>
                                                     @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}">{{ $district->title }}
                                                         </option>
                                                     @endforeach
-
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="sm:col-span-2">
                                             <label for="municipality_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Concelho</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
                                             <div class="mt-2">
                                                 <select id="municipality_id" name="municipality_id"
                                                     autocomplete="municipality_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    <option value="" selected>Escolher Concelho</option>
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option selected>Escolher Concelho</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="sm:col-span-2">
                                             <label for="parish_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Freguesia</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
                                             <div class="mt-2">
                                                 <select id="parish_id" name="parish_id" autocomplete="parish_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option value="" selected>Escolher Freguesia</option>
                                                 </select>
                                             </div>
@@ -638,10 +648,10 @@
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <label for="invoice_type_id"
-                                                    class="block text-sm font-medium leading-6 text-gray-900">Fatura</label>
+                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Fatura</label>
                                                 <div class="mt-2">
                                                     <select id="invoice_type_id" name="invoice_type_id"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
+                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                         @foreach ($invoiceTypes as $invoiceType)
                                                             <option value="{{ $invoiceType->id }}">
                                                                 {{ $invoiceType->title }}
@@ -671,13 +681,20 @@
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="nif"
+                                        <div class="sm:col-span-1">
+                                            <label for="floor"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Andar</label>
+                                            <div class="mt-2">
+                                                <input type="text" name="floor" id="floor"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                            </div>
+                                        </div>
+                                        <div class="sm:col-span-1">
+                                            <label for="door"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nº
                                                 Porta</label>
                                             <div class="mt-2">
-                                                <input type="nif" name="door" id="nif"
-                                                    autocomplete="nif"
+                                                <input type="text" name="door" id="door"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -727,32 +744,43 @@
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="mail_parish_id" id="nif"
-                                                    autocomplete="nif"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="mail_municipality_id" id="nif"
-                                                    autocomplete="nif"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="nif"
+                                            <label for="mail_district_id"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
                                             <div class="mt-2">
-                                                <input type="nif" name="mail_district_id" id="nif"
-                                                    autocomplete="nif"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+                                                <select id="mail_district_id" name="mail_district_id"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option selected>Escolher Distrito</option>
+                                                    @foreach ($districts as $district)
+                                                        <option value="{{ $district->id }}">{{ $district->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
+
+                                        <div class="sm:col-span-2">
+                                            <label for="mail_municipality_id"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
+                                            <div class="mt-2">
+                                                <select id="mail_municipality_id" name="mail_municipality_id"
+                                                    autocomplete="municipality_id"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option selected>Escolher Concelho</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="sm:col-span-2">
+                                            <label for="mail_parish_id"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
+                                            <div class="mt-2">
+                                                <select id="mail_parish_id" name="mail_parish_id"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option selected>Escolher Freguesia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                         <div class="sm:col-span-2">
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Email</label>
@@ -763,11 +791,11 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
+                                            <label for="phone_number"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
                                                 Telefónico</label>
                                             <div class="mt-2">
-                                                <input type="tel" name="phone_number" id="nif"
+                                                <input type="tel" name="phone_number" id="phone_number"
                                                     autocomplete="nif"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
@@ -793,22 +821,20 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
+                                            <label for="signatory_email"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Email
                                                 Assinatura</label>
                                             <div class="mt-2">
-                                                <input type="nif" name="signatory_email" id="nif"
-                                                    autocomplete="nif"
+                                                <input type="string" name="signatory_email" id="signatory_email"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
+                                            <label for="signatory_phone"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
                                                 Assinatura</label>
                                             <div class="mt-2">
-                                                <input type="nif" name="signatory_phone" id="nif"
-                                                    autocomplete="nif"
+                                                <input type="string" name="signatory_phone" id="signatory_phone"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
@@ -825,134 +851,58 @@
                                         <div>
                                             <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Valor Pago ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="administrator_paid_amount"
-                                                        id="administrator_paid_amount"
-                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        placeholder="0,00" oninput="formatarNumero(this)">
-                                                </div>
+                                                <x-input-price title="Valor Pago ao Administrador"
+                                                    name="administrator_paid_amount" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Pagamento ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title=" Data Pagamento ao Administrador"
+                                                    name="administrator_payment_date" />
+                                            </div>
+                                            <div class="sm:col-span-2 mt-5">
+                                                <x-input-price title="Devolução ao Administrador"
+                                                    name="refund_adminstrator_paid_amount" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Devolução ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
-                                            </div>
-                                            <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Devolução ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="administrator_payment_date"
-                                                        id="nif" autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Devolução ao Administrador"
+                                                    name="refund_administrator_payment_date" />
                                             </div>
                                         </div>
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões Comercial</h3>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Valor Pago ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="commercial_paid_amount"
-                                                        id="commercial_paid_amount"
-                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        placeholder="0,00" oninput="formatarNumero(this)">
-                                                </div>
+                                                <x-input-price title="Valor Pago ao Comercial"
+                                                    name="commercial_paid_amount" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Pagamento ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="commercial_payment_date"
-                                                        id="nif" autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Pagamento ao Comercial"
+                                                    name="commercial_payment_date" />
+                                            </div>
+                                            <div class="sm:col-span-2 mt-5">
+                                                <x-input-price title="Devolução ao Comercial"
+                                                    name="refund_commercial_paid_amount" />
+
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Devolução ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
-                                            </div>
-                                            <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Devolução ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Devolução ao Comercial"
+                                                    name="refund_commercial_payment_date" />
                                             </div>
                                         </div>
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Valor Pago ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="cvc_paid_amount" id="cvc_paid_amount"
-                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        placeholder="0,00" oninput="formatarNumero(this)">
-                                                </div>
+                                                <x-input-price title="Valor Pago ao CVC" name="cvc_paid_amount" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Pagamento ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="cvc_payment_date" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Pagamento ao CVC" name="cvc_payment_date" />
+                                            </div>
+                                            <div class="sm:col-span-2 mt-5">
+                                                <x-input-price title="Devolução ao CVC"
+                                                    name="refund_cvc_paid_amount" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Devolução ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Devolução ao CVC<"
+                                                    name="refund_cvc_payment_date" />
                                             </div>
-                                            <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Devolução ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -995,15 +945,7 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         @foreach ($values as $label => $name)
-                                            <div class="sm:col-span-1">
-                                                <label for="{{ $name }}"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $label }}</label>
-                                                <div class="mt-2">
-                                                    <input type="number" name="{{ $name }}"
-                                                        id="{{ $name }}"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                                </div>
-                                            </div>
+                                            <x-input-price title="{{ $label }}" name="{{ $name }}" />
                                         @endforeach
                                     </div>
                                 </div>
@@ -1036,64 +978,6 @@
         </div>
     </div>
 </x-app-layout>
-
-<script>
-    function formatarNumero(input) {
-        let numero = input.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos, exceto vírgula
-        let partes = numero.split(','); // Separa a parte inteira da parte decimal
-
-        // Remove todos os espaços da parte inteira
-        partes[0] = partes[0].replace(/\s/g, '');
-
-        // Formata a parte inteira com espaços como separador de milhares
-        partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-
-        // Limita a parte decimal a dois dígitos
-        if (partes.length > 1) {
-            partes[1] = partes[1] ? partes[1].slice(0, 2) : ''; // Verifica se há parte decimal
-        }
-
-        // Atualiza o valor do input com o número formatado
-        input.value = partes.join(',') + (partes.length > 1 ? ',' : '');
-    }
-
-    // Adiciona evento para limitar o número de vírgulas nos campos "Valor Pago ao Administrador" e "Valor Pago ao Comercial"
-    document.getElementById('administrator_paid_amount').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-
-    document.getElementById('commercial_paid_amount').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-
-    document.getElementById('cvc_paid_amount').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-
-    document.getElementById('power').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-</script>
 
 <script>
     document.getElementById('district_id').addEventListener('change', function() {
@@ -1137,6 +1021,73 @@
         console.log(mparams);
 
         fetch(url + '?' + mparams)
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro na solicitação AJAX.');
+                }
+            })
+            .then(function(data) {
+                console.log(data);
+                $parish.innerHTML = '<option value="" selected>Escolher Freguesia</option>';
+
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var title = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = title;
+                        $parish.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    });
+</script>
+
+<script>
+    document.getElementById('mail_district_id').addEventListener('change', function() {
+        var state = document.getElementById('mail_municipality_id');
+        var url = "{{ route('municipality.index') }}";
+        var params = "district_id=" + encodeURIComponent(this.value);
+
+        fetch(url + '?' + params)
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro na solicitação AJAX.');
+                }
+            })
+            .then(function(data) {
+                state.innerHTML = '<option selected>Escolher Concelho</option>';
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var value = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = value;
+                        state.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+
+        document.getElementById('mail_municipality_id').value = "";
+        document.getElementById('mail_parish_id').value = "";
+    });
+
+    document.getElementById('mail_municipality_id').addEventListener('change', function() {
+        var $parish = document.getElementById('mail_parish_id');
+        var url = "{{ route('parish.index') }}";
+        var params = "municipality_id=" + encodeURIComponent(this.value);
+
+        fetch(url + '?' + params)
             .then(function(response) {
                 if (response.ok) {
                     return response.json();

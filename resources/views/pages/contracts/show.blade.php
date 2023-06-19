@@ -3,26 +3,31 @@
         <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
             <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    <path
+                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
             </a>
-        
+
             <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" />
                 </svg>
             </span>
-        
+
             <a href="{{ route('servicos') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
                 {{ __('Serviços') }}
             </a>
-        
+
             <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" />
                 </svg>
             </span>
-        
+
             <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">
                 {{ __('Energia e Gás') }}
             </a>
@@ -31,11 +36,11 @@
             {{ __(' Contrato - ') }}{{ $contract->id }}
         </h2>
         <a href="#"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Contrato') }}</a>
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Contrato') }}</a>
     </x-slot>
 
-    
-    
+
+
     <!--Tables-->
     <div class="p-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
@@ -180,7 +185,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->tariff_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->tariff->title  }}{{ $contract->tariff->description }}
+                                {{ $contract->tariff->title }}
                             </h4>
                         @endif
                     </div>
@@ -190,7 +195,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->nif  }}
+                                {{ $contract->meter->nif }}
                             </h4>
                         @endif
                     </div>
@@ -200,7 +205,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->cpe  }}
+                                {{ $contract->meter->cpe }}
                             </h4>
                         @endif
                     </div>
@@ -210,7 +215,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->power  }}
+                                {{ $contract->meter->power / 100 }}
                             </h4>
                         @endif
                     </div>
@@ -226,7 +231,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->flat  }}
+                                {{ $contract->meter->flat }}
                             </h4>
                         @endif
                     </div>
@@ -236,7 +241,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->peak  }}
+                                {{ $contract->meter->peak }}
                             </h4>
                         @endif
                     </div>
@@ -246,7 +251,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->standard  }}
+                                {{ $contract->meter->standard }}
                             </h4>
                         @endif
                     </div>
@@ -256,7 +261,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->off_peak  }}
+                                {{ $contract->meter->off_peak }}
                             </h4>
                         @endif
                     </div>
@@ -266,7 +271,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->super_off_peak  }}
+                                {{ $contract->meter->super_off_peak }}
                             </h4>
                         @endif
                     </div>
@@ -276,7 +281,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->meter_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->meter->gas  }}
+                                {{ $contract->meter->gas }}
                             </h4>
                         @endif
                     </div>
@@ -336,7 +341,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">CAE:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->clientData->cae }}
                             </h4>
@@ -346,7 +351,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Nome Cliente:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->clientData->administrator_name }}
                             </h4>
@@ -356,7 +361,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Morada de Fornecimento:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->clientData->address }}
                             </h4>
@@ -366,7 +371,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Andar/Fração:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->clientData->floor }}
                             </h4>
@@ -376,7 +381,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código Postal:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->clientData->post_code }}
                             </h4>
@@ -386,39 +391,44 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código de Freguesia:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client_id)
+                        @if ($contract->client->district && $contract->client->municipality && $contract->client->parish)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->clientData->dmp_code }}
+                                {{ str_replace(' ', '', $contract->client->district->code) }}
+                                {{ str_replace(' ', '', $contract->client->municipality->code) }}
+                                {{ str_replace(' ', '', $contract->client->parish->code) }}
                             </h4>
                         @endif
+
+
                     </div>
                 </div>
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Distrito:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->district_id)
+                        @if ($contract->client->district)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->district->title }} 
+                                {{ $contract->client->district->title }}
                             </h4>
                         @endif
                     </div>
                 </div>
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Conselho:</div>
+                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Concelho:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->municipality_id)
+                        @if ($contract->client->municipality)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->municipality->title }} 
+                                {{ $contract->client->municipality->title }}
                             </h4>
                         @endif
                     </div>
                 </div>
+
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Freguesia:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->parish_id)
+                        @if ($contract->client->parish)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->parish->title }} 
+                                {{ $contract->client->parish->title }}
                             </h4>
                         @endif
                     </div>
@@ -444,7 +454,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->invoice_type_id)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->invoiceType->title }} 
+                                {{ $contract->invoiceType->title }}
                             </h4>
                         @endif
                     </div>
@@ -457,9 +467,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Morada:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->address }}
+                                {{ $contract->client->mailingAddress->address }}
                             </h4>
                         @endif
                     </div>
@@ -467,9 +477,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Nº Porta:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->door }}
+                                {{ $contract->client->mailingAddress->door }}
                             </h4>
                         @endif
                     </div>
@@ -477,9 +487,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código Postal:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->post_code }}
+                                {{ $contract->client->mailingAddress->post_code }}
                             </h4>
                         @endif
                     </div>
@@ -487,9 +497,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Freguesia:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->parish_id }}
+                                {{ $contract->client->mailingAddress->parish->title }}
                             </h4>
                         @endif
                     </div>
@@ -497,9 +507,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Conselho:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->municipality_id }}
+                                {{ $contract->client->mailingAddress->municipality->title }}
                             </h4>
                         @endif
                     </div>
@@ -507,9 +517,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Distrito:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->district_id }}
+                                {{ $contract->client->mailingAddress->district->title }}
                             </h4>
                         @endif
                     </div>
@@ -517,9 +527,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Email:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->email }}
+                                {{ $contract->client->mailingAddress->email }}
                             </h4>
                         @endif
                     </div>
@@ -527,9 +537,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Contacto Telefónico:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->phone_number }}
+                                {{ $contract->client->mailingAddress->phone_number }}
                             </h4>
                         @endif
                     </div>
@@ -537,9 +547,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">NIF Responsável:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->mailing_address_id)
+                        @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->mailingAddress->nif }}
+                                {{ $contract->client->mailingAddress->nif }}
                             </h4>
                         @endif
                     </div>
@@ -564,7 +574,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->signatory_phone }} 
+                                {{ $contract->signatory_phone }}
                             </h4>
                         @endif
                     </div>
@@ -581,15 +591,16 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->administrator_paid_amount }} 
+                                    {{ $contract->commission->administrator_paid_amount / 100 }} €
                                 </h4>
                             @endif
                         </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao Administrador:</div>
+                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao Administrador:
+                        </div>
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->administrator_payment_date }} 
+                                    {{ $contract->commission->administrator_payment_date }}
                                 </h4>
                             @endif
                         </div>
@@ -597,15 +608,16 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_administrator_paid_amount }} 
+                                    {{ $contract->commission->refund_administrator_paid_amount / 100 }} €
                                 </h4>
                             @endif
                         </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao Administrador:</div>
+                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao Administrador:
+                        </div>
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_administrator_payment_date }} 
+                                    {{ $contract->commission->refund_administrator_payment_date }}
                                 </h4>
                             @endif
                         </div>
@@ -616,7 +628,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->commercial_paid_amount }} 
+                                    {{ $contract->commission->commercial_paid_amount / 100 }} €
                                 </h4>
                             @endif
                         </div>
@@ -624,7 +636,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->commercial_payment_date }} 
+                                    {{ $contract->commission->commercial_payment_date }}
                                 </h4>
                             @endif
                         </div>
@@ -632,7 +644,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_commercial_paid_amount }} 
+                                    {{ $contract->commission->refund_commercial_paid_amount / 100 }} €
                                 </h4>
                             @endif
                         </div>
@@ -640,7 +652,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_commercial_payment_date  }} 
+                                    {{ $contract->commission->refund_commercial_payment_date }}
                                 </h4>
                             @endif
                         </div>
@@ -651,7 +663,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->cvc_paid_amount }} 
+                                    {{ $contract->commission->cvc_paid_amount / 100 }} €
                                 </h4>
                             @endif
                         </div>
@@ -659,7 +671,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->cvc_payment_date }} 
+                                    {{ $contract->commission->cvc_payment_date }}
                                 </h4>
                             @endif
                         </div>
@@ -667,7 +679,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_cvc_paid_amount }} 
+                                    {{ $contract->commission->refund_cvc_paid_amount / 100 }} €
                                 </h4>
                             @endif
                         </div>
@@ -675,13 +687,13 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_cvc_payment_date }} 
+                                    {{ $contract->commission->refund_cvc_payment_date }}
                                 </h4>
                             @endif
                         </div>
                     </div>
                 </div>
-                  
+
             </div>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
@@ -693,7 +705,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_01_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_01_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_01_12 }} </span>
                             @endif
@@ -704,7 +716,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_02_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_02_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_02_12 }} </span>
                             @endif
@@ -715,7 +727,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_03_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_03_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_03_12 }} </span>
                             @endif
@@ -726,7 +738,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_04_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_04_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_04_12 }} </span>
                             @endif
@@ -737,7 +749,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_05_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_05_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_05_12 }} </span>
                             @endif
@@ -748,7 +760,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_06_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_06_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_06_12 }} </span>
                             @endif
@@ -761,7 +773,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_07_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_07_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_07_12 }} </span>
                             @endif
@@ -772,7 +784,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_08_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_08_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_08_12 }} </span>
                             @endif
@@ -783,7 +795,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_09_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_09_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_09_12 }} </span>
                             @endif
@@ -794,7 +806,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_10_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_10_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_10_12 }} </span>
                             @endif
@@ -805,7 +817,7 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_11_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_11_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_11_12 }} </span>
                             @endif
@@ -816,13 +828,13 @@
                         <div class="p-4 col-span-8 md:col-span-8">
                             @if ($contract->monthly_commission_id)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_012_12 }} 
+                                    {{ $contract->monthlyCommission->ammount_012_12 }}
                                 </h4>
                                 <span>{{ $contract->monthlyCommission->date_12_12 }} </span>
                             @endif
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
@@ -832,6 +844,6 @@
         </div>
     </div>
 
-    
+
 
 </x-app-layout>

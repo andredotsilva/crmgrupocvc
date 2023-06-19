@@ -49,7 +49,9 @@ class ContractsController extends Controller
                     $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
                 });
             })
-            ->paginate(10);
+            ->paginate(20);
+
+        $contractsCount = Contract::count();
 
         $contractsExpiringCount = 0;
         foreach ($contracts as $contract) {
@@ -70,7 +72,7 @@ class ContractsController extends Controller
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
-            'contractsCount' => $contractsExpiringCount
+            'contractsCount' => $contractsCount
         ]);
     }
 
@@ -109,30 +111,27 @@ class ContractsController extends Controller
     }
     public function store(StoreContractRequest $request)
     {
-
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = 'adwkweqnqkne213352sddas';
-
         $user->save();
 
         $commission = new Commission();
-
-        $commission->cvc_paid_amount =  $this->formatarNumero($request->cvc_paid_amount);
         $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
         $commission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
-
-        $commission->refund_cvc_paid_ammount = $this->formatarNumero($request->refund_cvc_paid_ammount);
-        $commission->refund_administrator_paid_ammount = $this->formatarNumero($refund_administrator_paid_ammount);
-        $commission->refund_commercial_paid_ammount = $this->formatarNumero($request->refund_commercial_paid_ammount);
+        $commission->cvc_paid_amount =  $this->formatarNumero($request->cvc_paid_amount);
 
         $commission->cvc_payment_date = $request->cvc_payment_date;
         $commission->administrator_payment_date = $request->administrator_payment_date;
         $commission->commercial_payment_date = $request->commercial_payment_date;
 
+        $commission->refund_administrator_paid_amount = $this->formatarNumero($request->refund_administrator_paid_amount);
+        $commission->refund_cvc_paid_amount = $this->formatarNumero($request->refund_cvc_paid_amount);
+        $commission->refund_commercial_paid_amount = $this->formatarNumero($request->refund_commercial_paid_amount);
+
         $commission->refund_commercial_payment_date = $request->refund_commercial_payment_date;
-        $commission->refund_adminstrator_payment_date = $request->refund_adminstrator_payment_date;
+        $commission->refund_administrator_payment_date = $request->refund_administrator_payment_date;
         $commission->refund_cvc_payment_date = $request->refund_cvc_payment_date;
 
         $commission->save();
@@ -148,11 +147,9 @@ class ContractsController extends Controller
         $meter->off_peak = $request->off_peak;
         $meter->super_off_peak = $request->super_off_peak;
         $meter->gas = $request->gas;
-
         $meter->save();
 
         $client = new Client();
-
         $client->cae = $request->cae;
         $client->administrator_name = $request->administrator_name;
         $client->condominium_administrator = $request->condominium_administrator;
@@ -164,93 +161,66 @@ class ContractsController extends Controller
         $client->parish_id = $request->parish_id;
         $client->municipality_id = $request->municipality_id;
         $client->district_id = $request->district_id;
-
         $client->user_id = $user->id;
-
         $client->save();
 
         $contract = new Contract();
-
         $contract->back_officer_id = $request->back_officer_id;
         $contract->commercial_id = $request->commercial_id;
         $contract->client_type_id = $request->client_type_id;
-
         $contract->service_id = $request->service_id;
         $contract->category_id = $request->category_id;
-
         $contract->provider_id = $request->provider_id;
         $contract->plan_id = $request->plan_id;
-
         $contract->documentation_status_id = $request->documentation_status_id;
         $contract->archive = $request->archive;
-
         $contract->client_id = $client->id;
         $contract->meter_id = $meter->id;
         $contract->commission_id = $commission->id;
-
         $contract->inserted_at = $request->inserted_at;
         $contract->signed_at = $request->signed_at;
         $contract->effective_at = $request->effective_at;
         $contract->renewal_at = $request->renewal_at;
-
         $contract->nib = $request->nib;
         $contract->invoice_type_id = $request->invoice_type_id;
-
         $contract->signatory_email = $request->signatory_email;
         $contract->signatory_phone = $request->signatory_phone;
-
         $contract->save();
 
         $mailingAddress = new MailingAddress();
-
         $mailingAddress->address = $request->address;
         $mailingAddress->door = $request->door;
         $mailingAddress->post_code = $request->mail_post_code;
-
-        // $mailingAddress->parish_id = $request->mail_parish_id;
-        $mailingAddress->parish_id = 1;
-
-        // $mailingAddress->municipality_id = $request->mail_municipality_id;
-        $mailingAddress->municipality_id = 1;
-
-        // $mailingAddress->district_id = $request->mail_district_id;
-        $mailingAddress->district_id = 1;
-
+        $mailingAddress->district_id = $request->mail_district_id;
+        $mailingAddress->municipality_id = $request->mail_municipality_id;
+        $mailingAddress->parish_id = $request->mail_parish_id;
         $mailingAddress->email = $request->email;
         $mailingAddress->phone_number = $request->phone_number;
         $mailingAddress->nif = $request->nif;
-
         $mailingAddress->client_id = $client->id;
-
         $mailingAddress->save();
 
-
         $monthlyComission = new MonthlyCommission();
-
-        $monthlyComission->amount_01_12 = $request->amount_01_12;
-        $monthlyComission->amount_02_12 = $request->amount_02_12;
-        $monthlyComission->amount_03_12 = $request->amount_03_12;
-        $monthlyComission->amount_04_12 = $request->amount_04_12;
-        $monthlyComission->amount_05_12 = $request->amount_05_12;
-        $monthlyComission->amount_06_12 = $request->amount_06_12;
-        $monthlyComission->amount_07_12 = $request->amount_07_12;
-        $monthlyComission->amount_08_12 = $request->amount_08_12;
-        $monthlyComission->amount_09_12 = $request->amount_09_12;
-        $monthlyComission->amount_10_12 = $request->amount_10_12;
-        $monthlyComission->amount_11_12 = $request->amount_11_12;
-        $monthlyComission->amount_12_12 = $request->amount_12_12;
-
+        $monthlyComission->amount_01_12 = $this->formatarNumero($request->amount_01_12);
+        $monthlyComission->amount_02_12 = $this->formatarNumero($request->amount_02_12);
+        $monthlyComission->amount_03_12 = $this->formatarNumero($request->amount_03_12);
+        $monthlyComission->amount_04_12 = $this->formatarNumero($request->amount_04_12);
+        $monthlyComission->amount_05_12 = $this->formatarNumero($request->amount_05_12);
+        $monthlyComission->amount_06_12 = $this->formatarNumero($request->amount_06_12);
+        $monthlyComission->amount_07_12 = $this->formatarNumero($request->amount_07_12);
+        $monthlyComission->amount_08_12 = $this->formatarNumero($request->amount_08_12);
+        $monthlyComission->amount_09_12 = $this->formatarNumero($request->amount_09_12);
+        $monthlyComission->amount_10_12 = $this->formatarNumero($request->amount_10_12);
+        $monthlyComission->amount_11_12 = $this->formatarNumero($request->amount_11_12);
+        $monthlyComission->amount_12_12 = $this->formatarNumero($request->amount_12_12);
         $monthlyComission->contract_id = $contract->id;
-
         $monthlyComission->save();
 
 
         $note = new Note();
-
         $note->text = $request->text;
         $note->contract_id = $contract->id;
         $note->back_officer_id = auth()->user()->id;
-
         $note->save();
 
         $temporaryImages = TemporaryFile::where('upload_by', auth()->id())->get();
@@ -290,40 +260,105 @@ class ContractsController extends Controller
 
     public function show($id)
     {
-        $contract = Contract::with('backofficer','commercialId', 'commercialName', 'service', 'solutions', 'clientType', 'provider', 
-            'documentation', 'archive', 'meter', 'nif', 'municipality', 'district', 'parish', 'invoiceType', 'commission', 'monthlyCommission',
-            'mailingAddress')->findOrFail($id);
+        $contract = Contract::with(
+            'backofficer',
+            'commercialId',
+            'commercialName',
+            'service',
+            'client.mailingAddress.district',
+            'client.mailingAddress.municipality',
+            'client.mailingAddress.parish',
+            'solutions',
+            'clientType',
+            'provider',
+            'documentation',
+            'archive',
+            'meter',
+            'nif',
+            'municipality',
+            'district',
+            'parish',
+            'invoiceType',
+            'commission',
+            'monthlyCommission',
+            'mailingAddress'
+        )->findOrFail($id);
         return view('pages.contracts.show', compact('contract'));
     }
 
-    /*public function show($id)
+    public function edit($id)
     {
 
-        $contract = Contract::with('files')->where('id', $id)->first();
+        $contract = Contract::with(['files', 'meter', 'monthlyCommission'])->where('id', $id)->first();
+        $contractsCount = Contract::count();
 
-        // $file = File::where('contract_id', '01h2qc2tvbwmqmkjnpxfq78b0e')->first();
-        // return Storage::download('files/' . $file->path);
+        $tariffs = Tariff::all();
+        $districts = District::all();
+        $clientTypes = ClientType::all();
+        $commercials = User::whereHas('roles', function ($query) {
+            $query->where('role_id', 3);
+        })->get();
+        $backofficers = User::whereHas('roles', function ($query) {
+            $query->where('role_id', 2);
+        })->get();
+        $providers = Provider::all();
+        $services = Service::all();
+        $categories = Category::all();
+        $plans = Plan::all();
+        $documentationStatus = DocumentationStatus::all();
+        $invoiceTypes = InvoiceType::all();
 
-        // $files = Storage::allFiles('/files');
-        // d
-
-        // $filepath = storage_path($file->path);
-        // return response()->file($files);
-
-        // dd($contract->files[0]);
-        // if (Storage::existe($f) {
-        //     dd('ok');
-        // }
-
-
-        // $path = Storage::disk('local')->path('files/6485fac1f3101-1686502081/' . $file->filename);
-        // $content = file_get_contents($path);
-
-        return view('pages.contracts.teste', [
+        return view('pages.contracts.edit', [
             'contract' => $contract,
+            'tariffs' => $tariffs,
+            'districts' => $districts,
+            'clientTypes' => $clientTypes,
+            'commercials' => $commercials,
+            'providers' => $providers,
+            'backofficers' => $backofficers,
+            'services' => $services,
+            'categories' => $categories,
+            'plans' => $plans,
+            'contractsCount' => $contractsCount,
+            'documentationStatus' => $documentationStatus,
+            'invoiceTypes' => $invoiceTypes,
         ]);
-    }*/
+    }
 
+    // public function update(Request $request, string $id)
+    // {
+    //     $contract = Contract::where('id', $id)->first();
+
+    //     $contract->back_officer_id = $request->back_officer_id;
+    //     $contract->commercial_id = $request->commercial_id;
+    //     $contract->client_type_id = $request->client_type_id;
+
+    //     $contract->service_id = $request->service_id;
+    //     $contract->category_id = $request->category_id;
+
+    //     $contract->provider_id = $request->provider_id;
+    //     $contract->plan_id = $request->plan_id;
+
+    //     $contract->documentation_status_id = $request->documentation_status_id;
+    //     $contract->archive = $request->archive;
+
+    //     $contract->client_id = $client->id;
+    //     $contract->meter_id = $meter->id;
+    //     $contract->commission_id = $commission->id;
+
+    //     $contract->inserted_at = $request->inserted_at;
+    //     $contract->signed_at = $request->signed_at;
+    //     $contract->effective_at = $request->effective_at;
+    //     $contract->renewal_at = $request->renewal_at;
+
+    //     $contract->nib = $request->nib;
+    //     $contract->invoice_type_id = $request->invoice_type_id;
+
+    //     $contract->signatory_email = $request->signatory_email;
+    //     $contract->signatory_phone = $request->signatory_phone;
+
+    //     $contract->save();
+    // }
     public function download($id)
     {
         $file = File::where('id', $id)->first();
@@ -344,7 +379,8 @@ class ContractsController extends Controller
     //     return response($file, 200)->header('Content-Type', $type);
     // }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $contract = Contract::findOrFail($id);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');

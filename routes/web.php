@@ -50,14 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload', [FilesUploadController::class, 'store']);
     Route::delete('/destroy', [FilesUploadController::class, 'destroy']);
     Route::get('/download/{id}', [ContractsController::class, 'download'])->name('download');
+    Route::apiResource('/district', DistrictController::class);
+    Route::apiResource('/municipality', MunicipalityController::class);
+    Route::apiResource('/parish', ParishController::class);
 });
 
-Route::apiResource('/district', DistrictController::class);
-Route::apiResource('/municipality', MunicipalityController::class);
-Route::apiResource('/parish', ParishController::class);
 
 require __DIR__ . '/auth.php';
-
-
-Route::get('/contracts/{id}', 'ContractController@show')->name('contracts.show');
-Route::delete('/contracts/{id}', 'ContractController@destroy')->name('contracts.destroy');

@@ -25,4 +25,24 @@ class Client extends Model
         'municipality_id',
         'district_id',
     ];
+
+    public function mailingAddress()
+    {
+        return $this->hasOne(MailingAddress::class, 'client_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
+
+    public function municipality()
+    {
+        return $this->belongsTo(Municipality::class, 'municipality_id');
+    }
+
+    public function parish()
+    {
+        return $this->belongsTo(Parish::class, 'parish_id');
+    }
 }
