@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\ContractController;
-use App\Http\Controllers\ContractsController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DistrictController;
-use App\Http\Controllers\FilesUploadController;
-use App\Http\Controllers\MunicipalityController;
+use App\Http\Controllers\UsersController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ServicosController;
+use App\Http\Controllers\ContractsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnergiagasController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FilesUploadController;
+use App\Http\Controllers\MunicipalityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,10 @@ Route::get('/servicos', [ServicosController::class, 'index'])
 Route::get('/energia-gas', [EnergiagasController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('energia');
+
+Route::get('/utilizadores', [UsersController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('users');
 
 //Route::apiResource('/servicos', ServicosController::class);
 

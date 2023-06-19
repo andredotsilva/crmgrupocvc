@@ -31,11 +31,17 @@
 
         <button type="submit" class="block w-full bg-blue-400 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">{{ __('Entrar') }}</button>
 
-        @if (Route::has('password.request'))
-        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-            {{ __('Forgot your password?') }}
-        </a>
-        @endif
+        
+        <div class="flex items-center justify-end mt-4">
+          @if (Route::has('password.request'))
+          <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+              {{ __('Forgot your password?') }}
+          </a>
+          @endif
+          <a class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 ms-3" href="{{ route('register') }}">
+            {{ __('Criar Conta') }}
+          </a>
+      </div>
       </form>
     </div>
   </div>

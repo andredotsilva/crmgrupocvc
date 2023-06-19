@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src={{ asset('../img/energia-preto.webp') }}" style="width: 7rem; height: 100%;"
+                        <img src={{ asset('../img/energia-preto.webp') }} style="width: 7rem; height: 100%;"
                             alt="" class="logo dark:hidden">
                         <img src={{ asset('../img/energia.webp') }} style="width: 7rem; height: 100%;" alt=""
                             class="logo hidden dark:block">
@@ -26,7 +26,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link>
+                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
                         {{ __('Utilizadores') }}
                     </x-nav-link>
                 </div>
