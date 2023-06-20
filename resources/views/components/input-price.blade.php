@@ -1,4 +1,4 @@
-@props(['title', 'name', 'type' => null])
+@props(['title', 'name', 'type' => null, 'value' => null])
 
 <div>
     <label for="{{ $name }}"
@@ -9,7 +9,7 @@
                 <span class="text-gray-500 sm:text-sm dark:text-gray-400">$</span>
             @endif
         </div>
-        <input type="text" name="{{ $name }}" id="{{ $name }}"
+        <input type="text" name="{{ $name }}" id="{{ $name }}" value="{{ old($name, $value / 100) }}"
             class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:text-gray-300 dark:focus:border-blue-500 dark:ring-gray-200 dark:focus:ring-blue-500"
             placeholder="0.00" oninput="formatarNumero(this)">
     </div>

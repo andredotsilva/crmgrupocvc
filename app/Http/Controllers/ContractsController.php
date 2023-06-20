@@ -234,8 +234,8 @@ class ContractsController extends Controller
                 $file->contract_id = $contract->id;
                 $file->filename = $temporaryImage->filename;
                 $file->original_name = 'as';
-                // $file->size = 'dsd';
-                $file->mime_type = 'dssd';
+                $file->size = 'size';
+                $file->mime_type = 'mime_type';
                 $file->path = $temporaryImage->folder . '/' . $temporaryImage->filename;
 
                 $file->save();
@@ -289,7 +289,7 @@ class ContractsController extends Controller
     public function edit($id)
     {
 
-        $contract = Contract::with(['files', 'meter', 'monthlyCommission'])->where('id', $id)->first();
+        $contract = Contract::with(['files', 'meter', 'monthlyCommission', 'mailingAddress.district', 'mailingAddress.municipality', 'mailingAddress.parish'])->where('id', $id)->first();
         $contractsCount = Contract::count();
 
         $tariffs = Tariff::all();
@@ -325,43 +325,62 @@ class ContractsController extends Controller
         ]);
     }
 
-    // public function update(Request $request, string $id)
-    // {
-    //     $contract = Contract::where('id', $id)->first();
+    public function update(Request $request, string $id)
+    {
 
-    //     $contract->back_officer_id = $request->back_officer_id;
-    //     $contract->commercial_id = $request->commercial_id;
-    //     $contract->client_type_id = $request->client_type_id;
+        $contract = Contract::findOrFail($id);
 
-    //     $contract->service_id = $request->service_id;
-    //     $contract->category_id = $request->category_id;
+        $contract->back_officer_id = $request->back_officer_id;
+        $contract->commercial_id = $request->commercial_id;
+        $contract->client_type_id = $request->client_type_id;
 
-    //     $contract->provider_id = $request->provider_id;
-    //     $contract->plan_id = $request->plan_id;
+        $contract->service_id = $request->service_id;
+        $contract->category_id = $request->category_id;
 
-    //     $contract->documentation_status_id = $request->documentation_status_id;
-    //     $contract->archive = $request->archive;
+        $contract->provider_id = $request->provider_id;
+        $contract->plan_id = $request->plan_id;
 
-    //     $contract->client_id = $client->id;
-    //     $contract->meter_id = $meter->id;
-    //     $contract->commission_id = $commission->id;
+        $contract->documentation_status_id = $request->documentation_status_id;
+        $contract->archive = $request->archive;
 
-    //     $contract->inserted_at = $request->inserted_at;
-    //     $contract->signed_at = $request->signed_at;
-    //     $contract->effective_at = $request->effective_at;
-    //     $contract->renewal_at = $request->renewal_at;
+        $contract->inserted_at = $request->inserted_at;
+        $contract->signed_at = $request->signed_at;
+        $contract->effective_at = $request->effective_at;
+        $contract->renewal_at = $request->renewal_at;
 
-    //     $contract->nib = $request->nib;
-    //     $contract->invoice_type_id = $request->invoice_type_id;
+        $contract->nib = $request->nib;
+        $contract->invoice_type_id = $request->invoice_type_id;
 
-    //     $contract->signatory_email = $request->signatory_email;
-    //     $contract->signatory_phone = $request->signatory_phone;
+        $contract->signatory_email = $request->signatory_email;
+        $contract->signatory_phone = $request->signatory_phone;
 
-    //     $contract->save();
-    // }
+
+        $meter = Meter::where('id', $contract->meter_id)->firstOrCreate();
+
+        $meter->tariff_id = $request->tariff_id;
+        $meter->nif = $request->nif;
+        $meter->cpe = $request->cpe;
+        $meter->power = $request->power;
+        $meter->flat = $request->flat;
+        $meter->peak = $request->peak;
+        $meter->standard = $request->standard;
+        $meter->off_peak = $request->off_peak;
+        $meter->super_off_peak = $request->super_off_peak;
+
+        $meter->save();
+
+        if ($meter->wasRecentlyCreated) {
+            $contract->meter_id = $meter->id;
+        }
+
+        $contract->save();
+
+
+        return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
+    }
     public function download($id)
     {
-        $file = File::where('id', $id)->first();
+        $file = File::where('id', $id)->findOrFail();
         return Storage::download('files/' . $file->path);
     }
 

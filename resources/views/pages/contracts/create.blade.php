@@ -236,14 +236,10 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="cod-contador"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Cliente
-                                                / Administrador</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="administrator_name" id="cod-contador"
-                                                    autocomplete="given-name"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Cliente
+                                            / Administrador"
+                                                name="administrator_name" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="cod-contador"
@@ -304,13 +300,12 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="archive"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Arquivo
-                                                do Cliente</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="archive" id="archive"
-                                                    autocomplete="archive" value="{{ old('archive') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
+
+                                            <div class="sm:col-span-2">
+                                                <x-input-string
+                                                    title="Arquivo
+                                                do Cliente"
+                                                    name="archive" />
                                             </div>
                                         </div>
                                     </div>
@@ -348,39 +343,10 @@
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="cpe"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CPE/CUI</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="cpe" id="cpe"
-                                                    autocomplete="cpe"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="CPE/CUI" name="cpe" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            {{-- <label for="power"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Potência/Escalão</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="power" id="power"
-                                                    autocomplete="power" value="{{ old('power') }}"
-                                                    class="form-control @error('power') is-invalid @enderror format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                    placeholder="0,00" oninput="formatarNumero(this)">
-                                            </div> --}}
-                                            {{-- <div class="sm:col-span-2">
-                                                <label for="power"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Potência/Escalão
-                                                </label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="power" id="power"
-                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        placeholder="0,00" oninput="formatarNumero(this)">
-                                                </div>
-                                            </div> --}}
                                             <x-input-price title="Potência/Escalão" name="power" type="power" />
-
-                                            @error('power')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -402,13 +368,7 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="peak"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Pontas</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="peak" id="peak"
-                                                    value="{{ old('peak') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-number title="Pontas" name="peak" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="standard"
