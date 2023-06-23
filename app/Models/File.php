@@ -13,7 +13,6 @@ class File extends Model
         'filename',
         'original_name',
         'path',
-        'size',
         'mime_type',
         'contract_id',
     ];

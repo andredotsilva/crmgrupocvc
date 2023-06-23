@@ -84,22 +84,22 @@ class Contract extends Model
         return $this->belongsTo(User::class, 'back_officer_id');
     }
 
-    public function commercialId()
+    public function commercial()
     {
         return $this->belongsTo(User::class, 'commercial_id');
     }
 
-    public function commercialName()
-    {
-        return $this->belongsTo(User::class, 'commercial_id');
-    }
+    // public function commercialName()
+    // {
+    //     return $this->belongsTo(User::class, 'commercial_id');
+    // }
 
     // public function service()
     // {
     //     return $this->belongsTo(Service::class, 'service_id');
     // }
 
-    public function solutions()
+    public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
@@ -124,10 +124,10 @@ class Contract extends Model
         return $this->belongsTo(DocumentationStatus::class, 'documentation_status_id');
     }
 
-    public function archive()
-    {
-        return $this->belongsTo(Contract::class, 'contract_id'); // ERRO
-    }
+    // public function archive()
+    // {
+    //     return $this->belongsTo(Contract::class, 'contract_id'); // ERRO
+    // }
 
     public function nif()
     {

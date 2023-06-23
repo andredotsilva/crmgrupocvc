@@ -72,7 +72,8 @@ class ContractsController extends Controller
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
-            'contractsCount' => $contractsCount
+            'contractsCount' => $contractsCount,
+            'contractsExpiringCount' => $contractsExpiringCount
         ]);
     }
 
@@ -262,17 +263,18 @@ class ContractsController extends Controller
     {
         $contract = Contract::with(
             'backofficer',
-            'commercialId',
-            'commercialName',
+            'commercial',
+            // 'commercialName',
             'service',
+            'category',
             'client.mailingAddress.district',
             'client.mailingAddress.municipality',
             'client.mailingAddress.parish',
-            'solutions',
+            // 'solutions',
             'clientType',
             'provider',
             'documentation',
-            'archive',
+            // 'archive',
             'meter',
             'nif',
             'municipality',
@@ -289,7 +291,7 @@ class ContractsController extends Controller
     public function edit($id)
     {
 
-        $contract = Contract::with(['files', 'meter', 'monthlyCommission', 'mailingAddress.district', 'mailingAddress.municipality', 'mailingAddress.parish'])->where('id', $id)->first();
+        $contract = Contract::with(['files', 'meter', 'monthlyCommission', 'mailingAddress.district', 'mailingAddress.municipality', 'mailingAddress.parish', 'invoiceType'])->where('id', $id)->first();
         $contractsCount = Contract::count();
 
         $tariffs = Tariff::all();
@@ -328,53 +330,129 @@ class ContractsController extends Controller
     public function update(Request $request, string $id)
     {
 
-        $contract = Contract::findOrFail($id);
+        try {
+            $contract = Contract::findOrFail($id);
+            $contract->back_officer_id = $request->back_officer_id;
+            $contract->commercial_id = $request->commercial_id;
+            $contract->client_type_id = $request->client_type_id;
+            $contract->service_id = $request->service_id;
+            $contract->category_id = $request->category_id;
+            $contract->provider_id = $request->provider_id;
+            $contract->plan_id = $request->plan_id;
+            $contract->documentation_status_id = $request->documentation_status_id;
+            $contract->archive = $request->archive;
+            $contract->inserted_at = $request->inserted_at;
+            $contract->signed_at = $request->signed_at;
+            $contract->effective_at = $request->effective_at;
+            $contract->renewal_at = $request->renewal_at;
+            $contract->nib = $request->nib;
+            $contract->invoice_type_id = $request->invoice_type_id;
+            $contract->signatory_email = $request->signatory_email;
+            $contract->signatory_phone = $request->signatory_phone;
+            $contract->save();
 
-        $contract->back_officer_id = $request->back_officer_id;
-        $contract->commercial_id = $request->commercial_id;
-        $contract->client_type_id = $request->client_type_id;
+            $meter = Meter::where('id', $contract->meter_id)->firstOrCreate();
+            $meter->tariff_id = $request->tariff_id;
+            $meter->nif = $request->nif;
+            $meter->cpe = $request->cpe;
+            $meter->power = $this->formatarNumero($request->power);
+            $meter->flat = $request->flat;
+            $meter->peak = $request->peak;
+            $meter->standard = $request->standard;
+            $meter->off_peak = $request->off_peak;
+            $meter->super_off_peak = $request->super_off_peak;
+            $meter->gas = $request->gas;
+            $meter->save();
 
-        $contract->service_id = $request->service_id;
-        $contract->category_id = $request->category_id;
+            $client = Client::where('id', $contract->client_id)->firstOrCreate();
+            $client->cae = $request->cae;
+            $client->administrator_name = $request->administrator_name;
+            $client->condominium_administrator = $request->condominium_administrator;
+            $client->name = $request->name;
+            $client->address = $request->address;
+            $client->door = $request->door;
+            $client->floor = $request->floor;
+            $client->post_code = $request->post_code;
+            $client->dmp_code = $request->dmp_code;
+            $client->parish_id = $request->parish_id;
+            $client->municipality_id = $request->municipality_id;
+            $client->district_id = $request->district_id;
+            $client->save();
 
-        $contract->provider_id = $request->provider_id;
-        $contract->plan_id = $request->plan_id;
+            $commission = Commission::where('id', $contract->commission_id)->firstOrCreate();
+            $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
+            $commission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
+            $commission->cvc_paid_amount =  $this->formatarNumero($request->cvc_paid_amount);
+            $commission->cvc_payment_date = $request->cvc_payment_date;
+            $commission->administrator_payment_date = $request->administrator_payment_date;
+            $commission->commercial_payment_date = $request->commercial_payment_date;
+            $commission->refund_administrator_paid_amount = $this->formatarNumero($request->refund_administrator_paid_amount);
+            $commission->refund_cvc_paid_amount = $this->formatarNumero($request->refund_cvc_paid_amount);
+            $commission->refund_commercial_paid_amount = $this->formatarNumero($request->refund_commercial_paid_amount);
+            $commission->refund_commercial_payment_date = $request->refund_commercial_payment_date;
+            $commission->refund_administrator_payment_date = $request->refund_administrator_payment_date;
+            $commission->refund_cvc_payment_date = $request->refund_cvc_payment_date;
+            $commission->save();
 
-        $contract->documentation_status_id = $request->documentation_status_id;
-        $contract->archive = $request->archive;
+            $mailingAddress = MailingAddress::where('client_id', $client->id)->firstOrCreate();
+            $mailingAddress->address = $request->address;
+            $mailingAddress->door = $request->door;
+            $mailingAddress->post_code = $request->mail_post_code;
+            $mailingAddress->district_id = $request->mail_district_id;
+            $mailingAddress->municipality_id = $request->mail_municipality_id;
+            $mailingAddress->parish_id = $request->mail_parish_id;
+            $mailingAddress->email = $request->email;
+            $mailingAddress->phone_number = $request->phone_number;
+            $mailingAddress->nif = $request->nif;
+            $mailingAddress->client_id = $client->id;
+            $mailingAddress->save();
 
-        $contract->inserted_at = $request->inserted_at;
-        $contract->signed_at = $request->signed_at;
-        $contract->effective_at = $request->effective_at;
-        $contract->renewal_at = $request->renewal_at;
+            $monthlyComission = MonthlyCommission::firstOrCreate(['contract_id' => $contract->id]);
 
-        $contract->nib = $request->nib;
-        $contract->invoice_type_id = $request->invoice_type_id;
+            $monthlyComission->amount_01_12 = $this->formatarNumero($request->amount_01_12);
+            $monthlyComission->amount_02_12 = $this->formatarNumero($request->amount_02_12);
+            $monthlyComission->amount_03_12 = $this->formatarNumero($request->amount_03_12);
+            $monthlyComission->amount_04_12 = $this->formatarNumero($request->amount_04_12);
+            $monthlyComission->amount_05_12 = $this->formatarNumero($request->amount_05_12);
+            $monthlyComission->amount_06_12 = $this->formatarNumero($request->amount_06_12);
+            $monthlyComission->amount_07_12 = $this->formatarNumero($request->amount_07_12);
+            $monthlyComission->amount_08_12 = $this->formatarNumero($request->amount_08_12);
+            $monthlyComission->amount_09_12 = $this->formatarNumero($request->amount_09_12);
+            $monthlyComission->amount_10_12 = $this->formatarNumero($request->amount_10_12);
+            $monthlyComission->amount_11_12 = $this->formatarNumero($request->amount_11_12);
+            $monthlyComission->amount_12_12 = $this->formatarNumero($request->amount_12_12);
+            $monthlyComission->contract_id = $contract->id;
+            $monthlyComission->save();
 
-        $contract->signatory_email = $request->signatory_email;
-        $contract->signatory_phone = $request->signatory_phone;
+            $note = Note::where('contract_id', $contract->id)->firstOrCreate();
+            $note->text = $request->text;
+            $note->contract_id = $contract->id;
+            $note->back_officer_id = auth()->user()->id;
+            $note->save();
 
+            $temporaryImages = TemporaryFile::where('upload_by', auth()->id())->get();
 
-        $meter = Meter::where('id', $contract->meter_id)->firstOrCreate();
+            if ($request->filepond) {
+                foreach ($temporaryImages as $temporaryImage) {
+                    Storage::copy('files/tmp/' . $temporaryImage->folder . '/' . $temporaryImage->filename, 'files/' . $temporaryImage->folder . '/' . $temporaryImage->filename);
 
-        $meter->tariff_id = $request->tariff_id;
-        $meter->nif = $request->nif;
-        $meter->cpe = $request->cpe;
-        $meter->power = $request->power;
-        $meter->flat = $request->flat;
-        $meter->peak = $request->peak;
-        $meter->standard = $request->standard;
-        $meter->off_peak = $request->off_peak;
-        $meter->super_off_peak = $request->super_off_peak;
+                    $file = new File();
 
-        $meter->save();
+                    $file->contract_id = $contract->id;
+                    $file->filename = $temporaryImage->filename;
+                    $file->original_name = '';
+                    $file->mime_type = 'mime_type';
+                    $file->path = $temporaryImage->folder . '/' . $temporaryImage->filename;
 
-        if ($meter->wasRecentlyCreated) {
-            $contract->meter_id = $meter->id;
+                    $file->save();
+
+                    Storage::deleteDirectory('files/tmp/' . $temporaryImage->folder);
+                    $temporaryImage->delete();
+                }
+            }
+        } catch (\Exception $th) {
+            dd($th);
         }
-
-        $contract->save();
-
 
         return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
     }
@@ -384,19 +462,19 @@ class ContractsController extends Controller
         return Storage::download('files/' . $file->path);
     }
 
-    // public function show($id, $filename)
-    // {
-    //     $path = storage_path('app/public/files/' . $id . '/' . $filename);
+    public function delete($id)
+    {
+        $fileToDelete = File::where('id', $id)->first();
 
-    //     if (!Storage::exists($path)) {
-    //         abort(404);
-    //     }
+        $folder = explode('/', $fileToDelete->path);
 
-    //     $file = Storage::get($path);
-    //     $type = Storage::mimeType($path);
+        Storage::delete('files/' . $fileToDelete->path);
+        Storage::deleteDirectory($folder[0]);
+        $fileToDelete->delete();
 
-    //     return response($file, 200)->header('Content-Type', $type);
-    // }
+
+        return response()->json(['message' => 'O arquivo foi apagado.']);
+    }
 
     public function destroy($id)
     {
@@ -408,7 +486,5 @@ class ContractsController extends Controller
         return redirect()->route('contracts.index')->with('success', 'Contrato Apagado com sucesso!');
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
-        
     }
 }

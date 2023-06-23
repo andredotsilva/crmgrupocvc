@@ -148,181 +148,59 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Back Office</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <label for="provider"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Back
-                                                Office</label>
-                                            <div class="mt-2">
-                                                <select name="back_officer_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                                    <option value="">Escolha</option>
-                                                    @foreach ($backofficers as $backofficer)
-                                                        <option value="{{ $backofficer->id }}"
-                                                            {{ old('backofficer') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
-                                                            {{ $backofficer->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="sm:col-span-2">
-                                            <label for="commercial_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Código
-                                                Comerciante</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="commercial_id" id="commercial_id"
-                                                    autocomplete="given-name"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-select title="Back Office" name="back_officer_id" :value="$contract->backofficer"
+                                                :collection="$backofficers" hasAuth />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="provider"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome
-                                                Comercial</label>
-                                            <div class="mt-2">
-                                                <select name="commercial_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                                    <option value="">Escolha</option>
-                                                    @foreach ($commercials as $commercial)
-                                                        <option value="{{ $commercial->id }}"
-                                                            {{ old('commercial') == $commercial->id || $commercial->id == auth()->id() ? 'selected' : '' }}>
-                                                            {{ $commercial->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="sm:col-span-2">
-                                            <label for="service_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
-                                            <div class="mt-2">
-                                                <select id="service_id" name="service_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @if ($contract && $contract->service)
-                                                        <option value="{{ $contract->service->id }}" selected>
-                                                            {{ $contract->service->title }}
-                                                        </option>
-                                                    @endif
-                                                    @foreach ($services as $service)
-                                                        <option value="{{ $service->id }}">
-                                                            {{ $service->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Comercial" name="commercial_id" :value="$contract->commercial"
+                                                :collection="$commercials" hasAuth />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="category_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Soluções</label>
-                                            <div class="mt-2">
-                                                <select id="category_id" name="category_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @if ($contract && $contract->category)
-                                                        <option value="{{ $contract->category->id }}" selected>
-                                                            {{ $contract->category->title }}
-                                                        </option>
-                                                    @endif
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">
-                                                            {{ $category->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Serviço" name="service_id" :value="$contract->service"
+                                                :collection="$services" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="client_type_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Tipo
-                                                de Adesão</label>
-                                            <div class="mt-2">
-                                                <select id="client_type_id" name="client_type_id"
-                                                    autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @foreach ($clientTypes as $clientType)
-                                                        <option value="{{ $clientType->id }}">
-                                                            {{ $clientType->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Soluções" name="category_id" :value="$contract->category"
+                                                :collection="$categories" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="cod-contador"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Cliente
-                                                / Administrador</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="administrator_name" id="cod-contador"
-                                                    autocomplete="given-name"
-                                                    value="{{ $contract->client->name ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-select title="Tipo de Adesão" name="client_type_id"
+                                                :value="$contract->clientType" :collection="$clientTypes" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="cod-contador"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Administração
-                                                de Condominio</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="condominium_administrator"
-                                                    value="{{ $contract->client->condominium_administrator ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Cliente/Administrador" name="administrator_name"
+                                                :value="$contract->client->administrator_name" />
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-string
+                                                title="Administração
+                                                de Condominio"
+                                                name="condominium_administrator" :value="$contract->client->condominium_administrator" />
                                         </div>
                                     </div>
                                 </div>
-
                                 <!--Dados ORGANIZAÇÃO-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="dadosorganizacao">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS DA ORGANIZAÇÃO</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <label for="provider"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
-                                            <div class="mt-2">
-                                                <select id="provider" name="provider_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @foreach ($providers as $provider)
-                                                        <option value="{{ $provider->id }}"> {{ $provider->acronym }}
-                                                            {{ $provider->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Adesão" name="provider_id" :value="$contract->provider"
+                                                :collection="$providers" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="plan_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Campanha</label>
-                                            <div class="mt-2">
-                                                <select id="plan_id" name="plan_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @foreach ($plans as $plan)
-                                                        <option value="{{ $plan->id }}"> {{ $plan->acronym }} -
-                                                            {{ $plan->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Campanha" name="plan_id" :value="$contract->plan"
+                                                :collection="$plans" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="documentation_status_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
-                                            <div class="mt-2">
-                                                <select id="documentation_status_id" name="documentation_status_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @foreach ($documentationStatus as $documentationStatus)
-                                                        <option value="{{ $documentationStatus->id }}">
-                                                            {{ $documentationStatus->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Documentação" name="documentation_status_id"
+                                                :value="$contract->documentation" :collection="$documentationStatus" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="archive"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Arquivo
-                                                do Cliente</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="archive" id="archive"
-                                                    value="{{ $contract->archive ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Arquivo
+                                            do Cliente"
+                                                name="archive" :value="$contract->archive" />
                                         </div>
                                     </div>
                                 </div>
@@ -333,19 +211,9 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS Contador</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <label for="tariff"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Tenção</label>
-                                            <div class="mt-2">
-                                                <select id="tariff" name="tariff_id" autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @foreach ($tariffs as $tariff)
-                                                        <option value="{{ $tariff->id }}">{{ $tariff->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Tensão" name="tariff_id" :value="$contract->meter->tariff"
+                                                :collection="$tariffs" />
                                         </div>
-
                                         <div class="sm:col-span-2">
                                             <x-input-string title="NIF" name="nif" :value="$contract->meter->nif" />
                                         </div>
@@ -381,40 +249,39 @@
                                             <x-input-number title="Super Vazio" name="super_off_peak"
                                                 :value="$contract->meter->super_off_peak" />
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="radio-group" class="text-gray-700">Gás:</label>
+                                            <label for="radio-group" class="text-gray-200">Gás:</label>
                                             <div class="mt-2 flex space-x-4">
                                                 <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                    <input type="radio"
+                                                        class="form-radio text-indigo-600  dark:text-purple-500"
                                                         name="gas" value="1"
                                                         {{ $contract && $contract->meter && $contract->meter->gas == '1' ? 'checked' : '' }} />
-                                                    <span class="ml-2">1</span>
+                                                    <span class="ml-2 dark:text-gray-200"">1</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                    <input type="radio"
+                                                        class="form-radio text-indigo-600  dark:text-purple-500" s
                                                         name="gas" value="2"
                                                         {{ $contract && $contract->meter && $contract->meter->gas == '2' ? 'checked' : '' }} />
-                                                    <span class="ml-2">2</span>
+                                                    <span class="ml-2 dark:text-gray-200"">2</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                    <input type="radio"
+                                                        class="form-radio text-indigo-600  dark:text-purple-500"
                                                         name="gas" value="3"
                                                         {{ $contract && $contract->meter && $contract->meter->gas == '3' ? 'checked' : '' }} />
-                                                    <span class="ml-2">3</span>
+                                                    <span class="ml-2 dark:text-gray-200"">3</span>
                                                 </label>
                                                 <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
+                                                    <input type="radio"
+                                                        class="form-radio text-indigo-600  dark:text-purple-500"
                                                         name="gas" value="4"
                                                         {{ $contract && $contract->meter && $contract->meter->gas == '4' ? 'checked' : '' }} />
-                                                    <span class="ml-2">4</span>
+                                                    <span class="ml-2 dark:text-gray-200"">4</span>
                                                 </label>
                                             </div>
                                         </div>
-
-
-
-
                                     </div>
                                 </div>
                                 <!--END Consumos-->
@@ -425,167 +292,63 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Datas de contrato</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <label for="inserted_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Inserido</label>
-                                            <div class="mt-2">
-                                                <input type="date" name="inserted_at" id="inserted_at"
-                                                    value="{{ $contract->inserted_at ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-date title="Inserido" name="inserted_at"
+                                                value="{{ $contract->inserted_at }}" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="signed_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Assinado</label>
-                                            <div class="mt-2">
-                                                <input type="date" name="signed_at" id="signed_at"
-                                                    value="{{ $contract->signed_at ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-date title="Assinado" name="signed_at"
+                                                value="{{ $contract->signed_at }}" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="effective_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Alta</label>
-                                            <div class="mt-2">
-                                                <input type="date" name="effective_at" id="effective_at"
-                                                    value="{{ $contract->effective_at ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-date title="Alta" name="effective_at"
+                                                value="{{ $contract->effective_at }}" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="renewal_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Renovação</label>
-                                            <div class="mt-2">
-
-                                                <input type="date" name="renewal_at" id="renewal_at"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600"
-                                                    value="{{ $contract->renewal_at ?? '' }}">
-                                            </div>
+                                            <x-input-date title="Renovação" name="renewal_at"
+                                                value="{{ $contract->renewal_at }}" />
                                         </div>
-
                                     </div>
                                 </div>
-
                                 <!--Dados Cliente-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="dadoscliente">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Dados Cliente</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                                         <div class="sm:col-span-2">
-                                            <label for="cae"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CAE</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="cae" id="cae"
-                                                    value="{{ $contract->client->cae ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="CAE
+                                            de Condominio"
+                                                name="cae" :value="$contract->client->cae" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="name"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome
-                                                Cliente</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="name" id="name"
-                                                    value="{{ $contract->client->name ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Nome" name="name" :value="$contract->client->name" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="address"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Morada
-                                                De Fornecimento</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="address" id="address"
-                                                    value="{{ $contract->client->address ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Morada De Fornecimento" name="address"
+                                                :value="$contract->client->address" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="floor"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Andar/Fração</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="floor" id="floor"
-                                                    value="{{ $contract->client->floor ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Andar/Fração" name="floor" :value="$contract->client->floor" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="post_code"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Codigo
-                                                Postal</label>
-                                            <div class="mt-2">
-                                                <select id="post_code" name="post_code" autocomplete="post_code"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    <option>4000-011</option>
-                                                    <option>4000-211</option>
-                                                    <option>4000-445</option>
-                                                </select>
-                                            </div>
+                                            <x-input-string title="Codigo Postal" name="post_code"
+                                                :value="$contract->client->post_code" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="dmp_code"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
-                                                Freguesia</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="dmp_code" id="dmp_code"
-                                                    value="{{ $contract->client->dmp_code ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Codigo Freguesia" name="dmp_code"
+                                                :value="$contract->client->dmp_code" />
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-select title="Distrito" name="district_id" :value="$contract->client->district"
+                                                :collection="$districts" />
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-select title="Concelho" name="municipality_id"
+                                                :value="$contract->client->municipality" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="district_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Distrito</label>
-                                            <div class="mt-2">
-                                                <select id="district_id" name="district_id"
-                                                    autocomplete="district_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    @if ($contract && $contract->client->district)
-                                                        <option value="{{ $contract->client->district->id }}"
-                                                            selected>
-                                                            {{ $contract->client->district->title }}
-                                                        </option>
-                                                    @endif
-                                                    @foreach ($districts as $district)
-                                                        <option value="{{ $district->id }}">{{ $district->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="sm:col-span-2">
-                                            <label for="municipality_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Concelho</label>
-                                            <div class="mt-2">
-                                                <select id="municipality_id" name="municipality_id"
-                                                    autocomplete="municipality_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    <option selected>Escolher Concelho</option>
-                                                    @if ($contract && $contract->client->municipality)
-                                                        <option value="{{ $contract->client->municipality->id }}"
-                                                            selected>
-                                                            {{ $contract->client->municipality->title }}
-                                                        </option>
-                                                    @endif
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="sm:col-span-2">
-                                            <label for="parish_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900">Freguesia</label>
-                                            <div class="mt-2">
-                                                <select id="parish_id" name="parish_id" autocomplete="parish_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                    <option value="" selected>Escolher Freguesia</option>
-                                                    @if ($contract && $contract->client->parish)
-                                                        <option value="{{ $contract->client->parish->id }}" selected>
-                                                            {{ $contract->client->parish->title }}
-                                                        </option>
-                                                    @endif
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Freguesia" name="parish_id" :value="$contract->client->parish" />
                                         </div>
                                     </div>
                                 </div>
@@ -597,34 +360,12 @@
                                         id="pagamento">
                                         <h1 class="text-lg pb-4 dark:text-gray-200">Forma de Pagamento</h1>
                                         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIB</label>
-                                                <div class="mt-2">
-                                                    <input type="number" name="nib" id="nib"
-                                                        value="{{ $contract->nib ?? '' }}"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                                </div>
+                                                <x-input-string title="NIB" name="nib" :value="$contract->nib" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="invoice_type_id"
-                                                    class="block text-sm font-medium leading-6 text-gray-900">Fatura</label>
-                                                <div class="mt-2">
-                                                    <select id="invoice_type_id" name="invoice_type_id"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                        <option value="{{ $contract->invoiceType->id ?? '' }}" hidden
-                                                            selected>
-                                                            {{ $contract->invoiceType->title ?? '' }}
-                                                        </option>
-                                                        @foreach ($invoiceTypes as $invoiceType)
-                                                            <option value="{{ $invoiceType->id }}">
-                                                                {{ $invoiceType->title }}
-                                                            </option>
-                                                        @endforeach
-
-                                                    </select>
-                                                </div>
+                                                <x-input-select title="Fatura" name="invoice_type_id"
+                                                    :value="$contract->invoiceType" :collection="$invoiceTypes" />
                                             </div>
                                         </div>
                                     </div>
@@ -638,23 +379,10 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                         <div class="sm:col-span-2">
-                                            <label for="address"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Morada</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="address" id="address"
-                                                    value="{{ $contract->client->mailingAddress->address ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Morada" name="address" :value="$contract->client->mailingAddress->address ?? ''" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="door"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nº
-                                                Porta</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="door" id="door"
-                                                    value="{{ $contract->client->mailingAddress->door ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Nº Porta" name="door" :value="$contract->client->mailingAddress->door ?? ''" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="nif"
@@ -662,27 +390,12 @@
                                                 Postal</label>
                                             <div class="mt-2">
                                                 <input type="text" name="mail_postal_code" id="mail_postal_code"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600"
-                                                    oninput="postCodeFormatter(this)" onblur="postCodeValidator(this)"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:text-gray-200"
+                                                    oninput="postCodeFormatter(this)" placeholder="Formato 9999-999"
                                                     value="{{ $contract->client->mailingAddress->postal_code ?? '' }}">
                                                 <span id="mail_postal_code_error" style="color: red;"></span>
                                             </div>
-
                                             <script>
-                                                function postCodeValidator(input) {
-                                                    var postalCode = input.value.trim().replace('-', ''); // Remover o traço (-) do código postal
-                                                    var postCodeError = document.getElementById('mail_postal_code_error');
-                                                    var regex = /^\d{4}\d{3}$/;
-
-                                                    if (!regex.test(postalCode)) {
-                                                        postCodeError.textContent = 'Formato inválido. Digite no formato XXXX-XXX';
-                                                    } else if (!/^\d+$/.test(postalCode)) {
-                                                        postCodeError.textContent = 'Digite apenas números no código postal';
-                                                    } else {
-                                                        postCodeError.textContent = '';
-                                                    }
-                                                }
-
                                                 function postCodeFormatter(input) {
                                                     var postCode = input.value.trim().replace(/[-\s]/g, '');
                                                     var formattedPostCode = '';
@@ -699,84 +412,31 @@
                                                     input.value = formattedPostCode;
                                                 }
                                             </script>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <label for="mail_district_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
-                                            <div class="mt-2">
-                                                <select id="mail_district_id" name="mail_district_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option
-                                                        value="{{ $contract->client->mailingAddress->district->id ?? '' }}"
-                                                        hidden selected>
-                                                        {{ $contract->client->mailingAddress->district->title ?? '' }}
-                                                    </option>
-                                                    @foreach ($districts as $district)
-                                                        <option value="{{ $district->id }}">
-                                                            {{ $district->title }}
-                                                        </option>
-                                                    @endforeach
 
-                                                </select>
-                                            </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="mail_municipality_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
-                                            <div class="mt-2">
-                                                <select id="mail_municipality_id" name="mail_municipality_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option
-                                                        value="{{ $contract->client->mailingAddress->municipality->id ?? '' }}"
-                                                        selected>
-                                                        {{ $contract->client->mailingAddress->municipality->title ?? '' }}
-                                                    </option>
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Distrito" name="mail_district_id"
+                                                :value="$contract->client->mailingAddress->district ?? null" :collection="$districts" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="mail_parish_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
-                                            <div class="mt-2">
-                                                <select id="mail_parish_id" name="mail_parish_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option
-                                                        value="{{ $contract->client->mailingAddress->parish->id ?? '' }}"
-                                                        hidden selected>
-                                                        {{ $contract->client->mailingAddress->parish->title ?? '' }}
-                                                    </option>
-
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Concelho" name="mail_municipality_id"
+                                                :value="$contract->client->mailingAddress->municipality ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Email</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="email" id="email"
-                                                    value="{{ $contract->client->mailingAddress->email ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-select title="Freguesia" name="mail_parish_id"
+                                                :value="$contract->client->mailingAddress->parish ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="phone_number"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
-                                                Telefónico</label>
-                                            <div class="mt-2">
-                                                <input type="tel" name="phone_number" id="phone_number"
-                                                    value="{{ $contract->client->mailingAddress->phone_number ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Email" name="email" :value="$contract->client->mailingAddress->email ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIF
-                                                Responsável</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="nif" id="nif"
-                                                    value="{{ $contract->client->mailingAddress->nif ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Contacto
+                                            Telefónico"
+                                                name="phone_number" :value="$contract->client->mailingAddress->phone_number ?? null" />
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-string title="NIF" name="nif" :value="$contract->client->mailingAddress->nif ?? null" />
                                         </div>
                                     </div>
                                 </div>
@@ -787,26 +447,17 @@
                                     id="assinatura">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Assinatura</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                                         <div class="sm:col-span-2">
-                                            <label for="signatory_email"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Email
-                                                Assinatura</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="signatory_email" id="signatory_email"
-                                                    value="{{ $contract->signatory_email ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Email
+                                                Assinatura do Cliente"
+                                                name="signatory_email" :value="$contract->signatory_email" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="signatory_phone"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
-                                                Assinatura</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="signatory_phone" id="signatory_phone"
-                                                    value="{{ $contract->signatory_email ?? '' }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Contacto
+                                                Assinatura"
+                                                name="signatory_phone" :value="$contract->signatory_phone" />
                                         </div>
                                     </div>
                                 </div>
@@ -821,144 +472,68 @@
                                         <div>
                                             <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Valor Pago ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="administrator_paid_amount"
-                                                        id="administrator_paid_amount"
-                                                        value="{{ $contract->commission->administrator_paid_amount ?? '' ? $contract->commission->administrator_paid_amount / 100 : '' }}"
-                                                        class="format-number
-                                                        block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900
-                                                        ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                                                        focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm
-                                                        sm:leading-6"
-                                                        placeholder="0,00" oninput="formatarNumero(this)">
-                                                </div>
+                                                <x-input-price title="Valor Pago ao Administrador"
+                                                    name="administrator_paid_amount"
+                                                    value="{{ $contract->commission->administrator_paid_amount }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="administrator_payment_date"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Pagamento ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="administrator_payment_date"
-                                                        id="administrator_payment_date"
-                                                        value="{{ $contract->commission->administrator_payment_date ?? '' }}"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Pagamento ao Administrador"
+                                                    name="administrator_payment_date"
+                                                    value="{{ $contract->commission->administrator_payment_date }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Devolução ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-price title="Devolução ao Administrador"
+                                                    name="refund_administrator_paid_amount"
+                                                    value="{{ $contract->commission->refund_administrator_paid_amount }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Devolução ao Administrador</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="administrator_payment_date"
-                                                        id="nif" autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Devolução ao Administrador"
+                                                    name="refund_administrator_payment_date"
+                                                    value="{{ $contract->commission->refund_administrator_payment_date }}" />
                                             </div>
                                         </div>
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões Comercial</h3>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Valor Pago ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="commercial_paid_amount"
-                                                        id="commercial_paid_amount"
-                                                        value="{{ $contract->commission->commercial_paid_amount ?? '' ? $contract->commission->commercial_paid_amount / 100 : '' }}"
-                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        placeholder="0,00" oninput="formatarNumero(this)">
-                                                </div>
+                                                <x-input-price title="Valor Pago ao Comercia"
+                                                    name="commercial_paid_amount"
+                                                    value="{{ $contract->commission->commercial_paid_amount }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="commercial_payment_date"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Pagamento ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="commercial_payment_date"
-                                                        id="nif" autocomplete="nif"
-                                                        value="{{ $contract->commission->commercial_payment_date ?? '' }}"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
-                                            </div>
-
-                                            <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Devolução ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Pagamento ao Comercial"
+                                                    name="commercial_payment_date"
+                                                    value="{{ $contract->commission->commercial_payment_date }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Devolução ao Comercial</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-price title="Devolução ao Comercial"
+                                                    name="refund_commercial_paid_amount"
+                                                    value="{{ $contract->commission->refund_commercial_paid_amount }}" />
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <x-input-date title="Data Devolução ao Administrador"
+                                                    name="refund_commercial_payment_date"
+                                                    value="{{ $contract->commission->refund_commercial_payment_date }}" />
                                             </div>
                                         </div>
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Valor Pago ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="text" name="cvc_paid_amount" id="cvc_paid_amount"
-                                                        value="{{ $contract->commission->cvc_paid_amount ?? '' ? $contract->commission->cvc_paid_amount / 100 : '' }}"
-                                                        class="format-number block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                        placeholder="0,00" oninput="formatarNumero(this)">
-                                                </div>
+                                                <x-input-price title="Valor Pago ao CVC" name="cvc_paid_amount"
+                                                    value="{{ $contract->commission->cvc_paid_amount }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Pagamento ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="cvc_payment_date" id="nif"
-                                                        value="{{ $contract->commission->commercial_payment_date ?? '' }}"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Pagamento ao CVC" name="cvc_payment_date"
+                                                    value="{{ $contract->commission->cvc_payment_date }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Devolução ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="nif" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-price title="Devolução ao CVC" name="refund_cvc_paid_amount"
+                                                    value="{{ $contract->commission->refund_cvc_paid_amount }}" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
-                                                    Data Devolução ao CVC</label>
-                                                <div class="mt-2">
-                                                    <input type="date" name="nif" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:focus:border-blue-500">
-                                                </div>
+                                                <x-input-date title="Data Devolução ao CVC"
+                                                    name="refund_cvc_payment_date"
+                                                    value="{{ $contract->commission->refund_cvc_payment_date }}" />
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -1004,14 +579,9 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         @foreach ($values as $label => $name)
                                             <div class="sm:col-span-1">
-                                                <label for="{{ $name }}"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $label }}</label>
-                                                <div class="mt-2">
-                                                    <input type="number" name="{{ $name }}"
-                                                        id="{{ $name }}"
-                                                        value="{{ $contract->monthlyCommission->{'amount_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12'} }}"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:text-gray-200 dark:bg-gray-600">
-                                                </div>
+                                                <x-input-price title="{{ $label }}"
+                                                    name="{{ $name }}"
+                                                    value="{{ $contract->monthlyCommission->{'amount_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}" />
                                             </div>
                                         @endforeach
                                     </div>
@@ -1034,6 +604,7 @@
                                                         </svg>
                                                         {{ $file->filename }}
                                                     </a>
+                                                    <a href="{{ route('delete', ['id' => $file->id]) }}">apagar</a>
                                                 @endforeach
                                             </div>
                                         @else
@@ -1041,7 +612,6 @@
                                         @endif
                                     </div>
                                 </div>
-
 
                                 <!--Ficheiros-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
@@ -1070,64 +640,6 @@
         </div>
     </div>
 </x-app-layout>
-
-<script>
-    function formatarNumero(input) {
-        let numero = input.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos, exceto vírgula
-        let partes = numero.split(','); // Separa a parte inteira da parte decimal
-
-        // Remove todos os espaços da parte inteira
-        partes[0] = partes[0].replace(/\s/g, '');
-
-        // Formata a parte inteira com espaços como separador de milhares
-        partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-
-        // Limita a parte decimal a dois dígitos
-        if (partes.length > 1) {
-            partes[1] = partes[1] ? partes[1].slice(0, 2) : ''; // Verifica se há parte decimal
-        }
-
-        // Atualiza o valor do input com o número formatado
-        input.value = partes.join(',') + (partes.length > 1 ? ',' : '');
-    }
-
-    // Adiciona evento para limitar o número de vírgulas nos campos "Valor Pago ao Administrador" e "Valor Pago ao Comercial"
-    document.getElementById('administrator_paid_amount').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-
-    document.getElementById('commercial_paid_amount').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-
-    document.getElementById('cvc_paid_amount').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-
-    document.getElementById('power').addEventListener('input', function() {
-        let partes = this.value.split(',');
-
-        if (partes.length > 2) {
-            partes.splice(2);
-            this.value = partes.join(',');
-        }
-    });
-</script>
 
 <script>
     document.getElementById('district_id').addEventListener('change', function() {
@@ -1171,6 +683,73 @@
         console.log(mparams);
 
         fetch(url + '?' + mparams)
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro na solicitação AJAX.');
+                }
+            })
+            .then(function(data) {
+                console.log(data);
+                $parish.innerHTML = '<option value="" selected>Escolher Freguesia</option>';
+
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var title = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = title;
+                        $parish.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    });
+</script>
+
+<script>
+    document.getElementById('mail_district_id').addEventListener('change', function() {
+        var state = document.getElementById('mail_municipality_id');
+        var url = "{{ route('municipality.index') }}";
+        var params = "district_id=" + encodeURIComponent(this.value);
+
+        fetch(url + '?' + params)
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro na solicitação AJAX.');
+                }
+            })
+            .then(function(data) {
+                state.innerHTML = '<option selected>Escolher Concelho</option>';
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var value = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = value;
+                        state.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+
+        document.getElementById('mail_municipality_id').value = "";
+        document.getElementById('mail_parish_id').value = "";
+    });
+
+    document.getElementById('mail_municipality_id').addEventListener('change', function() {
+        var $parish = document.getElementById('mail_parish_id');
+        var url = "{{ route('parish.index') }}";
+        var params = "municipality_id=" + encodeURIComponent(this.value);
+
+        fetch(url + '?' + params)
             .then(function(response) {
                 if (response.ok) {
                     return response.json();
