@@ -32,11 +32,11 @@
                 {{ __('Detalhes do Utilizador') }}
             </a>
         </div>
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4 mb-4">
-            {{ __(' Utilizador - ') }}{{ $users->name }}
-        </h2>
-        <a href="#"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Utilizador') }}</a>
+        <div class="flex items-end justify-between">
+            <h4 class="mr-4 text-xl	">{{ __(' Utilizador - ') }}{{ $users->name }}</h4>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Utilizador') }}</button>
+        </div>
+        
     </x-slot>
 
 
@@ -46,36 +46,59 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                    @if ($users->name)
-                        <h4 class="text-blue-600 dark:text-blue-400">
-                            {{ $users->name }}
-                        </h4>
-                    @endif
-                </div>
-                <div class="max-w-sm mx-auto bg-white shadow-md rounded-md p-6">
-                    <h2 class="text-lg font-semibold mb-4">User Details</h2>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="id">ID:</label>
-                        <span id="id" class="text-gray-900">{{ $users->id }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="name">Name:</label>
-                        <span id="name" class="text-gray-900">{{ $users->name }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="email">Email:</label>
-                        <span id="email" class="text-gray-900">{{ $users->email }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold mb-2" for="email">Cargo:</label>
-                        @if ($users->roles->isEmpty())
+                    <div class="flex p-4">
+                        <div class="w-1/2">
+                          <h4>{{ __('Identificador na Base de Dados: ') }}</h4>
+                        </div>
+                        <div class="w-1/2">
+                            @if ($users->name)
+                                <p class="text-blue-600 dark:text-blue-400">
+                                    {{ $users->id }}
+                                </p>
+                            @endif
+                        </div>
+                      </div>
+                    <div class="flex p-4">
+                        <div class="w-1/2">
+                          <h4>{{ __('Nome do Utilizador: ') }}</h4>
+                        </div>
+                        <div class="w-1/2">
+                            @if ($users->name)
+                                <p class="text-blue-600 dark:text-blue-400">
+                                    {{ $users->name }}
+                                </p>
+                            @endif
+                        </div>
+                      </div>
+                      <div class="flex p-4">
+                        <div class="w-1/2">
+                          <h4>{{ __('Email: ') }}</h4>
+                        </div>
+                        <div class="w-1/2">
+                            @if ($users->name)
+                                <p class="text-blue-600 dark:text-blue-400">
+                                    {{ $users->email }}
+                                </p>
+                            @endif
+                        </div>
+                      </div>
+                      <div class="flex p-4">
+                        <div class="w-1/2">
+                          <h4>{{ __('Cargo: ') }}</h4>
+                        </div>
+                        <div class="w-1/2">
+                            @if ($users->roles->isEmpty())
                                 <td class="py-2 px-4 border-b border-gray-200 text-blue-400">{{ 'No role' }}</td>
-                                @else
-                                    @foreach ($user->roles as $role)
-                                        <td class="py-2 px-4 border-b border-gray-200">{{ $role->title }}</td>
-                                    @endforeach
-                                @endif
-                    </div>
+                            @else
+                                @foreach ($users->roles as $role)
+                                    <p class="text-blue-600 dark:text-blue-400">
+                                        {{ $role->title }}
+                                    </p>
+                                @endforeach
+                            @endif
+                        </div>
+                      </div>
+                      
                 </div>
 
             </div>
