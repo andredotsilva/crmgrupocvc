@@ -44,7 +44,9 @@ Route::get('/utilizadores', [UsersController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('users');
 
-//Route::apiResource('/servicos', ServicosController::class);
+Route::get('/utilizadores/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
+
+
 
 
 Route::middleware('auth')->group(function () {

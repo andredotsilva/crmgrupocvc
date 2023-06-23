@@ -107,7 +107,7 @@
                           
                                   <td class="py-2 px-4 border-b border-gray-200 text-right">
                                 <div class="flex items-stretch justify-end gap-x-6">
-                                <a href="{{ route('users.show', $user->id) }}">
+                                    <a href="{{ route('users.show',  $user->id) }}">
                                     <button
                                         class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"

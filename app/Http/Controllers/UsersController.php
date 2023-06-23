@@ -16,13 +16,10 @@ class UsersController extends Controller
         ]);
     }
 
-    public function show() {
-        if (User::where('id', $id)->exists()) {
-
-            $users = User::where('id', $id)->get()->toJson();
-            
-        } 
+    public function show($id)
+    {
+        $users = User::with('roles')->findOrFail($id); 
+        return view('pages.users.show', compact('users'));
     }
-
     
 }
