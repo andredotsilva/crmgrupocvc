@@ -45,6 +45,10 @@ Route::get('/utilizadores', [UsersController::class, 'index'])
     ->name('users');
 
 Route::get('/utilizadores/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
+Route::get('/utilizadores/{id}/edit', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
+Route::put('/utilizadores/{id}', 'App\Http\Controllers\UsersController@update')->name('user.update');
+
+
 
 
 

@@ -34,9 +34,10 @@
         </div>
         <div class="flex items-end justify-between">
             <h4 class="mr-4 text-xl	">{{ __(' Utilizador - ') }}{{ $users->name }}</h4>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Utilizador') }}</button>
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Utilizador') }}</button>
         </div>
-        
+
     </x-slot>
 
 
@@ -48,7 +49,7 @@
                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
                     <div class="flex p-4">
                         <div class="w-1/2">
-                          <h4>{{ __('Identificador na Base de Dados: ') }}</h4>
+                            <h4>{{ __('Identificador na Base de Dados: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->name)
@@ -57,10 +58,10 @@
                                 </p>
                             @endif
                         </div>
-                      </div>
+                    </div>
                     <div class="flex p-4">
                         <div class="w-1/2">
-                          <h4>{{ __('Nome do Utilizador: ') }}</h4>
+                            <h4>{{ __('Nome do Utilizador: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->name)
@@ -69,10 +70,10 @@
                                 </p>
                             @endif
                         </div>
-                      </div>
-                      <div class="flex p-4">
+                    </div>
+                    <div class="flex p-4">
                         <div class="w-1/2">
-                          <h4>{{ __('Email: ') }}</h4>
+                            <h4>{{ __('Email: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->name)
@@ -81,10 +82,10 @@
                                 </p>
                             @endif
                         </div>
-                      </div>
-                      <div class="flex p-4">
+                    </div>
+                    <div class="flex p-4">
                         <div class="w-1/2">
-                          <h4>{{ __('Cargo: ') }}</h4>
+                            <h4>{{ __('Cargo: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->roles->isEmpty())
@@ -97,8 +98,8 @@
                                 @endforeach
                             @endif
                         </div>
-                      </div>
-                      
+                    </div>
+
                 </div>
 
             </div>
