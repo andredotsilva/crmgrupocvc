@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $contracts = Contract::with('client')->paginate();
         $contractsCount = Contract::count();
 
-        $clients = User::whereHas('roles', function ($query) {
+        $clientsCount = User::whereHas('roles', function ($query) {
             $query->where('role_id', 4);
         })->count();
 
@@ -43,7 +43,7 @@ class DashboardController extends Controller
             'contracts' => $contracts,
             'contractsCount' => $contractsCount,
             'contractsFinishing' => $contractsFinishing,
-            'clientsCount' => $clients,
+            'clientsCount' => $clientsCount,
         ]);
     }
 }

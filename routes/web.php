@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload', [FilesUploadController::class, 'store']);
     Route::delete('/destroy', [FilesUploadController::class, 'destroy']);
     Route::get('/download/{id}', [ContractsController::class, 'download'])->name('download');
+    Route::get('/delete/{id}', [ContractsController::class, 'delete'])->name('delete');
     Route::apiResource('/district', DistrictController::class);
     Route::apiResource('/municipality', MunicipalityController::class);
     Route::apiResource('/parish', ParishController::class);

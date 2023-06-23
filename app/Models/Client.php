@@ -20,7 +20,7 @@ class Client extends Model
         'door',
         'floor',
         'post_code',
-        'dmp_code', //district_municipality_parish_code
+        'dmp_code',
         'parish_id',
         'municipality_id',
         'district_id',
