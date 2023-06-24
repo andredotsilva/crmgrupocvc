@@ -34,8 +34,9 @@
         </div>
         <div class="flex items-end justify-between">
             <h4 class="mr-4 text-xl	">{{ __(' Editar - ') }}{{ $users->name }}</h4>
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Guardar') }}</button>
+            <a href="{{ url()->previous() }}">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Voltar') }}</button>
+            </a>
         </div>
 
     </x-slot>
@@ -61,7 +62,7 @@
                                 <label class="block text-gray-700 font-bold mb-2" for="email">Email:</label>
                                 <input type="email" id="email" name="email" value="{{ $users->email }}" class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
-                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Save</button>
+                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">{{ __('Guardar') }}</button>
                         </form>
                     </div>
 

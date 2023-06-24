@@ -42,5 +42,21 @@ class UsersController extends Controller
     }
 
 
-    
+    public function search(Request $request)
+    {
+        $name = $request->input('name');
+
+        $users = User::with('roles')->where('name', 'LIKE', "%$name%")->get();
+
+        return view('pages.users.index', compact('users'));
+    }
+
+    public function destroy(Request $request)
+    {
+        $delete = User::find($id)->delete();
+        return redirect()->route('users.index')
+                        ->with('success','Kamar Theresia deleted successfully');
+    }
+
+
 }

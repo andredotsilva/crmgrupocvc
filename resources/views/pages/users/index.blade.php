@@ -34,27 +34,29 @@
 
     <!-- component -->
     <div class="p-1">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="margin-top: 40px; padding-bottom: 100px;" >
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="margin-top: 40px; padding-bottom: 100px;">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100" >
+                <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
                         <div class="flex items-stretch justify-start mb-4">
                             <div class="relative w-1/5">
-                                <input type="text" placeholder="Search"
-                                    class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
-                                <div class="absolute top-0 left-0 flex items-center h-full ml-4">
-                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15.5 15.5l5.085 5.086M8.5 15.5a7 7 0 1 1 7-7 7 7 0 0 1-7 7z"></path>
-                                    </svg>
-                                </div>
+                                <form action="{{ route('user.search') }}" method="GET">
+                                    <input type="text" name="name" placeholder="Pesquisar"
+                                        class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
+                                    <div class="absolute top-0 left-0 flex items-center h-full ml-4">
+                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15.5 15.5l5.085 5.086M8.5 15.5a7 7 0 1 1 7-7 7 7 0 0 1-7 7z"></path>
+                                        </svg>
+                                    </div>
+                                </form>
                             </div>
                             <div>
                                 <div class="relative">
                                     <select
                                         class="py-2 pl-4 pr-8 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
-                                        <option value="">All Roles</option>
+                                        <option value="">Cargos</option>
                                         <option value="admin">Admin</option>
                                         <option value="user">User</option>
                                     </select>
@@ -131,7 +133,8 @@
                                                         </svg>
                                                     </button>
                                                 </a>
-                                                <form action="#" method="POST">
+                                                <form action="#"
+                                                    method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
