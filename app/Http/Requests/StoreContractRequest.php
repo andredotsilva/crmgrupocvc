@@ -29,6 +29,10 @@ class StoreContractRequest extends FormRequest
         return [
             // 'cae' => ['required'],
             'email' => ['email', 'unique:users,email'],
+            'peak' => ['numeric'],
+            'standard' => ['numeric'],
+            'super_off_peak' => ['numeric'],
+
             // 'power' => ['required'],
 
         ];
