@@ -368,8 +368,7 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            {{-- <x-input-number title="Pontas" name="peak" /> --}}
-                                            <x-input-string title="Pontas" name="peak" :errors="isset($errors['peak']) ? $errors['peak'] : []" />
+                                            <x-input-number title="Pontas" name="peak" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="standard"
@@ -782,30 +781,22 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                         <div class="sm:col-span-2">
-                                            <x-input-string
-                                                title="Email
-                                            Assinatura"
-                                                name="signatory_email" />
-                                            {{-- <label for="signatory_email"
+                                            <label for="signatory_email"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Email
                                                 Assinatura</label>
                                             <div class="mt-2">
                                                 <input type="string" name="signatory_email" id="signatory_email"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div> --}}
+                                            </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string
-                                                title="Contacto
-                                                Assinatura"
-                                                name="signatory_phone" :errors="$errors->get('signatory_phone')" />
-                                            {{-- <label for="signatory_phone"
+                                            <label for="signatory_phone"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
                                                 Assinatura</label>
                                             <div class="mt-2">
                                                 <input type="string" name="signatory_phone" id="signatory_phone"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div> --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
