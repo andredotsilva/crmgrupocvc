@@ -192,64 +192,28 @@
                                             </div>
                                         </div>
 
-
                                         <div class="sm:col-span-2">
-                                            <label for="service_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Serviço</label>
-                                            <div class="mt-2">
-                                                <select id="service_id" name="service_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    @foreach ($services as $service)
-                                                        <option value="{{ $service->id }}">
-                                                            {{ $service->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Serviço" name="service_id" :errors="$errors->first('service_id')"
+                                                :collection="$services" />
+                                            {{-- <x-input-select title="Serviço" name="service_id" :errors="$errors->first('service_id')" /> --}}
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="category_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Soluções</label>
-                                            <div class="mt-2">
-                                                <select id="category_id" name="category_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">
-                                                            {{ $category->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Soluções" name="category_id" :collection="$categories"
+                                                :errors="$errors->first('category_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="client_type_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Tipo
-                                                de Adesão</label>
-                                            <div class="mt-2">
-                                                <select id="client_type_id" name="client_type_id"
-                                                    autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    @foreach ($clientTypes as $clientType)
-                                                        <option value="{{ $clientType->id }}">
-                                                            {{ $clientType->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select
+                                                title="Tipo
+                                            de Adesão"
+                                                name="client_type_id" :collection="$clientTypes" :errors="$errors->first('client_type_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string
-                                                title="Cliente
-                                            / Administrador"
-                                                name="administrator_name" />
+                                            <x-input-string title="Cliente/Administrador" name="administrator_name"
+                                                :errors="$errors->first('administrator_name')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="cod-contador"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Administração
-                                                de Condominio</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="condominium_administrator"
-                                                    id="cod-contador" autocomplete="given-name"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Administração de Condominio"
+                                                name="condominium_administrator" :errors="$errors->first('condominium_administrator')" />
                                         </div>
                                     </div>
                                 </div>
@@ -260,53 +224,22 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS DA ORGANIZAÇÃO</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <label for="provider"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Adesão</label>
-                                            <div class="mt-2">
-                                                <select id="provider" name="provider_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    @foreach ($providers as $provider)
-                                                        <option value="{{ $provider->id }}"> {{ $provider->acronym }}
-                                                            -
-                                                            {{ $provider->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Adesão" name="provider_id" :collection="$providers"
+                                                :errors="$errors->first('provider_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="plan_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Campanha</label>
-                                            <div class="mt-2">
-                                                <select id="plan_id" name="plan_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    @foreach ($plans as $plan)
-                                                        <option value="{{ $plan->id }}"> {{ $plan->acronym }} -
-                                                            {{ $plan->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Campanha" name="plan_id" :collection="$plans"
+                                                :errors="$errors->first('plan_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="documentation_status_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
-                                            <div class="mt-2">
-                                                <select id="documentation_status_id" name="documentation_status_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    @foreach ($documentationStatus as $documentationStatus)
-                                                        <option value="{{ $documentationStatus->id }}">
-                                                            {{ $documentationStatus->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Documentação" name="documentation_status_id"
+                                                :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-
-                                            <div class="sm:col-span-2">
-                                                <x-input-string
-                                                    title="Arquivo
+                                            <x-input-string
+                                                title="Arquivo
                                                 do Cliente"
-                                                    name="archive" />
-                                            </div>
+                                                name="archive" :errors="$errors->first('archive')" />
                                         </div>
                                     </div>
                                 </div>
@@ -317,36 +250,18 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS Contador</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <label for="tariff"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Tensão</label>
-                                            <div class="mt-2">
-                                                <select id="tariff" name="tariff_id" autocomplete="tariff"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    @foreach ($tariffs as $tariff)
-                                                        <option value="{{ $tariff->id }}">{{ $tariff->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIF</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="nif" id="nif"
-                                                    autocomplete="nif" oninput="validateNIF(this)"
-                                                    value="{{ old('nif') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="sm:col-span-2">
-                                            <x-input-string title="CPE/CUI" name="cpe" />
+                                            <x-input-select title="Tensão" name="tariff_id" :collection="$tariffs"
+                                                :errors="$errors->first('tariff_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-price title="Potência/Escalão" name="power" type="power" />
+                                            <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')" />
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-string title="CPE/CUI" name="cpe" :errors="$errors->first('cpe')" />
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-price title="Potência/Escalão" name="power" type="power"
+                                                :errors="$errors->first('power')" />
                                         </div>
                                     </div>
                                 </div>
@@ -357,46 +272,21 @@
                                     id="consumos">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Consumos</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                                         <div class="sm:col-span-2">
-                                            <label for="flat"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Simples</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="flat" id="flat"
-                                                    value="{{ old('flat') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-number title="Simples" name="flat" :errors="$errors->first('flat')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-number title="Pontas" name="peak" />
+                                            <x-input-number title="Pontas" name="peak" :errors="$errors->first('peak')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="standard"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Cheias</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="standard" id="standard"
-                                                    value="{{ old('standard') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-number title="Cheias" name="standard" :errors="$errors->first('standard')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="off_peak"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Vazio</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="off_peak" id="off_peak"
-                                                    value="{{ old('off_peak') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-number title="Vazio" name="off_peak" :errors="$errors->first('off_peak')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="super_off_peak"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Super
-                                                Vazio</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="super_off_peak" id="super_off_peak"
-                                                    value="{{ old('super_off_peak') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-number title="Super Vazio" name="super_off_peak"
+                                                :errors="$errors->first('super_off_peak')" />
                                         </div>
                                         <div class="form-group">
                                             <label for="radio-group"
@@ -438,46 +328,16 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Datas de contrato</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            {{-- <label for="inserted_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Inserido</label>
-                                            <div class="mt-2">
-                                                <input type="date" name="inserted_at" id="inserted_at"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div> --}}
-                                            <x-input-date title="Inserido" name="inserted_at" />
+                                            <x-input-date title="Inserido" name="inserted_at" :errors="$errors->first('inserted_at')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            {{-- <label for="signed_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Assinado</label>
-                                            <div class="mt-2">
-                                                <input type="date" name="signed_at" id="signed_at"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div> --}}
-                                            <x-input-date title="Assinado" name="signed_at" />
+                                            <x-input-date title="Assinado" name="signed_at" :errors="$errors->first('signed_at')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            {{-- <label for="effective_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Alta</label>
-                                            <div class="mt-2">
-                                                <input type="date" name="effective_at" id="effective_at"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div> --}}
-                                            <x-input-date title="Alta" name="effective_at" />
-
+                                            <x-input-date title="Alta" name="effective_at" :errors="$errors->first('effective_at')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            {{-- <label for="renewal_at"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Renovação</label>
-                                            <div class="mt-2">
-                                                @php
-                                                    $renewalAt = isset($renewalAt) ? date('Y-m-d', strtotime($renewalAt)) : '';
-                                                @endphp
-                                                <input type="date" name="renewal_at" id="renewal_at"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600"
-                                                    value="{{ $renewalAt }}">
-                                            </div> --}}
-                                            <x-input-date title="Renovação" name="renewal_at" />
-
+                                            <x-input-date title="Renovação" name="renewal_at" :errors="$errors->first('renewal_at')" />
                                         </div>
 
                                     </div>
@@ -499,92 +359,40 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="name"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome
-                                                Cliente</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="name" id="name"
-                                                    autocomplete="name"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Nome Cliente" name="name" :errors="$errors->first('name')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="address"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Morada
-                                                De Fornecimento</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="address" id="address"
-                                                    autocomplete="address"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Morada De Fornecimento" name="address"
+                                                :errors="$errors->first('address')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="floor"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Andar/Fração</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="floor" id="floor"
-                                                    value="{{ old('floor') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Andar/Fração" name="floor" :errors="$errors->first('floor')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="post_code"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
-                                                Postal</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="post_code" id="post_code"
-                                                    value="{{ old('post_code') }}"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Codigo
+                                            Postal"
+                                                name="post_code" :errors="$errors->first('post_code')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="dmp_code"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
-                                                Freguesia</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="dmp_code" id="dmp_code"
-                                                    autocomplete="dmp_code"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-number
+                                                title="Codigo
+                                            Freguesia"
+                                                name="dmp_code" :errors="$errors->first('dmp_code')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="district_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
-                                            <div class="mt-2">
-                                                <select id="district_id" name="district_id"
-                                                    autocomplete="district_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option selected>Escolher Distrito</option>
-                                                    @foreach ($districts as $district)
-                                                        <option value="{{ $district->id }}">{{ $district->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Distrito" name="district_id" :collection="$districts"
+                                                :errors="$errors->first('district_id')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="municipality_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
-                                            <div class="mt-2">
-                                                <select id="municipality_id" name="municipality_id"
-                                                    autocomplete="municipality_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option selected>Escolher Concelho</option>
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Concelho" name="municipality_id"
+                                                :errors="$errors->first('municipality_id')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="parish_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
-                                            <div class="mt-2">
-                                                <select id="parish_id" name="parish_id" autocomplete="parish_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option value="" selected>Escolher Freguesia</option>
-                                                </select>
-                                            </div>
+                                            <x-input-select title="Freguesia" name="parish_id" :errors="$errors->first('parish_id')" />
                                         </div>
                                     </div>
                                 </div>
@@ -598,13 +406,7 @@
                                         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                             <div class="sm:col-span-2">
-                                                <label for="nif"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIB</label>
-                                                <div class="mt-2">
-                                                    <input type="number" name="nib" id="nif"
-                                                        autocomplete="nif"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                                </div>
+                                                <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <label for="invoice_type_id"
@@ -631,76 +433,18 @@
                                     id="dadoscorespondencia">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Dados de Correspondência</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Morada</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="address" id="nif"
-                                                    autocomplete="nif"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Morada" name="address" :errors="$errors->first('address')" />
                                         </div>
                                         <div class="sm:col-span-1">
-                                            <label for="floor"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Andar</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="floor" id="floor"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Andar" name="floor" :errors="$errors->first('floor')" />
                                         </div>
                                         <div class="sm:col-span-1">
-                                            <label for="door"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nº
-                                                Porta</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="door" id="door"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Nº Porta" name="door" :errors="$errors->first('door')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
-                                                Postal</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="mail_postal_code" id="mail_postal_code"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600"
-                                                    oninput="postCodeFormatter(this)"
-                                                    onblur="postCodeValidator(this)">
-                                                <span id="mail_postal_code_error" style="color: red;"></span>
-                                            </div>
-
-                                            <script>
-                                                function postCodeValidator(input) {
-                                                    var postalCode = input.value.trim().replace('-', ''); // Remover o traço (-) do código postal
-                                                    var postCodeError = document.getElementById('mail_postal_code_error');
-                                                    var regex = /^\d{4}\d{3}$/;
-
-                                                    if (!regex.test(postalCode)) {
-                                                        postCodeError.textContent = 'Formato inválido. Digite no formato XXXX-XXX';
-                                                    } else if (!/^\d+$/.test(postalCode)) {
-                                                        postCodeError.textContent = 'Digite apenas números no código postal';
-                                                    } else {
-                                                        postCodeError.textContent = '';
-                                                    }
-                                                }
-
-                                                function postCodeFormatter(input) {
-                                                    var postCode = input.value.trim().replace(/[-\s]/g, '');
-                                                    var formattedPostCode = '';
-
-                                                    if (postCode.length > 7) {
-                                                        postCode = postCode.substring(0, 7);
-                                                    }
-
-                                                    if (postCode.length <= 4) {
-                                                        formattedPostCode = postCode;
-                                                    } else if (postCode.length <= 7) {
-                                                        formattedPostCode = postCode.substring(0, 4) + "-" + postCode.substring(4, 7);
-                                                    }
-                                                    input.value = formattedPostCode;
-                                                }
-                                            </script>
+                                            <x-input-string title="Codigo Postal" name="mail_postal_code"
+                                                :errors="$errors->first('mail_postal_code')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
@@ -728,6 +472,7 @@
                                                     <option selected>Escolher Concelho</option>
                                                 </select>
                                             </div>
+
                                         </div>
 
                                         <div class="sm:col-span-2">
@@ -742,33 +487,23 @@
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Email</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="email" id="email"
-                                                    autocomplete="email"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Email
+                                        Responsável"
+                                                name="email" :errors="$errors->first('email')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="phone_number"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
-                                                Telefónico</label>
-                                            <div class="mt-2">
-                                                <input type="tel" name="phone_number" id="phone_number"
-                                                    autocomplete="nif"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Contacto
+                                                Telefónico"
+                                                name="phone_number" :errors="$errors->first('phone_number')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIF
-                                                Responsável</label>
-                                            <div class="mt-2">
-                                                <input type="nif" name="nif" id="nif"
-                                                    autocomplete="nif"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+
+                                            <x-input-string
+                                                title="NIF
+                                            Responsável"
+                                                name="nif" :errors="$errors->first('nif')" />
                                         </div>
                                     </div>
                                 </div>
@@ -779,24 +514,17 @@
                                     id="assinatura">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Assinatura</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
                                         <div class="sm:col-span-2">
-                                            <label for="signatory_email"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Email
-                                                Assinatura</label>
-                                            <div class="mt-2">
-                                                <input type="string" name="signatory_email" id="signatory_email"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Email
+                                                Assinatura"
+                                                name="signatory_email" :errors="$errors->first('signatory_email')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="signatory_phone"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Contacto
-                                                Assinatura</label>
-                                            <div class="mt-2">
-                                                <input type="string" name="signatory_phone" id="signatory_phone"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string
+                                                title="Contacto
+                                            Assinatura"
+                                                name="signatory_phone" :errors="$errors->first('signatory_phone')" />
                                         </div>
                                     </div>
                                 </div>
@@ -812,56 +540,58 @@
                                             <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Valor Pago ao Administrador"
-                                                    name="administrator_paid_amount" />
+                                                    name="administrator_paid_amount" :errors="$errors->first('administrator_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title=" Data Pagamento ao Administrador"
-                                                    name="administrator_payment_date" />
+                                                    name="administrator_payment_date" :errors="$errors->first('administrator_payment_date')" />
                                             </div>
                                             <div class="sm:col-span-2 mt-5">
                                                 <x-input-price title="Devolução ao Administrador"
-                                                    name="refund_adminstrator_paid_amount" />
+                                                    name="refund_adminstrator_paid_amount" :errors="$errors->first('refund_adminstrator_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Devolução ao Administrador"
-                                                    name="refund_administrator_payment_date" />
+                                                    name="refund_administrator_payment_date" :errors="$errors->first('refund_administrator_payment_date')" />
                                             </div>
                                         </div>
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões Comercial</h3>
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Valor Pago ao Comercial"
-                                                    name="commercial_paid_amount" />
+                                                    name="commercial_paid_amount" :errors="$errors->first('commercial_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Pagamento ao Comercial"
-                                                    name="commercial_payment_date" />
+                                                    name="commercial_payment_date" :errors="$errors->first('commercial_payment_date')" />
                                             </div>
                                             <div class="sm:col-span-2 mt-5">
                                                 <x-input-price title="Devolução ao Comercial"
-                                                    name="refund_commercial_paid_amount" />
+                                                    name="refund_commercial_paid_amount" :errors="$errors->first('refund_commercial_paid_amount')" />
 
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Devolução ao Comercial"
-                                                    name="refund_commercial_payment_date" />
+                                                    name="refund_commercial_payment_date" :errors="$errors->first('refund_commercial_payment_date')" />
                                             </div>
                                         </div>
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
                                             <div class="sm:col-span-2">
-                                                <x-input-price title="Valor Pago ao CVC" name="cvc_paid_amount" />
+                                                <x-input-price title="Valor Pago ao CVC" name="cvc_paid_amount"
+                                                    :errors="$errors->first('cvc_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <x-input-date title="Data Pagamento ao CVC" name="cvc_payment_date" />
+                                                <x-input-date title="Data Pagamento ao CVC" name="cvc_payment_date"
+                                                    :errors="$errors->first('cvc_payment_date')" />
                                             </div>
                                             <div class="sm:col-span-2 mt-5">
-                                                <x-input-price title="Devolução ao CVC"
-                                                    name="refund_cvc_paid_amount" />
+                                                <x-input-price title="Devolução ao CVC" name="refund_cvc_paid_amount"
+                                                    :errors="$errors->first('refund_cvc_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <x-input-date title="Data Devolução ao CVC<"
-                                                    name="refund_cvc_payment_date" />
+                                                <x-input-date title="Data Devolução ao CVC"
+                                                    name="refund_cvc_payment_date" :errors="$errors->first('refund_cvc_payment_date')" />
                                             </div>
                                         </div>
                                     </div>
@@ -905,7 +635,8 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         @foreach ($values as $label => $name)
-                                            <x-input-price title="{{ $label }}" name="{{ $name }}" />
+                                            <x-input-price title="{{ $label }}" name="{{ $name }}"
+                                                :errors="$errors->first($name)" />
                                         @endforeach
                                     </div>
                                 </div>

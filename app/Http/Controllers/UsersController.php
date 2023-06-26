@@ -18,7 +18,7 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $users = User::with('roles')->findOrFail($id); 
+        $users = User::with('roles')->findOrFail($id);
         return view('pages.users.show', compact('users'));
     }
 
@@ -51,12 +51,13 @@ class UsersController extends Controller
         return view('pages.users.index', compact('users'));
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $delete = User::find($id)->delete();
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
         return redirect()->route('users.index')
-                        ->with('success','Kamar Theresia deleted successfully');
+            ->with('success', 'Kamar Theresia deleted successfully');
     }
-
-
 }

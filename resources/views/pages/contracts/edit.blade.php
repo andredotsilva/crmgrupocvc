@@ -29,12 +29,12 @@
             </span>
 
             <a href="{{ route('contracts.create') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
-                {{ __('Inserir Novo Contrato') }}
+                {{ __('Editar Contrato') }}
             </a>
 
         </div>
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
-            {{ __('Inserir Novo Contrato') }}
+            {{ __('Editar Contrato') }}
         </h2>
     </x-slot>
     <div class="py-2">
@@ -393,7 +393,6 @@
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:text-gray-200"
                                                     oninput="postCodeFormatter(this)" placeholder="Formato 9999-999"
                                                     value="{{ $contract->client->mailingAddress->postal_code ?? '' }}">
-                                                <span id="mail_postal_code_error" style="color: red;"></span>
                                             </div>
                                             <script>
                                                 function postCodeFormatter(input) {

@@ -40,7 +40,7 @@
                     <div class="container mx-auto p-4">
                         <div class="flex items-stretch justify-start mb-4">
                             <div class="relative w-1/5">
-                                <form action="{{ route('user.search') }}" method="GET">
+                                <form action="{{ route('users.search') }}" method="GET">
                                     <input type="text" name="name" placeholder="Pesquisar"
                                         class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
                                     <div class="absolute top-0 left-0 flex items-center h-full ml-4">
@@ -133,8 +133,7 @@
                                                         </svg>
                                                     </button>
                                                 </a>
-                                                <form action="#"
-                                                    method="POST">
+                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button

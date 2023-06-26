@@ -44,13 +44,9 @@ Route::get('/utilizadores', [UsersController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('users');
 
-Route::get('/utilizadores/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
-Route::get('/utilizadores/{id}/edit', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
-Route::put('/utilizadores/{id}', 'App\Http\Controllers\UsersController@update')->name('user.update');
-Route::get('/utilizadores/search', 'App\Http\Controllers\UsersController@search')->name('user.search');
-
-
-
+// Route::get('/utilizadores/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
+// Route::get('/utilizadores/{id}/edit', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
+// Route::put('/utilizadores/{id}', 'App\Http\Controllers\UsersController@update')->name('user.update');
 
 
 Route::middleware('auth')->group(function () {
@@ -65,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('/district', DistrictController::class);
     Route::apiResource('/municipality', MunicipalityController::class);
     Route::apiResource('/parish', ParishController::class);
+    Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
+    Route::resource('/users', UsersController::class);
 });
 
 

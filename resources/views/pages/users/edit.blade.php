@@ -35,7 +35,8 @@
         <div class="flex items-end justify-between">
             <h4 class="mr-4 text-xl	">{{ __(' Editar - ') }}{{ $users->name }}</h4>
             <a href="{{ url()->previous() }}">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Voltar') }}</button>
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Voltar') }}</button>
             </a>
         </div>
 
@@ -48,21 +49,24 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                   
+
                     <div class="max-w-md mx-auto bg-white shadow-md rounded-md p-6">
                         <h2 class="text-lg font-semibold mb-4">Edit User</h2>
-                        <form action="{{ route('user.update', $users->id) }}" method="POST">
+                        <form action="{{ route('users.update', $users->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="mb-4">
                                 <label class="block text-gray-700 font-bold mb-2" for="name">Name:</label>
-                                <input type="text" id="name" name="name" value="{{ $users->name }}" class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                                <input type="text" id="name" name="name" value="{{ $users->name }}"
+                                    class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 font-bold mb-2" for="email">Email:</label>
-                                <input type="email" id="email" name="email" value="{{ $users->email }}" class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                                <input type="email" id="email" name="email" value="{{ $users->email }}"
+                                    class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
-                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">{{ __('Guardar') }}</button>
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md">{{ __('Guardar') }}</button>
                         </form>
                     </div>
 
