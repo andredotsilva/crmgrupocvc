@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Provider extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
 
     protected $fillable = [
         'acronym',

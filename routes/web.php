@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContractController;
@@ -9,6 +9,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\ContractsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
@@ -44,6 +45,8 @@ Route::get('/utilizadores', [UsersController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('users');
 
+
+
 // Route::get('/utilizadores/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
 // Route::get('/utilizadores/{id}/edit', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
 // Route::put('/utilizadores/{id}', 'App\Http\Controllers\UsersController@update')->name('user.update');
@@ -63,6 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('/parish', ParishController::class);
     Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
     Route::resource('/users', UsersController::class);
+    Route::get('/providers', [ProvidersController::class, 'edit'])->name('providers.edit');
+    Route::resource('/providers', ProvidersController::class);
 });
 
 
