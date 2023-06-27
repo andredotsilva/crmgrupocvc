@@ -53,9 +53,10 @@
                                 </form>
                             </div>
                             <div>
-                                <div class="relative">
+                                <div class="relative text-gray-700">
                                     <select
-                                        class="py-2 pl-4 pr-8 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
+                                        class="py-2 pl-4 pr-8 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-50 text-gray-700 
+                                        bg-grey-200 dark:bg-grey-700">
                                         <option value="">Cargos</option>
                                         <option value="admin">Admin</option>
                                         <option value="user">User</option>
@@ -71,23 +72,23 @@
 
                             </div>
                         </div>
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 pb-4">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 pb-4 ">
                             <thead>
                                 <tr>
                                     <th
-                                        class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-left">
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
                                         {{ 'Nome' }}
                                     </th>
                                     <th
-                                        class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-left">
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
                                         {{ 'Email' }}
                                     </th>
                                     <th
-                                        class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-left">
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
                                         {{ 'Cargo' }}
                                     </th>
                                     <th
-                                        class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-right">
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
 
                                     </th>
                                 </tr>

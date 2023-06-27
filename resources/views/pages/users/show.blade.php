@@ -50,51 +50,51 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
                     <div class="flex p-4">
-                        <div class="w-1/2">
+                        <div class="w-1/2 dark:text-blue-400">
                             <h4>{{ __('Identificador na Base de Dados: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->name)
-                                <p class="text-blue-600 dark:text-blue-400">
+                                <p class="text-blue-600 dark:text-blue-100">
                                     {{ $users->id }}
                                 </p>
                             @endif
                         </div>
                     </div>
                     <div class="flex p-4">
-                        <div class="w-1/2">
+                        <div class="w-1/2 dark:text-blue-400">
                             <h4>{{ __('Nome do Utilizador: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->name)
-                                <p class="text-blue-600 dark:text-blue-400">
+                                <p class="text-blue-600 dark:text-blue-100">
                                     {{ $users->name }}
                                 </p>
                             @endif
                         </div>
                     </div>
                     <div class="flex p-4">
-                        <div class="w-1/2">
+                        <div class="w-1/2 dark:text-blue-400">
                             <h4>{{ __('Email: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->name)
-                                <p class="text-blue-600 dark:text-blue-400">
+                                <p class="text-blue-600 dark:text-blue-100">
                                     {{ $users->email }}
                                 </p>
                             @endif
                         </div>
                     </div>
                     <div class="flex p-4">
-                        <div class="w-1/2">
+                        <div class="w-1/2 dark:text-blue-400">
                             <h4>{{ __('Cargo: ') }}</h4>
                         </div>
                         <div class="w-1/2">
                             @if ($users->roles->isEmpty())
-                                <td class="py-2 px-4 border-b border-gray-200 text-blue-400">{{ 'No role' }}</td>
+                                <td class="py-2 px-4 border-b border-gray-200 text-blue-600 dark:text-blue-100">{{ 'No role' }}</td>
                             @else
                                 @foreach ($users->roles as $role)
-                                    <p class="text-blue-600 dark:text-blue-400">
+                                    <p class="text-blue-600 dark:text-blue-100">
                                         {{ $role->title }}
                                     </p>
                                 @endforeach
