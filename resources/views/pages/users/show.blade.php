@@ -33,7 +33,7 @@
             </a>
         </div>
         <div class="flex items-end justify-between">
-            <h4 class="mr-4 text-xl	">{{ __(' Utilizador - ') }}{{ $users->name }}</h4>
+            <h4 class="mr-4 text-xl	text-blue-600 dark:text-blue-100">{{ __(' Utilizador - ') }}{{ $users->name }}</h4>
             <a href="{{ route('users.edit', $users->id) }}">
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Utilizador') }}</button>
