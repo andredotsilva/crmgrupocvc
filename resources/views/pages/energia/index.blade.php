@@ -128,7 +128,7 @@
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
                         Campanhas
                     </button>
-                    <a href="{{ route('providers') }}">
+                    <a href="{{ route('providers.index') }}">
                         <button
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
                             Empresas Fornecedoras
