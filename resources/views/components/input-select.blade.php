@@ -43,7 +43,7 @@
             @endforeach
         @endif
     </select>
-    @if ($errors)
+    @if (!empty($errors))
         <span class="text-sm text-red-500">{{ $errors }}</span>
     @endif
 </div>

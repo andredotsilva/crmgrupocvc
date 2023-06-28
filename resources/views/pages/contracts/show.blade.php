@@ -696,7 +696,7 @@
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
             <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
+                {{-- <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
                 <div class="grid grid-cols-6 gap-4 mb-4">
                     <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
                         <div class="p-4 dark:text-gray-200">1_12:</div>
@@ -831,6 +831,34 @@
                                 <span>{{ $contract->monthlyCommission->date_12_12 }} </span>
                             @endif
                         </div>
+                    </div>
+                </div> --}}
+                @php
+                    $values = [
+                        '01_12' => 'amount_01_12',
+                        '02_12' => 'amount_02_12',
+                        '03_12' => 'amount_03_12',
+                        '04_12' => 'amount_04_12',
+                        '05_12' => 'amount_05_12',
+                        '06_12' => 'amount_06_12',
+                        '07_12' => 'amount_07_12',
+                        '08_12' => 'amount_08_12',
+                        '09_12' => 'amount_09_12',
+                        '10_12' => 'amount_10_12',
+                        '11_12' => 'amount_11_12',
+                        '12_12' => 'amount_12_12',
+                    ];
+                @endphp
+                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
+                    id="comissoesmensais">
+                    <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
+                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        @foreach ($values as $label => $name)
+                            <div class="sm:col-span-1">
+                                <x-input-price title="{{ $label }}" name="{{ $name }}" disabled
+                                    value="{{ $contract->monthlyCommission->{'amount_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}" />
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
