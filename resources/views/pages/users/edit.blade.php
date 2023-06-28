@@ -33,7 +33,7 @@
             </a>
         </div>
         <div class="flex items-end justify-between">
-            <h4 class="mr-4 text-xl	">{{ __(' Editar - ') }}{{ $users->name }}</h4>
+            <h4 class="mr-4 text-xl	">{{ __(' Editar - ') }}{{ $user->name }}</h4>
             <a href="{{ url()->previous() }}">
                 <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Voltar') }}</button>
@@ -52,18 +52,29 @@
 
                     <div class="max-w-md mx-auto bg-white shadow-md rounded-md p-6">
                         <h2 class="text-lg font-semibold mb-4">Edit User</h2>
-                        <form action="{{ route('users.update', $users->id) }}" method="POST">
+                        <form action="{{ route('users.update', $user->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="mb-4">
                                 <label class="block text-gray-700 font-bold mb-2" for="name">Name:</label>
-                                <input type="text" id="name" name="name" value="{{ $users->name }}"
+                                <input type="text" id="name" name="name" value="{{ $user->name }}"
                                     class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 font-bold mb-2" for="email">Email:</label>
-                                <input type="email" id="email" name="email" value="{{ $users->email }}"
+                                <input type="email" id="email" name="email" value="{{ $user->email }}"
                                     class="border border-gray-300 rounded-md px-3 py-2 w-full">
+                            </div>
+                            {{-- <select name="roles[]" multiple>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}"
+                                        {{ $user->roles->contains($role) ? 'selected' : '' }}>
+                                        {{ $role->name }}
+                                    </option>
+                                @endforeach
+                            </select> --}}
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Roles" name="role" :collection="$roles" :errors="$errors->first('role')" />
                             </div>
                             <button type="submit"
                                 class="px-4 py-2 bg-blue-500 text-white rounded-md">{{ __('Guardar') }}</button>

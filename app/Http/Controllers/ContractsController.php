@@ -112,6 +112,11 @@ class ContractsController extends Controller
     }
     public function store(StoreContractRequest $request)
     {
+        $districtId = ($request->input('district_id') !== 'Selecionar Distrito')
+            ? $request->input('district_id')
+            : null;
+
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -161,7 +166,7 @@ class ContractsController extends Controller
         $client->dmp_code = $request->dmp_code;
         $client->parish_id = $request->parish_id;
         $client->municipality_id = $request->municipality_id;
-        $client->district_id = $request->district_id;
+        $client->district_id = $districtId;
         $client->user_id = $user->id;
         $client->save();
 
@@ -235,7 +240,7 @@ class ContractsController extends Controller
                 $file->contract_id = $contract->id;
                 $file->filename = $temporaryImage->filename;
                 $file->original_name = 'as';
-                $file->size = 'size';
+                // $file->size = 'size';
                 $file->mime_type = 'mime_type';
                 $file->path = $temporaryImage->folder . '/' . $temporaryImage->filename;
 
@@ -458,8 +463,22 @@ class ContractsController extends Controller
     }
     public function download($id)
     {
-        $file = File::where('id', $id)->findOrFail();
-        return Storage::download('files/' . $file->path);
+        $userRoles = auth()->user()->roles;
+        $allowedRoleIds = [1, 2, 3, 4, 5];
+
+        $intersect = false;
+
+        foreach ($userRoles as $role) {
+            if (in_array($role->id, $allowedRoleIds)) {
+                $intersect = true;
+                break;
+            }
+        }
+
+        if ($intersect) {
+            $file = File::findOrFail($id);
+            return Storage::download('files/' . $file->path);
+        }
     }
 
     public function delete($id)

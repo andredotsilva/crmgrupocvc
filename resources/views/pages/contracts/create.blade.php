@@ -175,10 +175,13 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <label for="provider"
+                                            <x-input-select title="Comercial" name="commercial_id" :errors="$errors->first('commercial_id')"
+                                                :collection="$commercials" hasAuth />
+                                            {{-- <label for="provider"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome
                                                 Comercial</label>
                                             <div class="mt-2">
+
                                                 <select name="commercial_id"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option value="">Escolha</option>
@@ -189,13 +192,12 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Serviço" name="service_id" :errors="$errors->first('service_id')"
                                                 :collection="$services" />
-                                            {{-- <x-input-select title="Serviço" name="service_id" :errors="$errors->first('service_id')" /> --}}
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Soluções" name="category_id" :collection="$categories"
@@ -275,6 +277,7 @@
                                         <div class="sm:col-span-2">
                                             <x-input-number title="Simples" name="flat" :errors="$errors->first('flat')" />
                                         </div>
+
                                         <div class="sm:col-span-2">
                                             <x-input-number title="Pontas" name="peak" :errors="$errors->first('peak')" />
                                         </div>
@@ -350,13 +353,7 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                         <div class="sm:col-span-2">
-                                            <label for="cae"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">CAE</label>
-                                            <div class="mt-2">
-                                                <input type="number" name="cae" id="cae"
-                                                    autocomplete="cae"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="CAE" name="cae" :errors="$errors->first('cae')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Nome Cliente" name="name" :errors="$errors->first('name')" />

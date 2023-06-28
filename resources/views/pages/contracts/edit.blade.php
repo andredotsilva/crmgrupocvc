@@ -234,7 +234,8 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Consumos</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <x-input-number title="Simples" name="flat" :value="$contract->meter->flat" />
+                                            <x-input-number title="Simples" name="flat" :value="$contract->meter->flat"
+                                                :errors="$errors->first('flat')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-number title="Pontas" name="peak" :value="$contract->meter->peak" />
@@ -293,19 +294,19 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
                                             <x-input-date title="Inserido" name="inserted_at"
-                                                value="{{ $contract->inserted_at }}" />
+                                                value="{{ $contract->inserted_at }}" :errors="$errors->first('inserted_at')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-date title="Assinado" name="signed_at"
-                                                value="{{ $contract->signed_at }}" />
+                                                value="{{ $contract->signed_at }}" :errors="$errors->first('signed_at')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-date title="Alta" name="effective_at"
-                                                value="{{ $contract->effective_at }}" />
+                                                value="{{ $contract->effective_at }}" :errors="$errors->first('effective_at')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-date title="Renovação" name="renewal_at"
-                                                value="{{ $contract->renewal_at }}" />
+                                                value="{{ $contract->renewal_at }}" :errors="$errors->first('renewal_at')" />
                                         </div>
                                     </div>
                                 </div>
@@ -315,7 +316,7 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Dados Cliente</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <x-input-string
+                                            <x-input-number
                                                 title="CAE
                                             de Condominio"
                                                 name="cae" :value="$contract->client->cae" />
@@ -579,7 +580,7 @@
                                         @foreach ($values as $label => $name)
                                             <div class="sm:col-span-1">
                                                 <x-input-price title="{{ $label }}"
-                                                    name="{{ $name }}"
+                                                    name="{{ $name }}" disabled
                                                     value="{{ $contract->monthlyCommission->{'amount_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}" />
                                             </div>
                                         @endforeach
@@ -607,7 +608,8 @@
                                                 @endforeach
                                             </div>
                                         @else
-                                            <p class="text-grey-200">Nenhum arquivo associado a este contrato.</p>
+                                            <p class="text-dark-800 dark:text-gray-200">Nenhum arquivo associado a este
+                                                contrato.</p>
                                         @endif
                                     </div>
                                 </div>

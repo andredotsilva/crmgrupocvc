@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Contract;
 use Illuminate\Http\Request;
@@ -24,21 +25,27 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $users = User::with('roles')->find($id);
+        $user = User::with('roles')->where('id', $id)->first();
+        $roles = Role::all();
 
-        return view('pages.users.edit', compact('users'));
+        return view('pages.users.edit', compact(['user', 'roles']));
     }
 
     public function update(Request $request, $id)
     {
-        $users = User::find($id);
+        $user = User::find($id);
 
-        $users->name = $request->input('name');
-        $users->email = $request->input('email');
+        $roles = ($request->input('role') !== 'Escolher Roles')
+            ? $request->input('role')
+            : null;
 
-        $users->save();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->roles()->sync($roles);
 
-        return redirect()->route('users.show', $users->id);
+        $user->save();
+
+        return redirect()->route('users.show', $user->id);
     }
 
 
