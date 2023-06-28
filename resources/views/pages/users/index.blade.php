@@ -97,18 +97,18 @@
                                 <!-- User rows go here -->
                                 @foreach ($users as $user)
                                     <tr>
-                                        <td class="py-2 px-4 border-b border-gray-200">{{ $user->name }}</td>
-                                        <td class="py-2 px-4 border-b border-gray-200">{{ $user->email }}</td>
+                                        <td class="py-2 px-4 border-b border-gray-600">{{ $user->name }}</td>
+                                        <td class="py-2 px-4 border-b border-gray-600">{{ $user->email }}</td>
                                         @if ($user->roles->isEmpty())
-                                            <td class="py-2 px-4 border-b border-gray-200 text-blue-400">
+                                            <td class="py-2 px-4 border-b border-gray-600 text-blue-400">
                                                 {{ 'No role' }}</td>
                                         @else
                                             @foreach ($user->roles as $role)
-                                                <td class="py-2 px-4 border-b border-gray-200">{{ $role->title }}</td>
+                                                <td class="py-2 px-4 border-b border-gray-600">{{ $role->title }}</td>
                                             @endforeach
                                         @endif
 
-                                        <td class="py-2 px-4 border-b border-gray-200 text-right">
+                                        <td class="py-2 px-4 border-b border-gray-600 text-right">
                                             <div class="flex items-stretch justify-end gap-x-6">
                                                 <a href="{{ route('users.show', $user->id) }}">
                                                     <button

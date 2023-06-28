@@ -41,7 +41,7 @@
                         <!-- Chek user Role -->
                         @foreach (auth()->user()->roles as $role)
                             <span
-                                class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{ $role->title }}</span>
+                                class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-600 dark:text-gray-200">{{ $role->title }}</span>
                         @endforeach
                         {{-- <span
                             class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">{{ auth()->id()->roles->title }}</span> --}}

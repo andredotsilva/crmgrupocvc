@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/users', UsersController::class);
     Route::get('/providers', [ProvidersController::class, 'edit'])->name('providers.edit');
     Route::resource('/providers', ProvidersController::class);
+    
 });
 
 
