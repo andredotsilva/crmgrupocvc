@@ -13,6 +13,7 @@ use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
+use App\Http\Controllers\PlansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/providers', [ProvidersController::class, 'edit'])->name('providers.edit');
     Route::get('/providers', [ProvidersController::class, 'create'])->name('providers.insert');
     Route::resource('/providers', ProvidersController::class);
-    
+    Route::resource('/plans', PlansController::class);
 });
 
 
