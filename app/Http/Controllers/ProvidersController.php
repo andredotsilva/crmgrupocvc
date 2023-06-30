@@ -14,6 +14,27 @@ class ProvidersController extends Controller
         return view('pages.providers.index', compact('providers'));
     }
 
+    public function create()
+    {
+        return view('pages.providers.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'acronym' => 'required',
+            'title' => 'required',
+        ]);
+
+        Provider::create([
+            'acronym' => $request->acronym,
+            'title' => $request->title,
+        ]);
+
+        return redirect()->route('providers.index')
+            ->with('success');
+    }
+
     public function edit($id)
     {
         $providers = Provider::findOrFail($id);

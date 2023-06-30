@@ -136,23 +136,31 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 px-6 pb-2 pt-4 rounded-2xl bg-white dark:bg-gray-800">
+                    <div class="pb-4">
+                        <a href="{{ route('providers.create') }}" class="pb-4">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
+                                Inserir Provedor
+                            </button>
+                        </a>
+                    </div>
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 pb-4">
                         <thead>
                             <tr>
                                 <th
-                                    class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-left">
+                                    class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md text-gray-700 dark:text-gray-200 text-left">
                                     {{ 'ID' }}
                                 </th>
                                 <th
-                                    class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-left">
+                                    class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md text-gray-700 dark:text-gray-200 text-left">
                                     {{ 'Acrónimo' }}
                                 </th>
                                 <th
-                                    class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-left">
+                                    class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md text-gray-700 dark:text-gray-200 text-left">
                                     {{ 'Nome' }}
                                 </th>
                                 <th
-                                    class="py-2 px-4 bg-gray-100 border-b border-gray-100 font-bold  text-md text-gray-700 text-right">
+                                    class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md text-gray-700  dark:text-gray-200text-right">
 
                                 </th>
                             </tr>
@@ -161,11 +169,14 @@
                             <!-- User rows go here -->
                             @foreach ($providers as $provider)
                                 <tr>
-                                    <td class="py-2 px-4 border-b border-gray-200">{{ $provider->id }}</td>
-                                    <td class="py-2 px-4 border-b border-gray-200">{{ $provider->acronym }}</td>
-                                    <td class="py-2 px-4 border-b border-gray-200">{{ $provider->title }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-600 dark:text-gray-200">
+                                        {{ $provider->id }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-600 dark:text-gray-200">
+                                        {{ $provider->acronym }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-600 dark:text-gray-200">
+                                        {{ $provider->title }}</td>
 
-                                    <td class="py-2 px-4 border-b border-gray-200 text-right">
+                                    <td class="py-2 px-4 border-b border-gray-600 text-right">
                                         <div class="flex items-stretch justify-end gap-x-6">
                                             <a href="{{ route('providers.edit', $provider->id) }}"
                                                 class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none">
@@ -178,7 +189,8 @@
                                                     </svg>
                                                 </button>
                                             </a>
-                                            <form action="{{ route('providers.destroy', $provider->id) }}" method="POST">
+                                            <form action="{{ route('providers.destroy', $provider->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button
@@ -194,7 +206,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
