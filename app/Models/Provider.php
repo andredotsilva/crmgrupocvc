@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Plan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Provider extends Model
 {
@@ -15,4 +16,9 @@ class Provider extends Model
         'acronym',
         'title',
     ];
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
 }

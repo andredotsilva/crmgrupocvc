@@ -67,10 +67,15 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('/parish', ParishController::class);
     Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
     Route::resource('/users', UsersController::class);
+
     Route::get('/providers', [ProvidersController::class, 'edit'])->name('providers.edit');
     Route::get('/providers', [ProvidersController::class, 'create'])->name('providers.insert');
     Route::resource('/providers', ProvidersController::class);
+
+    Route::get('/plans', [PlansController::class, 'edit'])->name('plans.edit');
+    Route::get('/plans', [PlansController::class, 'create'])->name('plans.create');
     Route::resource('/plans', PlansController::class);
+    
 });
 
 

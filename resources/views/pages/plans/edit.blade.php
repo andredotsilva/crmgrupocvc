@@ -65,27 +65,35 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden  sm:rounded-lg">
                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 px-6 pb-2 pt-4 rounded-2xl bg-white dark:bg-gray-800">
                     <div class="max-w-md mx-auto bg-white rounded-md p-6 dark:bg-gray-800">
-                        <h2 class="text-lg font-semibold mb-4 dark:text-gray-200">Inserir Campanha</h2>
+                        <h2 class="text-lg font-semibold mb-4 dark:text-gray-200">Editar Campanha</h2>
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('plans.store') }}">
+                        <form method="POST"
+                            action="{{ route('plans.update', ['provider' => $provider, 'plan' => $plan]) }}">
+                            @csrf
+                            @method('PUT')
                             <div class="mb-4">
-                                <label for="provider_id" class="block mb-2 text-gray-700 font-bold mb-2 dark:text-gray-200">Provedor:</label>
+                                <label for="provider_id"
+                                    class="block mb-2 text-gray-700 font-bold mb-2 dark:text-gray-200">Provedor:</label>
                                 <select name="provider_id" id="provider_id" required
                                     class="border border-gray-300 rounded px-3 py-2 w-full">
-                                    <option value="">Escolher Provedor:</option>
                                     @foreach ($providers as $provider)
-                                        <option value="{{ $provider->id }}">{{ $provider->acronym }} - {{ $provider->title }}</option>
+                                        <option value="{{ $provider->id }}"
+                                            @if ($provider->id === $plan->provider_id) selected @endif>
+                                            {{ $provider->acronym }} - {{ $provider->title }}
+                                        </option>
                                     @endforeach
                                 </select>
+
                             </div>
                             <div class="mb-4">
                                 <label class="block text-gray-700 font-bold mb-2 dark:text-gray-200" for="text">Nome
                                     da Campanha:</label>
                                 <input type="text" id="title" name="title" required
+                                    value="{{ $plan->title }}"
                                     class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
                             <button type="submit"

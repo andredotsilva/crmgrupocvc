@@ -101,7 +101,7 @@
 
                                     <td class="py-2 px-4 border-b border-gray-600 text-right">
                                         <div class="flex items-stretch justify-end gap-x-6">
-                                            <a href="#"
+                                            <a href="{{ route('plans.edit', $plan->id) }}"
                                                 class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none">
                                                 <button>
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -112,7 +112,7 @@
                                                     </svg>
                                                 </button>
                                             </a>
-                                            <form action="#" method="POST">
+                                            <form action="{{ route('plans.destroy', $plan->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button

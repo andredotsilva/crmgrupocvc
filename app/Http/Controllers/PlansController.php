@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use App\Models\Contract;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 
 class PlansController extends Controller
@@ -14,44 +15,60 @@ class PlansController extends Controller
         return view('pages.plans.index', compact('plans'));
     }
 
-    public function show($id)
+
+    public function store(Request $request)
     {
-        if (Plan::where('id', $id)->exists()) {
+        $request->validate([
+            'provider_id' => 'required',
+            'title' => 'required',
+        ]);
 
-            $plans = Plan::where('id', $id)->with('providers')->get()->toJson();
-            return response($plans, 200);
-        } else {
+        $plans = new Plan();
+        $plans->title = $request->title;
 
-            return response()->json([
-                'success'   => false,
-                'message'   => __('Erro ao obter o registo.'),
-                'data' => [__('Registo não encontrado.')]
-            ], 404);
-        }
+        $provider = Provider::findOrFail($request->provider_id);
+        $provider->plans()->save($plans);
+
+        return redirect()->route('plans.index')
+            ->with('success');
     }
+
+
 
     public function create()
     {
-        return view('pages.plans.create');
+        $providers = Provider::all();
+        $plans = Plan::all();
+
+        return view('pages.plans.create', compact('providers', 'plans'));
     }
 
-    public function store(Request $request, $id)
+    public function edit(Provider $provider, Plan $plan)
     {
-        
+        $providers = Provider::all();
+        return view('pages.plans.edit', compact('provider', 'plan', 'providers'));
     }
 
-    public function edit($id)
+    public function update(Request $request, Provider $provider, Plan $plan)
     {
-       
-    }
+        $request->validate([
+            'provider_id' => 'required',
+            'title' => 'required',
+        ]);
 
-    public function update(Request $request, $id)
-    {
-        
+        $plan->provider_id = $request->provider_id;
+        $plan->title = $request->title;
+        $plan->save();
+
+        return redirect()->route('plans.index')->with('success', 'Plan updated successfully!');
     }
 
     public function destroy($id)
     {
-        
+        $plans = Plan::findOrFail($id);
+
+        $plans->delete();
+
+        return redirect('/plans')->with('success', 'Provider Deleted successfully.');
     }
 }
