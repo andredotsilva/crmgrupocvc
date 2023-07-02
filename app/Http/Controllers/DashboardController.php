@@ -8,14 +8,14 @@ use Date;
 use DateInterval;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     //
     public function index()
     {
-        $contracts = Contract::with('client')->paginate();
-        $testeee = Contract::all();
+        // $contracts = Contract::with('client')->paginate();
 
         $contractsCount = Contract::count();
 
@@ -23,43 +23,18 @@ class DashboardController extends Controller
             $query->where('role_id', 4);
         })->count();
 
-        $contractsFinishing = 0;
-        foreach ($contracts as $contract) {
-            $effectiveAt = new DateTime($contract->effective_at);
-            $dangerousDate = $effectiveAt->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
+        $contracts = Contract::where(function ($query) {
+            $query->whereRaw("DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE()")
+                ->whereRaw("DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE()");
+        })->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS status'))
+            ->paginate(20);
 
-            $dataFim = clone $effectiveAt;
-            $dataFim->add(new DateInterval('P12M'));
-
-            $today = new DateTime();
-
-            if (($today >= $dangerousDate && $today <= $dataFim)) {
-                $contract->status = 1;
-                // $contractsFinishing++;
-            } else {
-                $contract->status = 0;
-            }
-        }
-
-        foreach ($testeee as $contract) {
-            $effectiveAt = new DateTime($contract->effective_at);
-            $dangerousDate = $effectiveAt->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
-
-            $dataFim = clone $effectiveAt;
-            $dataFim->add(new DateInterval('P12M'));
-
-            $today = new DateTime();
-
-            if (($today >= $dangerousDate && $today <= $dataFim)) {
-                $contractsFinishing++;
-            }
-        }
-
+        $contractsFinishingCount = $contracts->count();
 
         return view('dashboard', [
             'contracts' => $contracts,
             'contractsCount' => $contractsCount,
-            'contractsFinishing' => $contractsFinishing,
+            'contractsFinishing' => $contractsFinishingCount,
             'clientsCount' => $clientsCount,
         ]);
     }

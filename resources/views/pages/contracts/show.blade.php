@@ -35,7 +35,7 @@
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4 mb-4">
             {{ __(' Contrato - ') }}{{ $contract->id }}
         </h2>
-        <a href="#"
+        <a href="{{ route('contracts.edit', $contract->id) }}"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Contrato') }}</a>
     </x-slot>
 
@@ -203,7 +203,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">CPE/CUI:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter_id)
+                        @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->cpe }}
                             </h4>
@@ -213,7 +213,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Potência/Escalão:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter_id)
+                        @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->power / 100 }}
                             </h4>
@@ -239,7 +239,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Pontas:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter_id)
+                        @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->peak }}
                             </h4>
@@ -249,7 +249,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Cheias:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter_id)
+                        @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->standard }}
                             </h4>
@@ -259,7 +259,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Vazio:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter_id)
+                        @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->off_peak }}
                             </h4>
@@ -269,7 +269,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Super Vazio:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter_id)
+                        @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->super_off_peak }}
                             </h4>
@@ -279,7 +279,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">GÁS:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter_id)
+                        @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->gas }}
                             </h4>
@@ -426,7 +426,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->client->parish)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->client->parish->title }}
+                                {{ $contract->client->parish->title ?? null }}
                             </h4>
                         @endif
                     </div>
@@ -465,7 +465,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Morada:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->client->mailingAddress->address }}
                             </h4>
@@ -475,7 +475,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Nº Porta:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->client->mailingAddress->door }}
                             </h4>
@@ -485,7 +485,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código Postal:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client->mailingAddress->post_code)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->client->mailingAddress->post_code }}
                             </h4>
@@ -495,9 +495,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Freguesia:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client->mailingAddress->parish)
-                            <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->client->mailingAddress->parish->title }}
+                        @if ($contract->client->mailingAddress)
+                            <h4 class="text-blue-600 dark:text-blumailingAddresse-400">
+                                {{ $contract->client->mailingAddress->parish->title ?? null }}
                             </h4>
                         @endif
                     </div>
@@ -505,9 +505,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Conselho:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client->mailingAddress->municipality)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->client->mailingAddress->municipality->title }}
+                                {{ $contract->client->mailingAddress->municipality->title ?? null }}
                             </h4>
                         @endif
                     </div>
@@ -515,9 +515,9 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Distrito:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client->mailingAddress->district)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->client->mailingAddress->district->title }}
+                                {{ $contract->client->mailingAddress->district->title ?? null }}
                             </h4>
                         @endif
                     </div>
@@ -525,7 +525,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Email:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->client->mailingAddress->email }}
                             </h4>
@@ -535,7 +535,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Contacto Telefónico:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->client->mailingAddress->phone_number }}
                             </h4>
@@ -545,7 +545,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">NIF Responsável:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client)
+                        @if ($contract->client->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->client->mailingAddress->nif }}
                             </h4>
@@ -696,170 +696,22 @@
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
             <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                {{-- <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
+                <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
                 <div class="grid grid-cols-6 gap-4 mb-4">
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">1_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_01_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_01_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">2_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_02_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_02_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">3_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_03_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_03_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">4_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_04_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_04_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">5_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_05_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_05_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">6_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_06_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_06_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-6 gap-4 mb-4">
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">7_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_07_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_07_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">8_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_08_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_08_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">9_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_09_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_09_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">10_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_10_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_10_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">11_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_11_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_11_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <div class="p-4 dark:text-gray-200">12_12:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->monthly_commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->monthlyCommission->ammount_012_12 }}
-                                </h4>
-                                <span>{{ $contract->monthlyCommission->date_12_12 }} </span>
-                            @endif
-                        </div>
-                    </div>
-                </div> --}}
-                @php
-                    $values = [
-                        '01_12' => 'amount_01_12',
-                        '02_12' => 'amount_02_12',
-                        '03_12' => 'amount_03_12',
-                        '04_12' => 'amount_04_12',
-                        '05_12' => 'amount_05_12',
-                        '06_12' => 'amount_06_12',
-                        '07_12' => 'amount_07_12',
-                        '08_12' => 'amount_08_12',
-                        '09_12' => 'amount_09_12',
-                        '10_12' => 'amount_10_12',
-                        '11_12' => 'amount_11_12',
-                        '12_12' => 'amount_12_12',
-                    ];
-                @endphp
-                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
-                    id="comissoesmensais">
-                    <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
-                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        @foreach ($values as $label => $name)
-                            <div class="sm:col-span-1">
-                                <x-input-price title="{{ $label }}" name="{{ $name }}" disabled
-                                    value="{{ $contract->monthlyCommission->{'amount_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}" />
+                    @for ($i = 1; $i <= 12; $i++)
+                        <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
+                            <div class="p-4 dark:text-gray-200">{{ $i }}_12:</div>
+                            <div class="p-4 col-span-8 md:col-span-8">
+                                @if ($contract->monthlyCommission)
+                                    <h4 class="text-blue-600 dark:text-blue-400">
+                                        &euro;
+                                        {{ $contract->monthlyCommission->{'amount_' . str_pad($i, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}
+                                    </h4>
+                                @endif
                             </div>
-                        @endforeach
-                    </div>
+
+                        </div>
+                    @endfor
                 </div>
             </div>
         </div>
@@ -867,25 +719,28 @@
             <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
                 <h1 class="text-lg pb-4 dark:text-gray-200">Documentos deste Contrato</h1>
                 @if ($contract->files->count() > 0)
-                    <div class="grid grid-cols-6 gap-3">
+                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                         @foreach ($contract->files as $file)
-                            <a href="{{ route('download', ['id' => $file->id]) }}"
-                                class="bg-gray-200 p-4 flex flex-col justify-center items-center rounded-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
-                                    viewBox="0 0 256 256">
-                                    <path
-                                        d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z">
-                                    </path>
-                                </svg>
-                                {{ $file->filename }}
-                            </a>
-                            <a href="{{ route('delete', ['id' => $file->id]) }}">apagar</a>
+                            <div class="p-4 bg-gray-200 rounded-sm flex flex-col justify-center items-center">
+                                <a href="{{ route('download', ['id' => $file->id]) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                        fill="#000000" viewBox="0 0 256 256">
+                                        <path
+                                            d="M224,152a8,8,0,0,1-8,8H192v16h16a8,8,0,0,1,0,16H192v16a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8h32A8,8,0,0,1,224,152ZM92,172a28,28,0,0,1-28,28H56v8a8,8,0,0,1-16,0V152a8,8,0,0,1,8-8H64A28,28,0,0,1,92,172Zm-16,0a12,12,0,0,0-12-12H56v24h8A12,12,0,0,0,76,172Zm88,8a36,36,0,0,1-36,36H112a8,8,0,0,1-8-8V152a8,8,0,0,1,8-8h16A36,36,0,0,1,164,180Zm-16,0a20,20,0,0,0-20-20h-8v40h8A20,20,0,0,0,148,180ZM40,112V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88v24a8,8,0,0,1-16,0V96H152a8,8,0,0,1-8-8V40H56v72a8,8,0,0,1-16,0ZM160,80h28.69L160,51.31Z">
+                                        </path>
+                                    </svg>
+                                    <span class="text-sm">{{ $file->filename }}</span>
+                                </a>
+                                <a href="{{ route('delete', ['id' => $file->id]) }}"
+                                    class="text-red-500 hover:text-red-700">Apagar</a>
+                            </div>
                         @endforeach
                     </div>
                 @else
-                    <p class="text-grey-200 dark:text-gray-200">Nenhum arquivo associado a este contrato.</p>
+                    <p class="text-gray-500 dark:text-gray-200">Nenhum arquivo associado a este contrato.</p>
                 @endif
             </div>
         </div>
+
     </div>
 </x-app-layout>

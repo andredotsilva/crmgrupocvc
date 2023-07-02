@@ -20,16 +20,21 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('servicos')" :active="request()->routeIs('servicos')">
-                        {{ __('Serviços') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
-                        {{ __('Utilizadores') }}
-                    </x-nav-link>
-                </div>
+                @if (!Auth::user()->is_client)
+                    {{-- return abort(403, 'Acesso negado.'); --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('servicos')" :active="request()->routeIs('services')">
+                            {{ __('Serviços') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+                @if (!Auth::user()->is_client)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                            {{ __('Utilizadores') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
             </div>
 
