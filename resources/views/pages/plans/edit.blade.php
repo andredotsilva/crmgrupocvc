@@ -40,7 +40,7 @@
                 </svg>
             </span>
 
-            <a href="{{ route('energia') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+            <a href="{{ route('plans.index') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                 {{ __('Campanhas') }}
             </a>
         </div>
@@ -50,7 +50,7 @@
 
         <div class="flex items-end justify-between">
             <h4 class="mr-4 text-xl	dark:text-gray-200">{{ __(' Inserir Campanha ') }}</h4>
-            <a href="{{ url()->previous() }}">
+            <a href="{{ route('plans.index') }}">
                 <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Voltar') }}</button>
             </a>

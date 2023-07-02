@@ -75,7 +75,7 @@
                                 </th>
                                 <th
                                     class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md text-gray-700 dark:text-gray-200 text-left">
-                                    {{ 'Nome' }}
+                                    {{ 'Nome da Campanha' }}
                                 </th>
                                 <th
                                     class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md text-gray-700  dark:text-gray-200text-right">
