@@ -71,4 +71,13 @@ class PlansController extends Controller
 
         return redirect('/plans')->with('success', 'Provider Deleted successfully.');
     }
+
+    public function plansbyproviderid()
+    {
+        $plans = Plan::whereHas('provider', function ($query) {
+            $query->whereId(request()->input('provider_id', 0));
+        })->get();
+
+        return response()->json($plans);
+    }
 }

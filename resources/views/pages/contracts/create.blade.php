@@ -176,28 +176,11 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Comercial" name="commercial_id" :errors="$errors->first('commercial_id')"
-                                                :collection="$commercials" hasAuth />
-                                            {{-- <label for="provider"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Nome
-                                                Comercial</label>
-                                            <div class="mt-2">
-
-                                                <select name="commercial_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option value="">Escolha</option>
-                                                    @foreach ($commercials as $commercial)
-                                                        <option value="{{ $commercial->id }}"
-                                                            {{ old('commercial') == $commercial->id || $commercial->id == auth()->id() ? 'selected' : '' }}>
-                                                            {{ $commercial->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div> --}}
+                                                :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
                                         </div>
-
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Serviço" name="service_id" :errors="$errors->first('service_id')"
-                                                :collection="$services" />
+                                                :collection="$services" :errors="$errors->first('service_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Soluções" name="category_id" :collection="$categories"
@@ -226,11 +209,11 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">DADOS DA ORGANIZAÇÃO</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Adesão" name="provider_id" :collection="$providers"
-                                                :errors="$errors->first('provider_id')" />
+                                            <x-input-select title="Adesão" name="provider_id" id="provider_id"
+                                                :collection="$providers" :errors="$errors->first('provider_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Campanha" name="plan_id" :collection="$plans"
+                                            <x-input-select title="Campanha" name="plan_id" id="plan_id"
                                                 :errors="$errors->first('plan_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
@@ -259,8 +242,10 @@
                                             <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="CPE/CUI" name="cpe" :errors="$errors->first('cpe')" />
+                                            <x-input-string title="CPE/CUI" id="cpe" name="cpe"
+                                                :errors="$errors->first('cpe')" />
                                         </div>
+
                                         <div class="sm:col-span-2">
                                             <x-input-price title="Potência/Escalão" name="power" type="power"
                                                 :errors="$errors->first('power')" />
@@ -353,17 +338,20 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="CAE" name="cae" :errors="$errors->first('cae')" />
+                                            <x-input-number title="CAE" name="cae" :errors="$errors->first('cae')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Nome Cliente" name="name" :errors="$errors->first('name')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Morada De Fornecimento" name="address"
-                                                :errors="$errors->first('address')" />
+                                            <x-input-string title="Morada De Fornecimento" id="address"
+                                                name="address" :errors="$errors->first('address')" />
                                         </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-string title="Andar/Fração" name="floor" :errors="$errors->first('floor')" />
+                                        <div class="sm:col-span-1">
+                                            <x-input-string title="Andar" name="floor" :errors="$errors->first('floor')" />
+                                        </div>
+                                        <div class="sm:col-span-1">
+                                            <x-input-string title="Nº Porta" name="door" :errors="$errors->first('door')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string
@@ -431,21 +419,23 @@
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Dados de Correspondência</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Morada" name="address" :errors="$errors->first('address')" />
+                                            <x-input-string title="Morada" name="mail_address" :errors="$errors->first('mail_address')" />
                                         </div>
                                         <div class="sm:col-span-1">
-                                            <x-input-string title="Andar" name="floor" :errors="$errors->first('floor')" />
+                                            <x-input-string title="Andar" name="mail_floor" :errors="$errors->first('mail_floor')" />
                                         </div>
                                         <div class="sm:col-span-1">
-                                            <x-input-string title="Nº Porta" name="door" :errors="$errors->first('door')" />
+                                            <x-input-string title="Nº Porta" name="mail_door" :errors="$errors->first('mail_door')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Codigo Postal" name="mail_postal_code"
-                                                :errors="$errors->first('mail_postal_code')" />
+                                            <x-input-string title="Codigo Postal" name="mail_post_code"
+                                                :errors="$errors->first('mail_post_code')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="mail_district_id"
+                                            <x-input-select title="Distrito" name="mail_district_id"
+                                                :errors="$errors->first('mail_district_id')" :collection="$districts" :errors="$errors->first('service_id')" />
+                                            {{-- <label for="mail_district_id"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
                                             <div class="mt-2">
                                                 <select id="mail_district_id" name="mail_district_id"
@@ -456,11 +446,13 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="mail_municipality_id"
+                                            <x-input-select title="Concelho" name="mail_municipality_id"
+                                                :errors="$errors->first('mail_municipality_id')" />
+                                            {{-- <label for="mail_municipality_id"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
                                             <div class="mt-2">
                                                 <select id="mail_municipality_id" name="mail_municipality_id"
@@ -468,19 +460,20 @@
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option selected>Escolher Concelho</option>
                                                 </select>
-                                            </div>
-
+                                            </div> --}}
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <label for="mail_parish_id"
+                                            <x-input-select title="Freguesia" name="mail_parish_id"
+                                                :errors="$errors->first('mail_parish_id')" />
+                                            {{-- <label for="mail_parish_id"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
                                             <div class="mt-2">
                                                 <select id="mail_parish_id" name="mail_parish_id"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                     <option selected>Escolher Freguesia</option>
                                                 </select>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
                                         <div class="sm:col-span-2">
@@ -500,7 +493,7 @@
                                             <x-input-string
                                                 title="NIF
                                             Responsável"
-                                                name="nif" :errors="$errors->first('nif')" />
+                                                name="mail_nif" :errors="$errors->first('mail_nif')" />
                                         </div>
                                     </div>
                                 </div>
@@ -646,8 +639,7 @@
                                     <div class="sm:col-span-2">
                                         <div class="mt-2">
                                             <input type="file" class="filepond" name="filepond" multiple
-                                                data-allow-reorder="true" data-max-file-size="10MB"
-                                                data-max-files="10" credits="false">
+                                                data-allow-reorder="true" credits="false">
                                         </div>
                                     </div>
                                 </div>
@@ -665,7 +657,99 @@
             </div>
         </div>
     </div>
+    <script>
+        const consultaInput = document.getElementById("cpe");
+        const addressInput = document.getElementById("address");
+
+
+        consultaInput.addEventListener("blur", function() {
+            const cpe = consultaInput.value;
+
+            fetch(`/contracts/fetchbycpe?cpe=${cpe}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        addressInput.value = data[0].client.address;
+                    }
+                    // address.value = data[0].client.address;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        });
+    </script>
 </x-app-layout>
+
+<script>
+    document.getElementById('provider_id').addEventListener('change', function() {
+        var state = document.getElementById('plan_id');
+        var url = "{{ route('plansbyproviderid') }}";
+        var params = "provider_id=" + encodeURIComponent(this.value);
+
+        fetch(url + '?' + params)
+            .then(function(response) {
+                console.log(response);
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro.');
+                }
+            })
+            .then(function(data) {
+                state.innerHTML = '<option value="" selected>Escolher Plano</option>';
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var value = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = value;
+                        state.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+
+        // document.getElementById('municipality_id').value = "";
+        // document.getElementById('parish_id').value = "";
+    });
+
+    document.getElementById('municipality_id').addEventListener('change', function() {
+        var $parish = document.getElementById('parish_id');
+        var url = "{{ route('parish.index') }}";
+        var mparams = "municipality_id=" + encodeURIComponent(this.value);
+
+        console.log(mparams);
+
+        fetch(url + '?' + mparams)
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Houve um erro na solicitação AJAX.');
+                }
+            })
+            .then(function(data) {
+                console.log(data);
+                $parish.innerHTML = '<option value="" selected>Escolher Freguesia</option>';
+
+                for (var id in data) {
+                    if (data.hasOwnProperty(id)) {
+                        var title = data[id].title;
+                        var option = document.createElement('option');
+                        option.value = data[id].id;
+                        option.innerHTML = title;
+                        $parish.appendChild(option);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+    });
+</script>
+
 
 <script>
     document.getElementById('district_id').addEventListener('change', function() {
@@ -785,7 +869,7 @@
             })
             .then(function(data) {
                 console.log(data);
-                $parish.innerHTML = '<option value="" selected>Escolher Freguesia</option>';
+                $parish.innerHTML = '<option selected>Escolher Freguesia</option>';
 
                 for (var id in data) {
                     if (data.hasOwnProperty(id)) {

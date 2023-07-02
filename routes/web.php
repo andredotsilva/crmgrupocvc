@@ -30,30 +30,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::get('/servicos', [ServicosController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('servicos');
-
-Route::get('/energia-gas', [EnergiagasController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('energia');
-
-Route::get('/utilizadores', [UsersController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('users');
 
 
 
-// Route::get('/utilizadores/{id}', 'App\Http\Controllers\UsersController@show')->name('users.show');
-// Route::get('/utilizadores/{id}/edit', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
-// Route::put('/utilizadores/{id}', 'App\Http\Controllers\UsersController@update')->name('user.update');
+
+
+
+
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/plans/plansbyproviderid', [PlansController::class, 'plansbyproviderid'])->name('plansbyproviderid');
+    Route::get('/contracts/fetchbycpe', [ContractsController::class, 'fetchbycpe'])->name('contacts.fetchbycpe');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -65,17 +54,24 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('/district', DistrictController::class);
     Route::apiResource('/municipality', MunicipalityController::class);
     Route::apiResource('/parish', ParishController::class);
-    Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
-    Route::resource('/users', UsersController::class);
-
-    Route::get('/providers', [ProvidersController::class, 'edit'])->name('providers.edit');
-    Route::get('/providers', [ProvidersController::class, 'create'])->name('providers.insert');
-    Route::resource('/providers', ProvidersController::class);
-
-    Route::get('/plans', [PlansController::class, 'edit'])->name('plans.edit');
-    Route::get('/plans', [PlansController::class, 'create'])->name('plans.create');
     Route::resource('/plans', PlansController::class);
-    
+
+    Route::middleware('restrictClients')->group(function () {
+        Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
+        Route::resource('/users', UsersController::class);
+        Route::resource('/providers', ProvidersController::class);
+        Route::get('/utilizadores', [UsersController::class, 'index'])
+            ->middleware(['auth', 'verified'])
+            ->name('users');
+
+
+        Route::get('/servicos', [ServicosController::class, 'index'])
+            ->name('servicos');
+        Route::get('/energia-gas', [EnergiagasController::class, 'index'])
+            ->name('energia');
+
+        // Rotas que exigem permissão
+    });
 });
 
 

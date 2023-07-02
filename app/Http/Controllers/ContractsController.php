@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\StoreContractRequest;
@@ -35,45 +36,44 @@ class ContractsController extends Controller
     //
     public function index(Request $request)
     {
-        $contracts = Contract::with(['meter.tariff', 'client'])
+        $statuses = DocumentationStatus::all();
+        $contractsCount = Contract::count();
+
+        $contracts = Contract::with(['meter.tariff', 'client', 'documentation'])
             ->when($request->filled('nif'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
                     $q->where('nif', 'like', '%' . $request->input('nif') . '%');
                 });
             })
             ->when($request->filled('year'), function ($query) use ($request) {
-                return $query->where('effective_at', $request->input('year'));
+                // $year = $request->input('year');
+                return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
             })
+
             ->when($request->filled('cpe'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
                     $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
                 });
             })
+            ->when($request->filled('status_id'), function ($query) use ($request) {
+                return $query->where('documentation_status_id', $request->input('status_id'));
+            })
+            ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS status'))
             ->paginate(20);
 
-        $contractsCount = Contract::count();
 
-        $contractsExpiringCount = 0;
-        foreach ($contracts as $contract) {
-            $effective_at = new DateTime($contract->effective_at);
-            $oneMonthFromExpiring = $effective_at->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
-            $expiringDate = clone $effective_at;
-            $expiringDate->add(new DateInterval('P12M'));
+        $contratos = Contract::where(function ($query) {
+            $query->whereRaw("DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE()")
+                ->whereRaw("DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE()");
+        })
+            ->count();
 
-            $today = new DateTime();
-
-            if (($today >= $oneMonthFromExpiring && $today <= $expiringDate)) {
-                $contractsExpiringCount++;
-                $contract->status = 1;
-            } else {
-                $contract->status = 0;
-            }
-        }
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
+            'statuses' => $statuses,
             'contractsCount' => $contractsCount,
-            'contractsExpiringCount' => $contractsExpiringCount
+            'contractsExpiringCount' => $contratos
         ]);
     }
 
@@ -116,6 +116,9 @@ class ContractsController extends Controller
             ? $request->input('district_id')
             : null;
 
+        $mailDistrictId = ($request->input('mail_district_id') !== 'Selecionar Distrito')
+            ? $request->input('mail_district_id')
+            : null;
 
         $user = new User();
         $user->name = $request->name;
@@ -162,6 +165,7 @@ class ContractsController extends Controller
         $client->name = $user->name;
         $client->address = $request->address;
         $client->floor = $request->floor;
+        $client->door = $request->door;
         $client->post_code = $request->post_code;
         $client->dmp_code = $request->dmp_code;
         $client->parish_id = $request->parish_id;
@@ -194,15 +198,16 @@ class ContractsController extends Controller
         $contract->save();
 
         $mailingAddress = new MailingAddress();
-        $mailingAddress->address = $request->address;
-        $mailingAddress->door = $request->door;
+        $mailingAddress->address = $request->mail_address;
+        $mailingAddress->door = $request->mail_door;
+        $mailingAddress->floor = $request->mail_floor;
         $mailingAddress->post_code = $request->mail_post_code;
-        $mailingAddress->district_id = $request->mail_district_id;
+        $mailingAddress->district_id = $mailDistrictId;
         $mailingAddress->municipality_id = $request->mail_municipality_id;
         $mailingAddress->parish_id = $request->mail_parish_id;
         $mailingAddress->email = $request->email;
         $mailingAddress->phone_number = $request->phone_number;
-        $mailingAddress->nif = $request->nif;
+        $mailingAddress->nif = $request->mail_nif;
         $mailingAddress->client_id = $client->id;
         $mailingAddress->save();
 
@@ -240,7 +245,6 @@ class ContractsController extends Controller
                 $file->contract_id = $contract->id;
                 $file->filename = $temporaryImage->filename;
                 $file->original_name = 'as';
-                // $file->size = 'size';
                 $file->mime_type = 'mime_type';
                 $file->path = $temporaryImage->folder . '/' . $temporaryImage->filename;
 
@@ -266,29 +270,48 @@ class ContractsController extends Controller
 
     public function show($id)
     {
+
+        $roles = Auth::user()->roles;
+
+        $columns = [];
+
+        // foreach ($roles as $role) {
+        //     if ($role->id === 1) { //Admin
+        //         $columns = array_merge($columns, ['column1', 'column2']);
+        //     } elseif ($role === 'manager') {
+        //         $columns = array_merge($columns, ['column3', 'column4']);
+        //     }
+        //     // Adicione outras condições para outros papéis, se necessário
+        // }
+
+
         $contract = Contract::with(
-            'backofficer',
-            'commercial',
-            // 'commercialName',
-            'service',
-            'category',
-            'client.mailingAddress.district',
-            'client.mailingAddress.municipality',
-            'client.mailingAddress.parish',
-            // 'solutions',
-            'clientType',
-            'provider',
-            'documentation',
-            // 'archive',
-            'meter',
-            'nif',
-            'municipality',
-            'district',
-            'parish',
-            'invoiceType',
-            'commission',
-            'monthlyCommission',
-            'mailingAddress'
+            [
+                'backofficer',
+                'commercial',
+                // 'commercialName',
+                'service',
+                'category',
+                'client.mailingAddress.district',
+                'client.mailingAddress.municipality',
+                'client.mailingAddress.parish',
+                // 'solutions',
+                'clientType',
+                'provider',
+                'documentation',
+                // 'archive',
+                'meter',
+                'nif',
+                'municipality',
+                'district',
+                'parish',
+                'invoiceType',
+                // 'commission' => function ($query) use ($columns) {
+                //     $query->select($columns);
+                // },
+                'monthlyCommission',
+                'mailingAddress'
+            ]
         )->findOrFail($id);
         return view('pages.contracts.show', compact('contract'));
     }
@@ -464,7 +487,7 @@ class ContractsController extends Controller
     public function download($id)
     {
         $userRoles = auth()->user()->roles;
-        $allowedRoleIds = [1, 2, 3, 4, 5];
+        $allowedRoleIds = [1, 2, 3, 4];
 
         $intersect = false;
 
@@ -483,16 +506,54 @@ class ContractsController extends Controller
 
     public function delete($id)
     {
-        $fileToDelete = File::where('id', $id)->first();
+        $userRoles = auth()->user()->roles;
+        $allowedRoleIds = [1, 2];
 
-        $folder = explode('/', $fileToDelete->path);
+        $intersect = false;
 
-        Storage::delete('files/' . $fileToDelete->path);
-        Storage::deleteDirectory($folder[0]);
-        $fileToDelete->delete();
+        foreach ($userRoles as $role) {
+            if (in_array($role->id, $allowedRoleIds)) {
+                $intersect = true;
+                break;
+            }
+        }
 
+        if ($intersect && File::where('id', $id)->exists()) {
+            $fileToDelete = File::where('id', $id)->first();
 
-        return response()->json(['message' => 'O arquivo foi apagado.']);
+            $folder = explode('/', $fileToDelete->path);
+
+            Storage::delete('files/' . $fileToDelete->path);
+
+            // Verifique se a pasta está vazia antes de excluí-la
+            $filesInFolder = Storage::files($folder[0]);
+            if (empty($filesInFolder)) {
+                Storage::deleteDirectory('files/' . $folder[0]);
+            }
+
+            $fileToDelete->delete();
+
+            return response()->json(['message' => 'O arquivo foi apagado.']);
+        } else {
+            return response()->json(['message' => 'Não existe.']);
+        }
+    }
+
+    public function fetchbycpe(Request $request)
+    {
+        $cpe = $request->query('cpe');
+
+        $resultado = Contract::with(['meter', 'client'])
+            ->whereHas('meter', function ($query) use ($cpe) {
+                $query->where('cpe', $cpe);
+            })
+            ->get();
+
+        if ($resultado->isEmpty()) {
+            return response()->json(null);
+        }
+
+        return response()->json($resultado);
     }
 
     public function destroy($id)
