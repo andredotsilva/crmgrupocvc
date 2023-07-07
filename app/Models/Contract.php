@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Provider;
+use Illuminate\Support\Facades\Auth;
 
 class Contract extends Model
 {

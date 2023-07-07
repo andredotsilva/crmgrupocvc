@@ -659,7 +659,11 @@
     </div>
     <script>
         const consultaInput = document.getElementById("cpe");
+        const caeInput = document.getElementById("cae");
+        const nameInput = document.getElementById("name");
         const addressInput = document.getElementById("address");
+        const doorInput = document.getElementById("door");
+        const floorInput = document.getElementById("floor");
 
 
         consultaInput.addEventListener("blur", function() {
@@ -669,9 +673,14 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {
+                        caeInput.value = data[0].client.cae;
+                        nameInput.value = data[0].client.name;
                         addressInput.value = data[0].client.address;
+                        floorInput.value = data[0].client.floor;
+                        doorInput.value = data[0].client.door;
+                        postCodeInput.value = data[0].client.post_code;
+
                     }
-                    // address.value = data[0].client.address;
                 })
                 .catch(error => {
                     console.log(error);

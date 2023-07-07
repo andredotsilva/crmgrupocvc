@@ -19,9 +19,9 @@ class Commission extends Model
         'commercial_payment_date',
         'cvc_payment_date',
 
-        'refund_cvc_paid_ammount',
-        'refund_administrator_paid_ammount',
-        'refund_commercial_paid_ammount',
+        'refund_cvc_paid_amount',
+        'refund_administrator_paid_amount',
+        'refund_commercial_paid_amount',
 
         'refund_cvc_payment_date',
         'refund_administrator_payment_date',

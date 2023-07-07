@@ -583,138 +583,161 @@
             <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
                 <h1 class="text-lg pb-4 dark:text-gray-200">Comissões, Data de Pagamento e Devoluções</h1>
                 <div class="grid grid-cols-3 gap-4">
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Valor Pago ao Administrador:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->administrator_paid_amount / 100 }} €
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao Administrador:
-                        </div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->administrator_payment_date }}
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Devolução ao Administrador:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_administrator_paid_amount / 100 }} €
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao Administrador:
-                        </div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_administrator_payment_date }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Comercial</h3>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Valor Pago ao Comercial:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->commercial_paid_amount / 100 }} €
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao Comercial:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->commercial_payment_date }}
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Devolução ao Comercial:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_commercial_paid_amount / 100 }} €
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao Comercial:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_commercial_payment_date }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                        <h3 class="text-lg pb-4 dark:text-gray-200">Comissões CVC</h3>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Valor Pago ao CVC:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->cvc_paid_amount / 100 }} €
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao CVC:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->cvc_payment_date }}
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Devolução ao CVC:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_cvc_paid_amount / 100 }} €
-                                </h4>
-                            @endif
-                        </div>
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao CVC:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commission_id)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commission->refund_cvc_payment_date }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
-            <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
-                <div class="grid grid-cols-6 gap-4 mb-4">
-                    @for ($i = 1; $i <= 12; $i++)
-                        <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
-                            <div class="p-4 dark:text-gray-200">{{ $i }}_12:</div>
-                            <div class="p-4 col-span-8 md:col-span-8">
-                                @if ($contract->monthlyCommission)
-                                    <h4 class="text-blue-600 dark:text-blue-400">
-                                        &euro;
-                                        {{ $contract->monthlyCommission->{'amount_' . str_pad($i, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}
-                                    </h4>
-                                @endif
+                    @foreach (Auth()->user()->roles as $role)
+                        @if ($role->id === 1 || $role->id === 2)
+                            <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
+                                <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Valor Pago ao
+                                    Administrador:</div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->administrator_paid_amount / 100 }} €
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao
+                                    Administrador:
+                                </div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->administrator_payment_date }}
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Devolução ao
+                                    Administrador:</div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->refund_administrator_paid_amount / 100 }} €
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao
+                                    Administrador:
+                                </div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->refund_administrator_payment_date }}
+                                        </h4>
+                                    @endif
+                                </div>
                             </div>
+                        @endif
 
-                        </div>
-                    @endfor
+                        @if ($role->id <= 3)
+                            <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
+                                <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Comercial</h3>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Valor Pago ao Comercial:
+                                </div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->commercial_paid_amount / 100 }} €
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao
+                                    Comercial:</div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->commercial_payment_date }}
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Devolução ao Comercial:
+                                </div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->refund_commercial_paid_amount / 100 }} €
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao
+                                    Comercial:</div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->refund_commercial_payment_date }}
+                                        </h4>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($role->id === 1)
+                            <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
+                                <h3 class="text-lg pb-4 dark:text-gray-200">Comissões CVC</h3>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Valor Pago ao CVC:</div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->cvc_paid_amount / 100 }} €
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Pagamento ao CVC:
+                                </div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->cvc_payment_date }}
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Devolução ao CVC:</div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->refund_cvc_paid_amount / 100 }} €
+                                        </h4>
+                                    @endif
+                                </div>
+                                <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Data Devolução ao CVC:
+                                </div>
+                                <div class="p-4 col-span-8 md:col-span-8">
+                                    @if ($contract->commission)
+                                        <h4 class="text-blue-600 dark:text-blue-400">
+                                            {{ $contract->commission->refund_cvc_payment_date }}
+                                        </h4>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
+        @foreach (Auth()->user()->roles as $role)
+            @if ($role->id === 1 || $role->id === 2)
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
+                    <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
+                        <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
+                        <div class="grid grid-cols-6 gap-4 mb-4">
+                            @for ($i = 1; $i <= 12; $i++)
+                                <div class="bg-slate-100 dark:bg-gray-700 p-4 rounded-2xl">
+                                    <div class="p-4 dark:text-gray-200">{{ $i }}_12:</div>
+                                    <div class="p-4 col-span-8 md:col-span-8">
+                                        @if ($contract->monthlyCommission)
+                                            <h4 class="text-blue-600 dark:text-blue-400">
+                                                &euro;
+                                                {{ $contract->monthlyCommission->{'amount_' . str_pad($i, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}
+                                            </h4>
+                                        @endif
+                                    </div>
+
+                                </div>
+                            @endfor
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endforeach
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
             <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
                 <h1 class="text-lg pb-4 dark:text-gray-200">Documentos deste Contrato</h1>

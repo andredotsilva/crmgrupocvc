@@ -275,44 +275,32 @@ class ContractsController extends Controller
 
         $columns = [];
 
-        // foreach ($roles as $role) {
-        //     if ($role->id === 1) { //Admin
-        //         $columns = array_merge($columns, ['column1', 'column2']);
-        //     } elseif ($role === 'manager') {
-        //         $columns = array_merge($columns, ['column3', 'column4']);
-        //     }
-        //     // Adicione outras condições para outros papéis, se necessário
-        // }
-
 
         $contract = Contract::with(
             [
                 'backofficer',
                 'commercial',
-                // 'commercialName',
                 'service',
                 'category',
                 'client.mailingAddress.district',
                 'client.mailingAddress.municipality',
                 'client.mailingAddress.parish',
-                // 'solutions',
                 'clientType',
                 'provider',
                 'documentation',
-                // 'archive',
                 'meter',
                 'nif',
                 'municipality',
                 'district',
                 'parish',
                 'invoiceType',
-                // 'commission' => function ($query) use ($columns) {
-                //     $query->select($columns);
-                // },
+                'commission',
                 'monthlyCommission',
                 'mailingAddress'
             ]
-        )->findOrFail($id);
+        )->firstOrFail();
+
+
         return view('pages.contracts.show', compact('contract'));
     }
 
@@ -506,6 +494,7 @@ class ContractsController extends Controller
 
     public function delete($id)
     {
+
         $userRoles = auth()->user()->roles;
         $allowedRoleIds = [1, 2];
 
