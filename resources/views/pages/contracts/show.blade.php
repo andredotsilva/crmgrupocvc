@@ -183,7 +183,7 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Tensão:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->meter)
+                        @if ($contract->meter && $contract->meter->tariff)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 {{ $contract->meter->tariff->title }}
                             </h4>

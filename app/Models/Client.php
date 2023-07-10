@@ -24,6 +24,7 @@ class Client extends Model
         'parish_id',
         'municipality_id',
         'district_id',
+        'user_id',
     ];
 
     public function mailingAddress()
@@ -44,5 +45,10 @@ class Client extends Model
     public function parish()
     {
         return $this->belongsTo(Parish::class, 'parish_id');
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'client_id');
     }
 }

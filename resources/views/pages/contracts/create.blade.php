@@ -335,49 +335,55 @@
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="dadoscliente">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Dados Cliente</h1>
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
+                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                        <input type="hidden" name="client_id" id="client_id">
                                         <div class="sm:col-span-2">
-                                            <x-input-number title="CAE" name="cae" :errors="$errors->first('cae')" />
+                                            <x-input-number title="CAE" id="cae" name="cae"
+                                                :errors="$errors->first('cae')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Nome Cliente" name="name" :errors="$errors->first('name')" />
+                                            <x-input-string title="Nome Cliente" id="name" name="name"
+                                                :errors="$errors->first('name')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Morada De Fornecimento" id="address"
                                                 name="address" :errors="$errors->first('address')" />
                                         </div>
                                         <div class="sm:col-span-1">
-                                            <x-input-string title="Andar" name="floor" :errors="$errors->first('floor')" />
+                                            <x-input-string title="Andar" id="floor" name="floor"
+                                                :errors="$errors->first('floor')" />
                                         </div>
                                         <div class="sm:col-span-1">
-                                            <x-input-string title="Nº Porta" name="door" :errors="$errors->first('door')" />
+                                            <x-input-string title="Nº Porta" id="door" name="door"
+                                                :errors="$errors->first('door')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string
                                                 title="Codigo
                                             Postal"
-                                                name="post_code" :errors="$errors->first('post_code')" />
+                                                id="post_code" name="post_code" :errors="$errors->first('post_code')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-number
                                                 title="Codigo
                                             Freguesia"
-                                                name="dmp_code" :errors="$errors->first('dmp_code')" />
+                                                id="dmp_code" name="dmp_code" :errors="$errors->first('dmp_code')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Distrito" name="district_id" :collection="$districts"
-                                                :errors="$errors->first('district_id')" />
+                                            <x-input-select title="Distrito" id="district_id" name="district_id"
+                                                :collection="$districts" :errors="$errors->first('district_id')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Concelho" name="municipality_id"
-                                                :errors="$errors->first('municipality_id')" />
+                                            <x-input-select title="Concelho" id="municipality_id"
+                                                name="municipality_id" :errors="$errors->first('municipality_id')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Freguesia" name="parish_id" :errors="$errors->first('parish_id')" />
+                                            <x-input-select title="Freguesia" id="parish_id" name="parish_id"
+                                                :errors="$errors->first('parish_id')" />
                                         </div>
                                     </div>
                                 </div>
@@ -664,22 +670,52 @@
         const addressInput = document.getElementById("address");
         const doorInput = document.getElementById("door");
         const floorInput = document.getElementById("floor");
+        const postCodeInput = document.getElementById("post_code");
+        const dmpCodeInput = document.getElementById("dmp_code");
+        const districtInput = document.getElementById("district_id");
+        const municipalityInput = document.getElementById("municipality_id");
+        const parishInput = document.getElementById("parish_id");
+        const clientInput = document.getElementById("client_id");
 
-
-        consultaInput.addEventListener("blur", function() {
+        consultaInput.addEventListener("input", function() {
             const cpe = consultaInput.value;
 
             fetch(`/contracts/fetchbycpe?cpe=${cpe}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {
+
+                        clientInput.value = data[0].client.id;
                         caeInput.value = data[0].client.cae;
                         nameInput.value = data[0].client.name;
                         addressInput.value = data[0].client.address;
                         floorInput.value = data[0].client.floor;
                         doorInput.value = data[0].client.door;
                         postCodeInput.value = data[0].client.post_code;
+                        dmpCodeInput.value = data[0].client.dmp_code;
+                        const selectedDistrictId = data[0].client.district
+                            .id;
+                        for (var i = 0; i < districtInput.options.length; i++) {
+                            var option = districtInput.options[i];
+                            if (option.value == selectedDistrictId) {
+                                option.selected = true;
+                                break;
+                            }
+                        }
 
+                        const selectedMunicipality = data[0].client.municipality;
+                        var option = document.createElement('option');
+                        option.value = selectedMunicipality.id;
+                        option.textContent = selectedMunicipality.title;
+                        option.selected = true;
+                        municipalityInput.appendChild(option);
+
+                        const selectedParish = data[0].client.parish;
+                        var option = document.createElement('option');
+                        option.value = selectedParish.id;
+                        option.textContent = selectedParish.title;
+                        option.selected = true;
+                        parishInput.appendChild(option);
                     }
                 })
                 .catch(error => {
@@ -719,9 +755,6 @@
             .catch(function(error) {
                 console.error(error);
             });
-
-        // document.getElementById('municipality_id').value = "";
-        // document.getElementById('parish_id').value = "";
     });
 
     document.getElementById('municipality_id').addEventListener('change', function() {

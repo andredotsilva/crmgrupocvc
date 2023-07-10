@@ -19,8 +19,10 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $users = User::with('roles')->findOrFail($id);
-        return view('pages.users.show', compact('users'));
+        $user = User::with(['roles', 'client', 'client.contracts', 'client.district', 'client.municipality', 'client.parish'])->findOrFail($id);
+        return view('pages.users.show', [
+            'user' => $user,
+        ]);
     }
 
     public function edit($id)

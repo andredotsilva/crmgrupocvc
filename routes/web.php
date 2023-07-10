@@ -30,15 +30,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
-
-
-
-
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/plans/plansbyproviderid', [PlansController::class, 'plansbyproviderid'])->name('plansbyproviderid');
     Route::get('/contracts/fetchbycpe', [ContractsController::class, 'fetchbycpe'])->name('contacts.fetchbycpe');
@@ -57,12 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/plans', PlansController::class);
 
     Route::middleware('restrictClients')->group(function () {
-        Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
-        Route::resource('/users', UsersController::class);
         Route::resource('/providers', ProvidersController::class);
-        Route::get('/utilizadores', [UsersController::class, 'index'])
-            ->middleware(['auth', 'verified'])
-            ->name('users');
 
 
         Route::get('/servicos', [ServicosController::class, 'index'])
@@ -72,6 +58,11 @@ Route::middleware('auth')->group(function () {
 
         // Rotas que exigem permissão
     });
+    // Route::get('/users', [UsersController::class, 'index'])
+    //     ->middleware(['auth', 'verified'])
+    //     ->name('users');
+    Route::resource('/users', UsersController::class);
+    Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
 });
 
 

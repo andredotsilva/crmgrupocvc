@@ -158,21 +158,20 @@ class ContractsController extends Controller
         $meter->gas = $request->gas;
         $meter->save();
 
-        $client = new Client();
-        $client->cae = $request->cae;
-        $client->administrator_name = $request->administrator_name;
-        $client->condominium_administrator = $request->condominium_administrator;
-        $client->name = $user->name;
-        $client->address = $request->address;
-        $client->floor = $request->floor;
-        $client->door = $request->door;
-        $client->post_code = $request->post_code;
-        $client->dmp_code = $request->dmp_code;
-        $client->parish_id = $request->parish_id;
-        $client->municipality_id = $request->municipality_id;
-        $client->district_id = $districtId;
-        $client->user_id = $user->id;
-        $client->save();
+        $client = Client::find($request->client_id);
+
+        if (!$client) {
+            $client = new Client();
+            $client->address = $request->address;
+            $client->floor = $request->floor;
+            $client->door = $request->door;
+            $client->post_code = $request->post_code;
+            $client->dmp_code = $request->dmp_code;
+            $client->parish_id = $request->parish_id;
+            $client->municipality_id = $request->municipality_id;
+            $client->district_id = $districtId;
+            $client->user_id = $user->id;
+        }
 
         $contract = new Contract();
         $contract->back_officer_id = $request->back_officer_id;
@@ -532,7 +531,7 @@ class ContractsController extends Controller
     {
         $cpe = $request->query('cpe');
 
-        $resultado = Contract::with(['meter', 'client'])
+        $resultado = Contract::with(['meter', 'client.district', 'client.municipality', 'client.parish'])
             ->whereHas('meter', function ($query) use ($cpe) {
                 $query->where('cpe', $cpe);
             })

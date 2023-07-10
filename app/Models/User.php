@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function client()
+    {
+        return $this->hasOne(Client::class, 'user_id');
+    }
+
     public function getIsClientAttribute()
     {
         return $this->roles()->where('id', 4)->exists();
@@ -61,5 +66,10 @@ class User extends Authenticatable
     public function hasRole($id)
     {
         return $this->roles->contains('id', $id);
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
     }
 }

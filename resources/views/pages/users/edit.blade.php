@@ -16,7 +16,7 @@
                 </svg>
             </span>
 
-            <a href="{{ route('users') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+            <a href="{{ route('users.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
                 {{ __('Utilizadores') }}
             </a>
 
@@ -56,12 +56,14 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-4">
-                                <label class="block text-gray-700 dark:text-gray-200 font-bold mb-2" for="name">Nome:</label>
+                                <label class="block text-gray-700 dark:text-gray-200 font-bold mb-2"
+                                    for="name">Nome:</label>
                                 <input type="text" id="name" name="name" value="{{ $user->name }}"
                                     class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
                             <div class="mb-4">
-                                <label class="block text-gray-700 dark:text-gray-200 font-bold mb-2" for="email">Email:</label>
+                                <label class="block text-gray-700 dark:text-gray-200 font-bold mb-2"
+                                    for="email">Email:</label>
                                 <input type="email" id="email" name="email" value="{{ $user->email }}"
                                     class="border border-gray-300 rounded-md px-3 py-2 w-full">
                             </div>
