@@ -141,7 +141,7 @@
                                                 </button>
                                             </a>
                                             @foreach (Auth()->user()->roles as $role)
-                                                @if ($role->id === 1 && $role->id === 2)
+                                                @if ($role->id === 1 || $role->id === 2)
                                                     <a href="{{ route('contracts.edit', $contract->id) }}"
                                                         class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none">
                                                         <button>

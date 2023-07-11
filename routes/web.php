@@ -47,20 +47,14 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('/parish', ParishController::class);
     Route::resource('/plans', PlansController::class);
 
-    Route::middleware('restrictClients')->group(function () {
-        Route::resource('/providers', ProvidersController::class);
+    Route::resource('/providers', ProvidersController::class);
 
 
-        Route::get('/servicos', [ServicosController::class, 'index'])
-            ->name('servicos');
-        Route::get('/energia-gas', [EnergiagasController::class, 'index'])
-            ->name('energia');
+    Route::get('/servicos', [ServicosController::class, 'index'])
+        ->name('servicos');
+    Route::get('/energia-gas', [EnergiagasController::class, 'index'])
+        ->name('energia');
 
-        // Rotas que exigem permissão
-    });
-    // Route::get('/users', [UsersController::class, 'index'])
-    //     ->middleware(['auth', 'verified'])
-    //     ->name('users');
     Route::resource('/users', UsersController::class);
     Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
 });

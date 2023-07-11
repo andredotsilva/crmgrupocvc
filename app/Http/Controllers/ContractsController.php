@@ -158,20 +158,20 @@ class ContractsController extends Controller
         $meter->gas = $request->gas;
         $meter->save();
 
-        $client = Client::find($request->client_id);
+        $client = Client::firstOrCreate(['id' => $request->client_id]);
+        $client->cae = $request->cae;
+        $client->name = $request->name;
+        $client->address = $request->address;
+        $client->floor = $request->floor;
+        $client->door = $request->door;
+        $client->post_code = $request->post_code;
+        $client->dmp_code = $request->dmp_code;
+        $client->parish_id = $request->parish_id;
+        $client->municipality_id = $request->municipality_id;
+        $client->district_id = $districtId;
+        $client->user_id = $user->id;
+        $client->save();
 
-        if (!$client) {
-            $client = new Client();
-            $client->address = $request->address;
-            $client->floor = $request->floor;
-            $client->door = $request->door;
-            $client->post_code = $request->post_code;
-            $client->dmp_code = $request->dmp_code;
-            $client->parish_id = $request->parish_id;
-            $client->municipality_id = $request->municipality_id;
-            $client->district_id = $districtId;
-            $client->user_id = $user->id;
-        }
 
         $contract = new Contract();
         $contract->back_officer_id = $request->back_officer_id;
@@ -270,11 +270,7 @@ class ContractsController extends Controller
     public function show($id)
     {
 
-        $roles = Auth::user()->roles;
-
-        $columns = [];
-
-
+        // $roles = Auth::user()->roles;
         $contract = Contract::with(
             [
                 'backofficer',
@@ -297,8 +293,7 @@ class ContractsController extends Controller
                 'monthlyCommission',
                 'mailingAddress'
             ]
-        )->firstOrFail();
-
+        )->where('id', $id)->first();
 
         return view('pages.contracts.show', compact('contract'));
     }
@@ -379,7 +374,7 @@ class ContractsController extends Controller
             $meter->gas = $request->gas;
             $meter->save();
 
-            $client = Client::where('id', $contract->client_id)->firstOrCreate();
+            $client = Client::where('id', $request->client_id)->firstOrCreate();
             $client->cae = $request->cae;
             $client->administrator_name = $request->administrator_name;
             $client->condominium_administrator = $request->condominium_administrator;
