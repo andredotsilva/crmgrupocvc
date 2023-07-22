@@ -516,7 +516,7 @@
                                         Devoluções</h1>
                                     <div class="grid grid-cols-3 gap-4">
                                         <div>
-                                            <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
+                                            <h3 class="text-md pb-4 dark:text-gray-200">Comissões Administrador</h3>
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Valor Pago ao Administrador"
                                                     name="administrator_paid_amount"

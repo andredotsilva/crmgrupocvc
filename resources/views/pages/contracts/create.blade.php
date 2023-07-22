@@ -169,11 +169,61 @@
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Código
                                                 Comerciante</label>
                                             <div class="mt-2">
-                                                <input type="text" name="commercial_id" id="commercial_id"
+                                                <input type="text" name="commercial_id" id="commercial_code"
                                                     autocomplete="given-name"
                                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
                                             </div>
                                         </div>
+
+                                        <script>
+                                            const input = document.getElementById('commercial_code');
+
+                                            input.addEventListener('blur', () => {
+                                                const code = input.value;
+
+                                                console.log(code);
+
+                                                fetch(`/users/fetchuserbycode/${code}`, {
+                                                        method: 'GET',
+                                                        headers: {
+                                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                                        },
+                                                    })
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        console.log(data);
+                                                        // if (data.length > 0) {
+                                                        const commercialInput = document.getElementById("commercial_id");
+
+                                                        // const selectedDistrictId = data[0].client.district
+                                                        //     .id;
+                                                        for (var i = 0; i < commercialInput.options.length; i++) {
+                                                            var option = commercialInput.options[i];
+                                                            if (option.value == data.id) {
+                                                                option.selected = true;
+                                                                break;
+                                                            }
+                                                        }
+
+
+                                                        // console.log(commercialInput);
+                                                        // commercialInput.innerHTML = '';
+
+                                                        // var option = document.createElement('option');
+                                                        // option.value = data.id;
+                                                        // option.textContent = data.name;
+                                                        // option.selected = true;
+                                                        // commercialInput.appendChild(option);
+
+                                                    })
+                                                    .catch(error => {
+                                                        console.log(error);
+                                                    })
+                                                    .finally(() => {
+
+                                                    });
+                                            });
+                                        </script>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Comercial" name="commercial_id" :errors="$errors->first('commercial_id')"
                                                 :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
@@ -364,6 +414,12 @@
                                             Postal"
                                                 id="post_code" name="post_code" :errors="$errors->first('post_code')" />
                                         </div>
+                                        {{-- <label for="country_code">TESTE</label>
+                                        <input type="text" id="country_code" name="country_code"
+                                            pattern="^\d{4}(-\d{3})?$" title="Three letter country code"><br><br>
+                                        <input type="submit"> --}}
+
+
                                         <div class="sm:col-span-2">
                                             <x-input-number
                                                 title="Codigo
@@ -663,67 +719,67 @@
             </div>
         </div>
     </div>
-    <script>
-        const consultaInput = document.getElementById("cpe");
-        const caeInput = document.getElementById("cae");
-        const nameInput = document.getElementById("name");
-        const addressInput = document.getElementById("address");
-        const doorInput = document.getElementById("door");
-        const floorInput = document.getElementById("floor");
-        const postCodeInput = document.getElementById("post_code");
-        const dmpCodeInput = document.getElementById("dmp_code");
-        const districtInput = document.getElementById("district_id");
-        const municipalityInput = document.getElementById("municipality_id");
-        const parishInput = document.getElementById("parish_id");
-        const clientInput = document.getElementById("client_id");
-
-        consultaInput.addEventListener("input", function() {
-            const cpe = consultaInput.value;
-
-            fetch(`/contracts/fetchbycpe?cpe=${cpe}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-
-                        clientInput.value = data[0].client.id;
-                        caeInput.value = data[0].client.cae;
-                        nameInput.value = data[0].client.name;
-                        addressInput.value = data[0].client.address;
-                        floorInput.value = data[0].client.floor;
-                        doorInput.value = data[0].client.door;
-                        postCodeInput.value = data[0].client.post_code;
-                        dmpCodeInput.value = data[0].client.dmp_code;
-                        const selectedDistrictId = data[0].client.district
-                            .id;
-                        for (var i = 0; i < districtInput.options.length; i++) {
-                            var option = districtInput.options[i];
-                            if (option.value == selectedDistrictId) {
-                                option.selected = true;
-                                break;
-                            }
-                        }
-
-                        const selectedMunicipality = data[0].client.municipality;
-                        var option = document.createElement('option');
-                        option.value = selectedMunicipality.id;
-                        option.textContent = selectedMunicipality.title;
-                        option.selected = true;
-                        municipalityInput.appendChild(option);
-
-                        const selectedParish = data[0].client.parish;
-                        var option = document.createElement('option');
-                        option.value = selectedParish.id;
-                        option.textContent = selectedParish.title;
-                        option.selected = true;
-                        parishInput.appendChild(option);
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        });
-    </script>
 </x-app-layout>
+<script>
+    const consultaInput = document.getElementById("cpe");
+    const caeInput = document.getElementById("cae");
+    const nameInput = document.getElementById("name");
+    const addressInput = document.getElementById("address");
+    const doorInput = document.getElementById("door");
+    const floorInput = document.getElementById("floor");
+    const postCodeInput = document.getElementById("post_code");
+    const dmpCodeInput = document.getElementById("dmp_code");
+    const districtInput = document.getElementById("district_id");
+    const municipalityInput = document.getElementById("municipality_id");
+    const parishInput = document.getElementById("parish_id");
+    const clientInput = document.getElementById("client_id");
+
+    consultaInput.addEventListener("input", function() {
+        const cpe = consultaInput.value;
+
+        fetch(`/contracts/fetchbycpe?cpe=${cpe}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+
+                    clientInput.value = data[0].client.id;
+                    caeInput.value = data[0].client.cae;
+                    nameInput.value = data[0].client.name;
+                    addressInput.value = data[0].client.address;
+                    floorInput.value = data[0].client.floor;
+                    doorInput.value = data[0].client.door;
+                    postCodeInput.value = data[0].client.post_code;
+                    dmpCodeInput.value = data[0].client.dmp_code;
+                    const selectedDistrictId = data[0].client.district
+                        .id;
+                    for (var i = 0; i < districtInput.options.length; i++) {
+                        var option = districtInput.options[i];
+                        if (option.value == selectedDistrictId) {
+                            option.selected = true;
+                            break;
+                        }
+                    }
+
+                    const selectedMunicipality = data[0].client.municipality;
+                    var option = document.createElement('option');
+                    option.value = selectedMunicipality.id;
+                    option.textContent = selectedMunicipality.title;
+                    option.selected = true;
+                    municipalityInput.appendChild(option);
+
+                    const selectedParish = data[0].client.parish;
+                    var option = document.createElement('option');
+                    option.value = selectedParish.id;
+                    option.textContent = selectedParish.title;
+                    option.selected = true;
+                    parishInput.appendChild(option);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    });
+</script>
 
 <script>
     document.getElementById('provider_id').addEventListener('change', function() {

@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         ->name('energia');
 
     Route::resource('/users', UsersController::class);
+    Route::get('/users/fetchuserbycode/{code}', [UsersController::class, 'fetchUserByCode']);
     Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
 });
 

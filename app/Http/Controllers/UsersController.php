@@ -50,6 +50,12 @@ class UsersController extends Controller
         return redirect()->route('users.show', $user->id);
     }
 
+    public function fetchUserByCode($code)
+    {
+        $user = User::where('code', $code)->first();
+
+        return response()->json($user);
+    }
 
     public function search(Request $request)
     {
