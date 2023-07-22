@@ -13,6 +13,7 @@ class Meter extends Model
 
     protected $fillable = [
         'tariff_id',
+        'powerbracket_id',
         'nif',
         'cpe',
         'power',
@@ -21,10 +22,16 @@ class Meter extends Model
         'standard',
         'off_peak',
         'super_off_peak',
+        'gas'
     ];
 
     public function tariff()
     {
         return $this->belongsTo(Tariff::class, 'tariff_id');
+    }
+
+    public function powerbracket()
+    {
+        return $this->belongsTo(PowerBracket::class, 'powerbracket_id');
     }
 }

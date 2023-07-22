@@ -167,7 +167,7 @@
                                         <div class="sm:col-span-2">
                                             <label for="commercial_id"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Código
-                                                Comerciante</label>
+                                                Comercial</label>
                                             <div class="mt-2">
                                                 <input type="text" name="commercial_id" id="commercial_code"
                                                     autocomplete="given-name"
@@ -225,8 +225,8 @@
                                             });
                                         </script>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Comercial" name="commercial_id" :errors="$errors->first('commercial_id')"
-                                                :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
+                                            <x-input-select title="Nome Comercial" name="commercial_id"
+                                                :errors="$errors->first('commercial_id')" :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Serviço" name="service_id" :errors="$errors->first('service_id')"
@@ -297,8 +297,10 @@
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <x-input-price title="Potência/Escalão" name="power" type="power"
-                                                :errors="$errors->first('power')" />
+                                            {{-- <x-input-price title="Potência/Escalão" name="power" type="power"
+                                                :errors="$errors->first('power')" /> --}}
+                                            <x-input-select title="Potência/Escalão" name="power_bracket_id"
+                                                :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
                                         </div>
                                     </div>
                                 </div>
@@ -316,44 +318,56 @@
                                         <div class="sm:col-span-2">
                                             <x-input-number title="Pontas" name="peak" :errors="$errors->first('peak')" />
                                         </div>
+
                                         <div class="sm:col-span-2">
-                                            <x-input-number title="Cheias" name="standard" :errors="$errors->first('standard')" />
+                                            <x-input-number title="Cheias" id="standard" name="standard"
+                                                :errors="$errors->first('standard')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-number title="Vazio" name="off_peak" :errors="$errors->first('off_peak')" />
+                                            <x-input-number title="Vazio" id="off_peak" name="off_peak"
+                                                :errors="$errors->first('off_peak')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-number title="Super Vazio" name="super_off_peak"
                                                 :errors="$errors->first('super_off_peak')" />
                                         </div>
+                                        <script>
+                                            const flatInput = document.getElementById('flat');
+                                            const peakInput = document.getElementById('peak');
+                                            const standardInput = document.getElementById('standard');
+                                            const offPeakInput = document.getElementById('off_peak');
+                                            const superOffPeakInput = document.getElementById('super_off_peak');
+
+                                            handleInput(flatInput, peakInput);
+                                            handleInput(flatInput, standardInput);
+                                            handleInput(flatInput, offPeakInput);
+                                            handleInput(flatInput, superOffPeakInput);
+
+                                            function handleInput(input, dependentInput) {
+                                                input.addEventListener('input', function() {
+                                                    if (input.value.trim() !== '') {
+                                                        dependentInput.disabled = true;
+                                                        dependentInput.classList.add('opacity-50', 'cursor-not-allowed');
+                                                    } else {
+                                                        dependentInput.disabled = false;
+                                                        dependentInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                                                    }
+                                                });
+                                            }
+                                        </script>
                                         <div class="form-group">
                                             <label for="radio-group"
                                                 class="text-gray-700 dark:text-gray-200">Gás:</label>
                                             <div class="mt-2 flex space-x-4">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="1"
-                                                        {{ old('gas') == '1' ? 'checked' : '' }}>
-                                                    <span class="ml-2 dark:text-gray-200">1</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="2"
-                                                        {{ old('gas') == '2' ? 'checked' : '' }}>
-                                                    <span class="ml-2 dark:text-gray-200">2</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="3"
-                                                        {{ old('gas') == '3' ? 'checked' : '' }}>
-                                                    <span class="ml-2 dark:text-gray-200">3</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio text-indigo-600"
-                                                        name="gas" value="4"
-                                                        {{ old('gas') == '4' ? 'checked' : '' }}>
-                                                    <span class="ml-2 dark:text-gray-200">4</span>
-                                                </label>
+                                                @foreach (range(0, 4) as $value)
+                                                    <label class="inline-flex items-center">
+                                                        <input type="radio" class="form-radio text-indigo-600"
+                                                            name="gas" value="{{ $value }}"
+                                                            {{ old('gas') == $value ? 'checked' : '' }}>
+                                                        <span
+                                                            class="ml-2 dark:text-gray-200">{{ $value }}</span>
+                                                    </label>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

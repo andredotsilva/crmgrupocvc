@@ -85,6 +85,7 @@ class StoreContractRequest extends FormRequest
             'off_peak' => ['nullable', 'numeric'],
             'super_off_peak' => ['nullable', 'numeric'],
             'gas' => ['nullable', 'numeric'],
+            'power_bracket_id' => ['nullable', 'exists:power_brackets,id'],
 
             // Mail Address         
             'mail_address' => ['nullable', 'max:255'],

@@ -22,6 +22,7 @@ use App\Models\DocumentStatus;
 use App\Models\InvoiceType;
 use App\Models\MailingAddress;
 use App\Models\Plan;
+use App\Models\PowerBracket;
 use App\Models\Tariff;
 use App\Models\Provider;
 use App\Models\Service;
@@ -95,6 +96,7 @@ class ContractsController extends Controller
         $plans = Plan::all();
         $documentationStatus = DocumentationStatus::all();
         $invoiceTypes = InvoiceType::all();
+        $powerBrackets = PowerBracket::all();
 
         return view('pages.contracts.create', [
             'tariffs' => $tariffs,
@@ -108,6 +110,7 @@ class ContractsController extends Controller
             'plans' => $plans,
             'documentationStatus' => $documentationStatus,
             'invoiceTypes' => $invoiceTypes,
+            'powerBrackets' => $powerBrackets
         ]);
     }
     public function store(StoreContractRequest $request)
@@ -155,6 +158,7 @@ class ContractsController extends Controller
         $meter->standard = $request->standard;
         $meter->off_peak = $request->off_peak;
         $meter->super_off_peak = $request->super_off_peak;
+        $meter->power_bracket_id = $request->power_bracket_id;
         $meter->gas = $request->gas;
         $meter->save();
 
