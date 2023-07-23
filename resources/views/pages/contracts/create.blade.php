@@ -175,6 +175,13 @@
                                             </div>
                                         </div>
 
+
+
+
+                                        <div class="sm:col-span-2">
+                                            <x-input-select title="Nome Comercial" name="commercial_id"
+                                                :errors="$errors->first('commercial_id')" :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
+                                        </div>
                                         <script>
                                             const input = document.getElementById('commercial_code');
 
@@ -225,10 +232,6 @@
                                             });
                                         </script>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Nome Comercial" name="commercial_id"
-                                                :errors="$errors->first('commercial_id')" :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
                                             <x-input-select title="Serviço" name="service_id" :errors="$errors->first('service_id')"
                                                 :collection="$services" :errors="$errors->first('service_id')" />
                                         </div>
@@ -244,8 +247,29 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Cliente/Administrador" name="administrator_name"
-                                                :errors="$errors->first('administrator_name')" />
+                                                idLabel="administrator_name_label" :errors="$errors->first('administrator_name')" />
                                         </div>
+                                        <script>
+                                            const clientTypeSelect = document.getElementById('client_type_id');
+                                            const clientLabel = document.getElementById('administrator_name_label');
+
+                                            clientTypeSelect.addEventListener('change', function() {
+                                                switch (clientTypeSelect.value) {
+                                                    case '1':
+                                                        clientLabel.textContent = 'Administrador';
+                                                        break;
+                                                    case '2':
+                                                        clientLabel.textContent = 'Sócio Gerente';
+                                                        break;
+                                                    case '3':
+                                                        clientLabel.textContent = 'Cliente';
+                                                        break;
+                                                    default:
+                                                        clientLabel.textContent = 'Tipo de Cliente';
+                                                };
+                                            });
+                                        </script>
+
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Administração de Condominio"
                                                 name="condominium_administrator" :errors="$errors->first('condominium_administrator')" />
@@ -268,7 +292,8 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Documentação" name="documentation_status_id"
-                                                :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" />
+                                                :multiple="true" id="multiSelection" :collection="$documentationStatus"
+                                                :errors="$errors->first('documentation_status_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string
@@ -289,7 +314,8 @@
                                                 :errors="$errors->first('tariff_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')" />
+                                            <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')"
+                                                id="nif" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="CPE/CUI" id="cpe" name="cpe"
@@ -391,7 +417,6 @@
                                         <div class="sm:col-span-2">
                                             <x-input-date title="Renovação" name="renewal_at" :errors="$errors->first('renewal_at')" />
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -403,8 +428,10 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <input type="hidden" name="client_id" id="client_id">
                                         <div class="sm:col-span-2">
-                                            <x-input-number title="CAE" id="cae" name="cae"
-                                                :errors="$errors->first('cae')" />
+                                            {{-- <x-input-number title="CAE" id="cae" name="cae"
+                                                :errors="$errors->first('cae')" /> --}}
+                                            <x-input-select title="CAE" id="cae_id" name="cae_id"
+                                                :collection="$caes" :errors="$errors->first('cae_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Nome Cliente" id="name" name="name"
@@ -735,8 +762,10 @@
     </div>
 </x-app-layout>
 <script>
-    const consultaInput = document.getElementById("cpe");
-    const caeInput = document.getElementById("cae");
+    const nifInput = document.getElementById("nif");
+    console.log(nifInput);
+
+    const caeInput = document.getElementById("cae_id");
     const nameInput = document.getElementById("name");
     const addressInput = document.getElementById("address");
     const doorInput = document.getElementById("door");
@@ -748,10 +777,12 @@
     const parishInput = document.getElementById("parish_id");
     const clientInput = document.getElementById("client_id");
 
-    consultaInput.addEventListener("input", function() {
-        const cpe = consultaInput.value;
+    nifInput.addEventListener("input", function() {
+        const nif = nifInput.value;
 
-        fetch(`/contracts/fetchbycpe?cpe=${cpe}`)
+        console.log(nif);
+
+        fetch(`/contracts/fetchbycpe?nif=${nif}`)
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {

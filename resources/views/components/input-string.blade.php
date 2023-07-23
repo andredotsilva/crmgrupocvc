@@ -1,6 +1,6 @@
-@props(['title', 'name', 'value' => null, 'errors' => null, 'id' => null])
+@props(['title', 'name', 'value' => null, 'errors' => null, 'id' => null, 'idLabel' => null])
 
-<label for="{{ $name }}"
+<label for="{{ $name }}" id="{{ $idLabel }}"
     class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">{{ $title }}</label>
 <div class="mt-2">
     <input type="text" name="{{ $name }}" id="{{ $id }}" value="{{ old($name, $value ?? null) }}"

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\StoreContractRequest;
+use App\Models\CAE;
 use App\Models\Category;
 use App\Models\Client;
 use App\Models\ClientType;
@@ -97,6 +98,7 @@ class ContractsController extends Controller
         $documentationStatus = DocumentationStatus::all();
         $invoiceTypes = InvoiceType::all();
         $powerBrackets = PowerBracket::all();
+        $caes = CAE::all();
 
         return view('pages.contracts.create', [
             'tariffs' => $tariffs,
@@ -110,7 +112,8 @@ class ContractsController extends Controller
             'plans' => $plans,
             'documentationStatus' => $documentationStatus,
             'invoiceTypes' => $invoiceTypes,
-            'powerBrackets' => $powerBrackets
+            'powerBrackets' => $powerBrackets,
+            'caes' => $caes,
         ]);
     }
     public function store(StoreContractRequest $request)
@@ -163,7 +166,7 @@ class ContractsController extends Controller
         $meter->save();
 
         $client = Client::firstOrCreate(['id' => $request->client_id]);
-        $client->cae = $request->cae;
+        $client->cae_id = $request->cae_id;
         $client->name = $request->name;
         $client->address = $request->address;
         $client->floor = $request->floor;
@@ -528,11 +531,11 @@ class ContractsController extends Controller
 
     public function fetchbycpe(Request $request)
     {
-        $cpe = $request->query('cpe');
+        $nif = $request->query('nif');
 
         $resultado = Contract::with(['meter', 'client.district', 'client.municipality', 'client.parish'])
-            ->whereHas('meter', function ($query) use ($cpe) {
-                $query->where('cpe', $cpe);
+            ->whereHas('meter', function ($query) use ($nif) {
+                $query->where('nif', $nif);
             })
             ->get();
 
