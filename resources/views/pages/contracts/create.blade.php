@@ -292,8 +292,7 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Documentação" name="documentation_status_id"
-                                                :multiple="true" id="multiSelection" :collection="$documentationStatus"
-                                                :errors="$errors->first('documentation_status_id')" />
+                                                :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string

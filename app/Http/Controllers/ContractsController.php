@@ -126,11 +126,24 @@ class ContractsController extends Controller
             ? $request->input('mail_district_id')
             : null;
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = 'adwkweqnqkne213352sddas';
-        $user->save();
+        $nif = $request->nif;
+        $doesUserExists = Contract::with(['meter', 'client.user'])
+            ->whereHas('meter', function ($query) use ($nif) {
+                $query->where('nif', $nif);
+            })
+            ->first();
+
+        if (!$doesUserExists) {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = 'adwkweqnqkne213352sddas';
+            $user->save();
+        }
+
+        // $userId = $doesUserExists->client->user->id;
+        // dd($userId);
+
 
         $commission = new Commission();
         $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
@@ -176,7 +189,7 @@ class ContractsController extends Controller
         $client->parish_id = $request->parish_id;
         $client->municipality_id = $request->municipality_id;
         $client->district_id = $districtId;
-        $client->user_id = $user->id;
+        $client->user_id =  $doesUserExists->client->user->id ?? $user->id;
         $client->save();
 
 
@@ -411,7 +424,7 @@ class ContractsController extends Controller
             $commission->refund_cvc_payment_date = $request->refund_cvc_payment_date;
             $commission->save();
 
-            $mailingAddress = MailingAddress::where('client_id', $client->id)->firstOrCreate();
+            $mailingAddress = MailingAddress::create();
             $mailingAddress->address = $request->address;
             $mailingAddress->door = $request->door;
             $mailingAddress->post_code = $request->mail_post_code;
