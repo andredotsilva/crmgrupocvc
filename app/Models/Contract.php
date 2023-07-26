@@ -140,10 +140,10 @@ class Contract extends Model
         return $this->belongsTo(Meter::class, 'meter_id');
     }
 
-    public function clientData()
-    {
-        return $this->belongsTo(Client::class, 'client_id');
-    }
+    // public function client()
+    // {
+    //     return $this->belongsTo(Client::class, 'client_id');
+    // }
 
     public function municipality()
     {

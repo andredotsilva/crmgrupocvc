@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Contract;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
 {
@@ -53,8 +55,10 @@ class Client extends Model
         return $this->belongsTo(Parish::class, 'parish_id');
     }
 
-    public function contracts()
+    public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class, 'client_id');
+
+        // return $this->hasManyThrough(Contract::class, Client::class);
     }
 }

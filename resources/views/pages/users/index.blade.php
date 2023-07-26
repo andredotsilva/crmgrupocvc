@@ -38,40 +38,54 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
-                        <div class="flex items-stretch justify-start mb-4">
-                            <div class="relative w-1/5">
-                                <form action="{{ route('users.search') }}" method="GET">
-                                    <input type="text" name="name" placeholder="Pesquisar"
-                                        class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500" />
-                                    <div class="absolute top-0 left-0 flex items-center h-full ml-4">
-                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15.5 15.5l5.085 5.086M8.5 15.5a7 7 0 1 1 7-7 7 7 0 0 1-7 7z"></path>
-                                        </svg>
-                                    </div>
-                                </form>
-                            </div>
-                            <div>
-                                <div class="relative text-gray-700">
-                                    <select
-                                        class="py-2 pl-4 pr-8 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-50 text-gray-700 
-                                        bg-grey-200 dark:bg-grey-700">
-                                        <option value="">Cargos</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
-                                    </select>
-                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor" class="w-4 h-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7"></path>
-                                        </svg>
+                        <form action="{{ route('users.index') }}" method="GET">
+                            <div class="flex items-stretch justify-start mb-4 flex-row gap-3">
+                                <div class="relative mt-2 rounded-md shadow-sm">
+                                    <input type="text" name="name"
+                                        class="block w-full rounded-md border-0 py-2 pl-10 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <div class="mt-2">
+                                        <select id="country" name="role_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                            <option value="">Cargo</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->title }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
+                            <div class="flex justify-end gap-3 mr-4">
+                                <button onclick="resetForm()"
+                                    class="bg-gray-300 hover:bg-gray-400 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser">
+                                        <path
+                                            d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21" />
+                                        <path d="M22 21H7" />
+                                        <path d="m5 11 9 9" />
+                                    </svg>
+                                </button>
+
+                                <script>
+                                    function resetForm() {
+                                        document.getElementById('dadosorg').reset();
+                                    }
+                                </script>
+
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFFFFF"
+                                        viewBox="0 0 256 256" class="h-8 w-8">
+                                        <path
+                                            d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 pb-4 ">
                             <thead>
                                 <tr>
@@ -89,12 +103,10 @@
                                     </th>
                                     <th
                                         class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
-
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- User rows go here -->
                                 @foreach ($users as $user)
                                     <tr>
                                         <td class="py-2 px-4 border-b border-gray-600">{{ $user->name }}</td>
@@ -140,26 +152,76 @@
                                                     <button
                                                         class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                            class="w-5 h-5">
+                                                            viewBox="0 0 24 24" stroke-width="1.5"
+                                                            stroke="currentColor" class="w-5 h-5">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                         </svg>
                                                     </button>
                                                 </form>
+
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="flex items-center justify-between mt-6">
+                            @if ($users->onFirstPage())
+                                <a href="#"
+                                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7"></path>
+                                    </svg>
+                                </a>
+                            @else
+                                <a href="{{ $users->previousPageUrl() }}"
+                                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 19l-7-7 7-7"></path>
+                                    </svg>
+                                </a>
+                            @endif
+
+                            <div class="items-center hidden lg:flex gap-x-3">
+                                @foreach ($users->appends(request()->query())->getUrlRange(1, $users->lastPage()) as $page => $url)
+                                    @if ($page == $users->currentPage())
+                                        <a href="#"
+                                            class="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60 cursor-not-allowed">{{ $page }}</a>
+                                    @else
+                                        <a href="{{ $url }}"
+                                            class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">{{ $page }}</a>
+                                    @endif
+                                @endforeach
+                            </div>
+
+                            @if ($users->hasMorePages())
+                                <a href="{{ $users->nextPageUrl() }}"
+                                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            @else
+                                <a href="#"
+                                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            @endif
+                        </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
-
-
 </x-app-layout>

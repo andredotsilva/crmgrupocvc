@@ -343,7 +343,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->clientData->cae }}
+                                {{ $contract->client->cae }}
                             </h4>
                         @endif
                     </div>
@@ -353,7 +353,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->clientData->administrator_name }}
+                                {{ $contract->client->administrator_name }}
                             </h4>
                         @endif
                     </div>
@@ -363,7 +363,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->clientData->address }}
+                                {{ $contract->client->address }}
                             </h4>
                         @endif
                     </div>
@@ -373,7 +373,7 @@
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->client)
                             <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->clientData->floor }}
+                                {{ $contract->client->floor }}
                             </h4>
                         @endif
                     </div>

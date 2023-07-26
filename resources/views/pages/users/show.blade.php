@@ -39,65 +39,63 @@
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Utilizador') }}</button>
             </a>
         </div>
-
     </x-slot>
-
-
 
     <!--Tables-->
     <div class="p-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
             <div class="gap-x-6 mt-4 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
                 <h1 class="text-lg pb-4 dark:text-gray-200">Contratos Associados ao Cliente</h1>
-                @if ($user->client && $user->client->contracts)
-                    @foreach ($user->client->contracts as $contract)
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead cass="bg-gray-50 dark:bg-gray-800">
-                                <tr>
-                                    <th scope="col"
-                                        class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                        <div class="flex items-center gap-x-3">
-                                            <span>CPE</span>
-                                        </div>
-                                    </th>
-                                    <th scope="col"
-                                        class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                        <div class="flex items-center gap-x-3">
-                                            <span>Name</span>
-                                        </div>
-                                    </th>
-                                    <th scope="col"
-                                        class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                        <div class="flex items-center gap-x-3">
-                                            <span>NIF</span>
-                                        </div>
-                                    </th>
-                                    <th scope="col"
-                                        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                        <span>Status</span>
-                                    </th>
 
-                                    <th scope="col"
-                                        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                        <span>Terminar</span>
-                                    </th>
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead cass="bg-gray-50 dark:bg-gray-800">
+                        <tr>
+                            <th scope="col"
+                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center gap-x-3">
+                                    <span>CPE</span>
+                                </div>
+                            </th>
+                            <th scope="col"
+                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center gap-x-3">
+                                    <span>Name</span>
+                                </div>
+                            </th>
+                            <th scope="col"
+                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <div class="flex items-center gap-x-3">
+                                    <span>NIF</span>
+                                </div>
+                            </th>
+                            <th scope="col"
+                                class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <span>Status</span>
+                            </th>
 
-                                    <th scope="col"
-                                        class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                        <button class="flex items-center gap-x-2">
-                                            <span>Nivel Tensão (RPE)</span>
+                            <th scope="col"
+                                class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <span>Terminar</span>
+                            </th>
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                            </svg>
-                                        </button>
-                                    </th>
+                            <th scope="col"
+                                class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <button class="flex items-center gap-x-2">
+                                    <span>Nivel Tensão (RPE)</span>
 
-                                    <th scope="col" class="relative py-3.5 px-4">
-                                        <span class="sr-only">Edit</span>
-                                    </th>
-                                </tr>
-                            </thead>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                    </svg>
+                                </button>
+                            </th>
+
+                            <th scope="col" class="relative py-3.5 px-4">
+                                <span class="sr-only">Edit</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    @if ($user->client)
+                        @foreach ($contracts as $contract)
                             <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                                 <tr>
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
@@ -210,10 +208,10 @@
                                         </div>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    @endforeach
-                @endif
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
             </div>
 
             <div class="gap-x-6 mt-4 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">

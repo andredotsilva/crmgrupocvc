@@ -4,9 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Client;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -69,8 +72,10 @@ class User extends Authenticatable
         return $this->roles->contains('id', $id);
     }
 
-    public function contracts()
+    public function contracts(): HasManyThrough
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasManyThrough(Contract::class, Client::class);
+
+        // return $this->hasMany(Contract::class, 'client_id');
     }
 }

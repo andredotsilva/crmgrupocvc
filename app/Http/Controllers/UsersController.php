@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Contract;
@@ -9,19 +10,39 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('roles')->get();
+        $roles = Role::all();
+
+        $users = User::with(['roles'])
+            ->when($request->filled('name'), function ($query) use ($request) {
+                return $query->where('name', 'like', '%' . $request->input('name') . '%');
+            })
+            ->when($request->filled('role_id'), function ($query) use ($request) {
+                return $query->whereHas('roles', function ($query) use ($request) {
+                    $query->where('id', $request->input('role_id'));
+                });
+            })->paginate(20);
+
         return view('pages.users.index', [
             'users' => $users,
+            'roles' => $roles
         ]);
     }
 
     public function show($id)
     {
-        $user = User::with(['roles', 'client', 'client.contracts', 'client.district', 'client.municipality', 'client.parish'])->findOrFail($id);
+        $contracts = Contract::with('client.user')
+            ->whereHas('client.user', function ($query) use ($id) {
+                $query->where('id', $id);
+            })
+            ->get();
+
+        $user = User::with(['roles', 'client', 'client.contracts', 'client.district', 'client.municipality', 'client.parish'])->where('id', $id)->first();
+
         return view('pages.users.show', [
             'user' => $user,
+            'contracts' => $contracts
         ]);
     }
 
@@ -55,15 +76,6 @@ class UsersController extends Controller
         $user = User::where('code', $code)->first();
 
         return response()->json($user);
-    }
-
-    public function search(Request $request)
-    {
-        $name = $request->input('name');
-
-        $users = User::with('roles')->where('name', 'LIKE', "%$name%")->get();
-
-        return view('pages.users.index', compact('users'));
     }
 
     public function destroy($id)

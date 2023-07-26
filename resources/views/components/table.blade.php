@@ -191,10 +191,6 @@
                         d="M232,184a8,8,0,0,1-16,0A88,88,0,0,0,65.78,121.78L43.4,144H88a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v44.77l22.48-22.33A104,104,0,0,1,232,184Z">
                     </path>
                 </svg>
-
-                {{-- <span>
-                    previous
-                </span> --}}
             </a>
         @else
             <a href="{{ $contracts->previousPageUrl() }}"
@@ -205,10 +201,6 @@
                         d="M232,184a8,8,0,0,1-16,0A88,88,0,0,0,65.78,121.78L43.4,144H88a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v44.77l22.48-22.33A104,104,0,0,1,232,184Z">
                     </path>
                 </svg>
-
-                {{-- <span>
-                    previous
-                </span> --}}
             </a>
         @endif
 
@@ -227,10 +219,6 @@
         @if ($contracts->hasMorePages())
             <a href="{{ $contracts->nextPageUrl() }}"
                 class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                {{-- <span>
-                    Next
-                </span> --}}
-
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
                     viewBox="0 0 256 256">
                     <path
@@ -241,9 +229,6 @@
         @else
             <a href="#"
                 class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
-                {{-- <span>
-                    Next
-                </span> --}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
                     viewBox="0 0 256 256">
                     <path
