@@ -291,9 +291,27 @@
                                                 :errors="$errors->first('plan_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Documentação" name="documentation_status_id"
-                                                :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" />
+                                            <label for="documentation_status_id"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
+                                            <select name="documentationStatuses[]"
+                                                class="block w-full rounded-md border-0
+                                        py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                                        dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm
+                                        sm:leading-6"
+                                                data-te-class-form-outline="block w-full rounded-md border-0 dark:ring-gray-700 dark:bg-gray-600 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                                data-te-select-options-selected-label="opções selecionadas." multiple
+                                                data-te-class-inputGroup="rounded data-te-select-all="false"
+                                                data-te-class-dropdown="bg-[#4b5563] rounded-md text-red-500"
+                                                data-te-select-init>
+                                                @foreach ($documentationStatus as $doc)
+                                                    <option value="{{ $doc->id }}">{{ $doc->title }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
                                         </div>
+                                        {{-- <x-input-select title="Documentação" name="documentation_status_id"
+                                            :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" /> --}}
                                         <div class="sm:col-span-2">
                                             <x-input-string
                                                 title="Arquivo
@@ -363,6 +381,7 @@
                                             const offPeakInput = document.getElementById('off_peak');
                                             const superOffPeakInput = document.getElementById('super_off_peak');
 
+                                            handleInput(peakInput, flatInput);
                                             handleInput(flatInput, peakInput);
                                             handleInput(flatInput, standardInput);
                                             handleInput(flatInput, offPeakInput);
@@ -733,6 +752,22 @@
                                     </div>
                                 </div>
                                 <!--END comissões mensais-->
+
+                                <div id="kakaka">
+
+                                </div>
+                                <script>
+                                    const clientTypeInput = document.getElementById('client_type_id');
+                                    const servicesInput = document.getElementById('service_id');
+                                    const categoryInput = document.getElementById('category_id');
+                                    const categoryInput = document.getElementById('kakaka');
+
+                                    clientTypeInput.addEventListener('input', function() {
+                                        if (clientTypeInput.value === '1') {
+                                            console.log('jeje')
+                                        }
+                                    });
+                                </script>
 
                                 <!--Ficheiros-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"

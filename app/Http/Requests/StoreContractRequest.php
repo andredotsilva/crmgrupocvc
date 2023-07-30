@@ -49,7 +49,7 @@ class StoreContractRequest extends FormRequest
             'client_type_id' =>  ['nullable', 'exists:client_types,id'],
             'category_id' => ['nullable', 'exists:categories,id'],
             'service_id'  => ['nullable', 'exists:services,id'],
-            'documentation_status_id'  => ['nullable', 'exists:documentation_statuses,id'],
+            // 'documentation_status_id'  => ['nullable', 'exists:documentation_statuses,id'],
             'archive' => ['nullable', 'max:255'],
             'inserted_at' => ['nullable', 'date'],
             'signed_at'  => ['nullable', 'date'],

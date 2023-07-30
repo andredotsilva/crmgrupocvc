@@ -84,7 +84,6 @@
                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
 
                                         @php
-                                            // dd($contract);
                                             $styles = [
                                                 '1' => ['text-emerald-500', 'bg-green-500', 'bg-emerald-100/60', 'dark:bg-gray-800'],
                                                 '2' => ['text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'],
@@ -97,13 +96,15 @@
                                         @endphp
 
                                         @if (!empty($style))
-                                            <div
-                                                class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 {{ $style[2] }} {{ $style[3] }}">
-                                                <span class="h-1.5 w-1.5 rounded-full {{ $style[1] }}"></span>
-                                                <h2 class="text-sm font-normal {{ $style[0] }}">
-                                                    {{ $contract->documentation->title }}
-                                                </h2>
-                                            </div>
+                                            @foreach ($contract->documentation as $documentation)
+                                                <div
+                                                    class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 {{ $style[2] }} {{ $style[3] }}">
+                                                    <span class="h-1.5 w-1.5 rounded-full {{ $style[1] }}"></span>
+                                                    <h2 class="text-sm font-normal {{ $style[0] }}">
+                                                        {{ $documentation }}
+                                                    </h2>
+                                                </div>
+                                            @endforeach
                                         @endif
                                     </td>
 

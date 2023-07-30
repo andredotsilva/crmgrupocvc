@@ -131,11 +131,8 @@
                         </button>
                     </div>
                 </div>
-                <!-- Scroll wrapper -->
                 <div class="flex-1 overflow-hidden overflow-y-scroll scrollbar-hidden" id="scrollableColumn"
                     style="max-height: 600px">
-                    <!-- Scrollable container -->
-                    <!-- Your content -->
                     <form action="{{ route('contracts.update', ['contract' => $contract->id]) }}" method="POST"
                         style="margin-bottom: 40px;">
                         @csrf
@@ -149,51 +146,12 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Back Office" name="back_officer_id" :value="$contract->backofficer"
-                                                :collection="$backofficers" hasAuth />
+                                                :collection="$backofficers" hasAuth :errors="$errors->first('back_officer_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Comercial" name="commercial_id" :value="$contract->commercial"
                                                 :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
                                         </div>
-
-                                        <div id="toast-default"
-                                            class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
-                                            role="alert">
-                                            <div
-                                                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:bg-blue-800 dark:text-blue-200">
-                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                <span class="sr-only">Fire icon</span>
-                                            </div>
-                                            <div class="ml-3 text-sm font-normal">Set yourself free.</div>
-                                            <button type="button"
-                                                class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-                                                data-dismiss-target="#toast-default" aria-label="Close">
-                                                <span class="sr-only">Close</span>
-                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {
-                                                var toast = document.getElementById('toast-default');
-                                                toast.classList.remove('hidden');
-
-                                                setTimeout(function() {
-                                                    toast.classList.add('hidden');
-                                                }, 3000); // Tempo em milissegundos (3 segundos no exemplo)
-                                            });
-                                        </script>
-
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Serviço" name="service_id" :value="$contract->service"
                                                 :collection="$services" :errors="$errors->first('service_id')" />
@@ -233,8 +191,26 @@
                                                 :collection="$plans" :errors="$errors->first('plan_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Documentação" name="documentation_status_id"
-                                                :value="$contract->documentation" :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" />
+                                            <div class="sm:col-span-2">
+                                                <label for="documentation_status_id"
+                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
+                                                <select name="documentationStatuses[]"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    data-te-class-form-outline="block w-full rounded-md border-0 dark:ring-gray-700 dark:bg-gray-600 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                                    data-te-select-options-selected-label="opções selecionadas."
+                                                    multiple data-te-class-inputGroup="rounded"
+                                                    data-te-select-all="false"
+                                                    data-te-class-dropdown="bg-[#4b5563] rounded-md text-red-500"
+                                                    data-te-select-init>
+
+                                                    @foreach ($documentationStatuses as $documentationStatus)
+                                                        <option value="{{ $documentationStatus->id }}"
+                                                            @if (in_array($documentationStatus->id, $contract->documentation->pluck('id')->toArray())) selected @endif>
+                                                            {{ $documentationStatus->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string

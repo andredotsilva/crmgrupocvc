@@ -118,6 +118,7 @@ class ContractsController extends Controller
     }
     public function store(StoreContractRequest $request)
     {
+
         $districtId = ($request->input('district_id') !== 'Selecionar Distrito')
             ? $request->input('district_id')
             : null;
@@ -201,7 +202,6 @@ class ContractsController extends Controller
         $contract->category_id = $request->category_id;
         $contract->provider_id = $request->provider_id;
         $contract->plan_id = $request->plan_id;
-        $contract->documentation_status_id = $request->documentation_status_id;
         $contract->archive = $request->archive;
         $contract->client_id = $client->id;
         $contract->meter_id = $meter->id;
@@ -214,7 +214,11 @@ class ContractsController extends Controller
         $contract->invoice_type_id = $request->invoice_type_id;
         $contract->signatory_email = $request->signatory_email;
         $contract->signatory_phone = $request->signatory_phone;
+
+
         $contract->save();
+
+        $contract->documentation()->attach($request->documentationStatuses);
 
         $mailingAddress = new MailingAddress();
         $mailingAddress->address = $request->mail_address;
@@ -321,7 +325,7 @@ class ContractsController extends Controller
     public function edit($id)
     {
 
-        $contract = Contract::with(['files', 'meter', 'monthlyCommission', 'mailingAddress.district', 'mailingAddress.municipality', 'mailingAddress.parish', 'invoiceType'])->where('id', $id)->first();
+        $contract = Contract::with(['files', 'meter', 'monthlyCommission', 'mailingAddress.district', 'mailingAddress.municipality', 'mailingAddress.parish', 'invoiceType', 'documentation'])->where('id', $id)->first();
         $contractsCount = Contract::count();
 
         $tariffs = Tariff::all();
@@ -337,7 +341,7 @@ class ContractsController extends Controller
         $services = Service::all();
         $categories = Category::all();
         $plans = Plan::all();
-        $documentationStatus = DocumentationStatus::all();
+        $documentationStatuses = DocumentationStatus::all();
         $invoiceTypes = InvoiceType::all();
 
         return view('pages.contracts.edit', [
@@ -352,7 +356,7 @@ class ContractsController extends Controller
             'categories' => $categories,
             'plans' => $plans,
             'contractsCount' => $contractsCount,
-            'documentationStatus' => $documentationStatus,
+            'documentationStatuses' => $documentationStatuses,
             'invoiceTypes' => $invoiceTypes,
         ]);
     }

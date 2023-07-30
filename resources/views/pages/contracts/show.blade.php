@@ -157,10 +157,13 @@
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Documentação:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->documentation_status_id)
-                            <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->documentation->title }}
-                            </h4>
+                        @if ($contract->documentation)
+
+                            @foreach ($contract->documentation as $documentation)
+                                <h4 class="text-blue-600 dark:text-blue-400">
+                                    {{ $documentation->title }}
+                                </h4>
+                            @endforeach
                         @endif
                     </div>
                 </div>

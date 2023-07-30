@@ -122,7 +122,7 @@ class Contract extends Model
 
     public function documentation()
     {
-        return $this->belongsTo(DocumentationStatus::class, 'documentation_status_id');
+        return $this->belongsToMany(DocumentationStatus::class, 'contract_documentation_status', 'contract_id', 'documentation_status_id');
     }
 
     // public function archive()
