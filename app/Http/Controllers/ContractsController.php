@@ -27,6 +27,7 @@ use App\Models\PowerBracket;
 use App\Models\Tariff;
 use App\Models\Provider;
 use App\Models\Service;
+use App\Models\Status;
 use App\Models\TemporaryFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -83,6 +84,8 @@ class ContractsController extends Controller
         $tariffs = Tariff::all();
         $districts = District::all();
         $clientTypes = ClientType::all();
+        $statuses = Status::all();
+        // dd($statuses);
         $commercials = User::whereHas('roles', function ($query) {
             $query->where('role_id', 3);
         })->get();
@@ -101,6 +104,7 @@ class ContractsController extends Controller
         return view('pages.contracts.create', [
             'tariffs' => $tariffs,
             'districts' => $districts,
+            'statuses' => $statuses,
             'clientTypes' => $clientTypes,
             'commercials' => $commercials,
             'providers' => $providers,
@@ -203,6 +207,7 @@ class ContractsController extends Controller
         $contract->archive = $request->archive;
         $contract->client_id = $client->id;
         $contract->meter_id = $meter->id;
+        $contract->status_id = $request->status_id;
         $contract->commission_id = $commission->id;
         $contract->inserted_at = $request->inserted_at;
         $contract->signed_at = $request->signed_at;

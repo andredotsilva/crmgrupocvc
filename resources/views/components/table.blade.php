@@ -182,7 +182,7 @@
         </div>
     </div>
 
-    @if ($hasPagination === true)
+    @if ($hasPagination == true)
         <div class="flex items-center justify-between mt-6">
             @if ($contracts->onFirstPage())
                 <a href="#"

@@ -544,15 +544,6 @@
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Concelho" name="mail_municipality_id"
                                                 :errors="$errors->first('mail_municipality_id')" />
-                                            {{-- <label for="mail_municipality_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Concelho</label>
-                                            <div class="mt-2">
-                                                <select id="mail_municipality_id" name="mail_municipality_id"
-                                                    autocomplete="municipality_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option selected>Escolher Concelho</option>
-                                                </select>
-                                            </div> --}}
                                         </div>
 
                                         <div class="sm:col-span-2">
@@ -692,7 +683,10 @@
                                                     placeholder=""></textarea>
                                             </div>
                                         </div>
-                                        <!-- Adicione mais elementos aqui, se necessário -->
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <x-input-select title="Status" name="status_id" :collection="$statuses"
+                                            :errors="$errors->first('status_id')" />
                                     </div>
                                 </div>
                                 <!--comissões mensais-->
