@@ -753,21 +753,93 @@
                                 </div>
                                 <!--END comissões mensais-->
 
-                                <div id="kakaka">
-
+                                <div id="required-documents"
+                                    class="mt-10 gap-x-6 gap-y-8 flex flex-col text-white p-6 rounded-2xl bg-white dark:bg-gray-800">
+                                    Lista:
                                 </div>
                                 <script>
                                     const clientTypeInput = document.getElementById('client_type_id');
                                     const servicesInput = document.getElementById('service_id');
                                     const categoryInput = document.getElementById('category_id');
-                                    const categoryInput = document.getElementById('kakaka');
+                                    const zone = document.getElementById('required-documents');
+
+                                    const oneoneone = ["ATA", "Fatura Luz", "IBAN (opcional)"];
+                                    const oneonetwo = ["Planta de Localização", "Ficha Eletrotécnica", "Caderneta Predial", "Alvará de Construção"];
+                                    const oneonethree = ["Alvará de Construção", "Ficha Eletrotécnica"];
+                                    const oneonefour = ["Fatura", "ATA"];
+                                    const onetwotwo = ['Inspeção de Gás'];
+                                    const onetwofive = ["Tipologia de Contrato", "Edificio"];
+                                    const twooneone = ['CRC', 'Fatura da Luz', 'IBAN (Opcional)'];
+                                    const twoonefour = ['Fatura', 'CRC'];
+                                    const twotwoone = ['CRC', 'Fatura da Gás', 'BAN (Opcional)'];
+                                    const twoTwoFour = ['CRC', 'Fatura da Gás', 'Tipologia do contrato', 'Terciarios_Trianual', 'Terciarios_Unico'];
+                                    const twoTwoFive = ['Tipologia do contrato', 'Terciarios_Trianual', 'Terciarios_Unico'];
+                                    const threeOneOne = ['Fatura da Luz', 'IBAN (Opcional)'];
+                                    const threeOneTwo = ['Planta de Localização', 'Ficha Eletrotécnica', 'Caderneta Predial', 'Alvará de Construção'];
+                                    const threeOneFour = ['Fatura da Luz'];
+
+                                    function renderOptions(array) {
+                                        zone.innerHTML = '';
+                                        const newSpan = document.createElement('span');
+                                        newSpan.textContent = array.join(', ');
+                                        zone.appendChild(newSpan);
+                                    }
 
                                     clientTypeInput.addEventListener('input', function() {
-                                        if (clientTypeInput.value === '1') {
-                                            console.log('jeje')
+                                        if ((clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value === '1') ||
+                                            (clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value === '1')
+                                        ) {
+                                            renderOptions(oneoneone);
+                                        } else if ((clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value ===
+                                                '2') ||
+                                            (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value === '2')
+                                        ) {
+                                            renderOptions(oneonetwo);
+                                        } else if ((clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value ===
+                                                '3') ||
+                                            (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value === '3') ||
+                                            (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value === '3')
+                                        ) {
+                                            renderOptions(oneonethree);
+                                        } else if (clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value ===
+                                            '4') {
+                                            renderOptions(oneonefour);
+                                        } else if ((clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value ===
+                                                '2') ||
+                                            (clientTypeInput.value === '2' && categoryInput.value === '2' && servicesInput.value === '2') ||
+                                            (clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value === '2')
+                                        ) {
+                                            renderOptions(onetwotwo);
+                                        } else if ((clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value ===
+                                                '5') ||
+                                            (clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value === '6')
+                                        ) {
+                                            renderOptions(onetwofive);
+                                        } else if (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value ===
+                                            '1') {
+                                            renderOptions(twooneone);
+                                        } else if (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value ===
+                                            '4') {
+                                            renderOptions(twoTwoFour);
+                                        } else if (clientTypeInput.value === '2' && categoryInput.value === '2' && servicesInput.value ===
+                                            '5') {
+                                            renderOptions(twoTwoFive);
+                                        } else if (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value ===
+                                            '1' || clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value ===
+                                            '1') {
+                                            renderOptions(threeOneOne);
+                                        } else if (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value ===
+                                            '2') {
+                                            renderOptions(threeOneTwo);
+                                        } else if (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value ===
+                                            '4' || clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value ===
+                                            '4') {
+                                            renderOptions(threeOneFour);
                                         }
                                     });
                                 </script>
+
+
 
                                 <!--Ficheiros-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
