@@ -292,7 +292,7 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <label for="documentation_status_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Estado</label>
                                             <select name="documentationStatuses[]"
                                                 class="block w-full rounded-md border-0
                                         py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
