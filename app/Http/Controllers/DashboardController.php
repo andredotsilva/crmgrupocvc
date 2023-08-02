@@ -23,13 +23,15 @@ class DashboardController extends Controller
             $query->where('role_id', 4);
         })->count();
 
-        $contracts = Contract::where(function ($query) {
+        $contractsFinishing = Contract::where(function ($query) {
             $query->whereRaw("DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE()")
                 ->whereRaw("DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE()");
         })->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS status'))
-            ->paginate(20);
+            ->get();
 
-        $contractsFinishingCount = $contracts->count();
+        $contractsFinishingCount = $contractsFinishing->count();
+
+        $contracts = Contract::orderBy('updated_at', 'desc')->limit(20)->get();
 
         return view('dashboard', [
             'contracts' => $contracts,

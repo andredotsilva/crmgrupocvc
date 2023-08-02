@@ -32,7 +32,7 @@
 
 <body class="font-sans antialiased">
     <!--MODAL DELETE-->
-    <div id="deleteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    {{-- <div id="deleteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-8 rounded shadow-lg">
             <p>Are you sure you want to delete this contract?</p>
             <div class="mt-4 flex justify-end">
@@ -40,7 +40,7 @@
                 <button id="confirmDelete" class="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         @include('layouts.navigation')

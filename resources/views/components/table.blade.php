@@ -1,4 +1,4 @@
-@props(['contracts', 'contractsCount'])
+@props(['contracts', 'contractsCount', 'hasPagination' => false])
 
 <section class="container px-4 mx-auto">
     <div class="flex items-center gap-x-3">
@@ -182,61 +182,63 @@
         </div>
     </div>
 
-    <div class="flex items-center justify-between mt-6">
-        @if ($contracts->onFirstPage())
-            <a href="#"
-                class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
-                    viewBox="0 0 256 256">
-                    <path
-                        d="M232,184a8,8,0,0,1-16,0A88,88,0,0,0,65.78,121.78L43.4,144H88a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v44.77l22.48-22.33A104,104,0,0,1,232,184Z">
-                    </path>
-                </svg>
-            </a>
-        @else
-            <a href="{{ $contracts->previousPageUrl() }}"
-                class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
-                    viewBox="0 0 256 256">
-                    <path
-                        d="M232,184a8,8,0,0,1-16,0A88,88,0,0,0,65.78,121.78L43.4,144H88a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v44.77l22.48-22.33A104,104,0,0,1,232,184Z">
-                    </path>
-                </svg>
-            </a>
-        @endif
+    @if ($hasPagination === true)
+        <div class="flex items-center justify-between mt-6">
+            @if ($contracts->onFirstPage())
+                <a href="#"
+                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
+                        viewBox="0 0 256 256">
+                        <path
+                            d="M232,184a8,8,0,0,1-16,0A88,88,0,0,0,65.78,121.78L43.4,144H88a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v44.77l22.48-22.33A104,104,0,0,1,232,184Z">
+                        </path>
+                    </svg>
+                </a>
+            @else
+                <a href="{{ $contracts->previousPageUrl() }}"
+                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
+                        viewBox="0 0 256 256">
+                        <path
+                            d="M232,184a8,8,0,0,1-16,0A88,88,0,0,0,65.78,121.78L43.4,144H88a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V88a8,8,0,0,1,16,0v44.77l22.48-22.33A104,104,0,0,1,232,184Z">
+                        </path>
+                    </svg>
+                </a>
+            @endif
 
-        <div class="items-center hidden lg:flex gap-x-3">
-            @foreach ($contracts->getUrlRange(1, $contracts->lastPage()) as $page => $url)
-                @if ($page == $contracts->currentPage())
-                    <a href="#"
-                        class="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60 cursor-not-allowed">{{ $page }}</a>
-                @else
-                    <a href="{{ $url }}"
-                        class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">{{ $page }}</a>
-                @endif
-            @endforeach
+            <div class="items-center hidden lg:flex gap-x-3">
+                @foreach ($contracts->getUrlRange(1, $contracts->lastPage()) as $page => $url)
+                    @if ($page == $contracts->currentPage())
+                        <a href="#"
+                            class="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60 cursor-not-allowed">{{ $page }}</a>
+                    @else
+                        <a href="{{ $url }}"
+                            class="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">{{ $page }}</a>
+                    @endif
+                @endforeach
+            </div>
+
+            @if ($contracts->hasMorePages())
+                <a href="{{ $contracts->nextPageUrl() }}"
+                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
+                        viewBox="0 0 256 256">
+                        <path
+                            d="M240,88v64a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h44.6l-22.36-22.21A88,88,0,0,0,40,184a8,8,0,0,1-16,0,104,104,0,0,1,177.54-73.54L224,132.77V88a8,8,0,0,1,16,0Z">
+                        </path>
+                    </svg>
+                </a>
+            @else
+                <a href="#"
+                    class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
+                        viewBox="0 0 256 256">
+                        <path
+                            d="M240,88v64a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h44.6l-22.36-22.21A88,88,0,0,0,40,184a8,8,0,0,1-16,0,104,104,0,0,1,177.54-73.54L224,132.77V88a8,8,0,0,1,16,0Z">
+                        </path>
+                    </svg>
+                </a>
+            @endif
         </div>
-
-        @if ($contracts->hasMorePages())
-            <a href="{{ $contracts->nextPageUrl() }}"
-                class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
-                    viewBox="0 0 256 256">
-                    <path
-                        d="M240,88v64a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h44.6l-22.36-22.21A88,88,0,0,0,40,184a8,8,0,0,1-16,0,104,104,0,0,1,177.54-73.54L224,132.77V88a8,8,0,0,1,16,0Z">
-                    </path>
-                </svg>
-            </a>
-        @else
-            <a href="#"
-                class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFFFFF"
-                    viewBox="0 0 256 256">
-                    <path
-                        d="M240,88v64a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h44.6l-22.36-22.21A88,88,0,0,0,40,184a8,8,0,0,1-16,0,104,104,0,0,1,177.54-73.54L224,132.77V88a8,8,0,0,1,16,0Z">
-                    </path>
-                </svg>
-            </a>
-        @endif
-    </div>
+    @endif
 </section>

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class EnergiagasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
         $contracts = Contract::with('client')->paginate();
@@ -22,28 +22,41 @@ class EnergiagasController extends Controller
             $query->where('role_id', 4);
         })->count();
 
-        $contractsFinishing = 0;
-        foreach ($contracts as $contract) {
-            $effectiveAt = new DateTime($contract->effective_at);
-            $dangerousDate = $effectiveAt->add(new DateInterval('P1Y'))->sub(new DateInterval('P1M'));
+        $contratos = Contract::whereHas('meter', function ($query) {
+            $query->where('gas', '>=', 1);
+        })->count();
 
-            $dataFim = clone $effectiveAt;
-            $dataFim->add(new DateInterval('P12M'));
+        $gasContractsCount = Contract::whereHas('meter', function ($query) {
+            $query->where('gas', '>=', 1);
+        })->count();
 
-            $today = new DateTime();
+        $contracts = Contract::with(['meter.tariff', 'client', 'documentation'])
+            ->when($request->filled('nif'), function ($query) use ($request) {
+                $query->whereHas('meter', function ($q) use ($request) {
+                    $q->where('nif', 'like', '%' . $request->input('nif') . '%');
+                });
+            })
+            ->when($request->filled('year'), function ($query) use ($request) {
+                return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
+            })
+            ->when($request->filled('cpe'), function ($query) use ($request) {
+                $query->whereHas('meter', function ($q) use ($request) {
+                    $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
+                });
+            })
+            ->when($request->filled('status_id'), function ($query) use ($request) {
+                return $query->where('documentation_status_id', $request->input('status_id'));
+            })
+            ->whereHas('meter')
+            ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS status'))
+            ->paginate(20);
 
-            if (($today >= $dangerousDate && $today <= $dataFim)) {
-                $contractsFinishing++;
-                $contract->status = 1;
-            } else {
-                $contract->status = 0;
-            }
-        }
 
         return view('pages.energia.index', [
             'contracts' => $contracts,
             'contractsCount' => $contractsCount,
-            'contractsFinishing' => $contractsFinishing,
+            'contractsFinishing' => $contratos,
+            'gasContractsCount' => $gasContractsCount,
             'clientsCount' => $clients,
         ]);
     }

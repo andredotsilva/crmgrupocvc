@@ -161,35 +161,20 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
                                         </div>
-
                                         <div class="sm:col-span-2">
-                                            <label for="commercial_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Código
-                                                Comercial</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="commercial_id" id="commercial_code"
-                                                    autocomplete="given-name"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600">
-                                            </div>
+                                            <x-input-string title="Nome Comercial" name="commercial_code"
+                                                id="commercial_code" :errors="$errors->first('commercial_code')" />
                                         </div>
-
-
-
-
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Nome Comercial" name="commercial_id"
                                                 :errors="$errors->first('commercial_id')" :collection="$commercials" hasAuth :errors="$errors->first('commercial_id')" />
                                         </div>
                                         <script>
                                             const input = document.getElementById('commercial_code');
-
+                                            input.value = "";
                                             input.addEventListener('blur', () => {
                                                 const code = input.value;
-
-                                                console.log(code);
-
                                                 fetch(`/users/fetchuserbycode/${code}`, {
                                                         method: 'GET',
                                                         headers: {
@@ -199,36 +184,28 @@
                                                     .then(response => response.json())
                                                     .then(data => {
                                                         console.log(data);
-                                                        // if (data.length > 0) {
+
                                                         const commercialInput = document.getElementById("commercial_id");
 
-                                                        // const selectedDistrictId = data[0].client.district
-                                                        //     .id;
                                                         for (var i = 0; i < commercialInput.options.length; i++) {
                                                             var option = commercialInput.options[i];
+                                                            commercialInput.value = "";
+                                                            input.classList.remove('ring-gray-300');
+                                                            input.classList.remove('ring-green-300')
+                                                            input.classList.remove('ring-red-300')
+
                                                             if (option.value == data.id) {
                                                                 option.selected = true;
+                                                                input.classList.add('ring-green-300');
                                                                 break;
+                                                            } else {
+                                                                input.classList.add('ring-red-300');
                                                             }
                                                         }
-
-
-                                                        // console.log(commercialInput);
-                                                        // commercialInput.innerHTML = '';
-
-                                                        // var option = document.createElement('option');
-                                                        // option.value = data.id;
-                                                        // option.textContent = data.name;
-                                                        // option.selected = true;
-                                                        // commercialInput.appendChild(option);
-
                                                     })
                                                     .catch(error => {
                                                         console.log(error);
                                                     })
-                                                    .finally(() => {
-
-                                                    });
                                             });
                                         </script>
                                         <div class="sm:col-span-2">
@@ -473,12 +450,6 @@
                                             Postal"
                                                 id="post_code" name="post_code" :errors="$errors->first('post_code')" />
                                         </div>
-                                        {{-- <label for="country_code">TESTE</label>
-                                        <input type="text" id="country_code" name="country_code"
-                                            pattern="^\d{4}(-\d{3})?$" title="Three letter country code"><br><br>
-                                        <input type="submit"> --}}
-
-
                                         <div class="sm:col-span-2">
                                             <x-input-number
                                                 title="Codigo
@@ -753,15 +724,17 @@
                                 </div>
                                 <!--END comissões mensais-->
 
-                                <div id="required-documents"
+                                <div
                                     class="mt-10 gap-x-6 gap-y-8 flex flex-col text-white p-6 rounded-2xl bg-white dark:bg-gray-800">
-                                    Lista:
+                                    <h1 id="required-documents-h1" class="text-lg pb-4 dark:text-gray-200">Lista de
+                                        documentos necessarios:</h1>
+                                    <div id="zone"></div>
                                 </div>
                                 <script>
                                     const clientTypeInput = document.getElementById('client_type_id');
                                     const servicesInput = document.getElementById('service_id');
                                     const categoryInput = document.getElementById('category_id');
-                                    const zone = document.getElementById('required-documents');
+                                    const zone = document.getElementById('zone');
 
                                     const oneoneone = ["ATA", "Fatura Luz", "IBAN (opcional)"];
                                     const oneonetwo = ["Planta de Localização", "Ficha Eletrotécnica", "Caderneta Predial", "Alvará de Construção"];
@@ -780,10 +753,15 @@
 
                                     function renderOptions(array) {
                                         zone.innerHTML = '';
-                                        const newSpan = document.createElement('span');
-                                        newSpan.textContent = array.join(', ');
-                                        zone.appendChild(newSpan);
+
+                                        array.forEach((item) => {
+                                            const newSpan = document.createElement('p');
+                                            newSpan.textContent = `- ${item}`;
+                                            zone.appendChild(newSpan);
+                                            zone.appendChild(document.createElement('br'));
+                                        });
                                     }
+
 
                                     clientTypeInput.addEventListener('input', function() {
                                         if ((clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value === '1') ||
@@ -838,8 +816,6 @@
                                         }
                                     });
                                 </script>
-
-
 
                                 <!--Ficheiros-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"

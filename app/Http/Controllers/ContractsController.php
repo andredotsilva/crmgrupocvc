@@ -48,10 +48,8 @@ class ContractsController extends Controller
                 });
             })
             ->when($request->filled('year'), function ($query) use ($request) {
-                // $year = $request->input('year');
                 return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
             })
-
             ->when($request->filled('cpe'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
                     $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
