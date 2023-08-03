@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
         $contractsFinishingCount = $contractsFinishing->count();
 
-        $contracts = Contract::orderBy('updated_at', 'desc')->limit(20)->get();
+        $contracts = Contract::orderBy('updated_at', 'desc')->limit(10)->get();
 
         return view('dashboard', [
             'contracts' => $contracts,

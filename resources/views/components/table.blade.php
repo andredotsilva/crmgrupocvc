@@ -25,13 +25,13 @@
                                 <th scope="col"
                                     class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <div class="flex items-center gap-x-3">
-                                        <span>Name</span>
+                                        <span>NIF</span>
                                     </div>
                                 </th>
                                 <th scope="col"
                                     class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <div class="flex items-center gap-x-3">
-                                        <span>NIF</span>
+                                        <span>Name</span>
                                     </div>
                                 </th>
                                 <th scope="col"
@@ -66,6 +66,10 @@
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                         {{ $contract->meter ? $contract->meter->cpe : 'Sem informação' }}
                                     </td>
+                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                        {{ $contract->meter ? $contract->meter->nif : 'Sem informação' }}
+
+                                    </td>
                                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                         <div class="inline-flex items-center gap-x-3">
                                             <div class="flex items-center gap-x-2">
@@ -77,10 +81,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->meter ? $contract->meter->nif : 'Sem informação' }}
-
-                                    </td>
+                                    
                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
 
                                         @php
