@@ -168,6 +168,14 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
+                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Status:</div>
+                    <div class="p-4 col-span-8 md:col-span-8">
+                        @if ($contract->status)
+                            <p>{{ $contract->status->title }}</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Arquivo do Cliente:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract)

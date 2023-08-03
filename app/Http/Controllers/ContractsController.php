@@ -42,7 +42,7 @@ class ContractsController extends Controller
         $statuses = DocumentationStatus::all();
         $contractsCount = Contract::count();
 
-        $contracts = Contract::with(['meter.tariff', 'client', 'documentation'])
+        $contracts = Contract::with(['meter.tariff', 'client', 'documentation', 'status'])
             ->when($request->filled('nif'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
                     $q->where('nif', 'like', '%' . $request->input('nif') . '%');
@@ -310,6 +310,7 @@ class ContractsController extends Controller
                 'clientType',
                 'provider',
                 'documentation',
+                'status',
                 'meter',
                 'nif',
                 'municipality',

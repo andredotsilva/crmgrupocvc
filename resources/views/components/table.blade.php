@@ -84,7 +84,7 @@
                                     
                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
 
-                                        @php
+                                        {{-- @php
                                             $styles = [
                                                 '1' => ['text-emerald-500', 'bg-green-500', 'bg-emerald-100/60', 'dark:bg-gray-800'],
                                                 '2' => ['text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'],
@@ -106,6 +106,11 @@
                                                     </h2>
                                                 </div>
                                             @endforeach
+                                        @endif --}}
+
+
+                                        @if ($contract->status)
+                                            <span>{{ $contract->status->title }}</span>
                                         @endif
                                     </td>
 
