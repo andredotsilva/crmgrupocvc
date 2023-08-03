@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contract;
+use App\Models\DocumentationStatus;
 use App\Models\User;
 use Date;
 use DateInterval;
@@ -17,6 +18,9 @@ class EnergiagasController extends Controller
 
         $contracts = Contract::with('client')->paginate();
         $contractsCount = Contract::count();
+
+        $statuses = DocumentationStatus::all();
+
 
         $clients = User::whereHas('roles', function ($query) {
             $query->where('role_id', 4);
@@ -58,6 +62,7 @@ class EnergiagasController extends Controller
             'contractsFinishing' => $contratos,
             'gasContractsCount' => $gasContractsCount,
             'clientsCount' => $clients,
+            'statuses' => $statuses
         ]);
     }
 }
