@@ -80,4 +80,6 @@ class PlansController extends Controller
 
         return response()->json($plans);
     }
+
+    
 }

@@ -9,9 +9,10 @@ class CAEController extends Controller
 {
     public function index()
     {
-        $caes = CAE::all();
 
-        return response()->json($caes, 200);
+        $caes = CAE::all();
+        return view('pages.cae.index', compact('caes'));
+
     }
 
     public function store(Request $request)
@@ -26,29 +27,27 @@ class CAEController extends Controller
             'title' => $request->title,
         ]);
 
-        return redirect()->route('')
+        return redirect()->route('cae.index')
             ->with('success');
     }
 
+    
     public function edit($id)
     {
-        $cae = CAE::findOrFail($id);
-
-        return view('', [
-            $cae => '$cae'
-        ]);
+        $cae = CAE::all();
+        return view('pages.cae.edit', compact('cae'));
     }
 
-    public function update(Request $request, $id)
+
+    public function update(Request $request)
     {
         $cae = CAE::where('id', $id)->first();
 
         $cae->code = $request->code;
         $cae->title = $request->title;
-
         $cae->save();
 
-        return redirect('')->with('success');
+        return redirect()->route('cae')->with('success', 'CAE updated successfully!');
     }
 
     public function destroy($id)
@@ -57,6 +56,6 @@ class CAEController extends Controller
 
         $cae->delete();
 
-        return redirect('')->with('');
+        return redirect()->route('cae')->with('success', 'CAE updated successfully!');
     }
 }

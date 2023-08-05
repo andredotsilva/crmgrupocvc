@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CAEController;
+use App\Http\Controllers\PlansController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ProfileController;
@@ -13,7 +15,6 @@ use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
-use App\Http\Controllers\PlansController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,8 +53,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/servicos', [ServicosController::class, 'index'])
         ->name('servicos');
-        Route::get('/energia-gas', [EnergiagasController::class, 'index'])
+    Route::get('/energia-gas', [EnergiagasController::class, 'index'])
         ->name('energia');
+    Route::get('/cae/edit/{id}', [CAEController::class, 'edit'])->name('cae.edit');
+    Route::get('/cae/destroy/{id}', 'CAEController@destroy')->name('cae.destroy');
+    Route::get('/codigos-cae', [CAEController::class, 'index'])
+        ->name('cae');
 
     Route::resource('/users', UsersController::class);
     Route::get('/users/fetchuserbycode/{code}', [UsersController::class, 'fetchUserByCode']);

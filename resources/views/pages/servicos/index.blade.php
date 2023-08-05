@@ -58,12 +58,43 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="py-2">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- component -->
+            <div class="min-w-screen flex items-center justify-center ">
+                <div class="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
+                    <div class="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+
+                        <div class="p-4 w-full">
+                            <div class="grid grid-cols-12 gap-4">
+                                <div class="col-span-12 sm:col-span-6 md:col-span-3">
+                                    <div
+                                        class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
+                                        
+                                        <div class="flex flex-col flex-grow ml-4 ">
+                                            <div class="text-xl text-gray-500 dark:text-slate-400">
+                                                <a href="{{ route('cae') }}">
+                                                    {{ __('Gestão Códigos CAE') }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
 
 
 
