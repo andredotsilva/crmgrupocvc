@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Appliance;
+use App\Models\RangeAppliance;
 use App\Models\Status;
+use App\Models\TechnicalAppliance;
+use App\Models\Typology;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -174,6 +178,26 @@ class Contract extends Model
     public function mailingAddress()
     {
         return $this->belongsTo(Client::class, 'mailing_address_id');
+    }
+
+    public function appliances()
+    {
+        return $this->belongsToMany(Appliance::class, 'appliance_contract', 'contract_id', 'appliance_id');
+    }
+
+    public function typologies()
+    {
+        return $this->belongsToMany(Typology::class, 'contract_typology', 'contract_id', 'typology_id');
+    }
+
+    public function rangeAppliances()
+    {
+        return $this->belongsToMany(RangeAppliance::class, 'contract_range_appliance', 'contract_id', 'range_appliance_id');
+    }
+
+    public function technicalAppliances()
+    {
+        return $this->belongsToMany(TechnicalAppliance::class, 'contract_technical_appliance', 'contract_id', 'technical_appliance_id');
     }
 
     protected static function booted(): void

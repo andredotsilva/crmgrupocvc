@@ -222,6 +222,83 @@
                                             de Adesão"
                                                 name="client_type_id" :collection="$clientTypes" :errors="$errors->first('client_type_id')" />
                                         </div>
+
+                                        <div class="sm:col-span-2" id="applianceInput" hidden>
+                                            <label for="provider"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+                                                Equipamentos
+                                            </label>
+                                            <div class="mt-2">
+                                                <select name="appliance_id"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option value="">Escolher</option>
+                                                    @foreach ($appliances as $appliance)
+                                                        <option value="{{ $appliance->id }}">
+                                                            {{ $appliance->title }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="sm:col-span-2" id="typologyInput" hidden>
+                                            <label for="typology_id"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Tipologia
+                                                de contrato
+                                            </label>
+                                            <div class="mt-2">
+                                                <select name="typology_id"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option value="">Escolher</option>
+                                                    @foreach ($typologies as $typology)
+                                                        <option value="{{ $typology->id }}">
+                                                            {{ $typology->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="sm:col-span-2" id="technicalApplianceInput" hidden>
+                                            <label for="technical_appliance_id"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+                                                Informação Tecnica de aparelhos
+                                            </label>
+                                            <div class="mt-2">
+                                                <select name="technical_appliance_id"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option value="">Escolher</option>
+                                                    @foreach ($technicalAppliances as $technicalAppliance)
+                                                        <option value="{{ $technicalAppliance->id }}">
+                                                            {{ $technicalAppliance->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="sm:col-span-2" id="rangeApplianceInput" hidden>
+                                            <label for="range_appliance_id"
+                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">
+                                                Nº de Equipamentos
+                                            </label>
+                                            <div class="mt-2">
+                                                <select name="range_appliance_id"
+                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                    <option value="">Escolher</option>
+                                                    @foreach ($rangeAppliances as $rangeAppliance)
+                                                        <option value="{{ $rangeAppliance->id }}">
+                                                            {{ $rangeAppliance->title }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="sm:col-span-2"> --}}
+                                        {{-- <x-input-select title="Informação Tecnica de aparelhos" hidden
+                                            name="technical_appliance_id" :collection="$technicalAppliances" :errors="$errors->first('technical_appliance_id')" /> --}}
+                                        {{-- </div> --}}
+                                        {{-- <div class="sm:col-span-2"> --}}
+                                        {{-- <x-input-select title="Nº de Equipamentos" name="range_appliance_id" hidden
+                                            :collection="$rangeAppliances" :errors="$errors->first('range_appliance_id')" /> --}}
+                                        {{-- </div> --}}
+
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Cliente/Administrador" name="administrator_name"
                                                 idLabel="administrator_name_label" :errors="$errors->first('administrator_name')" />
@@ -486,19 +563,8 @@
                                                 <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <label for="invoice_type_id"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Fatura</label>
-                                                <div class="mt-2">
-                                                    <select id="invoice_type_id" name="invoice_type_id"
-                                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                        @foreach ($invoiceTypes as $invoiceType)
-                                                            <option value="{{ $invoiceType->id }}">
-                                                                {{ $invoiceType->title }}
-                                                            </option>
-                                                        @endforeach
-
-                                                    </select>
-                                                </div>
+                                                <x-input-select title="Fatura" name="invoice_type_id"
+                                                    id="invoice_type_id" :collection="$invoiceTypes" :errors="$errors->first('invoice_type_id')" />
                                             </div>
                                         </div>
                                     </div>
@@ -527,18 +593,6 @@
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Distrito" name="mail_district_id"
                                                 :errors="$errors->first('mail_district_id')" :collection="$districts" :errors="$errors->first('service_id')" />
-                                            {{-- <label for="mail_district_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Distrito</label>
-                                            <div class="mt-2">
-                                                <select id="mail_district_id" name="mail_district_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option selected>Escolher Distrito</option>
-                                                    @foreach ($districts as $district)
-                                                        <option value="{{ $district->id }}">{{ $district->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div> --}}
                                         </div>
 
                                         <div class="sm:col-span-2">
@@ -549,14 +603,6 @@
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Freguesia" name="mail_parish_id"
                                                 :errors="$errors->first('mail_parish_id')" />
-                                            {{-- <label for="mail_parish_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Freguesia</label>
-                                            <div class="mt-2">
-                                                <select id="mail_parish_id" name="mail_parish_id"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700  dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                    <option selected>Escolher Freguesia</option>
-                                                </select>
-                                            </div> --}}
                                         </div>
 
                                         <div class="sm:col-span-2">
@@ -572,7 +618,6 @@
                                                 name="phone_number" :errors="$errors->first('phone_number')" />
                                         </div>
                                         <div class="sm:col-span-2">
-
                                             <x-input-string
                                                 title="NIF
                                             Responsável"
@@ -728,6 +773,7 @@
                                     const clientTypeInput = document.getElementById('client_type_id');
                                     const servicesInput = document.getElementById('service_id');
                                     const categoryInput = document.getElementById('category_id');
+
                                     const zone = document.getElementById('zone');
 
                                     const oneoneone = ["ATA", "Fatura Luz", "IBAN (opcional)"];
@@ -747,7 +793,6 @@
 
                                     function renderOptions(array) {
                                         zone.innerHTML = '';
-
                                         array.forEach((item) => {
                                             const newSpan = document.createElement('p');
                                             newSpan.textContent = `- ${item}`;
@@ -757,61 +802,124 @@
                                     }
 
 
-                                    clientTypeInput.addEventListener('input', function() {
+                                    function toggleInputSelectVisibility(input) {
+                                        const inputSelect = document.getElementById(input);
+                                        if (!input) {
+                                            clearExtraOptions();
+                                            return
+                                        }
+                                        if (inputSelect) {
+                                            if (inputSelect) {
+                                                inputSelect.removeAttribute('hidden');
+                                            } else {
+                                                inputSelect.setAttribute('hidden', 'true');
+                                            }
+                                        }
+                                    }
+
+                                    clientTypeInput.addEventListener('click', function() {
                                         if ((clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value === '1') ||
                                             (clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value === '1')
                                         ) {
                                             renderOptions(oneoneone);
+                                            toggleInputSelectVisibility();
                                         } else if ((clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value ===
                                                 '2') ||
                                             (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value === '2')
                                         ) {
                                             renderOptions(oneonetwo);
+                                            toggleInputSelectVisibility();
                                         } else if ((clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value ===
                                                 '3') ||
                                             (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value === '3') ||
                                             (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value === '3')
                                         ) {
                                             renderOptions(oneonethree);
+                                            toggleInputSelectVisibility();
                                         } else if (clientTypeInput.value === '1' && categoryInput.value === '1' && servicesInput.value ===
                                             '4') {
                                             renderOptions(oneonefour);
+                                            toggleInputSelectVisibility();
                                         } else if ((clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value ===
                                                 '2') ||
                                             (clientTypeInput.value === '2' && categoryInput.value === '2' && servicesInput.value === '2') ||
                                             (clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value === '2')
                                         ) {
                                             renderOptions(onetwotwo);
+                                            toggleInputSelectVisibility();
                                         } else if ((clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value ===
                                                 '5') ||
                                             (clientTypeInput.value === '1' && categoryInput.value === '2' && servicesInput.value === '6')
                                         ) {
                                             renderOptions(onetwofive);
+                                            toggleInputSelectVisibility();
                                         } else if (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value ===
                                             '1') {
                                             renderOptions(twooneone);
+                                            toggleInputSelectVisibility();
                                         } else if (clientTypeInput.value === '2' && categoryInput.value === '1' && servicesInput.value ===
                                             '4') {
                                             renderOptions(twoTwoFour);
+                                            toggleInputSelectVisibility();
                                         } else if (clientTypeInput.value === '2' && categoryInput.value === '2' && servicesInput.value ===
                                             '5') {
                                             renderOptions(twoTwoFive);
+                                            toggleInputSelectVisibility('technicalApplianceInput');
+                                        } else if (clientTypeInput.value === '2' && categoryInput.value === '2' && servicesInput.value ===
+                                            '6') {
+                                            // renderOptions(twoTwoFive);
+                                            toggleInputSelectVisibility('rangeApplianceInput');
                                         } else if (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value ===
                                             '1' || clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value ===
                                             '1') {
                                             renderOptions(threeOneOne);
+                                            toggleInputSelectVisibility();
                                         } else if (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value ===
                                             '2') {
                                             renderOptions(threeOneTwo);
+                                            toggleInputSelectVisibility();
                                         } else if (clientTypeInput.value === '3' && categoryInput.value === '1' && servicesInput.value ===
                                             '4' || clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value ===
                                             '4') {
                                             renderOptions(threeOneFour);
+                                            toggleInputSelectVisibility();
+                                        } else if (clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value ===
+                                            '5' || clientTypeInput.value === '3' && categoryInput.value === '2' && servicesInput.value ===
+                                            '6') {
+                                            clearExtraOptions();
+                                            toggleInputSelectVisibility('applianceInput');
+                                            toggleInputSelectVisibility('typologyInput');
+                                        } else {
+                                            clearExtraOptions();
+                                            toggleInputSelectVisibility();
                                         }
                                     });
+
+                                    function clearExtraOptions() {
+                                        const applianceInput = document.getElementById("applianceInput");
+                                        const technicalApplianceInput = document.getElementById("technicalApplianceInput");
+                                        const typologyInput = document.getElementById("typologyInput");
+                                        const rangeApplianceInput = document.getElementById("rangeApplianceInput");
+
+                                        if (applianceInput) {
+                                            applianceInput.setAttribute("hidden", "true");
+                                            applianceInput.setAttribute("disabled", "true");
+                                        }
+                                        if (technicalApplianceInput) {
+                                            technicalApplianceInput.setAttribute("hidden", "true");
+                                            technicalApplianceInput.setAttribute("disabled", "true");
+                                        }
+                                        if (typologyInput) {
+                                            typologyInput.setAttribute("hidden", "true");
+                                            typologyInput.setAttribute("disabled", "true");
+                                        }
+                                        if (rangeApplianceInput) {
+                                            rangeApplianceInput.setAttribute("hidden", "true");
+                                            rangeApplianceInput.setAttribute("disabled", "true");
+                                        }
+                                    }
                                 </script>
 
-                                <!--Ficheiros-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="documentacao">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Inserir Ficheiros</h1>
@@ -822,7 +930,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--END Ficheiros-->
                             </div>
                         </div>
                         <div class="mt-6 flex items-center justify-end gap-x-6">

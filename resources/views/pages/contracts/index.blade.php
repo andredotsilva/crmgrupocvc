@@ -109,7 +109,6 @@
                                         </svg>
                                     </button>
                                 </div>
-
                                 <!-- Column 4 -->
                                 <div class="p-4">
                                     <input
@@ -128,7 +127,6 @@
                                         </svg>
                                     </button>
                                 </div>
-
                                 <!-- Column 5 -->
                                 <div class="p-4">
                                     <select name="status_id"
@@ -138,9 +136,7 @@
                                             <option value="{{ $status->id }}">{{ $status->title }}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
-
                             </div>
                             <div class="flex justify-end gap-3 mr-4">
                                 <button onclick="resetForm()"
@@ -154,13 +150,11 @@
                                         <path d="m5 11 9 9" />
                                     </svg>
                                 </button>
-
                                 <script>
                                     function resetForm() {
                                         document.getElementById('dadosorg').reset();
                                     }
                                 </script>
-
                                 <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                         fill="#FFFFFF" viewBox="0 0 256 256" class="h-8 w-8">

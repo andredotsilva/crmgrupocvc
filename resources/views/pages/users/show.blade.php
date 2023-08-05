@@ -117,31 +117,10 @@
 
                                     </td>
                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-
-                                        @php
-                                            // dd($contract);
-                                            $styles = [
-                                                '1' => ['text-emerald-500', 'bg-green-500', 'bg-emerald-100/60', 'dark:bg-gray-800'],
-                                                '2' => ['text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'],
-                                                '3' => ['text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'],
-                                                '4' => ['text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'],
-                                                '5' => ['text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'],
-                                                '6' => ['text-red-500', 'bg-red-500', 'bg-red-100/60', 'dark:bg-gray-800'],
-                                            ];
-                                            $style = isset($styles[$contract->documentation_status_id]) ? $styles[$contract->documentation_status_id] : [];
-                                        @endphp
-
-                                        @if (!empty($style))
-                                            <div
-                                                class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 {{ $style[2] }} {{ $style[3] }}">
-                                                <span class="h-1.5 w-1.5 rounded-full {{ $style[1] }}"></span>
-                                                <h2 class="text-sm font-normal {{ $style[0] }}">
-                                                    {{ $contract->documentation->title }}
-                                                </h2>
-                                            </div>
+                                        @if ($contract->status)
+                                            <span>{{ $contract->status->title }}</span>
                                         @endif
                                     </td>
-
                                     <td
                                         class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap flex justify-center">
                                         @if ($contract->status === 1)
@@ -153,12 +132,9 @@
                                             </svg>
                                         @endif
                                     </td>
-
-
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                         {{ $contract->meter && $contract->meter->tariff ? $contract->meter->tariff->title : '' }}
                                     </td>
-
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <div class="flex items-center gap-x-6">
 

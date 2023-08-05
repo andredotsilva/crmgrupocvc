@@ -158,7 +158,6 @@
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Documentação:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->documentation)
-
                             @foreach ($contract->documentation as $documentation)
                                 <h4 class="text-blue-600 dark:text-blue-400">
                                     {{ $documentation->title }}

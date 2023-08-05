@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\StoreContractRequest;
+use App\Models\Appliance;
 use App\Models\CAE;
 use App\Models\Category;
 use App\Models\Client;
@@ -26,9 +27,12 @@ use App\Models\Plan;
 use App\Models\PowerBracket;
 use App\Models\Tariff;
 use App\Models\Provider;
+use App\Models\RangeAppliance;
 use App\Models\Service;
 use App\Models\Status;
+use App\Models\TechnicalAppliance;
 use App\Models\TemporaryFile;
+use App\Models\Typology;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use DateInterval;
@@ -80,18 +84,22 @@ class ContractsController extends Controller
 
     public function create()
     {
-
+        $appliances = Appliance::all();
+        $typologies = Typology::all();
+        $technicalAppliances = TechnicalAppliance::all();
+        $rangeAppliances = RangeAppliance::all();
         $tariffs = Tariff::all();
         $districts = District::all();
         $clientTypes = ClientType::all();
         $statuses = Status::all();
-        // dd($statuses);
+
         $commercials = User::whereHas('roles', function ($query) {
             $query->where('role_id', 3);
         })->get();
         $backofficers = User::whereHas('roles', function ($query) {
             $query->where('role_id', 2);
         })->get();
+
         $providers = Provider::all();
         $services = Service::all();
         $categories = Category::all();
@@ -116,10 +124,16 @@ class ContractsController extends Controller
             'invoiceTypes' => $invoiceTypes,
             'powerBrackets' => $powerBrackets,
             'caes' => $caes,
+            'appliances' => $appliances,
+            'typologies' => $typologies,
+            'rangeAppliances' => $rangeAppliances,
+            'technicalAppliances' => $technicalAppliances
+
         ]);
     }
     public function store(StoreContractRequest $request)
     {
+        // dd($request);
 
         $districtId = ($request->input('district_id') !== 'Selecionar Distrito')
             ? $request->input('district_id')
@@ -253,6 +267,10 @@ class ContractsController extends Controller
         $monthlyComission->contract_id = $contract->id;
         $monthlyComission->save();
 
+        $contract->appliances()->attach($request->appliance_id);
+        $contract->typologies()->attach($request->typology_id);
+        $contract->rangeAppliances()->attach($request->range_appliance_id);
+        $contract->technicalAppliances()->attach($request->technical_appliance_id);
 
         $note = new Note();
         $note->text = $request->text;

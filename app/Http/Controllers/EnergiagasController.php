@@ -34,7 +34,7 @@ class EnergiagasController extends Controller
             $query->where('gas', '>=', 1);
         })->count();
 
-        $contracts = Contract::with(['meter.tariff', 'client', 'documentation'])
+        $contracts = Contract::with(['meter.tariff', 'client', 'documentation', 'status'])
             ->when($request->filled('nif'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
                     $q->where('nif', 'like', '%' . $request->input('nif') . '%');

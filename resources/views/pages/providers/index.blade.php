@@ -28,7 +28,7 @@
                 </svg>
             </span>
 
-            <a href="{{ route('energia') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+            <a href="{{ route('energia-gas.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
                 {{ __('Energia e Gás') }}
             </a>
 
@@ -40,12 +40,12 @@
                 </svg>
             </span>
 
-            <a href="{{ route('energia') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+            <a href="{{ route('energia-gas.index') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                 {{ __('Provedores') }}
             </a>
         </div>
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
-            {{ __('Provedores de Enegergia e Gás') }}
+            {{ __('Provedores de Energia e Gás') }}
         </h2>
     </x-slot>
 

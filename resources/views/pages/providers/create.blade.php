@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header" class="pt-8">
         <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
@@ -29,7 +28,7 @@
                 </svg>
             </span>
 
-            <a href="{{ route('energia') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+            <a href="{{ route('energia-gas.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
                 {{ __('Energia e Gás') }}
             </a>
 
@@ -41,7 +40,7 @@
                 </svg>
             </span>
 
-            <a href="{{ route('energia') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+            <a href="{{ route('energia-gas.index') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
                 {{ __('Provedores') }}
             </a>
         </div>
