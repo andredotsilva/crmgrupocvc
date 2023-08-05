@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="flex flex-col flex-grow ml-4 ">
                                             <div class="text-xl text-gray-500 dark:text-slate-400">
-                                                <a href="{{ route('energia-gas.index') }}">
+                                                <a href="{{ route('energia') }}">
                                                     {{ __('Energia e Gás') }}
                                                 </a>
                                             </div>
