@@ -154,7 +154,7 @@
                                 </h4>
                             </div>
 
-                            <form action="{{ route('energia-gas.index') }}" method="GET">
+                            <form action="{{ route('energia') }}" method="GET">
                                 <div class="gap-x-6 gap-y-8 sm:grid-cols-6 px-6 pb-2 rounded-2xl bg-white dark:bg-gray-800"
                                     id="dadosorg">
                                     <div
