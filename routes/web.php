@@ -55,10 +55,9 @@ Route::middleware('auth')->group(function () {
         ->name('servicos');
     Route::get('/energia-gas', [EnergiagasController::class, 'index'])
         ->name('energia');
-    Route::get('/cae/edit/{id}', [CAEController::class, 'edit'])->name('cae.edit');
-    Route::get('/cae/destroy/{id}', 'CAEController@destroy')->name('cae.destroy');
-    Route::get('/codigos-cae', [CAEController::class, 'index'])
-        ->name('cae');
+    
+    
+    Route::resource('/cae', CAEController::class);
 
     Route::resource('/users', UsersController::class);
     Route::get('/users/fetchuserbycode/{code}', [UsersController::class, 'fetchUserByCode']);

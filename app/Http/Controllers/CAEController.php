@@ -34,12 +34,12 @@ class CAEController extends Controller
     
     public function edit($id)
     {
-        $cae = CAE::all();
+        $cae = CAE::findOrFail($id);
         return view('pages.cae.edit', compact('cae'));
     }
 
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $cae = CAE::where('id', $id)->first();
 
@@ -47,7 +47,7 @@ class CAEController extends Controller
         $cae->title = $request->title;
         $cae->save();
 
-        return redirect()->route('cae')->with('success', 'CAE updated successfully!');
+        return redirect()->route('cae.index')->with('success', 'CAE updated successfully!');
     }
 
     public function destroy($id)
@@ -56,6 +56,6 @@ class CAEController extends Controller
 
         $cae->delete();
 
-        return redirect()->route('cae')->with('success', 'CAE updated successfully!');
+        return redirect()->route('cae.index')->with('success', 'CAE updated successfully!');
     }
 }

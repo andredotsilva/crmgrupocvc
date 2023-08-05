@@ -16,7 +16,7 @@
                 </svg>
             </span>
 
-            <a href="{{ route('cae') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+            <a href="{{ route('cae.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
                 {{ __('Codigos CAE') }}
             </a>
         </div>
@@ -38,7 +38,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
-                        <form action="{{ route('cae') }}" method="GET">
+                        <form action="{{ route('cae.index') }}" method="GET">
                             <div class="flex items-stretch justify-start mb-4 flex-row gap-3">
                                 <div class="relative mt-2 rounded-md shadow-sm">
                                     <input type="text" name="name"

@@ -79,7 +79,7 @@
                                         
                                         <div class="flex flex-col flex-grow ml-4 ">
                                             <div class="text-xl text-gray-500 dark:text-slate-400">
-                                                <a href="{{ route('cae') }}">
+                                                <a href="{{ route('cae.index') }}">
                                                     {{ __('Gestão Códigos CAE') }}
                                                 </a>
                                             </div>

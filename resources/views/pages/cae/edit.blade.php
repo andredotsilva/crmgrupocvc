@@ -49,7 +49,7 @@
         </h2>
 
         <div class="flex items-end justify-between">
-            <h4 class="mr-4 text-xl	dark:text-gray-200">{{ __(' Editar CAE - ') }}{{ $cae->title }}</h4>
+            <h4 class="mr-4 text-xl	dark:text-gray-200">{{ __(' Editar CAE - ') }}</h4>
             <a href="{{ url()->previous() }}">
                 <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Voltar') }}</button>
