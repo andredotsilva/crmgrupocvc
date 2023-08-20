@@ -402,12 +402,18 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Morada" name="address" :value="$contract->client->mailingAddress->address ?? ''" />
+                                            <x-input-string title="Morada" name="mail_address" :errors="$errors->first('mail_address')"
+                                                :value="$contract->client->mailingAddress->address ?? ''" />
                                         </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-string title="Nº Porta" name="door" :value="$contract->client->mailingAddress->door ?? ''" />
+                                        <div class="sm:col-span-1">
+                                            <x-input-string title="Andar" name="mail_floor" :errors="$errors->first('mail_floor')"
+                                                :value="$contract->client->mailingAddress->floor ?? ''" />
                                         </div>
-                                        <div class="sm:col-span-2">
+                                        <div class="sm:col-span-1">
+                                            <x-input-string title="Nº Porta" name="mail_door" :errors="$errors->first('mail_door')"
+                                                :value="$contract->client->mailingAddress->door ?? ''" />
+                                        </div>
+                                        {{-- <div class="sm:col-span-2">
                                             <label for="nif"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
                                                 Postal</label>
@@ -435,21 +441,26 @@
                                                 }
                                             </script>
 
+                                        </div> --}}
+                                        <div class="sm:col-span-2">
+                                            <x-input-string title="Codigo Postal" name="mail_post_code"
+                                                :errors="$errors->first('mail_post_code')" :value="$contract->client->mailingAddress->post_code ?? ''" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Distrito" name="mail_district_id"
-                                                :value="$contract->client->mailingAddress->district ?? null" :collection="$districts" />
+                                                :errors="$errors->first('mail_district_id')" :value="$contract->client->mailingAddress->district ?? null" :collection="$districts" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Concelho" name="mail_municipality_id"
-                                                :value="$contract->client->mailingAddress->municipality ?? null" />
+                                                :errors="$errors->first('mail_municipality_id')" :value="$contract->client->mailingAddress->municipality ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Freguesia" name="mail_parish_id"
+                                            <x-input-select title="Freguesia" name="mail_parish_id" :errors="$errors->first('mail_parish_id')"
                                                 :value="$contract->client->mailingAddress->parish ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Email" name="email" :value="$contract->client->mailingAddress->email ?? null" />
+                                            <x-input-string title="Email" name="mail" :errors="$errors->first('mail')"
+                                                :value="$contract->client->mailingAddress->email ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string

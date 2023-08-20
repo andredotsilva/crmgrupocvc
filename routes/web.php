@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete/{id}', [ContractsController::class, 'delete'])->name('delete');
     Route::apiResource('/district', DistrictController::class);
     Route::apiResource('/municipality', MunicipalityController::class);
+    Route::get('/parish-related', [ParishController::class, 'getParishWithRelatedData']);
     Route::apiResource('/parish', ParishController::class);
     Route::resource('/plans', PlansController::class);
 
@@ -55,8 +56,8 @@ Route::middleware('auth')->group(function () {
         ->name('servicos');
     Route::get('/energia-gas', [EnergiagasController::class, 'index'])
         ->name('energia');
-    
-    
+
+
     Route::resource('/cae', CAEController::class);
 
     Route::resource('/users', UsersController::class);

@@ -173,9 +173,9 @@
                                         <script>
                                             const input = document.getElementById('commercial_code');
                                             input.value = "";
-                                            input.addEventListener('blur', () => {
+                                            input.addEventListener('blur', async () => {
                                                 const code = input.value;
-                                                fetch(`/users/fetchuserbycode/${code}`, {
+                                                await fetch(`/users/fetchuserbycode/${code}`, {
                                                         method: 'GET',
                                                         headers: {
                                                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -183,8 +183,6 @@
                                                     })
                                                     .then(response => response.json())
                                                     .then(data => {
-                                                        console.log(data);
-
                                                         const commercialInput = document.getElementById("commercial_id");
 
                                                         for (var i = 0; i < commercialInput.options.length; i++) {
@@ -500,8 +498,6 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <input type="hidden" name="client_id" id="client_id">
                                         <div class="sm:col-span-2">
-                                            {{-- <x-input-number title="CAE" id="cae" name="cae"
-                                                :errors="$errors->first('cae')" /> --}}
                                             <x-input-select title="CAE" id="cae_id" name="cae_id"
                                                 :collection="$caes" :errors="$errors->first('cae_id')" />
                                         </div>
@@ -528,7 +524,7 @@
                                                 id="post_code" name="post_code" :errors="$errors->first('post_code')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-number
+                                            <x-input-string
                                                 title="Codigo
                                             Freguesia"
                                                 id="dmp_code" name="dmp_code" :errors="$errors->first('dmp_code')" />
@@ -548,6 +544,74 @@
                                             <x-input-select title="Freguesia" id="parish_id" name="parish_id"
                                                 :errors="$errors->first('parish_id')" />
                                         </div>
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", () => {
+
+                                                const input = document.getElementById('dmp_code');
+
+                                                input.addEventListener('blur', async () => {
+
+                                                    const inputValue = input.value;
+
+                                                    console.log(input);
+                                                    console.log(input.value);
+
+                                                    const districtId = inputValue.substr(0, 2);
+                                                    const municipalityId = inputValue.substr(2, 2);
+                                                    const parishId = inputValue.substr(4, 2);
+
+                                                    await fetch(
+                                                            `/parish-related?parish_id=${parishId}&municipality_id=${municipalityId}&district_id=${districtId}`, {
+                                                                method: 'GET',
+                                                                headers: {
+                                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                                                }
+                                                            })
+                                                        .then(response => response.json())
+                                                        .then(data => {
+
+
+                                                            if (data.success === "false") {
+
+                                                                input.classList.add('ring-red-300');
+                                                                input.classList.remove('ring-green-300');
+
+                                                            } else {
+                                                                input.classList.add('ring-green-300');
+                                                                input.classList.remove('ring-red-300');
+
+
+                                                                const districtInput = document.getElementById("district_id");
+                                                                var option = document.createElement('option');
+                                                                option.value = data.municipality.district.id;
+                                                                option.textContent = data.municipality.district.title;
+                                                                option.selected = true;
+                                                                districtInput.appendChild(option);
+
+                                                                const municipalityInput = document.getElementById("municipality_id");
+                                                                var option = document.createElement('option');
+                                                                option.value = data.municipality.id;
+                                                                option.textContent = data.municipality.title;
+                                                                option.selected = true;
+                                                                municipalityInput.appendChild(option);
+
+                                                                const parishInput = document.getElementById("parish_id");
+                                                                var option = document.createElement('option');
+                                                                option.value = data.id;
+                                                                option.textContent = data.title;
+                                                                option.selected = true;
+                                                                parishInput.appendChild(option);
+                                                            }
+
+
+                                                        })
+                                                        .catch(error => {
+                                                            console.log(error);
+                                                        });
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                                 <!--END Dados Cliente-->
@@ -946,8 +1010,6 @@
 </x-app-layout>
 <script>
     const nifInput = document.getElementById("nif");
-    console.log(nifInput);
-
     const caeInput = document.getElementById("cae_id");
     const nameInput = document.getElementById("name");
     const addressInput = document.getElementById("address");
@@ -962,8 +1024,6 @@
 
     nifInput.addEventListener("input", function() {
         const nif = nifInput.value;
-
-        console.log(nif);
 
         fetch(`/contracts/fetchbycpe?nif=${nif}`)
             .then(response => response.json())
@@ -1078,12 +1138,12 @@
 
 
 <script>
-    document.getElementById('district_id').addEventListener('change', function() {
+    document.getElementById('district_id').addEventListener('change', async function() {
         var state = document.getElementById('municipality_id');
         var url = "{{ route('municipality.index') }}";
         var params = "district_id=" + encodeURIComponent(this.value);
 
-        fetch(url + '?' + params)
+        await fetch(url + '?' + params)
             .then(function(response) {
                 if (response.ok) {
                     return response.json();
@@ -1111,14 +1171,14 @@
         document.getElementById('parish_id').value = "";
     });
 
-    document.getElementById('municipality_id').addEventListener('change', function() {
-        var $parish = document.getElementById('parish_id');
+    document.getElementById('municipality_id').addEventListener('change', async function() {
+        var parishInput = document.getElementById('parish_id');
         var url = "{{ route('parish.index') }}";
         var mparams = "municipality_id=" + encodeURIComponent(this.value);
 
         console.log(mparams);
 
-        fetch(url + '?' + mparams)
+        await fetch(url + '?' + mparams)
             .then(function(response) {
                 if (response.ok) {
                     return response.json();
@@ -1128,7 +1188,7 @@
             })
             .then(function(data) {
                 console.log(data);
-                $parish.innerHTML = '<option value="" selected>Escolher Freguesia</option>';
+                parishInput.innerHTML = '<option value="" selected>Escolher Freguesia</option>';
 
                 for (var id in data) {
                     if (data.hasOwnProperty(id)) {
@@ -1136,7 +1196,7 @@
                         var option = document.createElement('option');
                         option.value = data[id].id;
                         option.innerHTML = title;
-                        $parish.appendChild(option);
+                        parishInput.appendChild(option);
                     }
                 }
             })
