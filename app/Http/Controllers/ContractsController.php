@@ -63,11 +63,11 @@ class ContractsController extends Controller
             ->when($request->filled('status_id'), function ($query) use ($request) {
                 return $query->where('documentation_status_id', $request->input('status_id'));
             })
-            ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS status'))
+            ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS isFinishing'))
             ->paginate(20);
 
 
-        $contratos = Contract::where(function ($query) {
+        $contractsExpiringCount = Contract::where(function ($query) {
             $query->whereRaw("DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE()")
                 ->whereRaw("DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE()");
         })
@@ -78,7 +78,7 @@ class ContractsController extends Controller
             'contracts' => $contracts,
             'statuses' => $statuses,
             'contractsCount' => $contractsCount,
-            'contractsExpiringCount' => $contratos
+            'contractsExpiringCount' => $contractsExpiringCount
         ]);
     }
 

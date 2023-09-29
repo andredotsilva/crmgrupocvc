@@ -19,13 +19,13 @@
                                 <th scope="col"
                                     class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <div class="flex items-center gap-x-3">
-                                        <span>CPE</span>
+                                        <span>NIF</span>
                                     </div>
                                 </th>
                                 <th scope="col"
                                     class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <div class="flex items-center gap-x-3">
-                                        <span>NIF</span>
+                                        <span>CPE</span>
                                     </div>
                                 </th>
                                 <th scope="col"
@@ -41,13 +41,13 @@
 
                                 <th scope="col"
                                     class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <span>Terminar</span>
+                                    <span>A Renovar</span>
                                 </th>
 
                                 <th scope="col"
                                     class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <button class="flex items-center gap-x-2">
-                                        <span>Nivel Tensão (RPE)</span>
+                                        <span>Estado</span>
 
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="2" stroke="currentColor" class="w-4 h-4">
@@ -61,14 +61,18 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+
                             @foreach ($contracts as $contract)
+                                @php
+                                    
+                                @endphp
                                 <tr>
-                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->meter ? $contract->meter->cpe : 'Sem informação' }}
-                                    </td>
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                         {{ $contract->meter ? $contract->meter->nif : 'Sem informação' }}
 
+                                    </td>
+                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                        {{ $contract->meter ? $contract->meter->cpe : 'Sem informação' }}
                                     </td>
                                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                         <div class="inline-flex items-center gap-x-3">
@@ -81,7 +85,6 @@
                                             </div>
                                         </div>
                                     </td>
-
                                     <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                         {{-- @php
                                             $styles = [
@@ -106,14 +109,17 @@
                                                 </div>
                                             @endforeach
                                         @endif --}}
-                                        @if ($contract->status)
-                                            <span>{{ $contract->status->title }}</span>
+                                        @if ($contract->documentation)
+                                            @foreach ($contract->documentation as $documentation)
+                                                <span class="text-white block">
+                                                    {{ $documentation->title }}
+                                                </span>
+                                            @endforeach
                                         @endif
                                     </td>
-
                                     <td
                                         class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap flex justify-center">
-                                        @if ($contract->status === 1)
+                                        @if ($contract->isFinishing === 1)
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="#fb923c" viewBox="0 0 256 256">
                                                 <path
@@ -122,12 +128,9 @@
                                             </svg>
                                         @endif
                                     </td>
-
-
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->meter && $contract->meter->tariff ? $contract->meter->tariff->title : '' }}
+                                        {{ $contract->status && $contract->status->title ? $contract->status->title : '' }}
                                     </td>
-
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <div class="flex items-center gap-x-6">
 
