@@ -15,6 +15,13 @@ class CAEController extends Controller
 
     }
 
+    public function create()
+    {
+        $caes = Cae::all();
+
+        return view('pages.cae.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

@@ -24,6 +24,11 @@
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
             {{ __('Lista Codigos CAE') }}
         </h2>
+
+        <div class="row pt-4">
+            <a href="{{ route('cae.create') }}"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">{{ __('Inserir Novo Cod.Cae') }}</a>
+        </div>
     </x-slot>
 
     <div class="py-2 bg-slate-100 dark:bg-gray-800">
