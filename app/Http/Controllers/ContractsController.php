@@ -43,7 +43,7 @@ class ContractsController extends Controller
     //
     public function index(Request $request)
     {
-        $statuses = DocumentationStatus::all();
+        $documentationStatuses = DocumentationStatus::all();
         $contractsCount = Contract::count();
 
         $contracts = Contract::with(['meter.tariff', 'client', 'documentation', 'status'])
@@ -61,8 +61,21 @@ class ContractsController extends Controller
                 });
             })
             ->when($request->filled('status_id'), function ($query) use ($request) {
-                return $query->where('documentation_status_id', $request->input('status_id'));
+                $query->whereHas('documentation', function ($q) use ($request) {
+                    $q->where('documentation_status_id', $request->input('status_id'));
+                });
             })
+            // ->when($request->filled('condominium_administrator'), function ($query) use ($request) {
+            //     return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
+            // })
+            ->when($request->filled('administrator_name'), function ($query) use ($request) {
+                // return $query->where('documentation_status_id', $request->input('condominium_administrator'));
+                $query->whereHas('client', function ($q) use ($request) {
+                    // $q->where('conduminium_administrator', $request->input('condominium_administrator'));
+                    $q->where('administrator_name', 'like', '%' . $request->input('administrator_name') . '%');
+                });
+            })
+
             ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS isFinishing'))
             ->paginate(20);
 
@@ -76,7 +89,7 @@ class ContractsController extends Controller
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
-            'statuses' => $statuses,
+            'documentationStatuses' => $documentationStatuses,
             'contractsCount' => $contractsCount,
             'contractsExpiringCount' => $contractsExpiringCount
         ]);
@@ -104,7 +117,7 @@ class ContractsController extends Controller
         $services = Service::all();
         $categories = Category::all();
         $plans = Plan::all();
-        $documentationStatus = DocumentationStatus::all();
+        $documentationStatuses = DocumentationStatus::all();
         $invoiceTypes = InvoiceType::all();
         $powerBrackets = PowerBracket::all();
         $caes = CAE::all();
@@ -120,7 +133,7 @@ class ContractsController extends Controller
             'services' => $services,
             'categories' => $categories,
             'plans' => $plans,
-            'documentationStatus' => $documentationStatus,
+            'documentationStatus' => $documentationStatuses,
             'invoiceTypes' => $invoiceTypes,
             'powerBrackets' => $powerBrackets,
             'caes' => $caes,

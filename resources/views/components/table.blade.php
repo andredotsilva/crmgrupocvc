@@ -31,7 +31,7 @@
                                 <th scope="col"
                                     class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <div class="flex items-center gap-x-3">
-                                        <span>Name</span>
+                                        <span>Nome Administração</span>
                                     </div>
                                 </th>
                                 <th scope="col"
@@ -63,9 +63,6 @@
                         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
 
                             @foreach ($contracts as $contract)
-                                @php
-                                    
-                                @endphp
                                 <tr>
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                         {{ $contract->meter ? $contract->meter->nif : 'Sem informação' }}
@@ -79,7 +76,7 @@
                                             <div class="flex items-center gap-x-2">
                                                 <div>
                                                     <h2 class="font-medium text-gray-800 dark:text-white ">
-                                                        {{ $contract->client ? $contract->client->name : 'Sem informação' }}
+                                                        {{ $contract->client ? $contract->client->administrator_name : 'Sem informação' }}
                                                     </h2>
                                                 </div>
                                             </div>

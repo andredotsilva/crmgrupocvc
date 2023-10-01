@@ -113,8 +113,8 @@
                                 <div class="p-4">
                                     <input
                                         class="border-2 border-gray-300 bg-white rounded-lg text-sm focus:outline-none"
-                                        type="search" name="condominium_administrator" placeholder="ADM de Condominio"
-                                        value="{{ old('condominium_administrator') }}">
+                                        type="search" name="administrator_name" placeholder="ADM de Condominio"
+                                        value="{{ old('administrator_name') }}">
                                     <button type="submit" class="absolute right-4 top-0 mt-5">
                                         <svg class="text-gray-600 h-4 w-4 fill-current"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -131,8 +131,8 @@
                                 <div class="p-4">
                                     <select name="status_id"
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                        <option value="">Escolher Estado</option>
-                                        @foreach ($statuses as $status)
+                                        <option value="">Escolher Estado da Documentação</option>
+                                        @foreach ($documentationStatuses as $status)
                                             <option value="{{ $status->id }}">{{ $status->title }}</option>
                                         @endforeach
                                     </select>
