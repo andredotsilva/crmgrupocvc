@@ -1,55 +1,15 @@
 version: '3'
-
-services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    container_name: grupocvc-app
-    restart: unless-stopped
-    working_dir: /var/www/html
-    environment:
-      MYSQL_CONNECTION: ${DB_CONNECTION}
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      # MYSQL_HOST: 192.168.0.100
-      # MYSQL_PORT: 3306
-      MAIL_HOST: mailhog
-      MAIL_PORT: 1025
-      MAIL_USERNAME: null
-      MAIL_PASSWORD: null
-      MAIL_ENCRYPTION: null
-    volumes:
-      - .:/var/www/html
-    ports:
-      - 8000:8000
-    depends_on:
-      - db
-      - mailhog
-  db:
-    image: mariadb:10.6
-    container_name: grupocvc-db
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - db_data:/var/lib/mysql
-    ports:
-      - 3306:3306
-
-  mailhog:
-    image: mailhog/mailhog
-    container_name: grupocvc-mailhog
-    restart: unless-stopped
-    ports:
-      - 8025:8025
-
 volumes:
-  db_data:
+  data:
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: crm
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - data:/var/lib/mysql
+    ports:
+      - "3306:3306"

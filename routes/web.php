@@ -10,6 +10,7 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\ContractsController;
+use App\Http\Controllers\CPEController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\EnergiagasController;
@@ -27,9 +28,12 @@ use App\Http\Controllers\MunicipalityController;
 |
 */
 
+Route::apiResource('/cpe', CPEController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/cpe/getcpesbynif/{nif}', [CPEController::class, 'getCpesByNIF'])->name('cpe.getcpesbynif');
 
 Route::middleware('auth')->group(function () {
     Route::get('/plans/plansbyproviderid', [PlansController::class, 'plansbyproviderid'])->name('plansbyproviderid');
@@ -50,7 +54,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/plans', PlansController::class);
 
     Route::resource('/providers', ProvidersController::class);
-
 
     Route::get('/servicos', [ServicosController::class, 'index'])
         ->name('servicos');

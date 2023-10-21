@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mailing_addresses', function (Blueprint $table) {
+        Schema::create('cpes', function (Blueprint $table) {
             $table->id();
+
+            $table->string('cpe');
+            $table->string('name');
+            $table->string('nif', 20);
             $table->string('address')->nullable();
             $table->string('door')->nullable();
-            $table->string('floor')->nullable();
             $table->string('post_code')->nullable();
             $table->foreignId('parish_id')->nullable()->references('id')->on('parishes');
             $table->foreignId('municipality_id')->nullable()->references('id')->on('municipalities');
             $table->foreignId('district_id')->nullable()->references('id')->on('districts');
-            $table->string('email')->nullable();
-            $table->string('nif')->nullable();
-            $table->foreignUlid('client_id')->nullable()->references('id')->on('clients');
-            // $table->foreignUlid('client_id')->nullable()->references('id')->on('clients');
-            $table->string('phone_number')->nullable();
+            $table->decimal('power', 8, 2)->nullable();
+
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mailing_addresses');
+        Schema::dropIfExists('cpes');
     }
 };

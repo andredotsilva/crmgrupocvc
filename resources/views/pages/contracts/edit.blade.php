@@ -166,8 +166,29 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Cliente/Administrador" name="administrator_name"
-                                                :value="$contract->client->administrator_name" :errors="$errors->first('administrator_name')" />
+                                                idLabel="administrator_name_label" :value="$contract->client->administrator_name"
+                                                :errors="$errors->first('administrator_name')" />
                                         </div>
+                                        <script>
+                                            const clientTypeSelect = document.getElementById('client_type_id');
+                                            const clientLabel = document.getElementById('administrator_name_label');
+
+                                            clientTypeSelect.addEventListener('change', function() {
+                                                switch (clientTypeSelect.value) {
+                                                    case '1':
+                                                        clientLabel.textContent = 'Administrador';
+                                                        break;
+                                                    case '2':
+                                                        clientLabel.textContent = 'Sócio Gerente';
+                                                        break;
+                                                    case '3':
+                                                        clientLabel.textContent = 'Cliente';
+                                                        break;
+                                                    default:
+                                                        clientLabel.textContent = 'Tipo de Cliente';
+                                                };
+                                            });
+                                        </script>
                                         <div class="sm:col-span-2">
                                             <x-input-string
                                                 title="Administração
@@ -190,28 +211,7 @@
                                             <x-input-select title="Campanha" name="plan_id" :value="$contract->plan"
                                                 :collection="$plans" :errors="$errors->first('plan_id')" />
                                         </div>
-                                        <div class="sm:col-span-2">
-                                            <div class="sm:col-span-2">
-                                                <label for="documentation_status_id"
-                                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Documentação</label>
-                                                <select name="documentationStatuses[]"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                    data-te-class-form-outline="block w-full rounded-md border-0 dark:ring-gray-700 dark:bg-gray-600 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                                                    data-te-select-options-selected-label="opções selecionadas."
-                                                    multiple data-te-class-inputGroup="rounded"
-                                                    data-te-select-all="false"
-                                                    data-te-class-dropdown="bg-[#4b5563] rounded-md text-red-500"
-                                                    data-te-select-init>
 
-                                                    @foreach ($documentationStatuses as $documentationStatus)
-                                                        <option value="{{ $documentationStatus->id }}"
-                                                            @if (in_array($documentationStatus->id, $contract->documentation->pluck('id')->toArray())) selected @endif>
-                                                            {{ $documentationStatus->title }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string
                                                 title="Arquivo
@@ -231,6 +231,27 @@
                                                 :collection="$tariffs" :errors="$errors->first('tariff_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
+                                            <x-input-select title="Potência/Escalão" name="power_bracket_id"
+                                                :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
+                                        </div>
+                                        <div class="sm:col-span-2" hidden id="powerParent">
+                                            <x-input-string title="Pôtencia/CUI" id="power" name="power"
+                                                :errors="$errors->first('power')" />
+                                        </div>
+                                        <script>
+                                            const powerBracketInput = document.getElementById('power_bracket_id');
+                                            const powerParent = document.getElementById('powerParent');
+
+                                            powerBracketInput.addEventListener('change', async function() {
+
+                                                if (powerBracketInput.value == 15) {
+                                                    powerParent.removeAttribute('hidden');
+                                                } else {
+                                                    powerParent.setAttribute('hidden', 'true');
+                                                }
+                                            });
+                                        </script>
+                                        <div class="sm:col-span-2">
                                             <x-input-string title="NIF" name="nif" :value="$contract->meter->nif"
                                                 :errors="$errors->first('nif')" />
                                         </div>
@@ -238,13 +259,10 @@
                                             <x-input-string title="CPE/CUI" name="cpe" :value="$contract->meter->cpe"
                                                 :errors="$errors->first('cpe')" />
                                         </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Potência/Escalão" name="power" type="power"
-                                                :value="$contract->meter->power" :errors="$errors->first('power')" />
-                                        </div>
                                     </div>
                                 </div>
                                 <!--END Dados Contador-->
+
 
                                 <!--Consumos-->
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
@@ -348,31 +366,37 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Morada De Fornecimento" name="address"
-                                                :value="$contract->client->address" />
+                                                :value="$contract->client->address" :errors="$errors->first('address')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Andar/Fração" name="floor" :value="$contract->client->floor" />
+                                            <x-input-string title="Andar/Fração" name="floor" :value="$contract->client->floor"
+                                                :errors="$errors->first('floor')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Codigo Postal" name="post_code"
-                                                :value="$contract->client->post_code" />
+                                            <x-input-string title="Codigo Postal" name="post_code" :value="$contract->client->post_code"
+                                                :errors="$errors->first('post_code')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Codigo Freguesia" name="dmp_code"
-                                                :value="$contract->client->dmp_code" />
+                                                :value="$contract->client->dmp_code" :errors="$errors->first('dmp_code')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Distrito" name="district_id" :value="$contract->client->district"
-                                                :collection="$districts" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-select title="Concelho" name="municipality_id"
-                                                :value="$contract->client->municipality" />
+                                                :collection="$districts" :errors="$errors->first('district_id')" />
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Freguesia" name="parish_id" :value="$contract->client->parish" />
+                                            <x-input-select title="Concelho" name="municipality_id" :value="$contract->client->municipality"
+                                                :errors="$errors->first('municipality_id')" />
                                         </div>
+
+                                        <div class="sm:col-span-2">
+                                            <x-input-select title="Freguesia" name="parish_id" :value="$contract->client->parish"
+                                                :errors="$errors->first('parish_id')" />
+                                        </div>
+                                        @php
+                                            dd($contract->client);
+                                        @endphp
                                     </div>
                                 </div>
                                 <!--END Dados Cliente-->
@@ -383,12 +407,13 @@
                                         id="pagamento">
                                         <h1 class="text-lg pb-4 dark:text-gray-200">Forma de Pagamento</h1>
                                         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
                                             <div class="sm:col-span-2">
-                                                <x-input-string title="NIB" name="nib" :value="$contract->nib" />
+                                                <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-select title="Fatura" name="invoice_type_id"
-                                                    :value="$contract->invoiceType" :collection="$invoiceTypes" />
+                                                    id="invoice_type_id" :collection="$invoiceTypes" :errors="$errors->first('invoice_type_id')" />
                                             </div>
                                         </div>
                                     </div>
@@ -403,73 +428,52 @@
 
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Morada" name="mail_address" :errors="$errors->first('mail_address')"
-                                                :value="$contract->client->mailingAddress->address ?? ''" />
+                                                :value="$contract->mailingAddress->address ?? ''" />
                                         </div>
                                         <div class="sm:col-span-1">
                                             <x-input-string title="Andar" name="mail_floor" :errors="$errors->first('mail_floor')"
-                                                :value="$contract->client->mailingAddress->floor ?? ''" />
+                                                :value="$contract->mailingAddress->floor ?? ''" />
                                         </div>
                                         <div class="sm:col-span-1">
                                             <x-input-string title="Nº Porta" name="mail_door" :errors="$errors->first('mail_door')"
-                                                :value="$contract->client->mailingAddress->door ?? ''" />
+                                                :value="$contract->mailingAddress->door ?? ''" />
                                         </div>
-                                        {{-- <div class="sm:col-span-2">
-                                            <label for="nif"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Codigo
-                                                Postal</label>
-                                            <div class="mt-2">
-                                                <input type="text" name="mail_postal_code" id="mail_postal_code"
-                                                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-600 dark:text-gray-200"
-                                                    oninput="postCodeFormatter(this)" placeholder="Formato 9999-999"
-                                                    value="{{ $contract->client->mailingAddress->postal_code ?? '' }}">
-                                            </div>
-                                            <script>
-                                                function postCodeFormatter(input) {
-                                                    var postCode = input.value.trim().replace(/[-\s]/g, '');
-                                                    var formattedPostCode = '';
 
-                                                    if (postCode.length > 7) {
-                                                        postCode = postCode.substring(0, 7);
-                                                    }
-
-                                                    if (postCode.length <= 4) {
-                                                        formattedPostCode = postCode;
-                                                    } else if (postCode.length <= 7) {
-                                                        formattedPostCode = postCode.substring(0, 4) + "-" + postCode.substring(4, 7);
-                                                    }
-                                                    input.value = formattedPostCode;
-                                                }
-                                            </script>
-
-                                        </div> --}}
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Codigo Postal" name="mail_post_code"
-                                                :errors="$errors->first('mail_post_code')" :value="$contract->client->mailingAddress->post_code ?? ''" />
+                                                :errors="$errors->first('mail_post_code')" :value="$contract->mailingAddress->post_code ?? ''" />
                                         </div>
                                         <div class="sm:col-span-2">
+                                            {{-- @php
+                                                dd($contract->mailingAddress);
+                                            @endphp --}}
                                             <x-input-select title="Distrito" name="mail_district_id"
-                                                :errors="$errors->first('mail_district_id')" :value="$contract->client->mailingAddress->district ?? null" :collection="$districts" />
+                                                :errors="$errors->first('mail_district_id')" :value="$contract->mailingAddress->district ?? null" :collection="$districts" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Concelho" name="mail_municipality_id"
-                                                :errors="$errors->first('mail_municipality_id')" :value="$contract->client->mailingAddress->municipality ?? null" />
+                                                :errors="$errors->first('mail_municipality_id')" :value="$contract->mailingAddress->municipality ?? null" />
                                         </div>
+                                        {{-- @php
+                                            dd($contract->mailingAddress->parish);
+                                        @endphp --}}
                                         <div class="sm:col-span-2">
                                             <x-input-select title="Freguesia" name="mail_parish_id" :errors="$errors->first('mail_parish_id')"
-                                                :value="$contract->client->mailingAddress->parish ?? null" />
+                                                :value="$contract->mailingAddress->parish ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Email" name="mail" :errors="$errors->first('mail')"
-                                                :value="$contract->client->mailingAddress->email ?? null" />
+                                                :value="$contract->mailingAddress->email ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string
                                                 title="Contacto
                                             Telefónico"
-                                                name="phone_number" :value="$contract->client->mailingAddress->phone_number ?? null" />
+                                                name="phone_number" :value="$contract->mailingAddress->phone_number ?? null" :errors="$errors->first('phone_number')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="NIF" name="nif" :value="$contract->client->mailingAddress->nif ?? null" />
+                                            <x-input-string title="NIF" name="nif" :value="$contract->mailingAddress->nif ?? null"
+                                                :errors="$errors->first('mail_nif')" />
                                         </div>
                                     </div>
                                 </div>
@@ -484,13 +488,13 @@
                                             <x-input-string
                                                 title="Email
                                                 Assinatura do Cliente"
-                                                name="signatory_email" :value="$contract->signatory_email" />
+                                                name="signatory_email" :value="$contract->signatory_email" :errors="$errors->first('signatory_email')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string
                                                 title="Contacto
                                                 Assinatura"
-                                                name="signatory_phone" :value="$contract->signatory_phone" />
+                                                name="signatory_phone" :value="$contract->signatory_phone" :errors="$errors->first('signatory_phone')" />
                                         </div>
                                     </div>
                                 </div>
@@ -507,22 +511,26 @@
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Valor Pago ao Administrador"
                                                     name="administrator_paid_amount"
-                                                    value="{{ $contract->commission->administrator_paid_amount }}" />
+                                                    value="{{ $contract->commission->administrator_paid_amount }}"
+                                                    :errors="$errors->first('administrator_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Pagamento ao Administrador"
                                                     name="administrator_payment_date"
-                                                    value="{{ $contract->commission->administrator_payment_date }}" />
+                                                    value="{{ $contract->commission->administrator_payment_date }}"
+                                                    :errors="$errors->first('administrator_payment_date')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Devolução ao Administrador"
                                                     name="refund_administrator_paid_amount"
-                                                    value="{{ $contract->commission->refund_administrator_paid_amount }}" />
+                                                    value="{{ $contract->commission->refund_administrator_paid_amount }}"
+                                                    :errors="$errors->first('refund_adminstrator_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Devolução ao Administrador"
                                                     name="refund_administrator_payment_date"
-                                                    value="{{ $contract->commission->refund_administrator_payment_date }}" />
+                                                    value="{{ $contract->commission->refund_administrator_payment_date }}"
+                                                    :errors="$errors->first('refund_administrator_payment_date')" />
                                             </div>
                                         </div>
                                         <div>
@@ -531,42 +539,49 @@
                                                 <x-input-price title="Valor Pago ao Comercia"
                                                     name="commercial_paid_amount"
                                                     value="{{ $contract->commission->commercial_paid_amount }}"
-                                                    :errors="$errors->first('commercial_id')" />
+                                                    :errors="$errors->first('commercial_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Pagamento ao Comercial"
                                                     name="commercial_payment_date"
-                                                    value="{{ $contract->commission->commercial_payment_date }}" />
+                                                    value="{{ $contract->commission->commercial_payment_date }}"
+                                                    :errors="$errors->first('commercial_payment_date')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Devolução ao Comercial"
                                                     name="refund_commercial_paid_amount"
-                                                    value="{{ $contract->commission->refund_commercial_paid_amount }}" />
+                                                    value="{{ $contract->commission->refund_commercial_paid_amount }}"
+                                                    :errors="$errors->first('refund_commercial_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Devolução ao Administrador"
                                                     name="refund_commercial_payment_date"
-                                                    value="{{ $contract->commission->refund_commercial_payment_date }}" />
+                                                    value="{{ $contract->commission->refund_commercial_payment_date }}"
+                                                    :errors="$errors->first('refund_commercial_payment_date')" />
                                             </div>
                                         </div>
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Valor Pago ao CVC" name="cvc_paid_amount"
-                                                    value="{{ $contract->commission->cvc_paid_amount }}" />
+                                                    value="{{ $contract->commission->cvc_paid_amount }}"
+                                                    :errors="$errors->first('cvc_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Pagamento ao CVC" name="cvc_payment_date"
-                                                    value="{{ $contract->commission->cvc_payment_date }}" />
+                                                    value="{{ $contract->commission->cvc_payment_date }}"
+                                                    :errors="$errors->first('cvc_payment_date')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-price title="Devolução ao CVC" name="refund_cvc_paid_amount"
-                                                    value="{{ $contract->commission->refund_cvc_paid_amount }}" />
+                                                    value="{{ $contract->commission->refund_cvc_paid_amount }}"
+                                                    :errors="$errors->first('refund_cvc_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Devolução ao CVC"
                                                     name="refund_cvc_payment_date"
-                                                    value="{{ $contract->commission->refund_cvc_payment_date }}" />
+                                                    value="{{ $contract->commission->refund_cvc_payment_date }}"
+                                                    :errors="$errors->first('refund_cvc_payment_date')" />
                                             </div>
                                         </div>
                                     </div>
@@ -575,20 +590,36 @@
 
                                 <div
                                     class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800">
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8">
+                                    <div class="sm:col-span-2">
+                                        <x-input-select title="Status" name="status_id" :collection="$statuses"
+                                            :errors="$errors->first('status_id')" />
+                                    </div>
+                                    <div hidden class="grid grid-cols-1 gap-x-6 gap-y-8" style="display: none"
+                                        id="messageParent">
                                         <div class="sm:col-span-4">
                                             <label for="message"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
                                             <div class="mt-2">
                                                 <textarea id="message" rows="4" name="text"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500"
-                                                    placeholder="Notas">{{ $contract->notes->text ?? '' }}
-                                                </textarea>
+                                                    placeholder=""></textarea>
                                             </div>
                                         </div>
-                                        <!-- Adicione mais elementos aqui, se necessário -->
                                     </div>
                                 </div>
+                                <script>
+                                    const select = document.getElementById('status_id');
+                                    const message = document.getElementById('messageParent');
+
+                                    select.addEventListener('change', function() {
+                                        if (select.value == 2 || select.value == 4) {
+                                            message.style.display = 'grid';
+                                            console.log(messageParent.style.display);
+                                        } else {
+                                            message.style.display = 'none';
+                                        }
+                                    });
+                                </script>
                                 <!--comissões mensais-->
 
                                 @php
@@ -607,15 +638,22 @@
                                         '12_12' => 'amount_12_12',
                                     ];
                                 @endphp
-                                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
+                                <div class="mt-10 gap-x-10 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="comissoesmensais">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
                                         @foreach ($values as $label => $name)
                                             <div class="sm:col-span-1">
-                                                <x-input-price title="{{ $label }}"
+                                                <x-input-price title="{{ $label }}" :errors="$errors->first(
+                                                    'amount_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12',
+                                                )"
                                                     name="{{ $name }}" disabled
                                                     value="{{ $contract->monthlyCommission->{'amount_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}" />
+                                            </div>
+                                            <div>
+                                                <x-input-date title="{{ $label }}"
+                                                    name="{{ 'date_' . $label }}" :errors="$errors->first($name)"
+                                                    value="{{ $contract->monthlyCommission->{'date_' . str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) . '_12'} ?? null }}" />
                                             </div>
                                         @endforeach
                                     </div>

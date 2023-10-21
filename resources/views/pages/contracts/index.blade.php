@@ -1,4 +1,10 @@
 <x-app-layout>
+    @if (session('success'))
+        <div class="bg-green-500 text-white px-4 py-2 rounded-md mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <x-slot name="header">
         <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
             <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
@@ -132,7 +138,7 @@
                                     <select name="status_id"
                                         class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
                                         <option value="">Escolher Estado da Documentação</option>
-                                        @foreach ($documentationStatuses as $status)
+                                        @foreach ($statuses as $status)
                                             <option value="{{ $status->id }}">{{ $status->title }}</option>
                                         @endforeach
                                     </select>

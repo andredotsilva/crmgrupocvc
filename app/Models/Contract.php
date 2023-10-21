@@ -140,7 +140,7 @@ class Contract extends Model
         return $this->belongsTo(Meter::class, 'meter_id');
     }
 
-    public function status()
+    public function statuses()
     {
         return $this->belongsTo(Status::class, 'status_id');
     }
@@ -177,7 +177,7 @@ class Contract extends Model
 
     public function mailingAddress()
     {
-        return $this->belongsTo(Client::class, 'mailing_address_id');
+        return $this->hasOne(MailingAddress::class, 'contract_id');
     }
 
     public function appliances()

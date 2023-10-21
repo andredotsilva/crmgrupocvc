@@ -32,6 +32,6 @@ class Meter extends Model
 
     public function powerbracket()
     {
-        return $this->belongsTo(PowerBracket::class, 'powerbracket_id');
+        return $this->belongsTo(PowerBracket::class, 'power_bracket_id');
     }
 }
