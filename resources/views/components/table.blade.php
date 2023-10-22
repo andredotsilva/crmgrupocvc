@@ -106,12 +106,13 @@
                                                 </div>
                                             @endforeach
                                         @endif --}}
-                                        @if ($contract->documentation)
-                                            @foreach ($contract->documentation as $documentation)
-                                                <span class="text-white block">
-                                                    {{ $documentation->title }}
-                                                </span>
-                                            @endforeach
+                                        {{-- @php
+                                            dd($contract);
+                                        @endphp --}}
+                                        @if ($contract->notes)
+                                            <span>
+                                                {{ $contract->notes->text }}
+                                            </span>
                                         @endif
                                     </td>
                                     <td
@@ -126,7 +127,7 @@
                                         @endif
                                     </td>
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->status && $contract->status->title ? $contract->status->title : '' }}
+                                        {{ $contract->statuses->title ?? '' }}
                                     </td>
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <div class="flex items-center gap-x-6">

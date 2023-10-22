@@ -288,15 +288,6 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        {{-- <div class="sm:col-span-2"> --}}
-                                        {{-- <x-input-select title="Informação Tecnica de aparelhos" hidden
-                                            name="technical_appliance_id" :collection="$technicalAppliances" :errors="$errors->first('technical_appliance_id')" /> --}}
-                                        {{-- </div> --}}
-                                        {{-- <div class="sm:col-span-2"> --}}
-                                        {{-- <x-input-select title="Nº de Equipamentos" name="range_appliance_id" hidden
-                                            :collection="$rangeAppliances" :errors="$errors->first('range_appliance_id')" /> --}}
-                                        {{-- </div> --}}
-
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Cliente/Administrador" name="administrator_name"
                                                 idLabel="administrator_name_label" :errors="$errors->first('administrator_name')" />
@@ -321,7 +312,6 @@
                                                 };
                                             });
                                         </script>
-
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Administração de Condominio"
                                                 name="condominium_administrator" :errors="$errors->first('condominium_administrator')" />
@@ -342,7 +332,7 @@
                                             <x-input-select title="Campanha" name="plan_id" id="plan_id"
                                                 :errors="$errors->first('plan_id')" />
                                         </div>
-                                        <div class="sm:col-span-2">
+                                        {{-- <div class="sm:col-span-2">
                                             <label for="documentation_status_id"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Estado</label>
                                             <select name="documentationStatuses[]"
@@ -361,7 +351,7 @@
                                                 @endforeach
 
                                             </select>
-                                        </div>
+                                        </div> --}}
                                         {{-- <x-input-select title="Documentação" name="documentation_status_id"
                                             :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" /> --}}
                                         <div class="sm:col-span-2">
@@ -383,20 +373,79 @@
                                                 :errors="$errors->first('tariff_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
+                                            <x-input-select title="Potência/Escalão" name="power_bracket_id"
+                                                :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
+                                        </div>
+                                        <div class="sm:col-span-2" hidden id="powerParent">
+                                            <x-input-string title="Pôtencia/CUI" id="power" name="power"
+                                                :errors="$errors->first('power')" />
+                                        </div>
+                                        <div class="sm:col-span-2">
                                             <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')"
                                                 id="nif" />
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-select title="nif_list" id="nif_list" name="nif_list"
+                                                :errors="$errors->first('nif_list')" />
+                                            {{-- <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')"
+                                                id="nif" /> --}}
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="CPE/CUI" id="cpe" name="cpe"
                                                 :errors="$errors->first('cpe')" />
                                         </div>
+                                        <script>
+                                            const powerBracketInput = document.getElementById('power_bracket_id');
+                                            const powerParent = document.getElementById('powerParent');
 
-                                        <div class="sm:col-span-2">
-                                            {{-- <x-input-price title="Potência/Escalão" name="power" type="power"
-                                                :errors="$errors->first('power')" /> --}}
-                                            <x-input-select title="Potência/Escalão" name="power_bracket_id"
-                                                :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
-                                        </div>
+                                            powerBracketInput.addEventListener('change', async function() {
+
+                                                if (powerBracketInput.value == 15) {
+                                                    powerParent.removeAttribute('hidden');
+                                                } else {
+                                                    powerParent.setAttribute('hidden', 'true');
+                                                }
+                                            });
+                                        </script>
+
+                                        {{-- <script>
+                                            document.getElementById('nif').addEventListener('change', async function() {
+
+                                                const nifInput = document.getElementById('nif');
+
+                                                nifInput.a
+
+
+
+                                                console.log('aqui');
+                                                // var state = document.getElementById('mail_municipality_id');
+                                                // var url = "{{ route('municipality.index') }}";
+                                                // var params = "district_id=" + encodeURIComponent(this.value);
+
+                                                await fetch(`/cpe/getcpesbynif?nif=${nif}`)
+                                                    .then(
+                                                        return await response.json())
+                                                    .then(
+
+                                                        console.log(response);
+                                                        // function(data) {
+                                                        //     state.innerHTML = '<option selected>Escolher Concelho</option>';
+                                                        //     for (var id in data) {
+                                                        //         if (data.hasOwnProperty(id)) {
+                                                        //             var value = data[id].title;
+                                                        //             var option = document.createElement('option');
+                                                        //             option.value = data[id].id;
+                                                        //             option.innerHTML = value;
+                                                        //             state.appendChild(option);
+                                                        //         }
+                                                        //     }
+                                                        // }
+                                                    )
+                                                    .catch(function(error) {
+                                                        console.error(error);
+                                                    });
+                                            });
+                                        </script> --}}
                                     </div>
                                 </div>
                                 <!--END Dados Contador-->
@@ -498,8 +547,9 @@
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                         <input type="hidden" name="client_id" id="client_id">
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="CAE" id="cae_id" name="cae_id"
-                                                :collection="$caes" :errors="$errors->first('cae_id')" />
+                                            {{-- <x-input-select title="CAE" id="cae_id" name="cae_id"
+                                                :collection="$caes" :errors="$errors->first('cae_id')" /> --}}
+                                            <x-input-number title="CAE" name="cae" :errors="$errors->first('cae')" />
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Nome Cliente" id="name" name="name"
@@ -782,7 +832,12 @@
 
                                 <div
                                     class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800">
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8">
+                                    <div class="sm:col-span-2">
+                                        <x-input-select title="Status" name="status_id" :collection="$statuses"
+                                            :errors="$errors->first('status_id')" />
+                                    </div>
+                                    <div hidden class="grid grid-cols-1 gap-x-6 gap-y-8" style="display: none"
+                                        id="messageParent">
                                         <div class="sm:col-span-4">
                                             <label for="message"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
@@ -793,11 +848,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-select title="Status" name="status_id" :collection="$statuses"
-                                            :errors="$errors->first('status_id')" />
-                                    </div>
                                 </div>
+                                <script>
+                                    const select = document.getElementById('status_id');
+                                    const message = document.getElementById('messageParent');
+
+                                    select.addEventListener('change', function() {
+                                        if (select.value == 2 || select.value == 4) {
+                                            message.style.display = 'grid';
+                                            console.log(messageParent.style.display);
+                                        } else {
+                                            message.style.display = 'none';
+                                        }
+                                    });
+                                </script>
+
                                 <!--comissões mensais-->
                                 @php
                                     $values = [
@@ -815,16 +880,26 @@
                                         '12_12' => 'amount_12_12',
                                     ];
                                 @endphp
-                                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
+
+                                <div class="mt-10 gap-x-10 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
                                     id="comissoesmensais">
                                     <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
                                         @foreach ($values as $label => $name)
-                                            <x-input-price title="{{ $label }}" name="{{ $name }}"
-                                                :errors="$errors->first($name)" />
+                                            <div class="grid grid-cols-2 gap-x-4">
+                                                <div>
+                                                    <x-input-price title="{{ $label }}"
+                                                        name="{{ $name }}" :errors="$errors->first($name)" />
+                                                </div>
+                                                <div>
+                                                    <x-input-date title="{{ $label }}"
+                                                        name="{{ 'date_' . $label }}" :errors="$errors->first($name)" />
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>
+
                                 <!--END comissões mensais-->
 
                                 <div
@@ -1011,6 +1086,7 @@
 <script>
     const nifInput = document.getElementById("nif");
     const caeInput = document.getElementById("cae_id");
+    const cpe = document.getElementById("cpe");
     const nameInput = document.getElementById("name");
     const addressInput = document.getElementById("address");
     const doorInput = document.getElementById("door");
@@ -1021,52 +1097,83 @@
     const municipalityInput = document.getElementById("municipality_id");
     const parishInput = document.getElementById("parish_id");
     const clientInput = document.getElementById("client_id");
+    const powerInput = document.getElementById("power_bracket_id");
 
-    nifInput.addEventListener("input", function() {
-        const nif = nifInput.value;
+    const nifListInput = document.getElementById("nif_list");
 
-        fetch(`/contracts/fetchbycpe?nif=${nif}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
+    nifInput.addEventListener("input", async function() {
+        const nifValue = nifInput.value;
 
-                    clientInput.value = data[0].client.id;
-                    caeInput.value = data[0].client.cae;
-                    nameInput.value = data[0].client.name;
-                    addressInput.value = data[0].client.address;
-                    floorInput.value = data[0].client.floor;
-                    doorInput.value = data[0].client.door;
-                    postCodeInput.value = data[0].client.post_code;
-                    dmpCodeInput.value = data[0].client.dmp_code;
-                    const selectedDistrictId = data[0].client.district
-                        .id;
-                    for (var i = 0; i < districtInput.options.length; i++) {
-                        var option = districtInput.options[i];
-                        if (option.value == selectedDistrictId) {
-                            option.selected = true;
-                            break;
-                        }
-                    }
+        const response = await fetch(`/cpe/getcpesbynif/${nifValue}`);
+        const data = await response.json();
 
-                    const selectedMunicipality = data[0].client.municipality;
+        console.log(data);
+
+        if (data.length > 0) {
+
+            for (var id in data) {
+                if (data.hasOwnProperty(id)) {
+                    var value = data[id].cpe;
                     var option = document.createElement('option');
-                    option.value = selectedMunicipality.id;
-                    option.textContent = selectedMunicipality.title;
-                    option.selected = true;
-                    municipalityInput.appendChild(option);
-
-                    const selectedParish = data[0].client.parish;
-                    var option = document.createElement('option');
-                    option.value = selectedParish.id;
-                    option.textContent = selectedParish.title;
-                    option.selected = true;
-                    parishInput.appendChild(option);
+                    option.value = data[id].id;
+                    option.innerHTML = value;
+                    nifListInput.appendChild(option);
                 }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            }
+        }
     });
+
+    nifListInput.addEventListener('change', async function() {
+        const selectedValue = nifListInput.value;
+
+        const response = await fetch(`/cpe/${selectedValue}`);
+        const data = await response.json();
+
+        cpe.value = data.cpe;
+        nameInput.value = data.name;
+        addressInput.value = data.address;
+        doorInput.value = data.door;
+        postCodeInput.value = data.post_code;
+        // dmpCodeInput.value = data[0].client.dmp_code;
+
+        const selectedPower = data.power;
+        for (var i = 0; i < powerInput.options.length; i++) {
+            var option = powerInput.options[i];
+            if (parseFloat(option.textContent) === parseFloat(selectedPower)) {
+                option.selected = true;
+                break;
+            }
+        }
+
+        const selectedDistrictId = data.district.id;
+        for (var i = 0; i < districtInput.options.length; i++) {
+            var option = districtInput.options[i];
+            if (option.value == selectedDistrictId) {
+                option.selected = true;
+                break;
+            }
+        }
+
+        var option = document.createElement('option');
+        option.value = data.municipality.id;
+        option.textContent = data.municipality.title;
+        option.selected = true;
+        municipalityInput.appendChild(option);
+
+        var option = document.createElement('option');
+        option.value = data.parish.id;
+        option.textContent = data.parish.title;
+        option.selected = true;
+        parishInput.appendChild(option);
+
+        // const districtCode = data.district.code.replace(' ', '');
+        // const municipalityCode = data.municipality.code.replace(' ', '');
+        // const parishCode = data.parish.code.replace(' ', '');
+
+        const resultString = districtCode + municipalityCode + parishCode;
+        dmpCodeInput.value = resultString;
+
+    })
 </script>
 
 <script>

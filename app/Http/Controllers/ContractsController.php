@@ -43,10 +43,10 @@ class ContractsController extends Controller
     //
     public function index(Request $request)
     {
-        $documentationStatuses = DocumentationStatus::all();
+        $statuses = Status::all();
         $contractsCount = Contract::count();
 
-        $contracts = Contract::with(['meter.tariff', 'client', 'documentation', 'status'])
+        $contracts = Contract::with(['meter.tariff', 'client', 'notes', 'statuses'])
             ->when($request->filled('nif'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
                     $q->where('nif', 'like', '%' . $request->input('nif') . '%');
@@ -61,8 +61,8 @@ class ContractsController extends Controller
                 });
             })
             ->when($request->filled('status_id'), function ($query) use ($request) {
-                $query->whereHas('documentation', function ($q) use ($request) {
-                    $q->where('documentation_status_id', $request->input('status_id'));
+                $query->whereHas('statuses', function ($q) use ($request) {
+                    $q->where('id', $request->input('status_id'));
                 });
             })
             // ->when($request->filled('condominium_administrator'), function ($query) use ($request) {
@@ -89,7 +89,7 @@ class ContractsController extends Controller
 
         return view('pages.contracts.index', [
             'contracts' => $contracts,
-            'documentationStatuses' => $documentationStatuses,
+            'statuses' => $statuses,
             'contractsCount' => $contractsCount,
             'contractsExpiringCount' => $contractsExpiringCount
         ]);
@@ -146,8 +146,6 @@ class ContractsController extends Controller
     }
     public function store(StoreContractRequest $request)
     {
-        // dd($request);
-
         $districtId = ($request->input('district_id') !== 'Selecionar Distrito')
             ? $request->input('district_id')
             : null;
@@ -157,6 +155,7 @@ class ContractsController extends Controller
             : null;
 
         $nif = $request->nif;
+
         $doesUserExists = Contract::with(['meter', 'client.user'])
             ->whereHas('meter', function ($query) use ($nif) {
                 $query->where('nif', $nif);
@@ -170,10 +169,6 @@ class ContractsController extends Controller
             $user->password = 'adwkweqnqkne213352sddas';
             $user->save();
         }
-
-        // $userId = $doesUserExists->client->user->id;
-        // dd($userId);
-
 
         $commission = new Commission();
         $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
@@ -205,11 +200,12 @@ class ContractsController extends Controller
         $meter->off_peak = $request->off_peak;
         $meter->super_off_peak = $request->super_off_peak;
         $meter->power_bracket_id = $request->power_bracket_id;
+        $meter->power = $request->power;
         $meter->gas = $request->gas;
         $meter->save();
 
         $client = Client::firstOrCreate(['id' => $request->client_id]);
-        $client->cae_id = $request->cae_id;
+        $client->cae = $request->cae;
         $client->name = $request->name;
         $client->address = $request->address;
         $client->floor = $request->floor;
@@ -244,8 +240,6 @@ class ContractsController extends Controller
         $contract->invoice_type_id = $request->invoice_type_id;
         $contract->signatory_email = $request->signatory_email;
         $contract->signatory_phone = $request->signatory_phone;
-
-
         $contract->save();
 
         $contract->documentation()->attach($request->documentationStatuses);
@@ -262,21 +256,35 @@ class ContractsController extends Controller
         $mailingAddress->phone_number = $request->phone_number;
         $mailingAddress->nif = $request->mail_nif;
         $mailingAddress->client_id = $client->id;
+        $mailingAddress->contract_id = $contract->id;
         $mailingAddress->save();
 
         $monthlyComission = new MonthlyCommission();
         $monthlyComission->amount_01_12 = $this->formatarNumero($request->amount_01_12);
+        $monthlyComission->date_01_12 = $request->date_01_12;
         $monthlyComission->amount_02_12 = $this->formatarNumero($request->amount_02_12);
+        $monthlyComission->date_02_12 = $request->date_02_12;
         $monthlyComission->amount_03_12 = $this->formatarNumero($request->amount_03_12);
+        $monthlyComission->date_03_12 = $request->date_03_12;
         $monthlyComission->amount_04_12 = $this->formatarNumero($request->amount_04_12);
+        $monthlyComission->date_04_12 = $request->date_04_12;
         $monthlyComission->amount_05_12 = $this->formatarNumero($request->amount_05_12);
+        $monthlyComission->date_05_12 = $request->date_05_12;
         $monthlyComission->amount_06_12 = $this->formatarNumero($request->amount_06_12);
+        $monthlyComission->date_06_12 = $request->date_06_12;
         $monthlyComission->amount_07_12 = $this->formatarNumero($request->amount_07_12);
+        $monthlyComission->date_07_12 = $request->date_07_12;
         $monthlyComission->amount_08_12 = $this->formatarNumero($request->amount_08_12);
+        $monthlyComission->date_08_12 = $request->date_08_12;
         $monthlyComission->amount_09_12 = $this->formatarNumero($request->amount_09_12);
+        $monthlyComission->date_09_12 = $request->date_09_12;
         $monthlyComission->amount_10_12 = $this->formatarNumero($request->amount_10_12);
+        $monthlyComission->date_10_12 = $request->date_10_12;
         $monthlyComission->amount_11_12 = $this->formatarNumero($request->amount_11_12);
+        $monthlyComission->date_11_12 = $request->date_11_12;
         $monthlyComission->amount_12_12 = $this->formatarNumero($request->amount_12_12);
+        $monthlyComission->date_12_12 = $request->date_12_12;
+
         $monthlyComission->contract_id = $contract->id;
         $monthlyComission->save();
 
@@ -332,17 +340,18 @@ class ContractsController extends Controller
         $contract = Contract::with(
             [
                 'backofficer',
+                'mailingAddress',
                 'commercial',
                 'service',
                 'category',
-                'client.mailingAddress.district',
-                'client.mailingAddress.municipality',
-                'client.mailingAddress.parish',
+                'client.district',
+                'client.municipality',
+                'client.parish',
                 'clientType',
                 'provider',
                 'documentation',
-                'status',
-                'meter',
+                'statuses',
+                'meter.powerbracket',
                 'nif',
                 'municipality',
                 'district',
@@ -350,7 +359,11 @@ class ContractsController extends Controller
                 'invoiceType',
                 'commission',
                 'monthlyCommission',
-                'mailingAddress'
+                'mailingAddress',
+                'mailingAddress.district',
+                'mailingAddress.municipality',
+                'mailingAddress.parish',
+                'notes'
             ]
         )->where('id', $id)->first();
 
@@ -360,7 +373,7 @@ class ContractsController extends Controller
     public function edit($id)
     {
 
-        $contract = Contract::with(['files', 'meter', 'monthlyCommission', 'mailingAddress.district', 'mailingAddress.municipality', 'mailingAddress.parish', 'invoiceType', 'documentation'])->where('id', $id)->first();
+        $contract = Contract::with(['files', 'meter', 'monthlyCommission', 'mailingAddress', 'mailingAddress.district', 'mailingAddress.municipality', 'mailingAddress.parish', 'invoiceType', 'documentation', 'client.municipality'])->where('id', $id)->first();
         $contractsCount = Contract::count();
 
         $tariffs = Tariff::all();
@@ -376,8 +389,9 @@ class ContractsController extends Controller
         $services = Service::all();
         $categories = Category::all();
         $plans = Plan::all();
-        $documentationStatuses = DocumentationStatus::all();
+        $statuses = Status::all();
         $invoiceTypes = InvoiceType::all();
+        $powerBrackets = PowerBracket::all();
 
         return view('pages.contracts.edit', [
             'contract' => $contract,
@@ -391,13 +405,15 @@ class ContractsController extends Controller
             'categories' => $categories,
             'plans' => $plans,
             'contractsCount' => $contractsCount,
-            'documentationStatuses' => $documentationStatuses,
+            'statuses' => $statuses,
             'invoiceTypes' => $invoiceTypes,
+            'powerBrackets' => $powerBrackets
         ]);
     }
 
     public function update(Request $request, string $id)
     {
+
 
         try {
             $contract = Contract::findOrFail($id);
@@ -433,7 +449,8 @@ class ContractsController extends Controller
             $meter->gas = $request->gas;
             $meter->save();
 
-            $client = Client::where('id', $request->client_id)->firstOrCreate();
+
+            $client = Client::where('id', $contract->client_id)->firstOrCreate();
             $client->cae = $request->cae;
             $client->administrator_name = $request->administrator_name;
             $client->condominium_administrator = $request->condominium_administrator;
@@ -463,9 +480,10 @@ class ContractsController extends Controller
             $commission->refund_cvc_payment_date = $request->refund_cvc_payment_date;
             $commission->save();
 
-            $mailingAddress = MailingAddress::create();
-            $mailingAddress->address = $request->address;
-            $mailingAddress->door = $request->door;
+            $mailingAddress = MailingAddress::where('contract_id', $contract->id)->firstOrCreate();
+            $mailingAddress->address = $request->mail_address;
+            // $mailingAddress->floor = $request->floor;
+            $mailingAddress->door = $request->mail_door;
             $mailingAddress->post_code = $request->mail_post_code;
             $mailingAddress->district_id = $request->mail_district_id;
             $mailingAddress->municipality_id = $request->mail_municipality_id;
@@ -473,23 +491,37 @@ class ContractsController extends Controller
             $mailingAddress->email = $request->email;
             $mailingAddress->phone_number = $request->phone_number;
             $mailingAddress->nif = $request->nif;
+
+            $mailingAddress->contract_id = $contract->id;
             $mailingAddress->client_id = $client->id;
             $mailingAddress->save();
 
             $monthlyComission = MonthlyCommission::firstOrCreate(['contract_id' => $contract->id]);
 
             $monthlyComission->amount_01_12 = $this->formatarNumero($request->amount_01_12);
+            $monthlyComission->date_01_12 = $request->date_01_12;
             $monthlyComission->amount_02_12 = $this->formatarNumero($request->amount_02_12);
+            $monthlyComission->date_02_12 = $request->date_02_12;
             $monthlyComission->amount_03_12 = $this->formatarNumero($request->amount_03_12);
+            $monthlyComission->date_03_12 = $request->date_03_12;
             $monthlyComission->amount_04_12 = $this->formatarNumero($request->amount_04_12);
+            $monthlyComission->date_04_12 = $request->date_04_12;
             $monthlyComission->amount_05_12 = $this->formatarNumero($request->amount_05_12);
+            $monthlyComission->date_05_12 = $request->date_05_12;
             $monthlyComission->amount_06_12 = $this->formatarNumero($request->amount_06_12);
+            $monthlyComission->date_06_12 = $request->date_06_12;
             $monthlyComission->amount_07_12 = $this->formatarNumero($request->amount_07_12);
+            $monthlyComission->date_07_12 = $request->date_07_12;
             $monthlyComission->amount_08_12 = $this->formatarNumero($request->amount_08_12);
+            $monthlyComission->date_08_12 = $request->date_08_12;
             $monthlyComission->amount_09_12 = $this->formatarNumero($request->amount_09_12);
+            $monthlyComission->date_09_12 = $request->date_09_12;
             $monthlyComission->amount_10_12 = $this->formatarNumero($request->amount_10_12);
+            $monthlyComission->date_10_12 = $request->date_10_12;
             $monthlyComission->amount_11_12 = $this->formatarNumero($request->amount_11_12);
+            $monthlyComission->date_11_12 = $request->date_11_12;
             $monthlyComission->amount_12_12 = $this->formatarNumero($request->amount_12_12);
+            $monthlyComission->date_12_12 = $request->date_12_12;
             $monthlyComission->contract_id = $contract->id;
             $monthlyComission->save();
 
@@ -520,7 +552,6 @@ class ContractsController extends Controller
                 }
             }
         } catch (\Exception $th) {
-            dd($th);
         }
 
         return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');

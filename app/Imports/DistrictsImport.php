@@ -18,10 +18,6 @@ class DistrictsImport implements ToModel
      */
     public function model(array $row)
     {
-        // return new District([
-        //     'code' => $row['code'],
-        //     'title' => $row['title'],
-        // ]);
 
         return new District([
             'code' => $row[0],

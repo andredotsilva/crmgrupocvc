@@ -144,6 +144,10 @@ return [
         // 'store'  => 'redis',
     ],
 
+    'upload_max_size' => [
+        'max_post_size' => 500, // Defina o limite de tamanho desejado em megabytes.
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

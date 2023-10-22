@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contracts', function (Blueprint $table) {
-            $table->foreignId("status_id")->nullable()->references("id")->on("statuses")->onDelete("cascade");
+        //
+        Schema::table('mailing_addresses', function (Blueprint $table) {
+            $table->foreignUlid('contract_id')->nullable()->references('id')->on('contracts');
         });
     }
 
@@ -21,8 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contracts', function (Blueprint $table) {
-            $table->dropColumn('status_id');
+        Schema::table('mailing_addresses', function (Blueprint $table) {
+            $table->dropForeign(['contract_id']);
+            $table->dropColumn('contract_id');
         });
     }
 };
