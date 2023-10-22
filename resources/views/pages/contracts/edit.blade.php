@@ -394,9 +394,9 @@
                                             <x-input-select title="Freguesia" name="parish_id" :value="$contract->client->parish"
                                                 :errors="$errors->first('parish_id')" />
                                         </div>
-                                        @php
+                                        {{-- @php
                                             dd($contract->client);
-                                        @endphp
+                                        @endphp --}}
                                     </div>
                                 </div>
                                 <!--END Dados Cliente-->

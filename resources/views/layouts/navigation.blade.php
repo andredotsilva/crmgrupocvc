@@ -35,6 +35,13 @@
                         </x-nav-link>
                     </div>
                 @endif
+                @if (!Auth::user()->is_client)
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('financas.index')" :active="request()->routeIs('users')">
+                            {{ __('Finanças') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
             </div>
 

@@ -803,7 +803,7 @@
         @endforeach
         <div>
             <p>
-                {{ $contract->notes->text }}}
+                {{ $contract->notes->text }}
             </p>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CAEController;
+use App\Http\Controllers\CPEController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ParishController;
@@ -10,8 +11,8 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\ContractsController;
-use App\Http\Controllers\CPEController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FinancialController;
 use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
@@ -62,6 +63,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('/cae', CAEController::class);
+
+    Route::resource('/financas', FinancialController::class);
 
     Route::resource('/users', UsersController::class);
     Route::get('/users/fetchuserbycode/{code}', [UsersController::class, 'fetchUserByCode']);
