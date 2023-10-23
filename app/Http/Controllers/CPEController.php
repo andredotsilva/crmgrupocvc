@@ -13,10 +13,7 @@ class CPEController extends Controller
     public function store(Request $request)
     {
         // dd('aqui');
-        Excel::queueImport(new CPEImport(), $request->file('import'));
-
-        // $file = $request->file('excel_file');
-        // Excel::queueImport(new CPEImport, $file);
+        Excel::import(new CPEImport(), $request->file('import'));
 
         return 'done';
     }
