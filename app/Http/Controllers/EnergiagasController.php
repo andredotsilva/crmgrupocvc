@@ -34,7 +34,7 @@ class EnergiagasController extends Controller
             $query->where('gas', '>=', 1);
         })->count();
 
-        $contracts = Contract::with(['meter.tariff', 'client', 'documentation', 'status'])
+        $contracts = Contract::with(['meter.tariff', 'client', 'notes', 'statuses'])
             ->when($request->filled('nif'), function ($query) use ($request) {
                 $query->whereHas('meter', function ($q) use ($request) {
                     $q->where('nif', 'like', '%' . $request->input('nif') . '%');
@@ -49,10 +49,21 @@ class EnergiagasController extends Controller
                 });
             })
             ->when($request->filled('status_id'), function ($query) use ($request) {
-                return $query->where('documentation_status_id', $request->input('status_id'));
+                $query->whereHas('statuses', function ($q) use ($request) {
+                    $q->where('id', $request->input('status_id'));
+                });
             })
-            ->whereHas('meter')
-            ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS status'))
+            // ->when($request->filled('condominium_administrator'), function ($query) use ($request) {
+            //     return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
+            // })
+            ->when($request->filled('administrator_name'), function ($query) use ($request) {
+                // return $query->where('documentation_status_id', $request->input('condominium_administrator'));
+                $query->whereHas('client', function ($q) use ($request) {
+                    // $q->where('conduminium_administrator', $request->input('condominium_administrator'));
+                    $q->where('administrator_name', 'like', '%' . $request->input('administrator_name') . '%');
+                });
+            })
+            ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS isFinishing'))
             ->paginate(20);
 
 

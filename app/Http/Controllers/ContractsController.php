@@ -75,12 +75,12 @@ class ContractsController extends Controller
                     $q->where('administrator_name', 'like', '%' . $request->input('administrator_name') . '%');
                 });
             })
-
             ->select('*', DB::raw('IF(DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE() AND DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE(), 1, 0) AS isFinishing'))
             ->paginate(20);
 
 
-        $contractsExpiringCount = Contract::where(function ($query) {
+        
+            $contractsExpiringCount = Contract::where(function ($query) {
             $query->whereRaw("DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE()")
                 ->whereRaw("DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE()");
         })
