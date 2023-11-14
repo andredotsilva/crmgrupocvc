@@ -903,7 +903,7 @@
                                 <!--END comissões mensais-->
 
                                 <div
-                                    class="mt-10 gap-x-6 gap-y-8 flex flex-col text-white p-6 rounded-2xl bg-white dark:bg-gray-800">
+                                    class="mt-10 gap-x-6 gap-y-8 flex flex-col text-dark p-6 rounded-2xl bg-white dark:bg-gray-800">
                                     <h1 id="required-documents-h1" class="text-lg pb-4 dark:text-gray-200">Lista de
                                         documentos necessarios:</h1>
                                     <div id="zone"></div>
@@ -935,6 +935,8 @@
                                         array.forEach((item) => {
                                             const newSpan = document.createElement('p');
                                             newSpan.textContent = `- ${item}`;
+                                            newSpan.classList.add('text-dark');
+                                            newSpan.classList.add('dark:text-white');
                                             zone.appendChild(newSpan);
                                             zone.appendChild(document.createElement('br'));
                                         });
