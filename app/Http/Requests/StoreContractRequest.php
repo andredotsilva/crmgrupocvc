@@ -55,7 +55,7 @@ class StoreContractRequest extends FormRequest
             'signed_at'  => ['nullable', 'date'],
             'effective_at' => ['nullable', 'date'],
             'renewal_at' => ['nullable', 'date'],
-            'nib'  => ['nullable', 'max:255'],
+            'nib'  => ['nullable', 'max:21'],
             'invoice_type_id'  => ['nullable', 'exists:invoice_types,id'],
             'signatory_email' => ['nullable', 'max:255'],
             'signatory_phone' => ['nullable', 'max:255'],

@@ -79,8 +79,8 @@ class ContractsController extends Controller
             ->paginate(20);
 
 
-        
-            $contractsExpiringCount = Contract::where(function ($query) {
+
+        $contractsExpiringCount = Contract::where(function ($query) {
             $query->whereRaw("DATE_ADD(effective_at, INTERVAL 11 MONTH) <= CURRENT_DATE()")
                 ->whereRaw("DATE_ADD(effective_at, INTERVAL 1 YEAR) >= CURRENT_DATE()");
         })
@@ -206,6 +206,9 @@ class ContractsController extends Controller
 
         $client = Client::firstOrCreate(['id' => $request->client_id]);
         $client->cae = $request->cae;
+        $client->administrator_name = $request->administrator_name;
+        $client->condominium_administrator = $request->condominium_administrator;
+        // $client->name = $request->name;
         $client->name = $request->name;
         $client->address = $request->address;
         $client->floor = $request->floor;
