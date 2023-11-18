@@ -18,6 +18,7 @@ use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/energia-gas', [EnergiagasController::class, 'index'])
         ->name('energia');
 
+    
+
 
     Route::resource('/cae', CAEController::class);
 
@@ -69,6 +72,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/users', UsersController::class);
     Route::get('/users/fetchuserbycode/{code}', [UsersController::class, 'fetchUserByCode']);
     Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
+    
+    Route::get('/create-user', [UsersController::class, 'create'])
+        ->name('create-user');
 });
 
 

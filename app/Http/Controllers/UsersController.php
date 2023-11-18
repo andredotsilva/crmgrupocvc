@@ -87,4 +87,35 @@ class UsersController extends Controller
         return redirect()->route('users.index')
             ->with('success', 'Kamar Theresia deleted successfully');
     }
+
+    public function create()
+    {
+        return view('pages.users.create');
+    }
+
+    public function store(Request $request)    
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $role = Role::where('id', 4)->first();
+
+        $user->roles()->attach($role);
+
+        event(new Registered($user));
+
+        return redirect()->route('users.index')
+            ->with('success');
+
+
+    }
 }

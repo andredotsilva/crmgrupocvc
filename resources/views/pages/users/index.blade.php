@@ -28,7 +28,12 @@
 
     <div class="py-2 bg-slate-100 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+            <a href="{{ route('users.create') }}" class="pb-4">
+                            <button
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
+                                Inserir Utilizador
+                            </button>
+                        </a>
         </div>
     </div>
 
