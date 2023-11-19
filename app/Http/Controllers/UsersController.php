@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Contract;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -93,7 +94,7 @@ class UsersController extends Controller
         return view('pages.users.create');
     }
 
-    public function store(Request $request)    
+    public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -111,11 +112,9 @@ class UsersController extends Controller
 
         $user->roles()->attach($role);
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
         return redirect()->route('users.index')
             ->with('success');
-
-
     }
 }
