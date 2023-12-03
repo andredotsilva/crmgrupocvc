@@ -163,7 +163,7 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Nome Comercial" name="commercial_code"
+                                            <x-input-string title="Código Comercial" name="commercial_code"
                                                 id="commercial_code" :errors="$errors->first('commercial_code')" />
                                         </div>
                                         <div class="sm:col-span-2">
@@ -289,7 +289,7 @@
                                             </div>
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Cliente/Administrador" name="administrator_name"
+                                            <x-input-string title="Cliente/Comercial/Parceiro" name="administrator_name"
                                                 idLabel="administrator_name_label" :errors="$errors->first('administrator_name')" />
                                         </div>
                                         <script>
@@ -313,7 +313,7 @@
                                             });
                                         </script>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Administração de Condominio"
+                                            <x-input-string title="Empresa ou Administração de Condominio"
                                                 name="condominium_administrator" :errors="$errors->first('condominium_administrator')" />
                                         </div>
                                     </div>
@@ -769,21 +769,21 @@
                                         Devoluções</h1>
                                     <div class="grid grid-cols-3 gap-4">
                                         <div>
-                                            <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Administrador</h3>
+                                            <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Parceiro</h3>
                                             <div class="sm:col-span-2">
-                                                <x-input-price title="Valor Pago ao Administrador"
+                                                <x-input-price title="Valor Pago ao Parceiro"
                                                     name="administrator_paid_amount" :errors="$errors->first('administrator_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <x-input-date title=" Data Pagamento ao Administrador"
+                                                <x-input-date title=" Data Pagamento ao Parceiro"
                                                     name="administrator_payment_date" :errors="$errors->first('administrator_payment_date')" />
                                             </div>
                                             <div class="sm:col-span-2 mt-5">
-                                                <x-input-price title="Devolução ao Administrador"
+                                                <x-input-price title="Devolução ao Parceiro"
                                                     name="refund_adminstrator_paid_amount" :errors="$errors->first('refund_adminstrator_paid_amount')" />
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <x-input-date title="Data Devolução ao Administrador"
+                                                <x-input-date title="Data Devolução ao Parceiro"
                                                     name="refund_administrator_payment_date" :errors="$errors->first('refund_administrator_payment_date')" />
                                             </div>
                                         </div>
