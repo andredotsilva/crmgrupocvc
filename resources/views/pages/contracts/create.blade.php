@@ -155,7 +155,7 @@
                                                     <option value="">Escolha</option>
                                                     @foreach ($backofficers as $backofficer)
                                                         <option value="{{ $backofficer->id }}"
-                                                            {{ old('backofficer') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
+                                                            {{ old('back_officer_id') == $backofficer->id || $backofficer->id == auth()->id() ? 'selected' : '' }}>
                                                             {{ $backofficer->name }}
                                                         </option>
                                                     @endforeach
@@ -299,7 +299,7 @@
                                             clientTypeSelect.addEventListener('change', function() {
                                                 switch (clientTypeSelect.value) {
                                                     case '1':
-                                                        clientLabel.textContent = 'Administrador';
+                                                        clientLabel.textContent = 'Administrador de Condominio';
                                                         break;
                                                     case '2':
                                                         clientLabel.textContent = 'Sócio Gerente';
@@ -373,11 +373,11 @@
                                                 :errors="$errors->first('tariff_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Potência/Escalão" name="power_bracket_id"
+                                            <x-input-select title="Potência:1,15->41,41" name="power_bracket_id"
                                                 :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
                                         </div>
                                         <div class="sm:col-span-2" hidden id="powerParent">
-                                            <x-input-string title="Pôtencia/CUI" id="power" name="power"
+                                            <x-input-string title="Pôtencia/MT/AT" id="power" name="power"
                                                 :errors="$errors->first('power')" />
                                         </div>
                                         <div class="sm:col-span-2">
@@ -385,7 +385,7 @@
                                                 id="nif" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="nif_list" id="nif_list" name="nif_list"
+                                            <x-input-select title="Lista dos CPES" id="nif_list" name="nif_list"
                                                 :errors="$errors->first('nif_list')" />
                                             {{-- <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')"
                                                 id="nif" /> --}}

@@ -119,7 +119,7 @@
                                 <div class="p-4">
                                     <input
                                         class="border-2 border-gray-300 bg-white rounded-lg text-sm focus:outline-none"
-                                        type="search" name="administrator_name" placeholder="ADM de Condominio"
+                                        type="search" n ame="administrator_name" placeholder="Administração de Condominio"
                                         value="{{ old('administrator_name') }}">
                                     <button type="submit" class="absolute right-4 top-0 mt-5">
                                         <svg class="text-gray-600 h-4 w-4 fill-current"
