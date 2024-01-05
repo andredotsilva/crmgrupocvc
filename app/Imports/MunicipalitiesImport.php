@@ -22,6 +22,7 @@ class MunicipalitiesImport implements ToModel
 
         $district = District::where('code', $row['0'])->first();
 
+
         return new Municipality([
             'code' => $row[2],
             'title' => $row[3],

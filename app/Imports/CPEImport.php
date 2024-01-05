@@ -2,8 +2,11 @@
 
 namespace App\Imports;
 
+// set_time_limit(0);
+
 use App\Models\CPE;
 use App\Models\District;
+use App\Models\Municipality;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -13,7 +16,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 /**
  * Summary of DistrictsImport
  */
-class CPEImport implements ToModel, ShouldQueue, WithBatchInserts, WithChunkReading
+class CPEImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     /**
      * @param array $row
@@ -22,20 +25,39 @@ class CPEImport implements ToModel, ShouldQueue, WithBatchInserts, WithChunkRead
      */
     public function model(array $row)
     {
+
+        $district = District::where('code', $row['distrito_cod'])->first();
+
+        $ultimosDoisDigitos = substr($row['concelho_cod'], -2);
+
+        $digitoEsquerda = substr($ultimosDoisDigitos, 0, 1);
+
+        if ($digitoEsquerda == 0) {
+            $comparar = substr($ultimosDoisDigitos, -1);
+        } else {
+            $comparar = $ultimosDoisDigitos;
+        }
+        // dd($comparar);
+        $municipality = Municipality::where('code', $comparar)->where('district_id', $district->id)->first();
+
+        // dd($municipality);
+
         return new Cpe([
-            'cpe' => $row[0],
-            'name' => $row[1],
-            'nif' => $row[2]
+            'cpe' => $row['cpe'],
+            'name' => $row['nome'],
+            'nif' => $row['nipc'],
+            'district_id' => $district->id,
+            'municipality_id' => $municipality->id,
         ]);
     }
 
     public function batchSize(): int
     {
-        return 5000; // Especifique o tamanho do lote desejado.
+        return 1000;
     }
 
     public function chunkSize(): int
     {
-        return 5000;
+        return 1000;
     }
 }
