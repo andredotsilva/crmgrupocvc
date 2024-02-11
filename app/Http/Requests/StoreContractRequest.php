@@ -104,18 +104,22 @@ class StoreContractRequest extends FormRequest
             'administrator_paid_amount' => ['nullable', 'numeric'],
             'commercial_paid_amount'  => ['nullable', 'numeric'],
             'cvc_paid_amount' => ['nullable', 'numeric'],
+            'energy_cvc_paid_amount' => ['nullable', 'numeric'],
 
             'administrator_payment_date' => ['nullable', 'date'],
             'commercial_payment_date' => ['nullable', 'date'],
             'cvc_payment_date' => ['nullable', 'date'],
+            'energy_cvc_payment_date' => ['nullable', 'date'],
 
             'refund_cvc_paid_ammount'  => ['nullable', 'numeric'],
             'refund_administrator_paid_ammount'  => ['nullable', 'numeric'],
             'refund_commercial_paid_ammount'  => ['nullable', 'numeric'],
+            'refund_energy_cvc_paid_ammount'  => ['nullable', 'numeric'],
 
             'refund_cvc_payment_date'  => ['nullable', 'date'],
             'refund_administrator_payment_date'  => ['nullable', 'date'],
             'refund_commercial_payment_date'  => ['nullable', 'date'],
+            'refund_energy_cvc_payment_date'  => ['nullable', 'date'],
 
             'amount_01_12' => ['nullable', 'numeric'],
             'date_01_12' => ['nullable', 'date'],

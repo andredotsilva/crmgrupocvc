@@ -588,6 +588,39 @@
                                 </div>
                                 <!--END Comissões-->
 
+                                   <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
+                                    id="comissoesdatas">
+                                    <h1 class="text-md pb-4 dark:text-gray-200">
+                                       AQUI Comissões de Energia
+                                    </h1>
+                                    <div class="grid grid-cols-3 gap-4">
+                                    
+                                        <div>
+                                            <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
+                                            <div class="sm:col-span-2">
+                                                <x-input-price title="Valor Pago ao CVC" name="energy_cvc_paid_amount"
+                                                    value="{{ $contract->commission->energy_cvc_paid_amount }}"
+                                                    :errors="$errors->first('energy_cvc_paid_amount')" />
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <x-input-date title="Data Pagamento ao CVC" name="energy_cvc_payment_date"
+                                                    value="{{ $contract->commission->energy_cvc_payment_date }}"
+                                                    :errors="$errors->first('energy_cvc_payment_date')" />
+                                            </div>
+                                            <div class="sm:col-span-2 mt-5">
+                                                <x-input-price title="Devolução ao CVC" name="refund_energy_cvc_paid_amount"
+                                                    value="{{ $contract->commission->refund_energy_cvc_paid_amount }}"
+                                                    :errors="$errors->first('refund_energy_cvc_paid_amount')" />
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <x-input-date title="Data Devolução ao CVC"
+                                                    value="{{ $contract->commission->refund_energy_cvc_payment_date }}"
+                                                    name="refund_energy_cvc_payment_date" :errors="$errors->first('refund_energy_cvc_payment_date')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div
                                     class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800">
                                     <div class="sm:col-span-2">

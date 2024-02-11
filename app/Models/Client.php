@@ -61,4 +61,8 @@ class Client extends Model
 
         // return $this->hasManyThrough(Contract::class, Client::class);
     }
+
+    public function cae() {
+        return $this->belongsTo(Cae::class, 'cae');
+    }
 }

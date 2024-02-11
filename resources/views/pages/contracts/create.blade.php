@@ -43,94 +43,34 @@
             <div class="flex" style="margin-bottom: 100px;">
 
                 <!-- Fixed sidebar -->
-                <div class="w-64 pt-12 ">
-                    <div class=" py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('backoffice')">
-                            Back Office
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('dadosorganizacao')">
-                            Dados Organização
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('dadoscontador')">
-                            Dados Contador
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('consumos')">
-                            Consumos
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('datascontrato')">
-                            Datas Contrato
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('dadoscliente')">
-                            Dados Cliente
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('pagamento')">
-                            Forma Pagamento
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('dadoscorespondencia')">
-                            Dados Correspondência
-                        </button>
-                        </a>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('assinatura')">
-                            Assinatura
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('comissoesdatas')">
-                            Comissões e Datas
-                        </button>
-                    </div>
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('comissoesmensais')">
-                            Comissões Mensais
-                        </button>
-                    </div>
+                @php
+    $buttons = [
+        'backoffice' => 'Back Office',
+        'dadosorganizacao' => 'Dados Organização',
+        'dadoscontador' => 'Dados Contador',
+        'consumos' => 'Consumos',
+        'datascontrato' => 'Datas Contrato',
+        'dadoscliente' => 'Dados Cliente',
+        'pagamento' => 'Forma Pagamento',
+        'dadoscorespondencia' => 'Dados Correspondência',
+        'assinatura' => 'Assinatura',
+        'comissoesdatas' => 'Comissões e Datas',
+        'comissoesmensais' => 'Comissões Mensais',
+        'documentacao' => 'Documentação',
+    ];
+@endphp
 
-                    <div class="py-1">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
-                            onclick="scrollToSection('documentacao')">
-                            Documentação
-                        </button>
-                    </div>
-                </div>
+<div class="w-64 pt-12">
+    @foreach ($buttons as $function => $name)
+        <div class="py-1">
+            <button
+                class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700"
+                onclick="scrollToSection('{{ $function }}')">
+                {{ $name }}
+            </button>
+        </div>
+    @endforeach
+</div>
                 <!-- Scroll wrapper -->
                 <div class="flex-1 overflow-hidden overflow-y-scroll scrollbar-hidden" id="scrollableColumn"
                     style="max-height: 600px">
@@ -515,6 +455,16 @@
                                                 @endforeach
                                             </div>
                                         </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-number title="Preço Fixo" name="fixed_price"
+                                                :errors="$errors->first('fixed_price')" />
+                                        </div>
+
+                                        <div class="sm:col-span-2">
+                                            <x-input-number title="Preço Energia" name="energy_price"
+                                                :errors="$errors->first('energy_price')" />
+                                        </div>
+
                                     </div>
                                 </div>
                                 <!--END Consumos-->
@@ -575,8 +525,8 @@
                                         </div>
                                         <div class="sm:col-span-2">
                                             <x-input-string
-                                                title="Codigo
-                                            Freguesia"
+                                                title="Codigo Freguesia"
+                                                readonly={{true}}
                                                 id="dmp_code" name="dmp_code" :errors="$errors->first('dmp_code')" />
                                         </div>
 
@@ -620,6 +570,8 @@
                                                             })
                                                         .then(response => response.json())
                                                         .then(data => {
+
+                                                            console.log(data);
 
 
                                                             if (data.success === "false") {
@@ -674,10 +626,23 @@
                                         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                             <div class="sm:col-span-2">
-                                                <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')" />
+                                                {{-- <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')" /> --}}
+                                                 <div class="sm:col-span-4">
+                                                    <label for="nib" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIB</label>
+                                                    
+                                                    <div class="mt-2">
+                                                        <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                        <span class="flex select-none items-center pl-3 text-gray-300 sm:text-sm">PT50</span>
+                                                        <input type="text" name="nib" id="nib" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-200 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="">
+                                                        </div>
+                                                    </div>
+                                                    @error('nib')
+                                                        <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
                                             </div>
                                             <div class="sm:col-span-2">
-                                                <x-input-select title="Fatura" name="invoice_type_id"
+                                                <x-input-select title="Entrega de fatura" name="invoice_type_id"
                                                     id="invoice_type_id" :collection="$invoiceTypes" :errors="$errors->first('invoice_type_id')" />
                                             </div>
                                         </div>
@@ -824,6 +789,37 @@
                                             <div class="sm:col-span-2">
                                                 <x-input-date title="Data Devolução ao CVC"
                                                     name="refund_cvc_payment_date" :errors="$errors->first('refund_cvc_payment_date')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--END Comissões-->
+
+                                <!--Comissões-->
+                                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800"
+                                    id="comissoesdatas">
+                                    <h1 class="text-md pb-4 dark:text-gray-200">
+                                       AQUI Comissões de Energia
+                                    </h1>
+                                    <div class="grid grid-cols-3 gap-4">
+                                    
+                                        <div>
+                                            <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
+                                            <div class="sm:col-span-2">
+                                                <x-input-price title="Valor Pago ao CVC" name="energy_cvc_paid_amount"
+                                                    :errors="$errors->first('energy_cvc_paid_amount')" />
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <x-input-date title="Data Pagamento ao CVC" name="energy_cvc_payment_date"
+                                                    :errors="$errors->first('energy_cvc_payment_date')" />
+                                            </div>
+                                            <div class="sm:col-span-2 mt-5">
+                                                <x-input-price title="Devolução ao CVC" name="refund_energy_cvc_paid_amount"
+                                                    :errors="$errors->first('refund_energy_cvc_paid_amount')" />
+                                            </div>
+                                            <div class="sm:col-span-2">
+                                                <x-input-date title="Data Devolução ao CVC"
+                                                    name="refund_energy_cvc_payment_date" :errors="$errors->first('refund_energy_cvc_payment_date')" />
                                             </div>
                                         </div>
                                     </div>
@@ -1136,6 +1132,21 @@
         addressInput.value = data.address;
         doorInput.value = data.door;
         postCodeInput.value = data.post_code;
+        floorInput.value = data.floor;
+
+       var districtCode = data.district.code.toString();
+        var municipalityCode = data.municipality.code.toString();
+        var parishCode = data.parish.code.toString();
+
+        var dmpCode = (districtCode.length === 1 ? "0" + districtCode : districtCode) +
+                    (municipalityCode.length === 1 ? "0" + municipalityCode : municipalityCode) +
+                    (parishCode.length === 1 ? "0" + parishCode : parishCode);
+
+        dmpCodeInput.value = dmpCode;
+
+
+
+
         // dmpCodeInput.value = data[0].client.dmp_code;
 
         const selectedPower = data.power;
@@ -1176,6 +1187,25 @@
         dmpCodeInput.value = resultString;
 
     })
+</script>
+
+<script>
+    document.getElementById('parish_id').addEventListener('change', function() {
+
+        const districtCode = districtInput.value.code;
+        console.log(districtCode)
+        const municipalityCode = municipalityInput.value.code;
+        console.log(municipalityCode)
+        const parishCode = parishInput.value.code;
+        console.log(parishCode)
+
+        const resultString = districtCode + municipalityCode + parishCode;
+        dmpCodeInput.value = resultString;
+
+        console.log(resultString);
+
+    })
+
 </script>
 
 <script>

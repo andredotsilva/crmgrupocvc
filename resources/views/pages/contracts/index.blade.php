@@ -144,7 +144,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="flex justify-end gap-3 mr-4">
+                            <div class="flex justify-between gap-3 mr-4">
+                                <div>
+                                    <a href="{{ route('contracts.export', request()->query()) }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Exportar para Excel</a>
+
+                                </div>
+                                <div>
+
                                 <button onclick="resetForm()"
                                     class="bg-gray-300 hover:bg-gray-400 text-white font-bold py-1 px-2 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -169,6 +175,7 @@
                                         </path>
                                     </svg>
                                 </button>
+                                </div>
                             </div>
                     </form>
                 </div>

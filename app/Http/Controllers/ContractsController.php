@@ -35,6 +35,8 @@ use App\Models\TemporaryFile;
 use App\Models\Typology;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Exports\ContractsExports;
+use Maatwebsite\Excel\Facades\Excel;
 use DateInterval;
 use DateTime;
 
@@ -174,18 +176,22 @@ class ContractsController extends Controller
         $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
         $commission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
         $commission->cvc_paid_amount =  $this->formatarNumero($request->cvc_paid_amount);
+        $commission->energy_cvc_paid_amount =  $this->formatarNumero($request->energy_cvc_paid_amount);
 
         $commission->cvc_payment_date = $request->cvc_payment_date;
         $commission->administrator_payment_date = $request->administrator_payment_date;
         $commission->commercial_payment_date = $request->commercial_payment_date;
+        $commission->energy_cvc_payment_date = $request->energy_cvc_payment_date;
 
         $commission->refund_administrator_paid_amount = $this->formatarNumero($request->refund_administrator_paid_amount);
         $commission->refund_cvc_paid_amount = $this->formatarNumero($request->refund_cvc_paid_amount);
         $commission->refund_commercial_paid_amount = $this->formatarNumero($request->refund_commercial_paid_amount);
+        $commission->refund_energy_cvc_paid_amount = $this->formatarNumero($request->refund_energy_cvc_paid_amount);
 
         $commission->refund_commercial_payment_date = $request->refund_commercial_payment_date;
         $commission->refund_administrator_payment_date = $request->refund_administrator_payment_date;
         $commission->refund_cvc_payment_date = $request->refund_cvc_payment_date;
+        $commission->refund_energy_cvc_payment_date = $request->refund_energy_cvc_payment_date;
 
         $commission->save();
 
@@ -202,6 +208,8 @@ class ContractsController extends Controller
         $meter->power_bracket_id = $request->power_bracket_id;
         $meter->power = $request->power;
         $meter->gas = $request->gas;
+        $meter->fixed_price = $this->formatarNumero($request->fixed_price);
+        $meter->energy_price = $this->formatarNumero($request->energy_price);
         $meter->save();
 
         $client = Client::firstOrCreate(['id' => $request->client_id]);
@@ -416,8 +424,6 @@ class ContractsController extends Controller
 
     public function update(Request $request, string $id)
     {
-
-
         try {
             $contract = Contract::findOrFail($id);
             $contract->back_officer_id = $request->back_officer_id;
@@ -450,6 +456,8 @@ class ContractsController extends Controller
             $meter->off_peak = $request->off_peak;
             $meter->super_off_peak = $request->super_off_peak;
             $meter->gas = $request->gas;
+            $meter->fixed_price = $this->formatarNumero($request->fixed_price);
+            $meter->energy_price = $this->formatarNumero($request->energy_price);
             $meter->save();
 
 
@@ -472,15 +480,19 @@ class ContractsController extends Controller
             $commission->administrator_paid_amount = $this->formatarNumero($request->administrator_paid_amount);
             $commission->commercial_paid_amount = $this->formatarNumero($request->commercial_paid_amount);
             $commission->cvc_paid_amount =  $this->formatarNumero($request->cvc_paid_amount);
+            $commission->energy_cvc_paid_amount =  $this->formatarNumero($request->energy_cvc_paid_amount);
             $commission->cvc_payment_date = $request->cvc_payment_date;
             $commission->administrator_payment_date = $request->administrator_payment_date;
             $commission->commercial_payment_date = $request->commercial_payment_date;
+            $commission->energy_cvc_payment_date = $request->energy_cvc_payment_date;
             $commission->refund_administrator_paid_amount = $this->formatarNumero($request->refund_administrator_paid_amount);
             $commission->refund_cvc_paid_amount = $this->formatarNumero($request->refund_cvc_paid_amount);
             $commission->refund_commercial_paid_amount = $this->formatarNumero($request->refund_commercial_paid_amount);
+            $commission->refund_energy_cvc_paid_amount = $this->formatarNumero($request->refund_energy_cvc_paid_amount);
             $commission->refund_commercial_payment_date = $request->refund_commercial_payment_date;
             $commission->refund_administrator_payment_date = $request->refund_administrator_payment_date;
             $commission->refund_cvc_payment_date = $request->refund_cvc_payment_date;
+            $commission->refund_energy_cvc_payment_date = $request->refund_energy_cvc_payment_date;
             $commission->save();
 
             $mailingAddress = MailingAddress::where('contract_id', $contract->id)->firstOrCreate();
@@ -559,6 +571,22 @@ class ContractsController extends Controller
 
         return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
     }
+
+    public function renew($id){
+
+        $contract = Contract::where('id', $id)->first();
+
+        $newContract = $contract->replicate();
+
+        $newContract->signed_at = date('Y-m-d');
+        $newContract->effective_at = date('Y-m-d', strtotime($contract->effective_at . ' + 1 year'));
+
+        $newContract->save();
+
+        return redirect()->route('contracts.index')->with('success', 'Contrato renovado com sucesso!');
+
+    } 
+
     public function download($id)
     {
         $userRoles = auth()->user()->roles;
@@ -619,7 +647,7 @@ class ContractsController extends Controller
     {
         $nif = $request->query('nif');
 
-        $resultado = Contract::with(['meter', 'client.district', 'client.municipality', 'client.parish'])
+        $resultado = Contract::with(['meter', 'client.district','client.municipality', 'client.parish'])
             ->whereHas('meter', function ($query) use ($nif) {
                 $query->where('nif', $nif);
             })
@@ -630,6 +658,100 @@ class ContractsController extends Controller
         }
 
         return response()->json($resultado);
+    }
+
+    public function export(Request $request){
+
+        $contracts = Contract::with([ 'commercial',
+        'service',
+        'category','meter.powerbracket', 'client.cae','client.district', 'client.municipality', 'client.parish', 'notes', 'statuses'])
+        ->when($request->filled('nif'), function ($query) use ($request) {
+            $query->whereHas('meter', function ($q) use ($request) {
+                $q->where('nif', 'like', '%' . $request->input('nif') . '%');
+            });
+        })
+        ->when($request->filled('year'), function ($query) use ($request) {
+            return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
+        })
+        ->when($request->filled('cpe'), function ($query) use ($request) {
+            $query->whereHas('meter', function ($q) use ($request) {
+                $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
+            });
+        })
+        ->when($request->filled('status_id'), function ($query) use ($request) {
+            $query->whereHas('statuses', function ($q) use ($request) {
+                $q->where('id', $request->input('status_id'));
+            });
+        })
+        // ->when($request->filled('condominium_administrator'), function ($query) use ($request) {
+        //     return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
+        // })
+        ->when($request->filled('administrator_name'), function ($query) use ($request) {
+            // return $query->where('documentation_status_id', $request->input('condominium_administrator'));
+            $query->whereHas('client', function ($q) use ($request) {
+                // $q->where('conduminium_administrator', $request->input('condominium_administrator'));
+                $q->where('administrator_name', 'like', '%' . $request->input('administrator_name') . '%');
+            });
+        })->get();
+
+        $filteredData = $contracts->map(function ($contract) {
+            return [
+                'bo' => $contract->backofficer->name ?? '',
+                'commercial' => $contract->commercial->name ?? '',
+                'service' => $contract->service->title ?? '',
+                'category' => $contract->category->title ?? '',
+                'client_type' => $contract->clientType->title ?? '',
+                'client' => $contract->client->administrator_name,
+                'administracao' => $contract->client->condominium_administrator,
+                'adesao' => $contract->provider->title ?? '',
+                'campanha' => $contract->plan->title ?? '',
+                'arquivo' => $contract->archive,
+                'tensao' => $contract->nif->powerbracket->title ?? '',
+                'nif' => $contract->nif->nif,
+                'cpe' => $contract->nif->cpe,
+                'potencia' => $contract->nif->power,
+                'simples' => $contract->nif->flat,
+                'pontas' => $contract->nif->peak,
+                'cheias' => $contract->nif->standard,
+                'vazio' => $contract->nif->off_peak,
+                'super_vazio' => $contract->nif->super_off_peak,
+                'inserido'=> $contract->inserted_at ?? '',
+                'assinado' => $contract->signed_at ?? '',
+                'efetivo' => $contract->effective_at ?? '',
+                'renovacao' => $contract->renewal_at ?? '',
+                'cae' => $contract->client->cae->title ?? '',
+                'nome' => $contract->client->name ?? '',
+                'morada' => $contract->client->address ?? '',
+                'porta' => $contract->client->door ?? '',
+                'andar' => $contract->client->floor ?? '',
+                'codigo_postal' => $contract->client->post_code ?? '',
+                'codigo_dmp' => $contract->client->dmp_code,
+                'freguesia' => $contract->client->parish->title ?? '',
+                'municipality' => $contract->client->municipality->title ?? '',
+                'district' => $contract->client->district->title ?? '',
+                'nib' => $contract->nib ?? '',
+                'tipo_fatura' => $contract->invoiceType->title ?? '',
+                'morada' => $contract->mailingAddress->address ?? '',
+                'porta' => $contract->mailingAddress->door ?? '',
+                'codigo_postal' => $contract->mailingAddress->post_code ?? '',
+                'freguesia' => $contract->mailingAddress->parish->title ?? '',
+                'municipality' => $contract->mailingAddress->municipality->title ?? '',
+                'district' => $contract->mailingAddress->district->title ?? '',
+                'email' => $contract->mailingAddress->email ?? '',
+                'telefone' => $contract->mailingAddress->phone_number ?? '',
+                'nif' => $contract->mailingAddress->nif ?? '',
+                'email' => $contract->signatory_email ?? '',
+                'telefone' => $contract->signatory_phone ?? '',
+                'comissao_administrador' => $contract->commission->administrator_paid_amount ?? '',
+                'data_comissao_administrador' => $contract->commission->administrator_payment_date ?? '',
+                'comissao_comercial' => $contract->commission->commercial_paid_amount ?? '',
+                'data_comissao_comercial' => $contract->commission->commercial_payment_date ?? '',
+                'status' => $contract->statuses->title ?? '',                
+                'status_title' => $contract->status_title ?? '',
+            ];
+        });
+
+        return Excel::download(new ContractsExports($filteredData), 'contracts.xlsx');
     }
 
     public function destroy($id)

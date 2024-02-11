@@ -44,7 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/contracts/renew/{id}', [ContractsController::class,'renew'])->name('contracts.renew');
+    Route::get('/contracts/export', [ContractsController::class,'export'])->name('contracts.export');
     Route::resource('/contracts', ContractsController::class);
+    
     Route::post('/upload', [FilesUploadController::class, 'store']);
     Route::delete('/destroy', [FilesUploadController::class, 'destroy']);
     Route::get('/download/{id}', [ContractsController::class, 'download'])->name('download');
@@ -62,8 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/energia-gas', [EnergiagasController::class, 'index'])
         ->name('energia');
 
-    
-
+   
 
     Route::resource('/cae', CAEController::class);
 

@@ -79,7 +79,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex flex-col flex-grow ml-4">
-                                        <div class="text-sm text-gray-500 dark:text-slate-400">CPE ativos</div>
+                                        <div class="text-sm text-gray-500 dark:text-slate-400">CPEs em alta</div>
                                         <div class="font-bold text-lg">32</div>
                                     </div>
                                 </div>
