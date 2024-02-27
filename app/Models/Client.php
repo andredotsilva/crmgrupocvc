@@ -4,6 +4,11 @@ namespace App\Models;
 
 use App\Models\Contract;
 use App\Models\User;
+use App\Models\MailingAddress;
+use App\Models\District;
+use App\Models\Municipality;
+use App\Models\Parish;
+use App\Models\Cae;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -58,11 +63,10 @@ class Client extends Model
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class, 'client_id');
-
-        // return $this->hasManyThrough(Contract::class, Client::class);
     }
 
-    public function cae() {
-        return $this->belongsTo(Cae::class, 'cae');
+    public function caee()
+    {
+        return $this->belongsTo(Cae::class, 'cae_id');
     }
 }

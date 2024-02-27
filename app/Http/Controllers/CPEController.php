@@ -7,6 +7,8 @@ use App\Imports\CPEImport;
 use App\Models\Cpe;
 use Excel;
 
+
+
 ini_set('memory_limit', '-1');
 
 class CPEController extends Controller
@@ -16,8 +18,7 @@ class CPEController extends Controller
     {
         // dd('aqui');
         // Excel::import(new CPEImport(), $request->file('import'));
-        Excel::import(new CPEImport(), storage_path('btn.xlsx'));
-
+        Excel::import(new CPEImport(), storage_path('btn-010.xlsx'));
 
         return 'done';
     }

@@ -213,7 +213,7 @@ class ContractsController extends Controller
         $meter->save();
 
         $client = Client::firstOrCreate(['id' => $request->client_id]);
-        $client->cae = $request->cae;
+        $client->cae_id = $request->cae_id;
         $client->administrator_name = $request->administrator_name;
         $client->condominium_administrator = $request->condominium_administrator;
         // $client->name = $request->name;
@@ -572,7 +572,8 @@ class ContractsController extends Controller
         return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
     }
 
-    public function renew($id){
+    public function renew($id)
+    {
 
         $contract = Contract::where('id', $id)->first();
 
@@ -584,8 +585,7 @@ class ContractsController extends Controller
         $newContract->save();
 
         return redirect()->route('contracts.index')->with('success', 'Contrato renovado com sucesso!');
-
-    } 
+    }
 
     public function download($id)
     {
@@ -647,7 +647,7 @@ class ContractsController extends Controller
     {
         $nif = $request->query('nif');
 
-        $resultado = Contract::with(['meter', 'client.district','client.municipality', 'client.parish'])
+        $resultado = Contract::with(['meter', 'client.district', 'client.municipality', 'client.parish'])
             ->whereHas('meter', function ($query) use ($nif) {
                 $query->where('nif', $nif);
             })
@@ -660,41 +660,45 @@ class ContractsController extends Controller
         return response()->json($resultado);
     }
 
-    public function export(Request $request){
+    public function export(Request $request)
+    {
 
-        $contracts = Contract::with([ 'commercial',
-        'service',
-        'category','meter.powerbracket', 'client.cae','client.district', 'client.municipality', 'client.parish', 'notes', 'statuses'])
-        ->when($request->filled('nif'), function ($query) use ($request) {
-            $query->whereHas('meter', function ($q) use ($request) {
-                $q->where('nif', 'like', '%' . $request->input('nif') . '%');
-            });
-        })
-        ->when($request->filled('year'), function ($query) use ($request) {
-            return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
-        })
-        ->when($request->filled('cpe'), function ($query) use ($request) {
-            $query->whereHas('meter', function ($q) use ($request) {
-                $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
-            });
-        })
-        ->when($request->filled('status_id'), function ($query) use ($request) {
-            $query->whereHas('statuses', function ($q) use ($request) {
-                $q->where('id', $request->input('status_id'));
-            });
-        })
-        // ->when($request->filled('condominium_administrator'), function ($query) use ($request) {
-        //     return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
-        // })
-        ->when($request->filled('administrator_name'), function ($query) use ($request) {
-            // return $query->where('documentation_status_id', $request->input('condominium_administrator'));
-            $query->whereHas('client', function ($q) use ($request) {
-                // $q->where('conduminium_administrator', $request->input('condominium_administrator'));
-                $q->where('administrator_name', 'like', '%' . $request->input('administrator_name') . '%');
-            });
-        })->get();
+        $contracts = Contract::with([
+            'commercial',
+            'service',
+            'category', 'meter.powerbracket', 'client.caee', 'client.district', 'client.municipality', 'client.parish', 'notes', 'statuses'
+        ])
+            ->when($request->filled('nif'), function ($query) use ($request) {
+                $query->whereHas('meter', function ($q) use ($request) {
+                    $q->where('nif', 'like', '%' . $request->input('nif') . '%');
+                });
+            })
+            ->when($request->filled('year'), function ($query) use ($request) {
+                return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
+            })
+            ->when($request->filled('cpe'), function ($query) use ($request) {
+                $query->whereHas('meter', function ($q) use ($request) {
+                    $q->where('cpe', 'like', '%' . $request->input('cpe') . '%');
+                });
+            })
+            ->when($request->filled('status_id'), function ($query) use ($request) {
+                $query->whereHas('statuses', function ($q) use ($request) {
+                    $q->where('id', $request->input('status_id'));
+                });
+            })
+            // ->when($request->filled('condominium_administrator'), function ($query) use ($request) {
+            //     return $query->whereRaw("YEAR(effective_at) = ?", $request->input('year'));
+            // })
+            ->when($request->filled('administrator_name'), function ($query) use ($request) {
+                // return $query->where('documentation_status_id', $request->input('condominium_administrator'));
+                $query->whereHas('client', function ($q) use ($request) {
+                    // $q->where('conduminium_administrator', $request->input('condominium_administrator'));
+                    $q->where('administrator_name', 'like', '%' . $request->input('administrator_name') . '%');
+                });
+            })->get();
 
         $filteredData = $contracts->map(function ($contract) {
+            // dd($contract->client);
             return [
                 'bo' => $contract->backofficer->name ?? '',
                 'commercial' => $contract->commercial->name ?? '',
@@ -715,11 +719,11 @@ class ContractsController extends Controller
                 'cheias' => $contract->nif->standard,
                 'vazio' => $contract->nif->off_peak,
                 'super_vazio' => $contract->nif->super_off_peak,
-                'inserido'=> $contract->inserted_at ?? '',
+                'inserido' => $contract->inserted_at ?? '',
                 'assinado' => $contract->signed_at ?? '',
                 'efetivo' => $contract->effective_at ?? '',
                 'renovacao' => $contract->renewal_at ?? '',
-                'cae' => $contract->client->cae->title ?? '',
+                'cae' => $contract->client->caee ? $contract->client->caee->code : '',
                 'nome' => $contract->client->name ?? '',
                 'morada' => $contract->client->address ?? '',
                 'porta' => $contract->client->door ?? '',
@@ -746,7 +750,7 @@ class ContractsController extends Controller
                 'data_comissao_administrador' => $contract->commission->administrator_payment_date ?? '',
                 'comissao_comercial' => $contract->commission->commercial_paid_amount ?? '',
                 'data_comissao_comercial' => $contract->commission->commercial_payment_date ?? '',
-                'status' => $contract->statuses->title ?? '',                
+                'status' => $contract->statuses->title ?? '',
                 'status_title' => $contract->status_title ?? '',
             ];
         });
@@ -760,6 +764,7 @@ class ContractsController extends Controller
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
         // dava erro por causa das chaves primaria e associações, solução by chatgpt (ver se é ok)
+        // diogo: não esta ok ahah temos de ver isso
         $contract->delete();
         return redirect()->route('contracts.index')->with('success', 'Contrato Apagado com sucesso!');
 
