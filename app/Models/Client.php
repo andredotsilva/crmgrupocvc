@@ -20,53 +20,53 @@ class Client extends Model
     use HasUlids;
 
     protected $fillable = [
-        'cae',
-        'administrator_name',
-        'condominium_administrator',
-        'name',
-        'address',
-        'door',
-        'floor',
-        'post_code',
-        'dmp_code',
-        'parish_id',
-        'municipality_id',
-        'district_id',
-        'user_id',
+        "cae",
+        "administrator_name",
+        "condominium_administrator",
+        "name",
+        "address",
+        "door",
+        "floor",
+        "post_code",
+        "dmp_code",
+        "parish_id",
+        "municipality_id",
+        "district_id",
+        "user_id",
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, "user_id");
     }
 
     public function mailingAddress()
     {
-        return $this->hasOne(MailingAddress::class, 'client_id');
+        return $this->hasOne(MailingAddress::class, "client_id");
     }
 
     public function district()
     {
-        return $this->belongsTo(District::class, 'district_id');
+        return $this->belongsTo(District::class, "district_id");
     }
 
     public function municipality()
     {
-        return $this->belongsTo(Municipality::class, 'municipality_id');
+        return $this->belongsTo(Municipality::class, "municipality_id");
     }
 
     public function parish()
     {
-        return $this->belongsTo(Parish::class, 'parish_id');
+        return $this->belongsTo(Parish::class, "parish_id");
     }
 
     public function contracts(): HasMany
     {
-        return $this->hasMany(Contract::class, 'client_id');
+        return $this->hasMany(Contract::class, "client_id");
     }
 
-    public function caee()
-    {
-        return $this->belongsTo(Cae::class, 'cae_id');
-    }
+    // public function caee()
+    // {
+    //     return $this->belongsTo(Cae::class, 'cae_id');
+    // }
 }

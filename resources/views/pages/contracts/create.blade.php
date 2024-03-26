@@ -446,9 +446,9 @@
                                 <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <input type="hidden" name="client_id" id="client_id">
                                     <div class="sm:col-span-2">
-                                        {{-- <x-input-select title="CAE" id="cae_id" name="cae_id"
-                                                :collection="$caes" :errors="$errors->first('cae_id')" /> --}}
-                                        <x-input-number title="CAE" name="cae_id" :errors="$errors->first('cae_id')" />
+                                        {{-- <x-input-select title="CAE" id="cae_id" name="cae"
+                                                :collection="$caes" :errors="$errors->first('cae')" /> --}}
+                                        <x-input-number title="CAE" name="cae" :errors="$errors->first('cae')" />
                                     </div>
                                     <div class="sm:col-span-2">
                                         <x-input-string title="Nome Cliente" id="name" name="name" :errors="$errors->first('name')" />
