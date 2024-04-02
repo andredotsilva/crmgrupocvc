@@ -558,7 +558,7 @@
                             <!--Forma Pagamento-->
                             <section id="pagamento">
                                 <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="pagamento">
-                                    <h1 class="text-lg pb-4 dark:text-gray-200">Forma de Pagamento</h1>
+                                    <h1 class="text-lg pb-4 text-gray-800 dark:text-gray-200">Forma de Pagamento</h1>
                                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                         <div class="sm:col-span-2">
@@ -568,8 +568,8 @@
 
                                                 <div class="mt-2">
                                                     <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                        <span class="flex select-none items-center pl-3 text-gray-300 sm:text-sm">PT50</span>
-                                                        <input type="text" name="nib" id="nib" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-200 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="">
+                                                        <span class="flex select-none items-center pl-3 text-gray-800 dark:text-gray-200 sm:text-sm">PT50</span>
+                                                        <input type="text" name="nib" id="nib" class="text-gray-800 dark:text-gray-200 block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-200 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="">
                                                     </div>
                                                 </div>
                                                 @error('nib')
