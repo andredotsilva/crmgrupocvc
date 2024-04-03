@@ -409,7 +409,7 @@
                                         </div>
                                     </div>
                                     <div class="sm:col-span-2">
-                                        <x-input-number title="Preço Fixo" name="fixed_price" :errors="$errors->first('fixed_price')" />
+                                        <x-input-number title="Preço da Potência" name="fixed_price" :errors="$errors->first('fixed_price')" />
                                     </div>
 
                                     <div class="sm:col-span-2">
