@@ -55,7 +55,7 @@
                 ];
                 @endphp
 
-                <div class="w-64 pt-12">
+                <div class="w-64 pt-8 mr-4">
                     @foreach ($buttons as $function => $name)
                     <div class="py-1">
                         <button class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700" onclick="scrollToSection('{{ $function }}')">
@@ -409,11 +409,11 @@
                                         </div>
                                     </div>
                                     <div class="sm:col-span-2">
-                                        <x-input-number title="Preço da Potência" name="fixed_price" :errors="$errors->first('fixed_price')" />
+                                        <x-input-price title="Preço da Potência" name="fixed_price" :errors="$errors->first('fixed_price')" />
                                     </div>
 
                                     <div class="sm:col-span-2">
-                                        <x-input-number title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" />
+                                        <x-input-price title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" />
                                     </div>
 
                                 </div>
@@ -705,7 +705,7 @@
                             <!--Comissões-->
                             <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="comissoesdatas">
                                 <h1 class="text-md pb-4 dark:text-gray-200">
-                                    AQUI Comissões de Energia
+                                    Comissões de Energia
                                 </h1>
                                 <div class="grid grid-cols-3 gap-4">
 

@@ -31,24 +31,13 @@
         </h2>
     </x-slot>
 
-    <div class="p-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden">
-                <div class="p-2 text-gray-900 dark:text-gray-100">
-                    @if (auth()->user()->roles()->min('id') != 4)
-                        <a href="{{ route('contracts.create') }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">{{ __('Inserir Novo Contrato') }}</a>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     {{-- @foreach (Auth()->user()->roles as $role)
         @if (!$role->id === 4) --}}
     @if (auth()->user()->roles()->min('id') != 4)
 
-        <div class="p-1">
+        <div class="p-10">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
 
@@ -145,14 +134,20 @@
                                 </div>
                             </div>
                             <div class="flex justify-end gap-1">
+                                <div class="p-2 text-gray-900 dark:text-gray-100">
+                                    @if (auth()->user()->roles()->min('id') != 4)
+                                        <a href="{{ route('contracts.create') }}"
+                                        class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">{{ __('Inserir Novo Contrato') }}</a>
+                                    @endif
+                                </div>
                                 <div class="mt-2">
-                                    <a href="{{ route('contracts.export', request()->query()) }}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Exportar para Excel</a>
-
+                                    <a href="{{ route('contracts.export', request()->query()) }}" class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">Exportar para Excel</a>
+                                        
                                 </div>
 
                                 <button onclick="resetForm()"
-                                    class="bg-gray-300 hover:bg-gray-400 text-white font-bold py-1 px-2 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                    class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser">
                                         <path
@@ -166,9 +161,9 @@
                                         document.getElementById('dadosorg').reset();
                                     }
                                 </script>
-                                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                        fill="#FFFFFF" viewBox="0 0 256 256" class="h-8 w-8">
+                                <button class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        fill="#FFFFFF" viewBox="0 0 256 256">
                                         <path
                                             d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
                                         </path>

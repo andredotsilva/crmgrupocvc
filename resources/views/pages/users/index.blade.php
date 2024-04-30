@@ -43,6 +43,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
+                        
                         <form action="{{ route('users.index') }}" method="GET">
                             <div class="flex items-stretch justify-start mb-4 flex-row gap-3">
                                 <div class="relative mt-2 rounded-md shadow-sm">
@@ -64,8 +65,8 @@
                             </div>
                             <div class="flex justify-end gap-3 mr-4">
                                 <button onclick="resetForm()"
-                                    class="bg-gray-300 hover:bg-gray-400 text-white font-bold py-1 px-2 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                    class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser">
                                         <path
@@ -81,9 +82,9 @@
                                     }
                                 </script>
 
-                                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFFFFF"
-                                        viewBox="0 0 256 256" class="h-8 w-8">
+                                <button class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFFFFF"
+                                        viewBox="0 0 256 256">
                                         <path
                                             d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
                                         </path>

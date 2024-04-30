@@ -15,7 +15,7 @@
             $selectedValue = $value->id;
             $selectedTitle = $value->title;
             @endphp
-            <option value="{{ $value->id }}" data-code="{{ $selectedCode }}" {{ old($name, $selectedValue) == $selectedValue ? 'selected' : '' }}>
+            <option value="{{ $value->id }}"  {{ old($name, $selectedValue) == $selectedValue ? 'selected' : '' }}>
                 @if ($value->acronym)
                 {{ $value->acronym . ' - ' }}
                 @endif

@@ -76,7 +76,7 @@
                                             <div class="flex items-center gap-x-2">
                                                 <div>
                                                     <h2 class="font-medium text-gray-800 dark:text-white ">
-                                                        {{ $contract->client ? $contract->client->administrator_name : 'Sem informação' }}
+                                                        {{ $contract->client ? $contract->client->condominium_administrator: 'Sem informação' }}
                                                     </h2>
                                                 </div>
                                             </div>

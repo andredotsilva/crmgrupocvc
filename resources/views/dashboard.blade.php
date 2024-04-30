@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="flex flex-col flex-grow ml-4">
                                         <div class="text-sm text-gray-500 dark:text-slate-400">CPEs em alta</div>
-                                        <div class="font-bold text-lg">32</div>
+                                        <div class="font-bold text-lg">{{$alta}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -97,10 +97,10 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @if (auth()->user()->roles()->min('id') != 4)
                         <a href="{{ route('contracts.create') }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">{{ __('Inserir Novo Contrato') }}</a>
+                        class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">{{ __('Inserir Novo Contrato') }}</a>
                     @endif
                     <a href="{{ route('contracts.index') }}"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">{{ __('Ver todos') }}</a>
+                    class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">{{ __('Ver todos') }}</a>
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <x-table :contracts="$contracts" :contractsCount="$contractsCount" />
