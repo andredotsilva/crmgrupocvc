@@ -246,7 +246,7 @@
                         @if ($contract->meter)
                             <h4 class="text-blue-600 dark:text-blue-400">
                                 @if ($contract->meter->power_bracket_id === 15)
-                                    {{ $contract->meter->power * 100 }}
+                                    Outra {{ $contract->meter->power / 100 }}
                                 @else
                                     {{ $contract->meter->powerbracket->title ?? 0 }}
                                 @endif
@@ -566,7 +566,7 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Conselho:</div>
+                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Concelho:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->client && $contract->mailingAddress)
                             <h4 class="text-blue-600 dark:text-blue-400">
@@ -809,7 +809,7 @@
                                 <div class="p-4 col-span-8 md:col-span-8">
                                     @if ($contract->commission)
                                         <h4 class="text-blue-600 dark:text-blue-400">
-                                            {{ $contract->commission->refubnd_energy_cvc_payment_date }}
+                                            {{ $contract->commission->refund_energy_cvc_payment_date }}
                                         </h4>
                                     @endif
                                 </div>

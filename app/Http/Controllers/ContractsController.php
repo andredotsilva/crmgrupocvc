@@ -39,6 +39,7 @@ use App\Exports\ContractsExports;
 use Maatwebsite\Excel\Facades\Excel;
 use DateInterval;
 use DateTime;
+use Termwind\Components\Dd;
 
 class ContractsController extends Controller
 {
@@ -565,6 +566,7 @@ class ContractsController extends Controller
             $meter->peak = $request->peak;
             $meter->standard = $request->standard;
             $meter->off_peak = $request->off_peak;
+            $meter->power_bracket_id = $request->power_bracket_id;
             $meter->super_off_peak = $request->super_off_peak;
             $meter->gas = $request->gas;
             $meter->fixed_price = $this->formatarNumero($request->fixed_price);
@@ -765,8 +767,13 @@ class ContractsController extends Controller
     public function renew($id)
     {
         $contract = Contract::where("id", $id)->first();
+        $mailingAddress = MailingAddress::where(
+            "contract_id",
+            $contract->id
+        )->first();
 
         $newContract = $contract->replicate();
+        $newMailingAddress = $mailingAddress->replicate();
 
         $newContract->signed_at = date("Y-m-d");
         $newContract->effective_at = date(
@@ -775,6 +782,8 @@ class ContractsController extends Controller
         );
 
         $newContract->save();
+        $newMailingAddress->contract_id = $newContract->id;
+        $newMailingAddress->save();
 
         return redirect()
             ->route("contracts.index")
@@ -865,7 +874,7 @@ class ContractsController extends Controller
             "service",
             "category",
             "meter.powerbracket",
-			"meter.tariff",
+            "meter.tariff",
             // "client.caee",
             "client.district",
             "client.municipality",
@@ -936,25 +945,36 @@ class ContractsController extends Controller
                 "campanha" => $contract->plan->title ?? "",
                 "arquivo" => $contract->archive,
                 //"tensao" => $contract->nif->powerbracket->title ?? "",
-				"tensao" => $contract->meter->tariff->title ?? "",
+                "tensao" => $contract->meter->tariff->title ?? "",
                 "nif" => $contract->nif->nif,
                 "cpe" => $contract->nif->cpe,
-                "potencia" => $contract->meter->powerbracket->title,
+                "potencia" =>
+                    $contract->meter &&
+                    $contract->meter->powerbracket &&
+                    $contract->meter->powerbracket->id != 15
+                        ? $contract->meter->powerbracket->title
+                        : ($contract->meter->powerbracket
+                            ? $contract->meter->powerbracket->title .
+                                " - " .
+                                $contract->meter->power / 100
+                            : ""),
+
                 "simples" => $contract->nif->flat,
                 "pontas" => $contract->nif->peak,
                 "cheias" => $contract->nif->standard,
                 "vazio" => $contract->nif->off_peak,
                 "super_vazio" => $contract->nif->super_off_peak,
+                "gas" => $contract->nif->gas,
+                "PREÇO POTÊNCIA" => $contract->nif->fixed_price / 100,
+                "PREÇO ENERGIA" => $contract->nif->energy_price / 100,
                 "inserido" => $contract->inserted_at ?? "",
                 "assinado" => $contract->signed_at ?? "",
                 "efetivo" => $contract->effective_at ?? "",
                 "renovacao" => $contract->renewal_at ?? "",
-                "cae" => $contract->client->caee
-                    ? $contract->client->caee->code
-                    : "",
+                "cae" => $contract->client->cae,
                 "nome" => $contract->client->name ?? "",
-                "morada" => $contract->client->address ?? "",
-                "porta" => $contract->client->door ?? "",
+                "MORADA" => $contract->client->address ?? "",
+                "PORTA" => $contract->client->door ?? "",
                 "andar" => $contract->client->floor ?? "",
                 "codigo_postal" => $contract->client->post_code ?? "",
                 "codigo_dmp" => $contract->client->dmp_code,
@@ -963,28 +983,63 @@ class ContractsController extends Controller
                 "district" => $contract->client->district->title ?? "",
                 "nib" => $contract->nib ?? "",
                 "tipo_fatura" => $contract->invoiceType->title ?? "",
-                "morada" => $contract->mailingAddress->address ?? "",
-                "porta" => $contract->mailingAddress->door ?? "",
-                "codigo_postal" => $contract->mailingAddress->post_code ?? "",
-                "freguesia" => $contract->mailingAddress->parish->title ?? "",
-                "municipality" =>
+                "MORADA FATURA" => $contract->mailingAddress->address ?? "",
+                "PORTA FATURA" => $contract->mailingAddress->door ?? "",
+                "ANDAR FATURA" => $contract->mailingAddress->floor ?? "",
+                "CP" => $contract->mailingAddress->post_code ?? "",
+                "FREGUESIA FATURA" =>
+                    $contract->mailingAddress->parish->title ?? "",
+                "CONCELHO FATURA" =>
                     $contract->mailingAddress->municipality->title ?? "",
-                "district" => $contract->mailingAddress->district->title ?? "",
-                "email" => $contract->mailingAddress->email ?? "",
-                "telefone" => $contract->mailingAddress->phone_number ?? "",
-                "nif" => $contract->mailingAddress->nif ?? "",
-                "email" => $contract->signatory_email ?? "",
-                "telefone" => $contract->signatory_phone ?? "",
+                "DISTRITO FATURA" =>
+                    $contract->mailingAddress->district->title ?? "",
+                "EMAIL FATURA" => $contract->mailingAddress->email ?? "",
+                "CONTACTO FATURA" =>
+                    $contract->mailingAddress->phone_number ?? "",
+                "NIF RESPONSAVEL" => $contract->mailingAddress->nif ?? "",
+                "EMAIL ASSINATURA" => $contract->signatory_email ?? "",
+                "CONTACTO ASSINATURA" => $contract->signatory_phone ?? "",
                 "comissao_administrador" =>
-                    $contract->commission->administrator_paid_amount ?? "",
+                    $contract->commission->administrator_paid_amount / 100 ??
+                    "",
                 "data_comissao_administrador" =>
                     $contract->commission->administrator_payment_date ?? "",
+                "Devolução ao Administrador" =>
+                    $contract->commission->refund_administrator_paid_amount /
+                        100 ??
+                    "",
+                "data_devolucao_administrador" =>
+                    $contract->commission->refund_administrator_payment_date ??
+                    "",
                 "comissao_comercial" =>
-                    $contract->commission->commercial_paid_amount ?? "",
+                    $contract->commission->commercial_paid_amount / 100 ?? "",
                 "data_comissao_comercial" =>
                     $contract->commission->commercial_payment_date ?? "",
-                "status" => $contract->statuses->title ?? "",
-                "status_title" => $contract->status_title ?? "",
+                " devolucao_comercial" =>
+                    $contract->commission->refund_commercial_paid_amount /
+                        100 ??
+                    "",
+                "data_devolucao_comercial" =>
+                    $contract->commission->refund_commercial_payment_date ?? "",
+                "comissao_backoffice" =>
+                    $contract->commission->cvc_paid_amount / 100 ?? "",
+                "data_comissao_backoffice" =>
+                    $contract->commission->cvc_payment_date ?? "",
+                "devolucao_backoffice" =>
+                    $contract->commission->refund_cvc_paid_amount / 100 ?? "",
+                "data_devolucao_backoffice" =>
+                    $contract->commission->refund_cvc_payment_date ?? "",
+                "VALOR PAGO AO CVC" =>
+                    $contract->commission->energy_cvc_paid_amount / 100,
+                "Data Pagamento ao CVC" =>
+                    $contract->commission->energy_cvc_payment_date,
+                "Devolução ao CVC" =>
+                    $contract->commission->refund_energy_cvc_paid_amount / 100,
+                "Data Devolução ao CVC" =>
+                    $contract->commission->refund_energy_cvc_payment_date,
+
+                // "status" => $contract->statuses->title ?? "",
+                // "status_title" => $contract->status_title ?? "",
             ];
         });
 

@@ -322,6 +322,13 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        <div class="sm:col-span-2">
+                                            <x-input-price title="Preço da Potência" name="fixed_price" :value="$contract->meter->fixed_price" :errors="$errors->first('fixed_price')" />
+                                        </div>
+
+                                        <div class="sm:col-span-2">
+                                            <x-input-price title="Preço Energia" name="energy_price" :value="$contract->meter->energy_price" :errors="$errors->first('energy_price')" />
+                                        </div>
                                     </div>
                                 </div>
                                 <!--END Consumos-->
@@ -409,7 +416,9 @@
                                         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                                             <div class="sm:col-span-2">
-                                                <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')" />
+                                                <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')"
+                                                    :value="$contract->nib" />
+
                                             </div>
                                             <div class="sm:col-span-2">
                                                 <x-input-select title="Fatura" name="invoice_type_id"
@@ -594,7 +603,7 @@
                                        AQUI Comissões de Energia
                                     </h1>
                                     <div class="grid grid-cols-3 gap-4">
-                                    
+
                                         <div>
                                             <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
                                             <div class="sm:col-span-2">
