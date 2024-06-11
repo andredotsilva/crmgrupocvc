@@ -60,9 +60,9 @@
                     <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                         <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código Comerciante:</div>
                         <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($contract->commercial && $contract->commercial->user)
+                            @if ($contract->commercial)
                                 <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $contract->commercial->user->code }}
+                                    {{ $contract->commercial->code }} ?? 'N/A'
                                 </h4>
                             @endif
                         </div>
@@ -174,7 +174,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
+                <!-- <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Documentação:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
                         @if ($contract->documentation)
@@ -185,15 +185,28 @@
                             @endforeach
                         @endif
                     </div>
-                </div>
+                </div> -->
+
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Status:</div>
                     <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->status)
-                            <p>{{ $contract->status->title }}</p>
+                        @if (isset($contract->statuses) && $contract->statuses)
+                            <h1>{{ $contract->statuses->title ?? ' ' }}</h1>
+                            <p>{{ $contract->notes->text ?? ' ' }}</p>
+                            <span>
+                                @if (isset($contract->notes->backOfficer->name))
+                                    Editado por: {{ $contract->notes->backOfficer->name }}
+                                @else
+                                    Editado por: Informação não disponível
+                                @endif
+                                em {{ $contract->notes->updated_at ? $contract->notes->updated_at->format('d/m/Y H:i') : 'Data não disponível' }}
+                            </span>
                         @endif
+
+
                     </div>
                 </div>
+
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Arquivo do Cliente:</div>
                     <div class="p-4 col-span-8 md:col-span-8">

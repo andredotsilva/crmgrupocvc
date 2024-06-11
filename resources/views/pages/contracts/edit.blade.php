@@ -231,13 +231,17 @@
                                                 :collection="$tariffs" :errors="$errors->first('tariff_id')" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-select title="Potência/Escalão" name="power_bracket_id"
+                                            <x-input-select title="Potência/Escalão" name="power_bracket_id" :value="$contract->meter->powerbracket"
                                                 :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
                                         </div>
-                                        <div class="sm:col-span-2" hidden id="powerParent">
-                                            <x-input-string title="Pôtencia/CUI" id="power" name="power"
-                                                :errors="$errors->first('power')" />
-                                        </div>
+                                        @if ($contract->meter->powerbracket->id == 15)
+                                            <div class="sm:col-span-2" id="powerParent">
+                                                <x-input-string title="Pôtencia/CUI" id="power" name="power" :value="$contract->meter->power / 100"
+                                                    :errors="$errors->first('power')" />
+                                            </div>
+                                        @endif
+
+
                                         <script>
                                             const powerBracketInput = document.getElementById('power_bracket_id');
                                             const powerParent = document.getElementById('powerParent');
@@ -401,12 +405,11 @@
                                             <x-input-select title="Freguesia" name="parish_id" :value="$contract->client->parish"
                                                 :errors="$errors->first('parish_id')" />
                                         </div>
-                                        {{-- @php
-                                            dd($contract->client);
-                                        @endphp --}}
                                     </div>
                                 </div>
                                 <!--END Dados Cliente-->
+
+
 
                                 <!--Forma Pagamento-->
                                 <section id="pagamento">
@@ -420,8 +423,9 @@
                                                     :value="$contract->nib" />
 
                                             </div>
+
                                             <div class="sm:col-span-2">
-                                                <x-input-select title="Fatura" name="invoice_type_id"
+                                                <x-input-select title="Fatura" name="invoice_type_id" :value="$contract->invoiceType"
                                                     id="invoice_type_id" :collection="$invoiceTypes" :errors="$errors->first('invoice_type_id')" />
                                             </div>
                                         </div>
@@ -633,18 +637,29 @@
                                 <div
                                     class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800">
                                     <div class="sm:col-span-2">
-                                        <x-input-select title="Status" name="status_id" :collection="$statuses"
+                                        <x-input-select title="Status" name="status_id" :collection="$statuses" :value="$contract->statuses"
                                             :errors="$errors->first('status_id')" />
                                     </div>
-                                    <div hidden class="grid grid-cols-1 gap-x-6 gap-y-8" style="display: none"
-                                        id="messageParent">
+                                    <div hidden class="grid grid-cols-1 gap-x-6 gap-y-8"
+                                        @if($contract->notes) style="display: block" @endif id="messageParent">
                                         <div class="sm:col-span-4">
                                             <label for="message"
                                                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
                                             <div class="mt-2">
                                                 <textarea id="message" rows="4" name="text"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500"
-                                                    placeholder=""></textarea>
+                                                    placeholder="">{{ $contract->notes->text }}
+                                                </textarea>
+                                                <span style="color:white">Nota editada por:
+                                                {{
+                                                    $contract->notes->backOfficer->name
+                                                }}
+                                                a
+                                                {{
+                                                    $contract->notes->updated_at
+                                                }}
+                                                </span>
+
                                             </div>
                                         </div>
                                     </div>

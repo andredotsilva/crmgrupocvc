@@ -472,7 +472,7 @@ class ContractsController extends Controller
             "mailingAddress.district",
             "mailingAddress.municipality",
             "mailingAddress.parish",
-            "notes",
+            "notes.backOfficer",
         ])
             ->where("id", $id)
             ->first();
@@ -493,10 +493,13 @@ class ContractsController extends Controller
             "invoiceType",
             "documentation",
             "client.municipality",
+            "notes.backOfficer",
         ])
             ->where("id", $id)
             ->first();
         $contractsCount = Contract::count();
+
+        // dd($contract);
 
         $tariffs = Tariff::all();
         $districts = District::all();
@@ -544,8 +547,7 @@ class ContractsController extends Controller
             $contract->category_id = $request->category_id;
             $contract->provider_id = $request->provider_id;
             $contract->plan_id = $request->plan_id;
-            $contract->documentation_status_id =
-                $request->documentation_status_id;
+            $contract->status_id = $request->status_id;
             $contract->archive = $request->archive;
             $contract->inserted_at = $request->inserted_at;
             $contract->signed_at = $request->signed_at;
@@ -761,7 +763,7 @@ class ContractsController extends Controller
 
         return redirect()
             ->route("contracts.index")
-            ->with("success", "Contrato criado com sucesso!");
+            ->with("success", "Contrato editado com sucesso!");
     }
 
     public function renew($id)
