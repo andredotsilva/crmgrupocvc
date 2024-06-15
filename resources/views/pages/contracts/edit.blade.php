@@ -234,7 +234,7 @@
                                             <x-input-select title="Potência/Escalão" name="power_bracket_id" :value="$contract->meter->powerbracket"
                                                 :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
                                         </div>
-                                        @if ($contract->meter->powerbracket->id == 15)
+                                        @if ($contract->meter && $contract->meter->powerbracket $contract->meter->powerbracket->id == 15)
                                             <div class="sm:col-span-2" id="powerParent">
                                                 <x-input-string title="Pôtencia/CUI" id="power" name="power" :value="$contract->meter->power / 100"
                                                     :errors="$errors->first('power')" />
@@ -475,7 +475,7 @@
                                                 :value="$contract->mailingAddress->parish ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
-                                            <x-input-string title="Email" name="mail" :errors="$errors->first('mail')"
+                                            <x-input-string title="Email" name="email" :errors="$errors->first('mail')"
                                                 :value="$contract->mailingAddress->email ?? null" />
                                         </div>
                                         <div class="sm:col-span-2">
