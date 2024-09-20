@@ -7,9 +7,9 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src={{ asset('../img/energia-preto.webp') }} style="width: 7rem; height: 100%;"
+                        <img src={{ asset('../img/energia-preto.webp') }} style="width: 5rem; height: 100%;"
                             alt="" class="logo dark:hidden">
-                        <img src={{ asset('../img/energia.webp') }} style="width: 7rem; height: 100%;" alt=""
+                        <img src={{ asset('../img/energia.webp') }} style="width: 5rem; height: 100%;" alt=""
                             class="logo hidden dark:block">
                     </a>
                 </div>
