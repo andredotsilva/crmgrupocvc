@@ -37,8 +37,8 @@
                 @endif
                 @if (!Auth::user()->is_client)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link>
-                            {{ __('Finanças (em breve)') }}
+                        <x-nav-link :href="route('finances.index')" :active="request()->routeIs('finances')">
+                            {{ __('Finanças') }}
                         </x-nav-link>
                     </div>
                 @endif

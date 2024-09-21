@@ -16,6 +16,7 @@ use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
+use App\Http\Controllers\FinanceController;
 
 
 /*
@@ -70,7 +71,13 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/cae', CAEController::class);
 
-    Route::resource('/financas', FinancialController::class);
+    //Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
+    //Route::get('/finances', [ContractsController::class, 'showFinances'])->name('finances.index');
+    Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
+
+// Route to show the financial details for a specific contract
+Route::get('/finances/{contractId}', [FinanceController::class, 'show'])->name('finances.show');
+
 
     Route::resource('/users', UsersController::class);
     Route::get('/users/fetchuserbycode/{code}', [UsersController::class, 'fetchUserByCode']);

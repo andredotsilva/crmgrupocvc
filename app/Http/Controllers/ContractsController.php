@@ -1065,4 +1065,15 @@ class ContractsController extends Controller
 
         DB::statement("SET FOREIGN_KEY_CHECKS=1");
     }
+
+    
+    public function showFinances($contractId)
+    {
+        // Fetch the specific contract with its financial data
+        $contract = Contract::with(['commission'])->findOrFail($contractId);
+
+        return view('pages.finances.index', compact('contract'));
+    }
+
+
 }
