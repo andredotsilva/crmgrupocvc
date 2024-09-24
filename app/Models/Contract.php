@@ -75,6 +75,7 @@ class Contract extends Model
         return $this->belongsTo(Client::class, 'client_id');
     }
 
+
     public function notes()
     {
         return $this->hasOne(Note::class);
@@ -150,11 +151,6 @@ class Contract extends Model
         return $this->belongsTo(Meter::class, 'meter_id');
     }
 
-    // public function client()
-    // {
-    //     return $this->belongsTo(Client::class, 'client_id');
-    // }
-
     public function municipality()
     {
         return $this->belongsTo(Municipality::class, 'municipality_id'); // ERRO
@@ -208,4 +204,12 @@ class Contract extends Model
             });
         }
     }
+
+    public function financials()
+    {
+        return $this->hasMany(Financial::class, 'contract_id');
+    }
+
+    
+
 }

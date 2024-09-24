@@ -11,7 +11,7 @@
         </div>
 
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
-            {{ __('GEstão Finanças') }}
+            {{ __('Finanças') }}
         </h2>
 
     </x-slot>
@@ -28,24 +28,32 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
-                        
+
                         <table class="table-auto w-full bg-white shadow-md rounded-lg">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="py-2 px-4">Contract ID</th>
-                                    <th class="py-2 px-4">Client</th>
-                                    <th class="py-2 px-4">Signed At</th>
-                                    <th class="py-2 px-4">Action</th>
+                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">Cliente</th>
+                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">NIF</th>
+                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">Número de Contratos</th>
+                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($contracts as $contract)
+                                @foreach($clients as $client)
                                     <tr class="border-b">
-                                        <td class="py-2 px-4">{{ $contract->id }}</td>
-                                        <td class="py-2 px-4">{{ $contract->client->name }}</td>
-                                        <td class="py-2 px-4">{{ $contract->signed_at }}</td>
-                                        <td class="py-2 px-4">
-                                            <a href="{{ route('finances.show', $contract->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded">View Finances</a>
+                                        <td class="py-4 px-6 text-sm font-medium text-gray-900">
+                                            {{ $client->name }}
+                                        </td>
+                                        <td class="py-4 px-6 text-sm text-gray-500">
+                                            {{ $client->client->nif ?? 'N/A' }}
+                                        </td>
+                                        <td class="py-4 px-6 text-sm text-gray-500">
+                                            {{ $client->contracts->count() }}
+                                        </td>
+                                        <td class="py-4 px-6 text-sm">
+                                            <a href="{{ route('finances.showContractsByClient', $client->id) }}" class="text-blue-500 hover:underline">
+                                                Ver Contratos
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

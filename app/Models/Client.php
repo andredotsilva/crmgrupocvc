@@ -60,13 +60,9 @@ class Client extends Model
         return $this->belongsTo(Parish::class, "parish_id");
     }
 
-    public function contracts(): HasMany
+    public function contracts()
     {
-        return $this->hasMany(Contract::class, "client_id");
+        return $this->hasMany(Contract::class, 'client_id');
     }
 
-    // public function caee()
-    // {
-    //     return $this->belongsTo(Cae::class, 'cae_id');
-    // }
 }

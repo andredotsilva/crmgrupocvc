@@ -54,13 +54,14 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
 
     public function client()
     {
         return $this->hasOne(Client::class, 'user_id');
     }
+
 
     public function getIsClientAttribute()
     {
@@ -74,8 +75,11 @@ class User extends Authenticatable
 
     public function contracts(): HasManyThrough
     {
-        return $this->hasManyThrough(Contract::class, Client::class);
+        //return $this->hasManyThrough(Contract::class, Client::class);
+        return $this->hasManyThrough(Contract::class, Client::class, 'user_id', 'client_id');
 
-        // return $this->hasMany(Contract::class, 'client_id');
+        //return $this->hasMany(Contract::class, 'client_id');
     }
+
+    
 }
