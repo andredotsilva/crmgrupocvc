@@ -12,17 +12,21 @@ class FinanceController extends Controller
 
     public function index()
     {
-        // Load users with the "Cliente" role and their associated clients and contracts
-        $clients = User::with(['client.contracts']) 
-                    ->whereHas('roles', function ($query) {
-                        $query->where('id', 4); // Only users with role 'Cliente'
-                    })->get();
+        $contractsCount = Contract::count();
 
-        return view('pages.finances.index', compact('clients'));
+        $clients = User::whereHas('roles', function ($query) {
+            $query->where('role_id', 4); // Cliente role_id = 4
+        })
+        ->withCount(['contracts']) // Conta o número de contratos
+        ->with('client') // Carrega os detalhes do cliente
+        ->get();
+
+        return view('pages.finances.index', compact('clients', "contractsCount"));
     }
 
 
-    public function showContractsByClient($clientId)
+
+    /*public function showContractsByClient($clientId)
     {
         $user = User::with('client.contracts.meter', 'client.contracts.status') 
                  ->where('id', $clientId)
@@ -33,7 +37,26 @@ class FinanceController extends Controller
 
         $contracts = $user->client ? $user->client->contracts : collect(); 
         return view('pages.finances.showContractsByClient', compact('user', 'contracts'));
+    }*/
+
+    public function showContractsByClient($id)
+    {
+        $contracts = Contract::with('client.user')
+            ->whereHas('client.user', function ($query) use ($id) {
+                $query->where('id', $id);
+            })
+            ->get();
+
+        $user = User::with(['roles', 'client', 'client.contracts', 'client.district', 'client.municipality', 'client.parish'])->where('id', $id)->first();
+
+        return view('pages.finances.showContractsByClient', [
+            'user' => $user,
+            'contracts' => $contracts
+        ]);
     }
+
+
+
 
     public function showContractDetails($contractId)
     {

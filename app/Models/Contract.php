@@ -74,7 +74,7 @@ class Contract extends Model
     {
         return $this->belongsTo(Client::class, 'client_id');
     }
-
+    
 
     public function notes()
     {
@@ -210,6 +210,12 @@ class Contract extends Model
         return $this->hasMany(Financial::class, 'contract_id');
     }
 
-    
+    // Contract.php
+    public function cpe()
+    {
+        return $this->belongsTo(Cpe::class, 'cpe_id'); // assuming you have a `cpe_id` foreign key in the `contracts` table
+    }
+
+
 
 }

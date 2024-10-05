@@ -29,33 +29,23 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
 
-                        <table class="table-auto w-full bg-white shadow-md rounded-lg">
-                            <thead class="bg-gray-800 text-white">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
                                 <tr>
-                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">Cliente</th>
-                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">NIF</th>
-                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">Número de Contratos</th>
-                                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-500">Ações</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contracts Count</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach($clients as $client)
-                                    <tr class="border-b">
-                                        <td class="py-4 px-6 text-sm font-medium text-gray-900">
-                                            {{ $client->name }}
-                                        </td>
-                                        <td class="py-4 px-6 text-sm text-gray-500">
-                                            {{ $client->client->nif ?? 'N/A' }}
-                                        </td>
-                                        <td class="py-4 px-6 text-sm text-gray-500">
-                                            {{ $client->contracts->count() }}
-                                        </td>
-                                        <td class="py-4 px-6 text-sm">
-                                            <a href="{{ route('finances.showContractsByClient', $client->id) }}" class="text-blue-500 hover:underline">
-                                                Ver Contratos
-                                            </a>
-                                        </td>
-                                    </tr>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach ($clients as $client)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $client->name }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $client->contracts_count }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <a href="{{ route('finances.showContractsByClient', $client->id) }}" class="text-indigo-600 hover:text-indigo-900">View Contracts</a>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
