@@ -1051,7 +1051,7 @@ class ContractsController extends Controller
         );
     }
 
-    public function destroy($id)
+    /*public function destroy($id)
     {
         $contract = Contract::findOrFail($id);
 
@@ -1064,7 +1064,23 @@ class ContractsController extends Controller
             ->with("success", "Contrato Apagado com sucesso!");
 
         DB::statement("SET FOREIGN_KEY_CHECKS=1");
+    }*/
+    public function destroy($id)
+    {
+        try {
+            $contract = Contract::findOrFail($id);
+            $contract->delete();
+
+            return redirect()
+                ->route("contracts.index")
+                ->with("success", "Contrato Apagado com sucesso!");
+        } catch (\Exception $e) {
+            return redirect()
+                ->route("contracts.index")
+                ->with("error", "Erro ao apagar o contrato: " . $e->getMessage());
+        }
     }
+
 
     
     public function showFinances($contractId)

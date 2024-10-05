@@ -216,6 +216,11 @@ class Contract extends Model
         return $this->belongsTo(Cpe::class, 'cpe_id'); // assuming you have a `cpe_id` foreign key in the `contracts` table
     }
 
+    // In Meter.php
+    public function powerbracket()
+    {
+        return $this->belongsTo(PowerBracket::class);
+    }
 
 
 }

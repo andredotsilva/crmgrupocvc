@@ -234,7 +234,8 @@
                                             <x-input-select title="Potência/Escalão" name="power_bracket_id" :value="$contract->meter->powerbracket"
                                                 :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
                                         </div>
-                                        @if ($contract->meter->powerbracket->id == 15)
+                                        @if (optional($contract)->meter && optional($contract->meter)->powerbracket && optional($contract->meter->powerbracket)->id == 15)
+
                                             <div class="sm:col-span-2" id="powerParent">
                                                 <x-input-string title="Pôtencia/CUI" id="power" name="power" :value="$contract->meter->power / 100"
                                                     :errors="$errors->first('power')" />
