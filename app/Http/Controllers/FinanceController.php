@@ -55,21 +55,7 @@ class FinanceController extends Controller
         ]);
     }
 
-
-
-
     public function showContractDetails($contractId)
-    {
-        $contract = Contract::with(['client', 'meter']) // Assuming 'client' and 'meter' relationships
-                    ->findOrFail($contractId);
-
-        return view('pages.finances.showContractDetails', compact('contract'));
-    }
-
-
-
-
-    /*public function show($contractId)
     {
         $contract = Contract::with('commission')->findOrFail($contractId);
 
@@ -80,22 +66,7 @@ class FinanceController extends Controller
 
         $companyProfit = $totalPaidToCVC - ($totalPaidToAdministrators + $totalPaidToCommercials);
 
-        return view('pages.finances.show', compact('contract', 'totalPaidToCVC', 'totalPaidToAdministrators', 'totalPaidToCommercials', 'companyProfit'));
+        return view('pages.finances.showContractDetails', compact('contract', 'totalPaidToCVC', 'totalPaidToAdministrators', 'totalPaidToCommercials', 'companyProfit'));
     }
 
-
-        public function showContractsByClient($clientId)
-        {
-            //dd($clientId); // This will show you the ID being passed
-
-            $client = User::with('client.contracts.meter')
-                ->whereHas('roles', function ($query) {
-                    $query->where('id', 4); // Ensure the user has the "Cliente" role
-                })
-                ->findOrFail($clientId);
-
-            return view('pages.finances.showContractsByClient', compact('client'));
-        }
-
-*/
 }

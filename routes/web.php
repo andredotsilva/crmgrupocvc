@@ -75,10 +75,10 @@ Route::middleware('auth')->group(function () {
     //Route::get('/finances', [ContractsController::class, 'showFinances'])->name('finances.index');
     Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
     Route::get('/finances/{contractId}', [FinanceController::class, 'show'])->name('finances.show');
-    Route::get('finances/contracts/{contract}', [FinanceController::class, 'showContractDetails'])->name('finances.showContractDetails');
     Route::get('/finances/{client}/contracts', [FinanceController::class, 'showContractsByClient'])->name('finances.showContractsByClient');
 
-    
+    Route::get('finances/contract/{contractId}', [FinanceController::class, 'showContractDetails'])->name('finances.showContractDetails');
+
 
 
 
