@@ -36,6 +36,9 @@ Route::get('/', function () {
     http: //http://127.0.0.1:8000/v1/upload
     return view('welcome');
 });
+Route::get('/', function () {
+    return redirect('/login');
+});
 Route::get('/cpe/getcpesbynif/{nif}', [CPEController::class, 'getCpesByNIF'])->name('cpe.getcpesbynif');
 
 Route::middleware('auth')->group(function () {
