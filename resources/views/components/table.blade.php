@@ -1,13 +1,7 @@
 @props(['contracts', 'contractsCount', 'hasPagination' => false])
 
 <section class="container px-4 mx-auto">
-    <div class="flex items-center gap-x-3">
-        <h2 class="text-lg font-medium text-gray-800 dark:text-white">Contratos</h2>
-
-        <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-600 dark:text-gray-200">
-            {{ $contractsCount }}
-        </span>
-    </div>
+    
 
     <div class="flex flex-col mt-6">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
