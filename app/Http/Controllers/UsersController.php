@@ -91,8 +91,10 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('pages.users.create');
+        $roles = Role::all();
+        return view('pages.users.create', compact('roles'));
     }
+
 
     public function store(Request $request)
     {
@@ -100,6 +102,7 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed'],
+            'role' => ['required', 'exists:roles,id'] 
         ]);
 
         $user = User::create([
@@ -108,13 +111,11 @@ class UsersController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $role = Role::where('id', 4)->first();
-
+        $role = Role::find($request->role);
         $user->roles()->attach($role);
 
-        // event(new Registered($user));
-
         return redirect()->route('users.index')
-            ->with('success');
+            ->with('success', 'Usuário criado com sucesso!');
     }
+
 }
