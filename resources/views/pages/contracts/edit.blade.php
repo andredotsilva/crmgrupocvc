@@ -38,7 +38,7 @@
         </h2>
     </x-slot>
     <div class="py-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
 
             <div class="flex" style="margin-bottom: 100px;">
 

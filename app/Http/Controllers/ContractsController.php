@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -40,6 +41,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use DateInterval;
 use DateTime;
 use Termwind\Components\Dd;
+
 
 class ContractsController extends Controller
 {
@@ -197,11 +199,16 @@ class ContractsController extends Controller
             ->first();
 
         if (!$doesUserExists) {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = "adwkweqnqkne213352sddas";
-            $user->save();
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => 'Teste2024!', //Password Temporaria
+            ]);
+    
+            $role = Role::where('id', 4)->first();
+            $user->roles()->attach($role);
+        } else {
+            $user = $doesUserExists;
         }
 
         $commission = new Commission();

@@ -92,8 +92,8 @@
     </div>
     <!--Tables-->
     <div class="px-10">
-        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8 leading-tight flex justify-between items-center">
-            <div class="overflow-hidden shadow-sm sm:rounded-lg">
+        <div class=" max-w-screen-xl mx-auto sm:px-6 lg:px-8 leading-tight flex justify-between items-center">
+            <div class="overflow-hidden sm:rounded-lg">
 
                 <div class="leading-tight flex justify-between items-center px-4 py-4">
                     <div class="flex justify-left">
@@ -106,10 +106,10 @@
                     <div class="justify-right">
                         @if (auth()->user()->roles()->min('id') != 4)
                         <a href="{{ route('contracts.create') }}"
-                        class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">{{ __('Inserir Novo Contrato') }}</a>
+                        class="w-[100%] bg-blue-300 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">{{ __('Inserir Novo Contrato') }}</a>
                         @endif
                         <a href="{{ route('contracts.index') }}"
-                        class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">{{ __('Ver todos') }}</a>
+                        class="w-[100%] bg-blue-300 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700">{{ __('Ver todos') }}</a>
                     
                     </div>
                 </div>
