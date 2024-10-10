@@ -13,6 +13,12 @@ class Cpe extends Model
         'cpe',
         'name',
         'nif',
+        'address',
+        'door',
+        'post_code',
+        'power',
+        'tariff',
+        'floor',
         'district_id',
         'municipality_id',
         'parish_id'

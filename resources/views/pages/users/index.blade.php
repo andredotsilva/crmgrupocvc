@@ -1,39 +1,44 @@
 <x-app-layout>
-    <x-slot name="header" class="pt-8">
-        <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
+    <x-slot name="header">
+        <div class="flex items-center overflow-x-auto whitespace-nowrap">
             <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
                     <path
                         d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
             </a>
 
             <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                         clip-rule="evenodd" />
                 </svg>
             </span>
 
-            <a href="{{ route('servicos') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+            <a href="{{ route('servicos') }}" class="text-gray-600 dark:text-gray-200 hover:underline text-sm">
                 {{ __('Utilizadores') }}
             </a>
         </div>
 
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
-            {{ __('Utilizadores') }}
-        </h2>
+        <div class="leading-tight flex justify-between items-center">
+            <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
+                {{ __('Utilizadores') }}
+            </h2>
+            <a href="{{ route('users.create') }}" class="pb-4">
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
+                    Inserir Utilizador
+                </button>
+            </a>
+        </div>
+
+        
     </x-slot>
 
     <div class="py-2 bg-slate-100 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <a href="{{ route('users.create') }}" class="pb-4">
-                            <button
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
-                                Inserir Utilizador
-                            </button>
-                        </a>
+            
         </div>
     </div>
 
@@ -43,6 +48,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
+                        
                         <form action="{{ route('users.index') }}" method="GET">
                             <div class="flex items-stretch justify-start mb-4 flex-row gap-3">
                                 <div class="relative mt-2 rounded-md shadow-sm">
@@ -64,8 +70,8 @@
                             </div>
                             <div class="flex justify-end gap-3 mr-4">
                                 <button onclick="resetForm()"
-                                    class="bg-gray-300 hover:bg-gray-400 text-white font-bold py-1 px-2 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                    class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser">
                                         <path
@@ -81,9 +87,9 @@
                                     }
                                 </script>
 
-                                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFFFFF"
-                                        viewBox="0 0 256 256" class="h-8 w-8">
+                                <button class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFFFFF"
+                                        viewBox="0 0 256 256">
                                         <path
                                             d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
                                         </path>

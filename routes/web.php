@@ -7,7 +7,6 @@ use App\Http\Controllers\PlansController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ParishController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ContractController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ServicosController;
 use App\Http\Controllers\ContractsController;
@@ -17,6 +16,7 @@ use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
+use App\Http\Controllers\FinanceController;
 
 
 /*
@@ -33,7 +33,11 @@ use App\Http\Controllers\MunicipalityController;
 Route::apiResource('/cpe', CPEController::class);
 
 Route::get('/', function () {
+    http: //http://127.0.0.1:8000/v1/upload
     return view('welcome');
+});
+Route::get('/', function () {
+    return redirect('/login');
 });
 Route::get('/cpe/getcpesbynif/{nif}', [CPEController::class, 'getCpesByNIF'])->name('cpe.getcpesbynif');
 
@@ -44,7 +48,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/contracts/renew/{id}', [ContractsController::class, 'renew'])->name('contracts.renew');
+    Route::get('/contracts/export', [ContractsController::class, 'export'])->name('contracts.export');
     Route::resource('/contracts', ContractsController::class);
+
     Route::post('/upload', [FilesUploadController::class, 'store']);
     Route::delete('/destroy', [FilesUploadController::class, 'destroy']);
     Route::get('/download/{id}', [ContractsController::class, 'download'])->name('download');
@@ -62,17 +70,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/energia-gas', [EnergiagasController::class, 'index'])
         ->name('energia');
 
-    
 
 
     Route::resource('/cae', CAEController::class);
 
-    Route::resource('/financas', FinancialController::class);
+    //Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
+    //Route::get('/finances', [ContractsController::class, 'showFinances'])->name('finances.index');
+    Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
+    Route::get('/finances/{contractId}', [FinanceController::class, 'show'])->name('finances.show');
+    Route::get('/finances/{client}/contracts', [FinanceController::class, 'showContractsByClient'])->name('finances.showContractsByClient');
+
+    Route::get('finances/contract/{contractId}', [FinanceController::class, 'showContractDetails'])->name('finances.showContractDetails');
+
+
+
+
 
     Route::resource('/users', UsersController::class);
     Route::get('/users/fetchuserbycode/{code}', [UsersController::class, 'fetchUserByCode']);
     Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
-    
+
     Route::get('/create-user', [UsersController::class, 'create'])
         ->name('create-user');
 });

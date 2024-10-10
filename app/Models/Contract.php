@@ -74,6 +74,7 @@ class Contract extends Model
     {
         return $this->belongsTo(Client::class, 'client_id');
     }
+    
 
     public function notes()
     {
@@ -150,11 +151,6 @@ class Contract extends Model
         return $this->belongsTo(Meter::class, 'meter_id');
     }
 
-    // public function client()
-    // {
-    //     return $this->belongsTo(Client::class, 'client_id');
-    // }
-
     public function municipality()
     {
         return $this->belongsTo(Municipality::class, 'municipality_id'); // ERRO
@@ -208,4 +204,23 @@ class Contract extends Model
             });
         }
     }
+
+    public function financials()
+    {
+        return $this->hasMany(Financial::class, 'contract_id');
+    }
+
+    // Contract.php
+    public function cpe()
+    {
+        return $this->belongsTo(Cpe::class, 'cpe_id'); // assuming you have a `cpe_id` foreign key in the `contracts` table
+    }
+
+    // In Meter.php
+    public function powerbracket()
+    {
+        return $this->belongsTo(PowerBracket::class);
+    }
+
+
 }

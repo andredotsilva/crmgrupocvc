@@ -2,21 +2,21 @@
 
 namespace App\Imports;
 
-// set_time_limit(0);
-
 use App\Models\CPE;
 use App\Models\District;
 use App\Models\Municipality;
+use App\Models\Parish;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+
 
 /**
  * Summary of DistrictsImport
  */
-class CPEImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow
+class CPEImport implements ToModel, WithHeadingRow, WithChunkReading, WithBatchInserts, ShouldQueue
 {
     /**
      * @param array $row
@@ -26,28 +26,45 @@ class CPEImport implements ToModel, WithBatchInserts, WithChunkReading, WithHead
     public function model(array $row)
     {
 
-        $district = District::where('code', $row['distrito_cod'])->first();
+        $districtCode = $row['distrito_cod'];
 
-        $ultimosDoisDigitos = substr($row['concelho_cod'], -2);
-
-        $digitoEsquerda = substr($ultimosDoisDigitos, 0, 1);
-
-        if ($digitoEsquerda == 0) {
-            $comparar = substr($ultimosDoisDigitos, -1);
+        if (!is_numeric($districtCode) || $districtCode < 1 || $districtCode > 22) {
+            $defaultDistrictId = District::where('title', 'N/A')->first()->id;
+            $district = District::where('id', $defaultDistrictId)->first();
         } else {
-            $comparar = $ultimosDoisDigitos;
+            $district = District::where('code', $districtCode)->first();
         }
-        // dd($comparar);
-        $municipality = Municipality::where('code', $comparar)->where('district_id', $district->id)->first();
 
-        // dd($municipality);
+        if ($row['concelho_cod'] == 3094) {
+            $municipality = Municipality::where('title', 'N/A')->first();
+        } else {
+            $ultimosDoisDigitos = substr($row['concelho_cod'], -2);
+
+            $digitoEsquerda = substr($ultimosDoisDigitos, 0, 1);
+
+            if ($digitoEsquerda == 0) {
+                $comparar = substr($ultimosDoisDigitos, -1);
+            } else {
+                $comparar = $ultimosDoisDigitos;
+            }
+
+            $municipality = Municipality::where('code', $comparar)->where('district_id', $district->id)->first();
+        }
 
         return new Cpe([
             'cpe' => $row['cpe'],
             'name' => $row['nome'],
-            'nif' => $row['nipc'],
+            'nif' => substr($row['nipc'], 2),
+            'address' => $row['rua'],
+            'door' => $row['porta'],
+            'post_code' => $row['postal_cod'],
+            'power' => $row['pot_contratada2'] ?? null,
+            'tariff' => $row['nivel_tensao'],
+            'floor' => $row['andar_fracao'],
             'district_id' => $district->id,
             'municipality_id' => $municipality->id,
+            'parish_id' => null,
+
         ]);
     }
 

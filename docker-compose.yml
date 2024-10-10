@@ -1,14 +1,14 @@
-version: '3'
+version: "3"
 volumes:
   data:
 services:
   db:
     image: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: docker
       MYSQL_DATABASE: crm
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
     volumes:
       - data:/var/lib/mysql
     ports:
