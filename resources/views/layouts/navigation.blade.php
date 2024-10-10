@@ -1,15 +1,15 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 sticky top-0 pt-2 left-0 h-20"
     style="z-index: 2 !important;">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src={{ asset('../img/energia-preto.webp') }} style="width: 7rem; height: 100%;"
+                        <img src={{ asset('../img/energia-preto.webp') }} style="width: 5rem; height: 100%;"
                             alt="" class="logo dark:hidden">
-                        <img src={{ asset('../img/energia.webp') }} style="width: 7rem; height: 100%;" alt=""
+                        <img src={{ asset('../img/energia.webp') }} style="width: 5rem; height: 100%;" alt=""
                             class="logo hidden dark:block">
                     </a>
                 </div>
@@ -37,7 +37,7 @@
                 @endif
                 @if (!Auth::user()->is_client)
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('financas.index')" :active="request()->routeIs('users')">
+                        <x-nav-link :href="route('finances.index')" :active="request()->routeIs('finances')">
                             {{ __('Finanças') }}
                         </x-nav-link>
                     </div>

@@ -39,97 +39,7 @@
 
     <div class="py-2 bg-slate-100 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex items-center text-gray-800">
-                <div class="p-4 w-full">
-                    <div class="grid grid-cols-12 gap-4">
-                        <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
-                                <div
-                                    class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
-                                        viewBox="0 0 256 256">
-                                        <path
-                                            d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500 dark:text-slate-400">Clientes</div>
-                                    <div class="font-bold text-lg">{{ $clientsCount }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
-                                <div
-                                    class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-yellow-100 text-yellow-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap">
-                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                                    </svg>
-                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000"
-                                        viewBox="0 0 256 256">
-                                        <path
-                                            d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z">
-                                        </path>
-                                    </svg> --}}
-                                </div>
-                                <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500 dark:text-slate-400">Contratos Eletricidade</div>
-                                    <div class="font-bold text-lg">{{ $clientsCount }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
-                                <div
-                                    class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flame">
-                                        <path
-                                            d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
-                                    </svg>
-                                </div>
-                                <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500 dark:text-slate-400">Contratos Gás</div>
-                                    <div class="font-bold text-lg">{{ $gasContractsCount }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6 md:col-span-3">
-                            <div
-                                class="flex flex-row bg-white shadow-sm rounded-lg p-4 dark:bg-gray-700 dark:text-blue-400">
-                                <div
-                                    class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-red-100 text-red-500">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="flex flex-col flex-grow ml-4">
-                                    <div class="text-sm text-gray-500 dark:text-slate-400">A Expirar</div>
-                                    <div class="font-bold text-lg">32</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--Tables-->
-    <div class="p-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="gap-x-6 gap-y-8 sm:grid-cols-6 px-6 pb-2 pt-4 rounded-2xl bg-white dark:bg-gray-800">
+            <div class="gap-x-6 gap-y-8 sm:grid-cols-6 pb-2 pt-4 rounded-2xl bg-white dark:bg-gray-800">
                     <a href="{{ route('plans.index') }}">
                         <button
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
@@ -143,6 +53,14 @@
                         </button>
                     </a>
                 </div>
+        </div>
+    </div>
+
+    <!--Tables-->
+    <div class="p-10">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                
                 <!--Filtros-->
                 <div class="p-1">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -253,8 +171,8 @@
                                     </div>
                                     <div class="flex justify-end gap-3 mr-4">
                                         <button onclick="resetForm()"
-                                            class="bg-gray-300 hover:bg-gray-400 text-white font-bold py-1 px-2 rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                        class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                 class="lucide lucide-eraser">
@@ -272,9 +190,9 @@
                                         </script>
 
                                         <button
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                fill="#FFFFFF" viewBox="0 0 256 256" class="h-8 w-8">
+                                        class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="#FFFFFF" viewBox="0 0 256 256">
                                                 <path
                                                     d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
                                                 </path>

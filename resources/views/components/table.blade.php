@@ -1,13 +1,7 @@
 @props(['contracts', 'contractsCount', 'hasPagination' => false])
 
 <section class="container px-4 mx-auto">
-    <div class="flex items-center gap-x-3">
-        <h2 class="text-lg font-medium text-gray-800 dark:text-white">Contratos</h2>
-
-        <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-600 dark:text-gray-200">
-            {{ $contractsCount }}
-        </span>
-    </div>
+    
 
     <div class="flex flex-col mt-6">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -76,7 +70,7 @@
                                             <div class="flex items-center gap-x-2">
                                                 <div>
                                                     <h2 class="font-medium text-gray-800 dark:text-white ">
-                                                        {{ $contract->client ? $contract->client->administrator_name : 'Sem informação' }}
+                                                        {{ $contract->client ? $contract->client->condominium_administrator: 'Sem informação' }}
                                                     </h2>
                                                 </div>
                                             </div>
@@ -131,6 +125,24 @@
                                     </td>
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <div class="flex items-center gap-x-6">
+
+                                            {{-- <form action="{{ route('contracts.renew', $contract->id) }}" method="POST">
+                                                <a>
+                                                    <button
+                                                        class="text-gray-500 transition-colors duration-200 dark:hover:text-blue-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt-text"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg>
+                                                    </button>
+                                                </a> --}}
+                                            {{-- </form> --}}
+
+                                            <form action="{{ route('contracts.renew', $contract->id) }}" method="POST" onsubmit="return confirm('Tem certeza de que deseja duplicar o modelo?')">
+                                                @csrf
+                                                   <button
+                                                        class="text-gray-500 transition-colors duration-200 dark:hover:text-blue-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-receipt-text"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/><path d="M13 16H8"/></svg>
+                                                    </button>
+                                            </form>
+
 
                                             <a href="{{ route('contracts.show', $contract->id) }}">
                                                 <button
