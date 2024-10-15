@@ -29,19 +29,19 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                 <div>
                                     <p class="font-semibold">Total Pago à CVC:</p>
-                                    <p>€{{ number_format($totalPaidToCVC, 2, ',', '.') }}</p>
+                                    <p>€{{ number_format($totalPaidToCVC / 100, 2, ',', '.') }}</p>
                                 </div>
                                 <div>
                                     <p class="font-semibold">Total Pago aos Administradores:</p>
-                                    <p>€{{ number_format($totalPaidToAdministrators, 2, ',', '.') }}</p>
+                                    <p>€{{ number_format($totalPaidToAdministrators /100, 2, ',', '.') }}</p>
                                 </div>
                                 <div>
                                     <p class="font-semibold">Total Pago aos Comerciais:</p>
-                                    <p>€{{ number_format($totalPaidToCommercials, 2, ',', '.') }}</p>
+                                    <p>€{{ number_format($totalPaidToCommercials /100, 2, ',', '.') }}</p>
                                 </div>
                                 <div>
                                     <p class="font-semibold">Lucro Total da Empresa:</p>
-                                    <p>€{{ number_format($totalCompanyProfit, 2, ',', '.') }}</p>
+                                    <p>€{{ number_format($totalCompanyProfit /100, 2, ',', '.') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -52,10 +52,10 @@
                                 @foreach($commissionsByProvider as $providerId => $providerData)
                                     <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow">
                                         <h3 class="text-xl font-semibold mb-2">{{ $providerData['name'] }}</h3>
-                                        <p class="mb-1">Pago à CVC: €{{ number_format($providerData['totalPaidToCVC'], 2, ',', '.') }}</p>
-                                        <p class="mb-1">Pago aos Administradores: €{{ number_format($providerData['totalPaidToAdministrators'], 2, ',', '.') }}</p>
-                                        <p class="mb-1">Pago aos Comerciais: €{{ number_format($providerData['totalPaidToCommercials'], 2, ',', '.') }}</p>
-                                        <p class="font-semibold">Lucro da Empresa: €{{ number_format($providerData['totalCompanyProfit'], 2, ',', '.') }}</p>
+                                        <p class="mb-1">Pago à CVC: €{{ number_format($providerData['totalPaidToCVC']/100, 2, ',', '.') }}</p>
+                                        <p class="mb-1">Pago aos Administradores: €{{ number_format($providerData['totalPaidToAdministrators']/100, 2, ',', '.') }}</p>
+                                        <p class="mb-1">Pago aos Comerciais: €{{ number_format($providerData['totalPaidToCommercials']/100, 2, ',', '.') }}</p>
+                                        <p class="font-semibold">Lucro da Empresa: €{{ number_format($providerData['totalCompanyProfit']/100, 2, ',', '.') }}</p>
                                     </div>
                                 @endforeach
                             </div>
