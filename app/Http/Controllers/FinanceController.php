@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class FinanceController extends Controller
 {
-    public function index()
+    /*public function index()
     {
         $contractsCount = Contract::count();
 
@@ -24,7 +24,63 @@ class FinanceController extends Controller
             "pages.finances.index",
             compact("clients", "contractsCount")
         );
+    }*/
+    
+    public function index()
+    {
+        // Count total contracts
+        $contractsCount = Contract::count();
+    
+        // Get clients with the role 'Cliente' and their contracts count
+        $clients = User::whereHas("roles", function ($query) {
+            $query->where("role_id", 4); // Cliente role_id = 4
+        })
+            ->withCount(["contracts"]) // Count the number of contracts per client
+            ->with("client") // Load client details
+            ->get();
+    
+        // Fetch all contracts with their commissions and providers
+        $contracts = Contract::with(['commission', 'provider'])->get();
+    
+        // Initialize the array for commissions by provider
+        $commissionsByProvider = [];
+    
+        foreach ($contracts as $contract) {
+            if ($contract->provider) {
+                $providerId = $contract->provider->id;
+                $providerName = $contract->provider->name;
+    
+                // Initialize provider data if it doesn't exist
+                if (!isset($commissionsByProvider[$providerId])) {
+                    $commissionsByProvider[$providerId] = [
+                        'name' => $contract->provider->acronym,
+                        'totalPaidToCVC' => 0,
+                        'totalPaidToAdministrators' => 0,
+                        'totalPaidToCommercials' => 0,
+                        'totalCompanyProfit' => 0,
+                    ];
+                }
+    
+                // Sum up the commission values for each provider
+                $commissionsByProvider[$providerId]['totalPaidToCVC'] += $contract->commission->cvc_paid_amount ?? 0;
+                $commissionsByProvider[$providerId]['totalPaidToAdministrators'] += $contract->commission->administrator_paid_amount ?? 0;
+                $commissionsByProvider[$providerId]['totalPaidToCommercials'] += $contract->commission->commercial_paid_amount ?? 0;
+    
+                // Calculate company profit (example: revenue - expenses)
+                $companyProfit = ($contract->commission->total_amount ?? 0) - (
+                    $contract->commission->cvc_paid_amount +
+                    $contract->commission->administrator_paid_amount +
+                    $contract->commission->commercial_paid_amount
+                );
+    
+                $commissionsByProvider[$providerId]['totalCompanyProfit'] += $companyProfit;
+            }
+        }
+    
+        // Pass the data to the view
+        return view("pages.finances.index", compact("clients", "contractsCount", "commissionsByProvider"));
     }
+    
 
     /*public function showContractsByClient($clientId)
     {
@@ -145,4 +201,6 @@ class FinanceController extends Controller
             )
         );
     }
+
+
 }
