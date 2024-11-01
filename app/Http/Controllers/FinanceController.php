@@ -137,9 +137,9 @@ class FinanceController extends Controller
         $commissionsByProvider = [];
 
         foreach ($contracts as $contract) {
-            $totalPaidToCVC += ($contract->commission->cvc_paid_amount - $contract->commission->energy_cvc_paid_amount) / 100;
-            $totalPaidToAdministrators += ($contract->commission->administrator_paid_amount - $contract->commission->refund_administrator_paid_amount) / 100;
-            $totalPaidToCommercials += ($contract->commission->commercial_paid_amount - $contract->commission->refund_commercial_paid_amount) / 100;
+            $totalPaidToCVC += ($contract->commission->cvc_paid_amount - $contract->commission->energy_cvc_paid_amount);
+            $totalPaidToAdministrators += ($contract->commission->administrator_paid_amount - $contract->commission->refund_administrator_paid_amount);
+            $totalPaidToCommercials += ($contract->commission->commercial_paid_amount - $contract->commission->refund_commercial_paid_amount);
 
             $providerId = $contract->provider_id;
             if (!isset($commissionsByProvider[$providerId])) {
@@ -149,13 +149,12 @@ class FinanceController extends Controller
                     'totalPaidToAdministrators' => 0,
                     'totalPaidToCommercials' => 0,
                     'totalCompanyProfit' => 0,
-                    'contracts' => [], // Opcional: para debug
                 ];
             }
 
-            $providerCVC = ($contract->commission->cvc_paid_amount - $contract->commission->energy_cvc_paid_amount) / 100;
-            $providerAdmin = ($contract->commission->administrator_paid_amount - $contract->commission->refund_administrator_paid_amount) / 100;
-            $providerCommercial = ($contract->commission->commercial_paid_amount - $contract->commission->refund_commercial_paid_amount) / 100;
+            $providerCVC = ($contract->commission->cvc_paid_amount - $contract->commission->energy_cvc_paid_amount);
+            $providerAdmin = ($contract->commission->administrator_paid_amount - $contract->commission->refund_administrator_paid_amount);
+            $providerCommercial = ($contract->commission->commercial_paid_amount - $contract->commission->refund_commercial_paid_amount);
 
             $commissionsByProvider[$providerId]['totalPaidToCVC'] += $providerCVC;
             $commissionsByProvider[$providerId]['totalPaidToAdministrators'] += $providerAdmin;
@@ -164,14 +163,6 @@ class FinanceController extends Controller
                 $commissionsByProvider[$providerId]['totalPaidToCVC'] - 
                 ($commissionsByProvider[$providerId]['totalPaidToAdministrators'] + 
                  $commissionsByProvider[$providerId]['totalPaidToCommercials']);
-            
-            // Opcional: para debug
-            // $commissionsByProvider[$providerId]['contracts'][] = [
-            //     'id' => $contract->id,
-            //     'cvc' => $providerCVC,
-            //     'admin' => $providerAdmin,
-            //     'commercial' => $providerCommercial
-            // ];
         }
 
         $totalCompanyProfit = $totalPaidToCVC - ($totalPaidToAdministrators + $totalPaidToCommercials);
