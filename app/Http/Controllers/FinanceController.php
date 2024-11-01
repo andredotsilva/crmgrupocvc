@@ -62,6 +62,7 @@ class FinanceController extends Controller
             return $contract->client->nif;
         });
 
+
         // todos os contratos
         $totalPaidToCVC = 0;
         $totalPaidToAdministrators = 0;
@@ -72,9 +73,9 @@ class FinanceController extends Controller
         $commissionsByProvider = [];
 
         foreach ($contracts as $contract) {
-            $totalPaidToCVC += $contract->commission->cvc_paid_amount + $contract->commission->energy_cvc_paid_amount;
-            $totalPaidToAdministrators += $contract->commission->administrator_paid_amount + $contract->commission->refund_administrator_paid_amount;
-            $totalPaidToCommercials += $contract->commission->commercial_paid_amount + $contract->commission->refund_commercial_paid_amount;
+            $totalPaidToCVC += ($contract->commission->cvc_paid_amount - $contract->commission->energy_cvc_paid_amount) / 100;
+            $totalPaidToAdministrators += ($contract->commission->administrator_paid_amount - $contract->commission->refund_administrator_paid_amount) / 100;
+            $totalPaidToCommercials += ($contract->commission->commercial_paid_amount - $contract->commission->refund_commercial_paid_amount) / 100;
 
             $providerId = $contract->provider_id;
             if (!isset($commissionsByProvider[$providerId])) {
@@ -84,12 +85,29 @@ class FinanceController extends Controller
                     'totalPaidToAdministrators' => 0,
                     'totalPaidToCommercials' => 0,
                     'totalCompanyProfit' => 0,
+                    'contracts' => [], // Opcional: para debug
                 ];
             }
 
-            $commissionsByProvider[$providerId]['totalPaidToCVC'] += $contract->commission->cvc_paid_amount + $contract->commission->energy_cvc_paid_amount;
-            $commissionsByProvider[$providerId]['totalPaidToAdministrators'] += $contract->commission->administrator_paid_amount + $contract->commission->refund_administrator_paid_amount;
-            $commissionsByProvider[$providerId]['totalPaidToCommercials'] += $contract->commission->commercial_paid_amount + $contract->commission->refund_commercial_paid_amount;
+            $providerCVC = ($contract->commission->cvc_paid_amount - $contract->commission->energy_cvc_paid_amount) / 100;
+            $providerAdmin = ($contract->commission->administrator_paid_amount - $contract->commission->refund_administrator_paid_amount) / 100;
+            $providerCommercial = ($contract->commission->commercial_paid_amount - $contract->commission->refund_commercial_paid_amount) / 100;
+
+            $commissionsByProvider[$providerId]['totalPaidToCVC'] += $providerCVC;
+            $commissionsByProvider[$providerId]['totalPaidToAdministrators'] += $providerAdmin;
+            $commissionsByProvider[$providerId]['totalPaidToCommercials'] += $providerCommercial;
+            $commissionsByProvider[$providerId]['totalCompanyProfit'] = 
+                $commissionsByProvider[$providerId]['totalPaidToCVC'] - 
+                ($commissionsByProvider[$providerId]['totalPaidToAdministrators'] + 
+                 $commissionsByProvider[$providerId]['totalPaidToCommercials']);
+            
+            // Opcional: para debug
+            // $commissionsByProvider[$providerId]['contracts'][] = [
+            //     'id' => $contract->id,
+            //     'cvc' => $providerCVC,
+            //     'admin' => $providerAdmin,
+            //     'commercial' => $providerCommercial
+            // ];
         }
 
         $totalCompanyProfit = $totalPaidToCVC - ($totalPaidToAdministrators + $totalPaidToCommercials);
@@ -98,6 +116,8 @@ class FinanceController extends Controller
         foreach ($commissionsByProvider as &$providerData) {
             $providerData['totalCompanyProfit'] = $providerData['totalPaidToCVC'] - ($providerData['totalPaidToAdministrators'] + $providerData['totalPaidToCommercials']);
         }
+
+    
 
 
 
@@ -117,22 +137,17 @@ class FinanceController extends Controller
     {
         $contract = Contract::with("commission")->findOrFail($contractId);
 
-        $totalPaidToCVC =
-            $contract->commission->cvc_paid_amount +
-            $contract->commission->energy_cvc_paid_amount;
+        $totalPaidToCVC = 
+            ($contract->commission->cvc_paid_amount - $contract->commission->energy_cvc_paid_amount);
 
-        $totalPaidToAdministrators =
-            $contract->commission->administrator_paid_amount +
-            $contract->commission->refund_administrator_paid_amount;
-        $totalPaidToCommercials =
-            $contract->commission->commercial_paid_amount +
-            $contract->commission->refund_commercial_paid_amount;
+        $totalPaidToAdministrators = 
+            ($contract->commission->administrator_paid_amount - $contract->commission->refund_administrator_paid_amount);
 
-        $companyProfit =
-            $totalPaidToCVC -
-            ($totalPaidToAdministrators + $totalPaidToCommercials);
+        $totalPaidToCommercials = 
+            ($contract->commission->commercial_paid_amount - $contract->commission->refund_commercial_paid_amount);
 
-        
+        $companyProfit = 
+            $totalPaidToCVC - ($totalPaidToAdministrators + $totalPaidToCommercials);
 
         return view(
             "pages.finances.showContractDetails",

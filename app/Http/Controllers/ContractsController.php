@@ -776,23 +776,36 @@ class ContractsController extends Controller
     public function renew($id)
     {
         $contract = Contract::where("id", $id)->first();
-        $mailingAddress = MailingAddress::where(
-            "contract_id",
-            $contract->id
-        )->first();
+        $mailingAddress = MailingAddress::where("contract_id", $contract->id)->first();
+        $originalNote = Note::where("contract_id", $contract->id)->first();
+        $originalCommission = Commission::where("id", $contract->commission_id)->first();
 
+        // Duplicate commission
+        $newCommission = $originalCommission->replicate();
+        $newCommission->save();
+
+        // Duplicate contract and update its commission_id
         $newContract = $contract->replicate();
-        $newMailingAddress = $mailingAddress->replicate();
-
         $newContract->signed_at = date("Y-m-d");
         $newContract->effective_at = date(
             "Y-m-d",
             strtotime($contract->effective_at . " + 1 year")
         );
-
+        $newContract->commission_id = $newCommission->id; // Link to new commission
         $newContract->save();
+        
+        // Duplicate mailing address
+        $newMailingAddress = $mailingAddress->replicate();
         $newMailingAddress->contract_id = $newContract->id;
         $newMailingAddress->save();
+
+        // Duplicate note if exists
+        if ($originalNote) {
+            $newNote = $originalNote->replicate();
+            $newNote->contract_id = $newContract->id;
+            $newNote->back_officer_id = auth()->user()->id;
+            $newNote->save();
+        }
 
         return redirect()
             ->route("contracts.index")
