@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 use App\Http\Requests\StoreContractRequest;
 use App\Models\Appliance;
@@ -191,7 +192,9 @@ class ContractsController extends Controller
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => 'Teste2024!',
+                    'password' => Hash::make($request->email),
+
+
                 ]);
                 $role = Role::where('id', 4)->first();
                 $user->roles()->attach($role);
@@ -426,7 +429,7 @@ class ContractsController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
+            return redirect()->back()->withInput()->with('error', 'Erro ao criar contrato: ' . $e->getMessage());
         }
     }
 
