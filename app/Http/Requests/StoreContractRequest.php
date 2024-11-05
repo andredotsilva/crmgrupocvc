@@ -97,7 +97,7 @@ class StoreContractRequest extends FormRequest
             "mail_parish_id" => ["nullable", "exists:parishes,id"],
             "mail_municipality_id" => ["nullable", "exists:municipalities,id"],
             "mail_district_id" => ["nullable", "exists:districts,id"],
-            "email" => ["email", "unique:users,email"],
+            "email" => ["email"],
             "phone_number" => ["nullable", "max:255"],
             "mail_nif" => ["nullable", "max:255"],
 
