@@ -86,6 +86,10 @@ class StoreContractRequest extends FormRequest
             "standard" => ["nullable", "numeric"],
             "off_peak" => ["nullable", "numeric"],
             "super_off_peak" => ["nullable", "numeric"],
+            'energy_price_standard' => 'nullable|numeric',
+            'energy_price_off_peak' => 'nullable|numeric',
+            'energy_price_super_off_peak' => 'nullable|numeric',
+            'energy_price' => 'nullable|numeric',
             "gas" => ["nullable", "numeric"],
             "power_bracket_id" => ["nullable", "exists:power_brackets,id"],
 

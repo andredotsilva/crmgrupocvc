@@ -262,6 +262,10 @@ class ContractsController extends Controller
             $meter->gas = $request->gas;
             $meter->fixed_price = $this->formatarNumero($request->fixed_price);
             $meter->energy_price = $this->formatarNumero($request->energy_price);
+            $meter->energy_price_standard = $this->formatarNumero($request->energy_price_standard);
+            $meter->energy_price_off_peak = $this->formatarNumero($request->energy_price_off_peak);
+            $meter->energy_price_super_off_peak = $this->formatarNumero($request->energy_price_super_off_peak);
+        
             $meter->save();
 
             $client = Client::firstOrCreate(['id' => $request->client_id]);
@@ -303,6 +307,11 @@ class ContractsController extends Controller
             $contract->invoice_type_id = $request->invoice_type_id;
             $contract->signatory_email = $request->signatory_email;
             $contract->signatory_phone = $request->signatory_phone;
+
+            $contract->energy_price_standard = $request->energy_price_standard;
+            $contract->energy_price_off_peak = $request->energy_price_off_peak;
+            $contract->energy_price_super_off_peak = $request->energy_price_super_off_peak;
+            $contract->energy_price = $request->energy_price;
             $contract->save();
 
             $contract->documentation()->attach($request->documentationStatuses);
@@ -559,6 +568,11 @@ class ContractsController extends Controller
             $contract->invoice_type_id = $request->invoice_type_id;
             $contract->signatory_email = $request->signatory_email;
             $contract->signatory_phone = $request->signatory_phone;
+
+            $contract->energy_price_standard = $request->energy_price_standard;
+            $contract->energy_price_off_peak = $request->energy_price_off_peak;
+            $contract->energy_price_super_off_peak = $request->energy_price_super_off_peak;
+            $contract->energy_price = $request->energy_price;
             $contract->save();
 
             $meter = Meter::where("id", $contract->meter_id)->firstOrCreate();
@@ -577,6 +591,10 @@ class ContractsController extends Controller
             $meter->energy_price = $this->formatarNumero(
                 $request->energy_price
             );
+            $meter->energy_price_standard = $this->formatarNumero($request->energy_price_standard);
+        $meter->energy_price_off_peak = $this->formatarNumero($request->energy_price_off_peak);
+        $meter->energy_price_super_off_peak = $this->formatarNumero($request->energy_price_super_off_peak);
+        
             $meter->save();
 
             $client = Client::where(
@@ -983,7 +1001,10 @@ class ContractsController extends Controller
                 "super_vazio" => $contract->nif->super_off_peak,
                 "gas" => $contract->nif->gas,
                 "PREÇO POTÊNCIA" => $contract->nif->fixed_price / 100,
-                "PREÇO ENERGIA" => $contract->nif->energy_price / 100,
+                "PREÇO ENERGIA" => $contract->energy_price,
+                "PREÇO ENERGIA CHEIAS" => $contract->energy_price_standard,
+                "PREÇO ENERGIA VAZIO" => $contract->energy_price_off_peak,
+                "PREÇO ENERGIA SUPER VAZIO" => $contract->energy_price_super_off_peak,
                 "inserido" => $contract->inserted_at ?? "",
                 "assinado" => $contract->signed_at ?? "",
                 "efetivo" => $contract->effective_at ?? "",
@@ -992,7 +1013,7 @@ class ContractsController extends Controller
                 "nome" => $contract->client->name ?? "",
                 "MORADA" => $contract->client->address ?? "",
                 "PORTA" => $contract->client->door ?? "",
-                "andar" => $contract->client->floor ?? "",
+                //"andar" => $contract->client->floor ?? "",
                 "codigo_postal" => $contract->client->post_code ?? "",
                 "codigo_dmp" => $contract->client->dmp_code,
                 "freguesia" => $contract->client->parish->title ?? "",

@@ -353,6 +353,46 @@
                         @endif
                     </div>
                 </div>
+                <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
+                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Preço Energia Cheias:</div>
+                    <div class="p-4 col-span-8 md:col-span-8">
+                        @if ($contract->energy_price_standard)
+                            <h4 class="text-blue-600 dark:text-blue-400">
+                                {{ $contract->energy_price_standard }} €
+                            </h4>
+                        @endif
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
+                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Preço Energia Vazio:</div>
+                    <div class="p-4 col-span-8 md:col-span-8">
+                        @if ($contract->energy_price_off_peak)
+                            <h4 class="text-blue-600 dark:text-blue-400">
+                                {{ $contract->energy_price_off_peak }} €
+                            </h4>
+                        @endif
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
+                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Preço Energia Super Vazio:</div>
+                    <div class="p-4 col-span-8 md:col-span-8">
+                        @if ($contract->energy_price_super_off_peak)
+                            <h4 class="text-blue-600 dark:text-blue-400">
+                                {{ $contract->energy_price_super_off_peak }} €
+                            </h4>
+                        @endif
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
+                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Preço Energia:</div>
+                    <div class="p-4 col-span-8 md:col-span-8">
+                        @if ($contract->energy_price)
+                            <h4 class="text-blue-600 dark:text-blue-400">
+                                {{ $contract->energy_price }} €
+                            </h4>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
@@ -435,16 +475,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                    <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Andar/Fração:</div>
-                    <div class="p-4 col-span-8 md:col-span-8">
-                        @if ($contract->client)
-                            <h4 class="text-blue-600 dark:text-blue-400">
-                                {{ $contract->client->floor }}
-                            </h4>
-                        @endif
-                    </div>
-                </div>
+                
                 <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
                     <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código Postal:</div>
                     <div class="p-4 col-span-8 md:col-span-8">

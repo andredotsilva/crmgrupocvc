@@ -416,6 +416,19 @@
                                         <x-input-price title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" />
                                     </div>
 
+                                    <div class="sm:col-span-2">
+                                        <x-input-price title="Preço Energia Cheias" name="energy_price_standard" :errors="$errors->first('energy_price_standard')" pattern="^\d{1,}\,?\d{0,2}$"/>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <x-input-price title="Preço Energia Vazio" name="energy_price_off_peak" :errors="$errors->first('energy_price_off_peak')" pattern="^\d{1,}\,?\d{0,2}$"/>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <x-input-price title="Preço Energia Super Vazio" name="energy_price_super_off_peak" :errors="$errors->first('energy_price_super_off_peak')" pattern="^\d{1,}\,?\d{0,2}$"/>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <x-input-price title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" pattern="^\d{1,}\,?\d{0,2}$"/>
+                                    </div>
+
                                 </div>
                             </div>
                             <!--END Consumos-->
@@ -456,9 +469,7 @@
                                     <div class="sm:col-span-2">
                                         <x-input-string title="Morada De Fornecimento" id="address" name="address" :errors="$errors->first('address')" />
                                     </div>
-                                    <div class="sm:col-span-1">
-                                        <x-input-string title="Andar" id="floor" name="floor" :errors="$errors->first('floor')" />
-                                    </div>
+                                    
                                     <div class="sm:col-span-1">
                                         <x-input-string title="Nº Porta" id="door" name="door" :errors="$errors->first('door')" />
                                     </div>
