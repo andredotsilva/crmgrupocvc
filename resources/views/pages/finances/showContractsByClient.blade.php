@@ -21,7 +21,45 @@
                     <div class="container mx-auto p-4">
                         <h1 class="text-3xl font-bold mb-4">Contracts for Client: {{ $user->name }}</h1>
 
-                        <p>Total de contratos: {{ $user->contracts->count() }}</p>
+                        <p>Total de contratos: {{ $contracts->count() }}</p>
+
+                        <!-- Totais gerais -->
+                        <div class="mt-8 mb-8 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                            <h2 class="text-2xl font-semibold mb-4">Totais para todos os contratos</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div>
+                                    <p class="font-semibold">Total Pago à CVC:</p>
+                                    <p>€{{ number_format($totalPaidToCVC / 100, 2, ',', '.') }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Total Pago aos Administradores:</p>
+                                    <p>€{{ number_format($totalPaidToAdministrators /100, 2, ',', '.') }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Total Pago aos Comerciais:</p>
+                                    <p>€{{ number_format($totalPaidToCommercials /100, 2, ',', '.') }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold">Lucro Total da Empresa:</p>
+                                    <p>€{{ number_format($totalCompanyProfit /100, 2, ',', '.') }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 mb-8">
+                            <h2 class="text-2xl font-semibold mb-4">Comissões por Provedor</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                @foreach($commissionsByProvider as $providerId => $providerData)
+                                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow">
+                                        <h3 class="text-xl font-semibold mb-2">{{ $providerData['name'] }}</h3>
+                                        <p class="mb-1">Pago à CVC: €{{ number_format($providerData['totalPaidToCVC']/100, 2, ',', '.') }}</p>
+                                        <p class="mb-1">Pago aos Administradores: €{{ number_format($providerData['totalPaidToAdministrators']/100, 2, ',', '.') }}</p>
+                                        <p class="mb-1">Pago aos Comerciais: €{{ number_format($providerData['totalPaidToCommercials']/100, 2, ',', '.') }}</p>
+                                        <p class="font-semibold">Lucro da Empresa: €{{ number_format($providerData['totalCompanyProfit']/100, 2, ',', '.') }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
 
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" style="margin-top: 30px;">
                             <thead cass="bg-gray-50 dark:bg-gray-800">

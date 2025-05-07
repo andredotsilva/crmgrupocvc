@@ -10,17 +10,8 @@
 
         </div>
 
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
-            {{ __('Finanças') }}
-        </h2>
-
     </x-slot>
 
-    <div class="py-2 bg-slate-100 dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-        </div>
-    </div>
 
     <!-- component -->
     <div class="p-1">
@@ -28,31 +19,10 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
-                        <h2 class="text-2xl font-semibold mb-4">Clientes</h2>
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead>
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contracts Count</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($clients as $client)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $client->name }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $client->contracts_count }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{ route('finances.showContractsByClient', $client->id) }}" class="text-indigo-600 hover:text-indigo-900">View Contracts</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        
-                    </div>
-                    
-                    <div class="container mx-auto p-4">
+                        <h1 class="text-3xl font-bold mb-4">Contracts for Client: {{ $user->name }}</h1>
+
+                        <p>Total de contratos: {{ $contracts->count() }}</p>
+
                         <div class="mt-8 mb-8">
                             <h2 class="text-2xl font-semibold mb-4">Comissões por Provedor</h2>
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -68,6 +38,13 @@
                             </div>
                         </div>
                         
+                        
+
+                        <div class="py-12">
+                            <a href="{{ route('finances.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded mt-4">Back to Clients</a>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
