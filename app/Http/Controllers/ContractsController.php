@@ -405,14 +405,8 @@ class ContractsController extends Controller
             if ($request->filepond) {
                 foreach ($temporaryImages as $temporaryImage) {
                     Storage::copy(
-                        "files/tmp/" .
-                            $temporaryImage->folder .
-                            "/" .
-                            $temporaryImage->filename,
-                        "files/" .
-                            $temporaryImage->folder .
-                            "/" .
-                            $temporaryImage->filename
+                        "files/tmp/" . $temporaryImage->folder . "/" . $temporaryImage->filename,
+                        "public/files/" . $temporaryImage->folder . "/" . $temporaryImage->filename
                     );
 
                     $file = new File();
@@ -749,14 +743,8 @@ class ContractsController extends Controller
             if ($request->filepond) {
                 foreach ($temporaryImages as $temporaryImage) {
                     Storage::copy(
-                        "files/tmp/" .
-                            $temporaryImage->folder .
-                            "/" .
-                            $temporaryImage->filename,
-                        "files/" .
-                            $temporaryImage->folder .
-                            "/" .
-                            $temporaryImage->filename
+                        "files/tmp/" . $temporaryImage->folder . "/" . $temporaryImage->filename,
+                        "public/files/" . $temporaryImage->folder . "/" . $temporaryImage->filename
                     );
 
                     $file = new File();
@@ -1127,5 +1115,19 @@ class ContractsController extends Controller
         return view('pages.finances.index', compact('contract'));
     }
 
+    public function viewSimulation($id)
+    {
+        $file = File::findOrFail($id);
+
+        $filePath = storage_path('app/public/files/' . $file->path);
+
+        if (!file_exists($filePath)) {
+            abort(404, 'Ficheiro não encontrado.');
+        }
+
+        return response()->file($filePath);
+    }
 
 }
+
+

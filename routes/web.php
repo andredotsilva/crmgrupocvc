@@ -41,6 +41,8 @@ Route::get('/', function () {
 });
 Route::get('/cpe/getcpesbynif/{nif}', [CPEController::class, 'getCpesByNIF'])->name('cpe.getcpesbynif');
 
+Route::get('/contrato/simulacao/{id}', [ContractsController::class, 'viewSimulation'])->name('contracts.simulation');
+
 Route::middleware('auth')->group(function () {
     Route::get('/plans/plansbyproviderid', [PlansController::class, 'plansbyproviderid'])->name('plansbyproviderid');
     Route::get('/contracts/fetchbycpe', [ContractsController::class, 'fetchbycpe'])->name('contacts.fetchbycpe');

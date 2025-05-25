@@ -957,7 +957,7 @@
 </script>
 
 
-<script>
+<!--<script>
     function apagarInformacao(id) {
         fetch(`/delete/${id}`, {
                 method: 'DELETE',

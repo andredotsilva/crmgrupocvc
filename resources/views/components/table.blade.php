@@ -48,6 +48,10 @@
                                         </svg>
                                     </button>
                                 </th>
+                                <th scope="col"
+                                    class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Simulação
+                                </th>
 
                                 <th scope="col" class="relative py-3.5 px-4">
                                     <span class="sr-only">Edit</span>
@@ -123,6 +127,28 @@
                                     <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                                         {{ $contract->statuses->title ?? '' }}
                                     </td>
+                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                        @php
+                                            $simulationFile = null;
+                                            if ($contract->files) {
+                                                foreach ($contract->files as $file) {
+                                                    if (Str::startsWith($file->filename, 'simulacao_')) {
+                                                        $simulationFile = $file;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        @endphp
+
+                                        @if($simulationFile)
+                                            <a href="{{ route('contracts.simulation', ['id' => $simulationFile->id]) }}" target="_blank" class="btn btn-sm btn-success">
+                                                Simulação
+                                            </a>
+                                        @else
+                                            <span class="text-muted">Sem Simulação</span>
+                                        @endif
+                                    </td>
+
                                     <td class="px-4 py-4 text-sm whitespace-nowrap">
                                         <div class="flex items-center gap-x-6">
 
@@ -134,6 +160,7 @@
                                                     </button>
                                                 </a> --}}
                                             {{-- </form> --}}
+                                            
 
                                             <form action="{{ route('contracts.renew', $contract->id) }}" method="POST" onsubmit="return confirm('Tem certeza de que deseja duplicar o modelo?')">
                                                 @csrf

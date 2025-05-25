@@ -18,7 +18,8 @@ class FilesUploadController extends Controller
             $filename = $file->getClientOriginalName();
             $folder = uniqid() . '-' . now()->timestamp;
 
-            $file->storeAs('files/tmp/' . $folder, $filename);
+            //$file->storeAs('files/tmp/' . $folder, $filename);
+            $file->storeAs('public/files/' . $folder, $filename);
 
             TemporaryFile::create([
                 'folder' => $folder,
