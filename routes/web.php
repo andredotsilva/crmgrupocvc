@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/contracts/renew/{id}', [ContractsController::class, 'renew'])->name('contracts.renew');
     Route::get('/contracts/export', [ContractsController::class, 'export'])->name('contracts.export');
     Route::resource('/contracts', ContractsController::class);
+    Route::post('/contracts/upload-csv', [ContractsController::class, 'uploadCsv'])->name('contracts.uploadCsv');
 
     Route::post('/upload', [FilesUploadController::class, 'store']);
     Route::delete('/destroy', [FilesUploadController::class, 'destroy']);

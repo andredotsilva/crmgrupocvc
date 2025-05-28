@@ -65,7 +65,9 @@
             flex justify-center items-center
             text-sm text-gray-500 dark:bg-gray-700 dark:text-blue-400
             ">
-            Desenvolvido pela CaseOf Creative Agency
+            <a href="https://dis.com.pt" target="_blank" rel="noopener noreferrer">
+                Desenvolvido pela DIS - Digital Innovation Systems
+            </a>
         </footer>
     </div>
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>

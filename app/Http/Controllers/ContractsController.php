@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Municipality;
+use App\Models\Parish;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +24,7 @@ use App\Models\Note;
 use App\Models\User;
 use App\Models\Contract;
 use App\Models\District;
+
 use App\Models\DocumentStatus;
 use App\Models\InvoiceType;
 use App\Models\MailingAddress;
@@ -42,6 +45,11 @@ use Maatwebsite\Excel\Facades\Excel;
 use DateInterval;
 use DateTime;
 use Termwind\Components\Dd;
+use Illuminate\Support\Facades\Log;
+
+
+use League\Csv\Reader;
+use League\Csv\Exception;
 
 
 class ContractsController extends Controller
@@ -1128,6 +1136,189 @@ class ContractsController extends Controller
         return response()->file($filePath);
     }
 
+
+    //UPload contratos
+// Função utilitária para limpar datas inválidas
+function normalizeDate($value) {
+    return empty($value) || trim($value) === '' ? null : date('Y-m-d', strtotime(str_replace('/', '-', $value)));
 }
 
+// Função utilitária para normalizar inteiros
+function normalizeInt($value) {
+    return (is_numeric($value) && trim($value) !== '') ? (int) $value : null;
+}
+    
+public function uploadCsv(Request $request)
+{
+    $request->validate([
+        'csv_file' => 'required|file|mimes:csv,txt',
+    ]);
+
+    try {
+        DB::beginTransaction();
+
+        $file = $request->file('csv_file');
+        $handle = fopen($file->getRealPath(), 'r');
+        $header = null;
+        $rowNumber = 1;
+
+        while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+            if (!$header) {
+                $header = $row;
+                Log::info('CSV Header:', $header);
+                continue;
+            }
+            $rowNumber++;
+            $row = array_combine($header, $row);
+
+            Log::info("Processing row $rowNumber", $row);
+
+            // Map CSV columns to expected keys
+            $row['name'] = $row['NOME DO CLIENTE'] ?? null;
+            $row['email'] = $row['EMAIL FATURA'] ?? null; // or another column if you have a real email
+
+            // Now validate
+            $validator = \Validator::make($row, [
+                'email' => 'required|email',
+                'name' => 'required|string',
+                // Add more validation rules as needed
+            ]);
+            if ($validator->fails()) {
+                Log::error("Validation failed on row $rowNumber", $validator->errors()->toArray());
+                DB::rollBack();
+                return back()->withErrors($validator)->withInput();
+            }
+
+            try {
+                // User
+                $user = User::firstOrCreate(
+                    ['email' => $row['email']],
+                    ['name' => $row['name'], 'password' => \Hash::make($row['email'])]
+                );
+                if ($user->wasRecentlyCreated) {
+                    $role = Role::where('id', 4)->first();
+                    $user->roles()->attach($role);
+                }
+
+                // Commission
+                $commission = new Commission();
+                $commission->administrator_paid_amount = $this->formatarNumero($row['administrator_paid_amount'] ?? 0);
+                $commission->commercial_paid_amount = $this->formatarNumero($row['commercial_paid_amount'] ?? 0);
+                $commission->cvc_paid_amount = $this->formatarNumero($row['cvc_paid_amount'] ?? 0);
+                $commission->energy_cvc_paid_amount = $this->formatarNumero($row['energy_cvc_paid_amount'] ?? 0);
+                $commission->cvc_payment_date = $this->normalizeDate($row['cvc_payment_date'] ?? null);
+                $commission->administrator_payment_date = $this->normalizeDate($row['administrator_payment_date'] ?? null);
+                $commission->commercial_payment_date = $this->normalizeDate($row['commercial_payment_date'] ?? null);
+                $commission->energy_cvc_payment_date = $this->normalizeDate($row['energy_cvc_payment_date'] ?? null);
+                $commission->refund_administrator_paid_amount = $this->formatarNumero($row['refund_administrator_paid_amount'] ?? 0);
+                $commission->refund_cvc_paid_amount = $this->formatarNumero($row['refund_cvc_paid_amount'] ?? 0);
+                $commission->refund_commercial_paid_amount = $this->formatarNumero($row['refund_commercial_paid_amount'] ?? 0);
+                $commission->refund_energy_cvc_paid_amount = $this->formatarNumero($row['refund_energy_cvc_paid_amount'] ?? 0);
+                $commission->refund_commercial_payment_date = $this->normalizeDate($row['refund_commercial_payment_date'] ?? null);
+                $commission->refund_administrator_payment_date = $this->normalizeDate($row['refund_administrator_payment_date'] ?? null);
+                $commission->refund_cvc_payment_date = $this->normalizeDate($row['refund_cvc_payment_date'] ?? null);
+                $commission->refund_energy_cvc_payment_date = $this->normalizeDate($row['refund_energy_cvc_payment_date'] ?? null);
+                $commission->save();
+
+                // Meter
+                $meter = new Meter();
+                $meter->cpe = $row['cpe'] ?? null;
+                $meter->power = $this->formatarNumero($row['power'] ?? 0);
+                $meter->nif = $row['nif'] ?? null;
+                $meter->tariff_id = $this->normalizeInt($row['tariff_id'] ?? null);
+                $meter->flat = $this->formatarNumero($row['flat'] ?? 0);
+                $meter->peak = $this->formatarNumero($row['peak'] ?? 0);
+                $meter->standard = $this->formatarNumero($row['standard'] ?? 0);
+                $meter->off_peak = $this->formatarNumero($row['off_peak'] ?? 0);
+                $meter->super_off_peak = $this->formatarNumero($row['super_off_peak'] ?? 0);
+                $meter->gas = $this->normalizeInt($row['gas'] ?? null);
+                $meter->power_bracket_id = $this->normalizeInt($row['power_bracket_id'] ?? null);
+                $meter->fixed_price = $this->formatarNumero($row['fixed_price'] ?? 0);
+                $meter->energy_price = $this->formatarNumero($row['energy_price'] ?? 0);
+                $meter->energy_price_standard = $this->formatarNumero($row['energy_price_standard'] ?? 0);
+                $meter->energy_price_off_peak = $this->formatarNumero($row['energy_price_off_peak'] ?? 0);
+                $meter->energy_price_super_off_peak = $this->formatarNumero($row['energy_price_super_off_peak'] ?? 0);
+                $meter->save();
+
+                // Client
+                $client = Client::firstOrCreate(['id' => $row['client_id'] ?? null]);
+                $client->cae = $this->normalizeInt($row['cae'] ?? null);
+                $client->administrator_name = $row['administrator_name'] ?? null;
+                $client->condominium_administrator = $row['condominium_administrator'] ?? null;
+                $client->name = $row['name'] ?? null;
+                $client->address = $row['address'] ?? null;
+                $client->floor = $row['floor'] ?? null;
+                $client->door = $row['door'] ?? null;
+                $client->post_code = $row['post_code'] ?? null;
+                $client->dmp_code = null;
+                // Lookup district, municipality, parish by title (name) from CSV
+                $district = District::whereRaw('TRIM(title) = ?', [trim($row['district_id'] ?? '')])->first();
+                $municipality = Municipality::whereRaw('TRIM(title) = ?', [trim($row['municipality_id'] ?? '')])->first();
+                $parish = Parish::whereRaw('TRIM(title) = ?', [trim($row['parish_id'] ?? '')])->first();
+
+                $client->district_id = $district?->id;
+                $client->municipality_id = $municipality?->id;
+                $client->parish_id = $parish?->id;
+                $client->user_id = $user->id;
+                $client->save();
+
+                // Contract - Busca por nomes em vez de IDs para os campos relacionados
+                $backOfficer = User::where('name', trim($row['back_officer_id'] ?? ''))->first();
+                $commercial = User::where('name', trim($row['commercial_id'] ?? ''))->first();
+                $clientType = ClientType::where('title', trim($row['client_type_id'] ?? ''))->first();
+                $service = Service::where('title', trim($row['service_id'] ?? ''))->first();
+                $category = Category::where('title', trim($row['category_id'] ?? ''))->first();
+                $provider = Provider::where('title', trim($row['provider_id'] ?? ''))->first();
+                $plan = Plan::where('title', trim($row['plan_id'] ?? ''))->first();
+                $status = Status::where('title', trim($row['status_id'] ?? ''))->first();
+                $invoiceType = InvoiceType::where('title', trim($row['invoice_type_id'] ?? ''))->first();
+
+                $contract = new Contract();
+                $contract->back_officer_id = $backOfficer?->id;
+                $contract->commercial_id = $commercial?->id;
+                $contract->client_type_id = $clientType?->id;
+                $contract->service_id = $service?->id;
+                $contract->category_id = $category?->id;
+                $contract->provider_id = $provider?->id;
+                $contract->plan_id = $plan?->id;
+                $contract->archive = $row['archive'] ?? null;
+                $contract->client_id = $client->id;
+                $contract->meter_id = $meter->id;
+                $contract->status_id = $status?->id;
+                $contract->commission_id = $commission->id;
+                $contract->inserted_at = $this->normalizeDate($row['inserted_at'] ?? null);
+                $contract->signed_at = $this->normalizeDate($row['signed_at'] ?? null);
+                $contract->effective_at = $this->normalizeDate($row['effective_at'] ?? null);
+                $contract->renewal_at = $this->normalizeDate($row['renewal_at'] ?? null);
+                $contract->nib = $row['nib'] ?? null;
+                $contract->invoice_type_id = $invoiceType?->id;
+                $contract->signatory_email = $row['signatory_email'] ?? null;
+                $contract->signatory_phone = $row['signatory_phone'] ?? null;
+                $contract->energy_price_standard = $this->formatarNumero($row['energy_price_standard'] ?? 0);
+                $contract->energy_price_off_peak = $this->formatarNumero($row['energy_price_off_peak'] ?? 0);
+                $contract->energy_price_super_off_peak = $this->formatarNumero($row['energy_price_super_off_peak'] ?? 0);
+                $contract->energy_price = $this->formatarNumero($row['energy_price'] ?? 0);
+                $contract->save();
+
+                Log::info("Row $rowNumber imported successfully (Contract ID: {$contract->id})");
+            } catch (\Exception $e) {
+                Log::error("Exception on row $rowNumber: " . $e->getMessage(), ['row' => $row]);
+                DB::rollBack();
+                return back()->with('error', "Erro ao importar na linha $rowNumber: " . $e->getMessage());
+            }
+        }
+
+        fclose($handle);
+        DB::commit();
+        Log::info('CSV import completed successfully.');
+        return back()->with('success', 'Contratos importados com sucesso!');
+    } catch (\Exception $e) {
+        Log::error('CSV import failed: ' . $e->getMessage());
+        DB::rollBack();
+        return back()->with('error', 'Erro ao importar: ' . $e->getMessage());
+    }
+}
+
+    
+}
 
