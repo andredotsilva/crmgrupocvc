@@ -14,43 +14,56 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendUserPassword;
+use Illuminate\Support\Facades\Log;
+
+
+
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+    
     public function create(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        try {
+            // Validação
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                //'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+            $password = Str::random(10);
 
-        $role = Role::where('id', 4)->first();
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($password),
+            ]);
 
-        $user->roles()->attach($role);
+            $role = Role::where('id', 4)->first();
 
-        event(new Registered($user));
+            $user->roles()->attach($role);
 
-        Auth::login($user);
+            Mail::to($user->email)->send(new SendUserPassword($user, $password));
 
-        return redirect(RouteServiceProvider::HOME);
+            event(new Registered($user));
+
+            Auth::login($user);
+
+            return redirect(RouteServiceProvider::HOME);
+
+        } catch (\Exception $e) {
+            Log::error('Erro no registo de utilizador:', ['error' => $e->getMessage()]);
+            return back()->with('error', 'Erro ao criar conta.')->withInput();
+        }
+
+        
     }
 }

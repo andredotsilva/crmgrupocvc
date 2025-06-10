@@ -46,6 +46,9 @@ use DateInterval;
 use DateTime;
 use Termwind\Components\Dd;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendUserPassword;
 
 
 use League\Csv\Reader;
@@ -197,15 +200,19 @@ class ContractsController extends Controller
 
             // 2. Se não existir, cria novo
             if (!$user) {
+                $randomPassword = Str::random(10);
+
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => Hash::make($request->email),
-
-
+                    'password' => Hash::make($randomPassword),
                 ]);
+
                 $role = Role::where('id', 4)->first();
                 $user->roles()->attach($role);
+
+                // Enviar email com a password gerada
+                Mail::to($user->email)->send(new \App\Mail\SendUserPassword($user, $randomPassword));
             }
 
             // 3. Resto do código permanece igual
