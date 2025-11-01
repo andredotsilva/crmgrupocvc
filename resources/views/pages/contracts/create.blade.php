@@ -1,19 +1,36 @@
 <x-app-layout>
     <x-slot name="header">
-        <nav class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-300 py-2">
-            <a href="{{ route('dashboard') }}" class="hover:underline flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
+            <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
-                Dashboard
             </a>
-            <span>/</span>
-            <a href="{{ route('contracts.index') }}" class="hover:underline">
-                {{ __('Contratos') }}
+
+            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+            </span>
+
+            <a href="{{ route('contracts.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+                {{ __('Lista de Contratos') }}
             </a>
-            <span>/</span>
-            <span class="text-gray-700 dark:text-gray-200">{{ __('Inserir Novo Contrato') }}</span>
-        </nav>
+
+            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+            </span>
+
+            <a href="{{ route('contracts.create') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+                {{ __('Inserir Novo Contrato') }}
+            </a>
+
+        </div>
+        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
+            {{ __('Inserir Novo Contrato') }}
+        </h2>
     </x-slot>
     <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -41,14 +58,14 @@
                 <div class="w-64 pt-8 mr-4">
                     @foreach ($buttons as $function => $name)
                     <div class="py-1">
-                        <button class="w-[100%] bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700" onclick="scrollToSection('{{ $function }}')">
+                        <button class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700" onclick="scrollToSection('{{ $function }}')">
                             {{ $name }}
                         </button>
                     </div>
                     @endforeach
                 </div>
                 <!-- Scroll wrapper -->
-                <div class="flex-1 overflow-hidden">
+                <div class="flex-1 overflow-hidden overflow-y-scroll scrollbar-hidden" id="scrollableColumn" style="max-height: 600px">
                     <!-- Scrollable container -->
                     <!-- Your content -->
                     <form action="{{ route('contracts.store') }}" method="POST" style="margin-bottom: 40px;">
@@ -399,19 +416,6 @@
                                         <x-input-price title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" />
                                     </div>
 
-                                    <div class="sm:col-span-2">
-                                        <x-input-price title="Preço Energia Cheias" name="energy_price_standard" :errors="$errors->first('energy_price_standard')" pattern="^\d{1,}\,?\d{0,2}$"/>
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-price title="Preço Energia Vazio" name="energy_price_off_peak" :errors="$errors->first('energy_price_off_peak')" pattern="^\d{1,}\,?\d{0,2}$"/>
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-price title="Preço Energia Super Vazio" name="energy_price_super_off_peak" :errors="$errors->first('energy_price_super_off_peak')" pattern="^\d{1,}\,?\d{0,2}$"/>
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-price title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" pattern="^\d{1,}\,?\d{0,2}$"/>
-                                    </div>
-
                                 </div>
                             </div>
                             <!--END Consumos-->
@@ -452,7 +456,9 @@
                                     <div class="sm:col-span-2">
                                         <x-input-string title="Morada De Fornecimento" id="address" name="address" :errors="$errors->first('address')" />
                                     </div>
-                                    
+                                    <div class="sm:col-span-1">
+                                        <x-input-string title="Andar" id="floor" name="floor" :errors="$errors->first('floor')" />
+                                    </div>
                                     <div class="sm:col-span-1">
                                         <x-input-string title="Nº Porta" id="door" name="door" :errors="$errors->first('door')" />
                                     </div>

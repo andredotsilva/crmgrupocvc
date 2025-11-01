@@ -28,7 +28,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="container mx-auto p-4">
-                        <h2 class="text-2xl font-semibold mb-4">Clientes</h2>
+
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead>
                                 <tr>
@@ -49,24 +49,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        
-                    </div>
-                    
-                    <div class="container mx-auto p-4">
-                        <div class="mt-8 mb-8">
-                            <h2 class="text-2xl font-semibold mb-4">Comissões por Provedor</h2>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                @foreach($commissionsByProvider as $providerId => $providerData)
-                                    <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow">
-                                        <h3 class="text-xl font-semibold mb-2">{{ $providerData['name'] }}</h3>
-                                        <p class="mb-1">Pago à CVC: €{{ number_format($providerData['totalPaidToCVC'] / 100, 2, ',', '.') }}</p>
-                                        <p class="mb-1">Pago aos Administradores: €{{ number_format($providerData['totalPaidToAdministrators'] / 100, 2, ',', '.') }}</p>
-                                        <p class="mb-1">Pago aos Comerciais: €{{ number_format($providerData['totalPaidToCommercials'] / 100, 2, ',', '.') }}</p>
-                                        <p class="font-semibold">Lucro da Empresa: €{{ number_format($providerData['totalCompanyProfit'] / 100, 2, ',', '.') }}</p>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
                         
                     </div>
                 </div>

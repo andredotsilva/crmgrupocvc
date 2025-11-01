@@ -194,6 +194,12 @@ class ContractsController extends Controller
     {
         try {
             DB::beginTransaction();
+
+            Log::channel('contracts')->info('Contract creation started', [
+                'performed_by' => auth()->id(),
+                'client_email' => $request->email,
+                'client_name' => $request->name,
+            ]);
             
             // 1. Procura usuário existente pelo email
             $user = User::where('email', $request->email)->first();
@@ -211,8 +217,18 @@ class ContractsController extends Controller
                 $role = Role::where('id', 4)->first();
                 $user->roles()->attach($role);
 
+                Log::channel('contracts')->info('Client user created during contract creation', [
+                    'user_id' => $user->id,
+                    'client_email' => $user->email,
+                ]);
+
                 // Enviar email com a password gerada
                 Mail::to($user->email)->send(new \App\Mail\SendUserPassword($user, $randomPassword));
+            } else {
+                Log::channel('contracts')->info('Existing client user reused for contract creation', [
+                    'user_id' => $user->id,
+                    'client_email' => $user->email,
+                ]);
             }
 
             // 3. Resto do código permanece igual
@@ -443,10 +459,25 @@ class ContractsController extends Controller
             }
 
             DB::commit();
+
+            Log::channel('contracts')->info('Contract created successfully', [
+                'contract_id' => $contract->id,
+                'client_id' => $client->id,
+                'meter_id' => $meter->id,
+                'performed_by' => auth()->id(),
+            ]);
+
             return redirect()->route('contracts.index')->with('success', 'Contrato criado com sucesso!');
 
         } catch (\Exception $e) {
             DB::rollBack();
+
+            Log::channel('contracts')->error('Contract creation failed', [
+                'performed_by' => auth()->id(),
+                'client_email' => $request->email,
+                'error' => $e->getMessage(),
+            ]);
+
             return redirect()->back()->withInput()->with('error', 'Erro ao criar contrato: ' . $e->getMessage());
         }
     }
@@ -1328,4 +1359,3 @@ public function uploadCsv(Request $request)
 
     
 }
-

@@ -73,6 +73,13 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'contracts' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/contracts.log'),
+            'level' => env('LOG_LEVEL_CONTRACTS', 'info'),
+            'replace_placeholders' => true,
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

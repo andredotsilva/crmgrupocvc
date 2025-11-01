@@ -332,24 +332,9 @@
                                         </div>
 
                                         <div class="sm:col-span-2">
-                                            <x-input-price title="Preço da Energia Cheias" name="energy_price_standard"
-                                                :value="$contract->energy_price_standard" :errors="$errors->first('energy_price_standard')" pattern="^\d{1,}\,?\d{0,2}$"/>
+                                            <x-input-price title="Preço Energia" name="energy_price" :value="$contract->meter->energy_price" :errors="$errors->first('energy_price')" />
                                         </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Preço Energia Vazio" name="energy_price_off_peak"
-                                                :value="$contract->energy_price_off_peak" :errors="$errors->first('energy_price_off_peak')" pattern="^\d{1,}\,?\d{0,2}$"/>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Preço Energia Super Vazio" name="energy_price_super_off_peak"
-                                                :value="$contract->energy_price_super_off_peak" :errors="$errors->first('energy_price_super_off_peak')" pattern="^\d{1,}\,?\d{0,2}$"/>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Preço Energia" name="energy_price"
-                                                :value="$contract->energy_price" :errors="$errors->first('energy_price')" pattern="^\d{1,}\,?\d{0,2}$"/>
-                                        </div>
-
                                     </div>
-                                    
                                 </div>
                                 <!--END Consumos-->
 
@@ -458,6 +443,10 @@
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Morada" name="mail_address" :errors="$errors->first('mail_address')"
                                                 :value="$contract->mailingAddress->address ?? ''" />
+                                        </div>
+                                        <div class="sm:col-span-1">
+                                            <x-input-string title="Andar" name="mail_floor" :errors="$errors->first('mail_floor')"
+                                                :value="$contract->mailingAddress->floor ?? ''" />
                                         </div>
                                         <div class="sm:col-span-1">
                                             <x-input-string title="Nº Porta" name="mail_door" :errors="$errors->first('mail_door')"
@@ -660,15 +649,15 @@
                                             <div class="mt-2">
                                                 <textarea id="message" rows="4" name="text"
                                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500"
-                                                    placeholder="">{{ $contract->notes->text ?? '' }}
+                                                    placeholder="">{{ $contract->notes->text }}
                                                 </textarea>
                                                 <span style="color:white">Nota editada por:
                                                 {{
-                                                    $contract->notes?->backOfficer?->name ?? ''
+                                                    $contract->notes->backOfficer->name
                                                 }}
                                                 a
                                                 {{
-                                                    $contract->notes?->updated_at ?? ''
+                                                    $contract->notes->updated_at
                                                 }}
                                                 </span>
 
@@ -957,7 +946,7 @@
 </script>
 
 
-<!--<script>
+<script>
     function apagarInformacao(id) {
         fetch(`/delete/${id}`, {
                 method: 'DELETE',

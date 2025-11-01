@@ -1,142 +1,141 @@
 <x-app-layout>
     <x-slot name="header">
-        <nav class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-300 py-2">
-            <a href="{{ route('dashboard') }}" class="hover:underline flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        <div class="flex items-center overflow-x-auto whitespace-nowrap">
+            <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
-                Dashboard
             </a>
-            <span>/</span>
-            <span class="text-gray-600 dark:text-gray-200">{{ __('Utilizadores') }}</span>
-        </nav>
-        <div class="flex justify-between items-center pt-2">
-            <h2 class="font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Lista de Utilizadores') }}
-            </h2>
-            <div>
-                <a href="{{ route('users.create') }}"
-                   class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-1 px-2 rounded-md text-sm dark:bg-gray-700">
-                    Inserir Utilizador
-                </a>
-            </div>
+
+            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" />
+                </svg>
+            </span>
+
+            <a href="{{ route('servicos') }}" class="text-gray-600 dark:text-gray-200 hover:underline text-sm">
+                {{ __('Utilizadores') }}
+            </a>
         </div>
+
+        <div class="leading-tight flex justify-between items-center">
+            <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
+                {{ __('Utilizadores') }}
+            </h2>
+            <a href="{{ route('users.create') }}" class="pb-4">
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
+                    Inserir Utilizador
+                </button>
+            </a>
+        </div>
+
+        
     </x-slot>
 
+    <div class="py-2 bg-slate-100 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            
+        </div>
+    </div>
 
     <!-- component -->
-    <div class="py-4">
-        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8" style="padding-bottom: 100px;">
-            <div class="overflow-hidden">
-                <div class="py-4 text-gray-900 dark:text-gray-100">
-                    <h4 class="font-semibold text-gray-800 dark:text-gray-200 leading-tight">
-                        {{ __('Filtrar por:') }}
-                    </h4>
-                </div>
-                <form action="{{ route('users.index') }}" method="GET" id="dadosorg">
-                    <div class="pb-6">
-                        <div class="flex flex-wrap gap-4">
-                            <div class="flex-1 min-w-[200px]">
-                                <input type="text" name="name"
-                                    class="w-full border-2 border-gray-300 bg-white rounded-lg text-sm focus:outline-none px-3 py-2"
-                                    placeholder="Nome" value="{{ request('name') }}">
+    <div class="p-1">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="margin-top: 40px; padding-bottom: 100px;">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="container mx-auto p-4">
+                        
+                        <form action="{{ route('users.index') }}" method="GET">
+                            <div class="flex items-stretch justify-start mb-4 flex-row gap-3">
+                                <div class="relative mt-2 rounded-md shadow-sm">
+                                    <input type="text" name="name"
+                                        class="block w-full rounded-md border-0 py-2 pl-10 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <div class="mt-2">
+                                        <select id="country" name="role_id"
+                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                            <option value="">Cargo</option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex-1 min-w-[200px]">
-                                <select name="role_id"
-                                    class="w-full rounded-lg border-2 border-gray-300 py-2 text-sm text-gray-900 bg-white dark:bg-gray-700 dark:text-gray-100 focus:outline-none">
-                                    <option value="">Cargo</option>
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}" @if(request('role_id') == $role->id) selected @endif>
-                                            {{ $role->title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="flex items-center gap-2 ml-auto">
-                                <button type="button" onclick="resetForm()"
-                                    class="bg-blue-400 hover:bg-blue-500 dark:bg-gray-700 text-white font-bold py-2 px-3 rounded-md flex items-center">
+                            <div class="flex justify-end gap-3 mr-4">
+                                <button onclick="resetForm()"
+                                    class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser mr-1">
+                                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser">
                                         <path
                                             d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21" />
                                         <path d="M22 21H7" />
                                         <path d="m5 11 9 9" />
                                     </svg>
-                                    Limpar
                                 </button>
-                                <button type="submit"
-                                    class="bg-blue-400 hover:bg-blue-500 dark:bg-gray-700 text-white font-bold py-2 px-3 rounded-md flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        fill="#FFFFFF" viewBox="0 0 256 256" class="mr-1">
+
+                                <script>
+                                    function resetForm() {
+                                        document.getElementById('dadosorg').reset();
+                                    }
+                                </script>
+
+                                <button class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFFFFF"
+                                        viewBox="0 0 256 256">
                                         <path
                                             d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
                                         </path>
                                     </svg>
-                                    Pesquisar
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </form>
-                <script>
-                    function resetForm() {
-                        window.location.href = "{{ route('users.index') }}";
-                    }
-                </script>
-                <div class="inline-block min-w-full py-2 align-middle ">
-                    <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead class="bg-gray-50 dark:bg-gray-800">
+                        </form>
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 pb-4 ">
+                            <thead>
                                 <tr>
-                                    <th scope="col"
-                                        class="py-3.5 px-4 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-                                        <div class="flex items-center gap-x-3">
-                                            <span>Nome</span>
-                                        </div>
+                                    <th
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
+                                        {{ 'Nome' }}
                                     </th>
-                                    <th scope="col"
-                                        class="py-3.5 px-4 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-                                        <div class="flex items-center gap-x-3">
-                                            <span>Email</span>
-                                        </div>
+                                    <th
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
+                                        {{ 'Email' }}
                                     </th>
-                                    <th scope="col"
-                                        class="py-3.5 px-4 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-                                        <div class="flex items-center gap-x-3">
-                                            <span>Cargo</span>
-                                        </div>
+                                    <th
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
+                                        {{ 'Cargo' }}
                                     </th>
-                                    <th scope="col" class="relative py-3.5 px-4">
-                                        <span class="sr-only">Ações</span>
+                                    <th
+                                        class="py-2 px-4 bg-grey-200 dark:bg-grey-700 border-b border-gray-100 font-bold  text-md  text-gray-700 dark:text-white text-left">
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                            <tbody>
                                 @foreach ($users as $user)
                                     <tr>
-                                        <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $user->name }}
-                                        </td>
-                                        <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                                            {{ $user->email }}
-                                        </td>
+                                        <td class="py-2 px-4 border-b border-gray-600">{{ $user->name }}</td>
+                                        <td class="py-2 px-4 border-b border-gray-600">{{ $user->email }}</td>
                                         @if ($user->roles->isEmpty())
-                                            <td class="px-4 py-4 text-sm text-blue-400 whitespace-nowrap">
-                                                {{ 'No role' }}
-                                            </td>
+                                            <td class="py-2 px-4 border-b border-gray-600 text-blue-400">
+                                                {{ 'No role' }}</td>
                                         @else
                                             @foreach ($user->roles as $role)
-                                                <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                                                    {{ $role->title }}
-                                                </td>
+                                                <td class="py-2 px-4 border-b border-gray-600">{{ $role->title }}</td>
                                             @endforeach
                                         @endif
-                                        <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                            <div class="flex items-center gap-x-6 justify-end">
+
+                                        <td class="py-2 px-4 border-b border-gray-600 text-right">
+                                            <div class="flex items-stretch justify-end gap-x-6">
                                                 <a href="{{ route('users.show', $user->id) }}">
                                                     <button
-                                                        class="text-gray-500 transition-colors duration-200 dark:hover:text-blue-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none">
+                                                        class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" fill="currentColor" class="bi bi-eye"
                                                             viewBox="0 0 16 16">
@@ -171,13 +170,14 @@
                                                         </svg>
                                                     </button>
                                                 </form>
+
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="flex items-center justify-between mt-6 px-4 pb-4">
+                        <div class="flex items-center justify-between mt-6">
                             @if ($users->onFirstPage())
                                 <a href="#"
                                     class="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 cursor-not-allowed">
