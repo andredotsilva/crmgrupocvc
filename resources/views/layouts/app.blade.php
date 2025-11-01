@@ -65,7 +65,7 @@
             flex justify-center items-center
             text-sm text-gray-500 dark:bg-gray-700 dark:text-blue-400
             ">
-            Desenvolvido pela CaseOf Creative Agency
+            Desenvolvido pela DIS - Digital Innovation Systems &copy; {{ date('Y') }}
         </footer>
     </div>
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
