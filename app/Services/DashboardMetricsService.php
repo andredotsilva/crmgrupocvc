@@ -192,7 +192,13 @@ class DashboardMetricsService
     protected function countExpiringContracts(Carbon $start, Carbon $end): int
     {
         return Contract::query()
-            ->whereBetween(DB::raw('DATE_ADD(contracts.effective_at, INTERVAL 1 YEAR)'), [$start, $end])
+            ->where(function ($query) use ($start, $end) {
+                $query->whereBetween('renewal_at', [$start, $end])
+                    ->orWhere(function ($inner) use ($start, $end) {
+                        $inner->whereNull('renewal_at')
+                            ->whereBetween(DB::raw('DATE_ADD(contracts.effective_at, INTERVAL 1 YEAR)'), [$start, $end]);
+                    });
+            })
             ->count();
     }
 

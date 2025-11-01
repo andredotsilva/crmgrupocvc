@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contract;
 use App\Services\DashboardMetricsService;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 
 class DashboardController extends Controller
 {
@@ -24,12 +25,18 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
+        $notifications = $request->user()
+            ? $request->user()->notifications()->latest()->limit(10)->get()
+            : collect();
+
         return view('dashboard', [
             'contracts' => $contracts,
             'metrics' => $metrics,
             'range' => $metrics['period']['range'],
             'availableRanges' => DashboardMetricsService::availableRanges(),
             'contractsCount' => $metrics['summary']['contracts']['current'],
+            'notifications' => $notifications,
+            'unreadNotificationsCount' => $request->user()?->unreadNotifications()->count() ?? 0,
         ]);
     }
 
@@ -73,5 +80,21 @@ class DashboardController extends Controller
         };
 
         return response()->streamDownload($callback, $filename, $headers);
+    }
+
+    public function markNotification(Request $request, DatabaseNotification $notification)
+    {
+        abort_unless(
+            $request->user() &&
+                $notification->notifiable_id === $request->user()->getKey() &&
+                $notification->notifiable_type === get_class($request->user()),
+            403
+        );
+
+        if ($notification->read_at === null) {
+            $notification->markAsRead();
+        }
+
+        return back();
     }
 }

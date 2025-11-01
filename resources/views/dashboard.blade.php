@@ -71,6 +71,64 @@
                             </div>
                         @endforeach
                     </div>
+
+                    <!--<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                        <div class="xl:col-span-1">
+                            <div class="bg-white dark:bg-gray-800 shadow-sm rounded-xl border border-slate-100 dark:border-gray-700">
+                                <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-gray-700">
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                                        {{ __('Alertas do pipeline') }}
+                                    </h3>
+                                    <span class="inline-flex items-center justify-center rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700">
+                                        {{ $unreadNotificationsCount }}
+                                    </span>
+                                </div>
+                                <div class="max-h-64 overflow-y-auto divide-y divide-gray-100 dark:divide-gray-700">
+                                    @forelse ($notifications as $notification)
+                                        @php
+                                            $data = $notification->data;
+                                            $isUnread = is_null($notification->read_at);
+                                        @endphp
+                                        <div class="flex items-start gap-3 px-5 py-4 {{ $isUnread ? 'bg-blue-50 dark:bg-gray-900/40' : '' }}">
+                                            <div class="flex-1 text-sm">
+                                                <p class="font-semibold text-gray-800 dark:text-gray-100">
+                                                    {{ $data['message'] ?? __('Contrato com ação pendente') }}
+                                                </p>
+                                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                    {{ $data['client_name'] ?? '—' }} · {{ $data['provider'] ?? '—' }}
+                                                </p>
+                                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                    {{ __('Expira em') }}: {{ $data['expiry_date'] ?? '—' }}
+                                                </p>
+                                                <div class="mt-2 flex items-center gap-3">
+                                                    @php $contractId = $data['contract_id'] ?? null; @endphp
+                                                    @if ($contractId)
+                                                        <a href="{{ route('contracts.show', $contractId) }}"
+                                                           class="text-xs font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200">
+                                                            {{ __('Ver contrato') }}
+                                                        </a>
+                                                    @endif
+                                                    @if ($isUnread)
+                                                        <form method="POST" action="{{ route('notifications.read', $notification->id) }}">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="text-xs font-semibold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                                                                {{ __('Marcar como lida') }}
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @empty
+                                        <div class="px-5 py-6 text-sm text-gray-500 dark:text-gray-400">
+                                            {{ __('Sem notificações pendentes.') }}
+                                        </div>
+                                    @endforelse
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
             @endif
         </div>

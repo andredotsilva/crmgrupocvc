@@ -46,7 +46,74 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden sm:flex sm:items-center sm:ml-6 gap-4">
+                @php
+                    $navbarUnreadCount = $navbarUnreadNotificationsCount ?? 0;
+                @endphp
+
+                @if (isset($navbarNotifications))
+                    <x-dropdown align="right" width="72">
+                        <x-slot name="trigger">
+                            <button
+                                class="relative inline-flex items-center justify-center rounded-full border border-transparent bg-white p-2 text-gray-500 shadow-sm transition hover:text-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.597c0-1.707-.445-3.381-1.285-4.852A5.25 5.25 0 006.75 5.25v.6C6.75 8.083 6 10.238 4.5 11.79a8.969 8.969 0 005.688 4.04" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1a3 3 0 006 0v-1" />
+                                </svg>
+                                @if ($navbarUnreadCount > 0)
+                                    <span class="absolute -top-1 -right-1 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-red-500 px-1 text-[0.65rem] font-semibold text-white">
+                                        {{ $navbarUnreadCount > 9 ? '9+' : $navbarUnreadCount }}
+                                    </span>
+                                @endif
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <div class="max-h-72 w-72 overflow-y-auto divide-y divide-gray-100 dark:divide-gray-700">
+                                @forelse ($navbarNotifications as $notification)
+                                    @php
+                                        $data = $notification->data;
+                                        $isUnread = is_null($notification->read_at);
+                                    @endphp
+                                    <div class="px-4 py-3 text-sm {{ $isUnread ? 'bg-blue-50 dark:bg-gray-900/40' : 'bg-white dark:bg-gray-800' }}">
+                                        <p class="font-semibold text-gray-800 dark:text-gray-100">
+                                            {{ $data['message'] ?? __('Alerta do contrato') }}
+                                        </p>
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                            {{ $data['client_name'] ?? '—' }} · {{ $data['provider'] ?? '—' }}
+                                        </p>
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                            {{ __('Expira em') }}: {{ $data['expiry_date'] ?? '—' }}
+                                        </p>
+                                        <div class="mt-2 flex items-center gap-3">
+                                            @php $contractId = $data['contract_id'] ?? null; @endphp
+                                            @if ($contractId)
+                                                <a href="{{ route('contracts.show', $contractId) }}"
+                                                   class="text-xs font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200">
+                                                    {{ __('Ver contrato') }}
+                                                </a>
+                                            @endif
+                                            @if ($isUnread)
+                                                <form method="POST" action="{{ route('notifications.read', $notification->id) }}">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="text-xs font-semibold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100">
+                                                        {{ __('Marcar como lida') }}
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
+                                        {{ __('Sem notificações pendentes.') }}
+                                    </div>
+                                @endforelse
+                            </div>
+                        </x-slot>
+                    </x-dropdown>
+                @endif
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
 
