@@ -512,6 +512,7 @@ class ContractsController extends Controller
             "documentation",
             "statuses",
             "meter.powerbracket",
+            "typologies",
             "nif",
             "municipality",
             "district",

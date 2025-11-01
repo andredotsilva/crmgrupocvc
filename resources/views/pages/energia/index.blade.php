@@ -1,213 +1,107 @@
 <x-app-layout>
     <x-slot name="header" class="pt-8">
-        <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
-            <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
-            </a>
-
-            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd" />
-                </svg>
-            </span>
-
-            <a href="{{ route('servicos') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
-                {{ __('Serviços') }}
-            </a>
-
-            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd" />
-                </svg>
-            </span>
-
-            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">
-                {{ __('Energia e Gás') }}
-            </a>
+        <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-300 flex-wrap">
+            <a href="{{ route('dashboard') }}" class="hover:text-blue-600 dark:hover:text-blue-300">Dashboard</a>
+            <span>/</span>
+            <a href="{{ route('servicos') }}" class="hover:text-blue-600 dark:hover:text-blue-300">{{ __('Serviços') }}</a>
+            <span>/</span>
+            <span class="text-blue-600 dark:text-blue-300 font-semibold">{{ __('Energia e Gás') }}</span>
         </div>
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
-            {{ __(' Energia e Gás') }}
-        </h2>
+        <div class="mt-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+                <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                    {{ __('Energia & Gás') }}
+                </h1>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    Acede rapidamente às campanhas e fornecedores, e filtra os contratos de eletricidade e gás.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <a href="{{ route('plans.index') }}"
+                    class="inline-flex items-center justify-center rounded-full bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-600 transition dark:bg-blue-500 dark:hover:bg-blue-600">
+                    {{ __('Campanhas') }}
+                </a>
+                <a href="{{ route('providers.index') }}"
+                    class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                    {{ __('Empresas Fornecedoras') }}
+                </a>
+            </div>
+        </div>
     </x-slot>
 
-    <div class="py-2 bg-slate-100 dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="gap-x-6 gap-y-8 sm:grid-cols-6 pb-2 pt-4 rounded-2xl bg-white dark:bg-gray-800">
-                    <a href="{{ route('plans.index') }}">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
-                            Campanhas
-                        </button>
-                    </a>
-                    <a href="{{ route('providers.index') }}">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md dark:bg-gray-700 dark:hover:bg-gray-900">
-                            Empresas Fornecedoras
-                        </button>
-                    </a>
-                </div>
-        </div>
-    </div>
+    <div class="bg-slate-100 dark:bg-gray-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-    <!--Tables-->
-    <div class="p-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                
-                <!--Filtros-->
-                <div class="p-1">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg ">
+            <section class="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <header class="border-b border-slate-100 px-6 py-4 dark:border-gray-700">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ __('Filtrar por') }}</h2>
+                </header>
 
-                            <div class="p-6 text-gray-900 dark:text-gray-100">
-                                <h4 class="font-semibold text-gray-800 dark:text-gray-200 leading-tight">
-                                    {{ __('Filtrar por:') }}
-                                </h4>
-                            </div>
+                <form id="filters-form" action="{{ route('energia') }}" method="GET" class="px-6 py-6 space-y-6">
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                        <div class="flex flex-col gap-1">
+                            <label for="cpe" class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">CPE</label>
+                            <input id="cpe" name="cpe" type="search"
+                                value="{{ request('cpe') }}"
+                                class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                        </div>
 
-                            <form action="{{ route('energia') }}" method="GET">
-                                <div class="gap-x-6 gap-y-8 sm:grid-cols-6 px-6 pb-2 rounded-2xl bg-white dark:bg-gray-800"
-                                    id="dadosorg">
-                                    <div
-                                        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                                        <!-- Column 1 -->
-                                        <div class="p-4">
-                                            <input
-                                                class="border-2 border-gray-300 bg-white rounded-lg text-sm focus:outline-none"
-                                                type="search" name="cpe" placeholder="CPE"
-                                                value="{{ old('cpe') }}">
-                                            {{-- <button type="submit" class="absolute right-4 top-0 mt-5">
-                                                <svg class="text-gray-600 h-4 w-4 fill-current"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
-                                                    x="0px" y="0px" viewBox="0 0 56.966 56.966"
-                                                    style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
-                                                    width="512px" height="512px">
-                                                    <path
-                                                        d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                                                </svg>
-                                            </button> --}}
-                                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label for="nif" class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">NIF</label>
+                            <input id="nif" name="nif" type="search"
+                                value="{{ request('nif') }}"
+                                class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                        </div>
 
-                                        <div class="p-4">
-                                            <input
-                                                class="border-2 border-gray-300 bg-white rounded-lg text-sm focus:outline-none"
-                                                type="search" name="nif" placeholder="NIF"
-                                                value="{{ old('nif') }}">
-                                            <button type="submit" class="absolute right-4 top-0 mt-5 ">
-                                                <svg class="text-gray-600 h-4 w-4 fill-current"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-                                                    id="Capa_1" x="0px" y="0px"
-                                                    viewBox="0 0 56.966 56.966"
-                                                    style="enable-background:new 0 0 56.966 56.966;"
-                                                    xml:space="preserve" width="512px" height="512px">
-                                                    <path
-                                                        d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label for="year" class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{{ __('Ano') }}</label>
+                            <input id="year" name="year" type="search"
+                                value="{{ request('year') }}"
+                                class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                        </div>
 
-                                        <!-- Column 2 -->
-                                        <div class="p-4">
-                                            <input
-                                                class="border-2 border-gray-300 bg-white rounded-lg text-sm focus:outline-none"
-                                                type="search" name="year" placeholder="Ano"
-                                                value="{{ old('year') }}">
-                                            <button type="submit" class="absolute right-4 top-0 mt-5">
-                                                <svg class="text-gray-600 h-4 w-4 fill-current"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-                                                    id="Capa_1" x="0px" y="0px"
-                                                    viewBox="0 0 56.966 56.966"
-                                                    style="enable-background:new 0 0 56.966 56.966;"
-                                                    xml:space="preserve" width="512px" height="512px">
-                                                    <path
-                                                        d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                                                </svg>
-                                            </button>
-                                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label for="condominium_administrator" class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                                {{ __('ADM de Condomínio') }}
+                            </label>
+                            <input id="condominium_administrator" name="condominium_administrator" type="search"
+                                value="{{ request('condominium_administrator') }}"
+                                class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                        </div>
 
-                                        <!-- Column 4 -->
-                                        <div class="p-4">
-                                            <input
-                                                class="border-2 border-gray-300 bg-white rounded-lg text-sm focus:outline-none"
-                                                type="search" name="condominium_administrator"
-                                                placeholder="ADM de Condominio"
-                                                value="{{ old('condominium_administrator') }}">
-                                            <button type="submit" class="absolute right-4 top-0 mt-5">
-                                                <svg class="text-gray-600 h-4 w-4 fill-current"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
-                                                    id="Capa_1" x="0px" y="0px"
-                                                    viewBox="0 0 56.966 56.966"
-                                                    style="enable-background:new 0 0 56.966 56.966;"
-                                                    xml:space="preserve" width="512px" height="512px">
-                                                    <path
-                                                        d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        <!-- Column 5 -->
-                                        <div class="p-4">
-                                            <select name="status_id"
-                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 ">
-                                                <option value="">Escolher Estado</option>
-                                                @foreach ($statuses as $status)
-                                                    <option value="{{ $status->id }}">{{ $status->title }}</option>
-                                                @endforeach
-                                            </select>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="flex justify-end gap-3 mr-4">
-                                        <button onclick="resetForm()"
-                                        class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-eraser">
-                                                <path
-                                                    d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21" />
-                                                <path d="M22 21H7" />
-                                                <path d="m5 11 9 9" />
-                                            </svg>
-                                        </button>
-
-                                        <script>
-                                            function resetForm() {
-                                                document.getElementById('dadosorg').reset();
-                                            }
-                                        </script>
-
-                                        <button
-                                        class="bg-blue-500 hover:bg-blue-700 dark:bg-gray-700 text-white font-bold py-1 px-2 rounded">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="#FFFFFF" viewBox="0 0 256 256">
-                                                <path
-                                                    d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                            </form>
+                        <div class="flex flex-col gap-1">
+                            <label for="status_id" class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{{ __('Estado') }}</label>
+                            <select id="status_id" name="status_id"
+                                class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                                <option value="">{{ __('Escolher Estado') }}</option>
+                                @foreach ($statuses as $status)
+                                    <option value="{{ $status->id }}" @selected(request('status_id') == $status->id)>{{ $status->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <!-- tabela so com contratos de gás e eletricidade -->
+
+                    <div class="flex flex-wrap justify-end gap-3">
+                        <button type="button" onclick="document.getElementById('filters-form').reset();"
+                            class="inline-flex items-center justify-center rounded-full border border-blue-500 px-4 py-2 text-sm font-semibold text-blue-600 hover:border-blue-600 hover:text-blue-700 transition dark:border-blue-400 dark:text-blue-300 dark:hover:border-blue-300 dark:hover:text-blue-200">
+                            {{ __('Limpar') }}
+                        </button>
+                        <button type="submit"
+                            class="inline-flex items-center justify-center rounded-full bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-600 transition dark:bg-blue-500 dark:hover:bg-blue-600">
+                            {{ __('Filtrar') }}
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <header class="border-b border-slate-100 px-6 py-4 dark:border-gray-700">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ __('Contratos de Energia & Gás') }}</h2>
+                </header>
+                <div class="px-6 py-6 text-gray-900 dark:text-gray-100">
                     <x-table :contracts="$contracts" :contractsCount="$contractsCount" hasPagination="true" />
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </x-app-layout>

@@ -76,9 +76,9 @@
         </div>
     </div>
 
-        <div class="px-6 lg:px-10 pb-8">
+        <div class="px-6 lg:px-10 pb-8 py-5">
             <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
-                <div class="overflow-hidden sm:rounded-lg bg-white dark:bg-gray-800 shadow">
+                <div class="overflow-hidden sm:rounded-lg">
                     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-4 py-4">
                         <div class="flex items-center gap-3">
                             <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
