@@ -1,81 +1,79 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
-            <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+        <nav class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-300 py-2">
+            <a href="{{ route('dashboard') }}" class="hover:underline flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
                 </svg>
+                Dashboard
             </a>
-
-            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                </svg>
-            </span>
-
-            <a href="{{ route('contracts.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
-                {{ __('Lista de Contratos') }}
+            <span>/</span>
+            <a href="{{ route('contracts.index') }}" class="hover:underline">
+                {{ __('Contratos') }}
             </a>
-
-            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                </svg>
-            </span>
-
-            <a href="{{ route('contracts.create') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
-                {{ __('Inserir Novo Contrato') }}
-            </a>
-
+        </nav>
+        <div class="flex justify-between items-center pt-2">
+            <h2 class="font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Inserir novo contrato') }}
+            </h2>
         </div>
-        <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight pt-4">
-            {{ __('Inserir Novo Contrato') }}
-        </h2>
     </x-slot>
-    <div class="py-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="flex" style="margin-bottom: 100px;">
+    <div class="py-4 dark:bg-gray-900/40">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <!-- Fixed sidebar -->
-                @php
-                $buttons = [
-                'backoffice' => 'Back Office',
-                'dadosorganizacao' => 'Dados Organização',
-                'dadoscontador' => 'Dados Contador',
-                'consumos' => 'Consumos',
-                'datascontrato' => 'Datas Contrato',
-                'dadoscliente' => 'Dados Cliente',
-                'pagamento' => 'Forma Pagamento',
-                'dadoscorespondencia' => 'Dados Correspondência',
-                'assinatura' => 'Assinatura',
-                'comissoesdatas' => 'Comissões e Datas',
-                'comissoesmensais' => 'Comissões Mensais',
-                'documentacao' => 'Documentação',
+            @php
+                $formSections = [
+                    ['id' => 'backoffice', 'label' => 'Back Office', 'hint' => 'Responsável interno e adesão.'],
+                    ['id' => 'dadosorganizacao', 'label' => 'Dados da Organização', 'hint' => 'Informação do fornecedor e plano.'],
+                    ['id' => 'dadoscontador', 'label' => 'Dados do Contador', 'hint' => 'Identificação do contador e dados técnicos.'],
+                    ['id' => 'consumos', 'label' => 'Consumos', 'hint' => 'Perfis e histórico de consumos.'],
+                    ['id' => 'datascontrato', 'label' => 'Datas do Contrato', 'hint' => 'Calendarização do contrato.'],
+                    ['id' => 'dadoscliente', 'label' => 'Dados do Cliente', 'hint' => 'Informação do cliente e endereço.'],
+                    ['id' => 'pagamento', 'label' => 'Forma de Pagamento', 'hint' => 'Detalhes de faturação e IBAN.'],
+                    ['id' => 'dadoscorespondencia', 'label' => 'Correspondência', 'hint' => 'Dados para envio de comunicações.'],
+                    ['id' => 'assinatura', 'label' => 'Assinatura', 'hint' => 'Dados do signatário e consentimentos.'],
+                    ['id' => 'comissoesdatas', 'label' => 'Comissões e Datas', 'hint' => 'Pagamentos e prazos de comissões.'],
+                    ['id' => 'comissoesenergia', 'label' => 'Comissões Energia', 'hint' => 'Pagamentos associados à energia.'],
+                    ['id' => 'comissoesmensais', 'label' => 'Comissões Mensais', 'hint' => 'Tabela de comissionamento mensal.'],
+                    ['id' => 'documentacao', 'label' => 'Documentação', 'hint' => 'Ficheiros e checklist documental.'],
                 ];
-                @endphp
+            @endphp
 
-                <div class="w-64 pt-8 mr-4">
-                    @foreach ($buttons as $function => $name)
-                    <div class="py-1">
-                        <button class="w-[100%] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full dark:bg-gray-700" onclick="scrollToSection('{{ $function }}')">
-                            {{ $name }}
-                        </button>
+            <div class="grid gap-6 lg:grid-cols-[280px_1fr]" style="margin-bottom: 100px;">
+                <aside class="hidden lg:block">
+                    <div class="sticky top-28 rounded-2xl border border-gray-200 bg-white/95 backdrop-blur dark:border-gray-700 dark:bg-gray-800/90 shadow-sm">
+                        <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700">
+                            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">{{ __('Etapas do Contrato') }}</h3>
+                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ __('Use os atalhos para navegar rapidamente pelo formulário.') }}</p>
+                        </div>
+                        <ol class="divide-y divide-gray-100 dark:divide-gray-700" id="contractStepsNav">
+                            @foreach ($formSections as $index => $section)
+                                <li>
+                                    <button type="button" data-step-target="{{ $section['id'] }}"
+                                        class="step-link flex items-center w-full gap-3 px-5 py-2 text-sm text-gray-600 transition hover:bg-blue-50/70 hover:text-blue-600 dark:text-gray-300 dark:hover:bg-blue-500/10 text-left"
+                                        aria-label="{{ $section['label'] }}">
+                                        <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-xs font-semibold text-gray-500 transition dark:border-gray-600 dark:bg-gray-900"
+                                            data-step-number>{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                        <span class="font-medium text-gray-700 dark:text-gray-100">{{ $section['label'] }}</span>
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ol>
                     </div>
-                    @endforeach
-                </div>
-                <!-- Scroll wrapper -->
-                <div class="flex-1 overflow-hidden overflow-y-scroll scrollbar-hidden" id="scrollableColumn" style="max-height: 600px">
-                    <!-- Scrollable container -->
-                    <!-- Your content -->
-                    <form action="{{ route('contracts.store') }}" method="POST" style="margin-bottom: 40px;">
-                        @csrf
-                        <div class="space-y-12 ">
-                            <div class="border-b border-gray-900/10 pb-12">
-                                <!--Dados Back Office-->
-                                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800" id="backoffice">
-                                    <h1 class="text-lg pb-4 dark:text-gray-200">Back Office</h1>
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                </aside>
+
+                <form action="{{ route('contracts.store') }}" method="POST">
+                    @csrf
+
+                    <section id="backoffice" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Back Office') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Defina o responsável interno e associe a equipa comercial.') }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
                                         <div class="sm:col-span-2">
                                             <label for="provider" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Back
                                                 Office</label>
@@ -229,132 +227,137 @@
                                         <div class="sm:col-span-2">
                                             <x-input-string title="Empresa ou Administração de Condominio" name="condominium_administrator" :errors="$errors->first('condominium_administrator')" />
                                         </div>
-                                    </div>
-                                </div>
-
-                                <!--Dados ORGANIZAÇÃO-->
-                                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="dadosorganizacao">
-                                    <h1 class="text-lg pb-4 dark:text-gray-200">DADOS DA ORGANIZAÇÃO</h1>
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                        <div class="sm:col-span-2">
-                                            <x-input-select title="Adesão" name="provider_id" id="provider_id" :collection="$providers" :errors="$errors->first('provider_id')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-select title="Campanha" name="plan_id" id="plan_id" :errors="$errors->first('plan_id')" />
-                                        </div>
-                                        {{-- <div class="sm:col-span-2">
-                                            <label for="documentation_status_id"
-                                                class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Estado</label>
-                                            <select name="documentationStatuses[]"
-                                                class="block w-full rounded-md border-0
-                                        py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                                        dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm
-                                        sm:leading-6"
-                                                data-te-class-form-outline="block w-full rounded-md border-0 dark:ring-gray-700 dark:bg-gray-600 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                                                data-te-select-options-selected-label="opções selecionadas." multiple
-                                                data-te-class-inputGroup="rounded data-te-select-all="false"
-                                                data-te-class-dropdown="bg-[#4b5563] rounded-md text-red-500"
-                                                data-te-select-init>
-                                                @foreach ($documentationStatus as $doc)
-                                                    <option value="{{ $doc->id }}">{{ $doc->title }}
-                                        </option>
-                                        @endforeach
-
-                                        </select>
-                                    </div> --}}
-                                    {{-- <x-input-select title="Documentação" name="documentation_status_id"
-                                            :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" /> --}}
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="Arquivo
-                                                do Cliente" name="archive" :errors="$errors->first('archive')" />
-                                    </div>
-                                </div>
+                        </div>
+                    </section>
+                    <section id="dadosorganizacao" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Dados da Organização') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Configure fornecedor, campanhas e referências internas.') }}</p>
                             </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Adesão" name="provider_id" id="provider_id" :collection="$providers" :errors="$errors->first('provider_id')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Campanha" name="plan_id" id="plan_id" :errors="$errors->first('plan_id')" />
+                            </div>
+                            {{-- <div class="sm:col-span-2">
+                                <label for="documentation_status_id"
+                                    class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Estado</label>
+                                <select name="documentationStatuses[]"
+                                    class="block w-full rounded-md border-0
+                            py-1.5 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
+                            dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm
+                            sm:leading-6"
+                                    data-te-class-form-outline="block w-full rounded-md border-0 dark:ring-gray-700 dark:bg-gray-600 text-gray-900 dark:text-gray-300 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:ring-gray-700 dark:bg-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                    data-te-select-options-selected-label="opções selecionadas." multiple
+                                    data-te-class-inputGroup="rounded data-te-select-all="false"
+                                    data-te-class-dropdown="bg-[#4b5563] rounded-md text-red-500"
+                                    data-te-select-init>
+                                    @foreach ($documentationStatus as $doc)
+                                        <option value="{{ $doc->id }}">{{ $doc->title }}
+                            </option>
+                            @endforeach
 
-                            <!--Dados Contador-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="dadoscontador">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">DADOS Contador</h1>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-2">
-                                        <x-input-select title="Tensão" name="tariff_id" :collection="$tariffs" :errors="$errors->first('tariff_id')" />
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-select title="Potência:1,15->41,41" name="power_bracket_id" :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
-                                    </div>
-                                    <div class="sm:col-span-2" hidden id="powerParent">
-                                        <x-input-string title="Pôtencia/MT/AT" id="power" name="power" :errors="$errors->first('power')" />
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')" id="nif" />
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-select title="Lista dos CPES" id="nif_list" name="nif_list" :errors="$errors->first('nif_list')" />
-                                        {{-- <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')"
-                                                id="nif" /> --}}
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="CPE/CUI" id="cpe" name="cpe" :errors="$errors->first('cpe')" />
-                                    </div>
-                                    <script>
-                                        const powerBracketInput = document.getElementById('power_bracket_id');
-                                        const powerParent = document.getElementById('powerParent');
+                            </select>
+                        </div> --}}
+                        {{-- <x-input-select title="Documentação" name="documentation_status_id"
+                                :collection="$documentationStatus" :errors="$errors->first('documentation_status_id')" /> --}}
+                        <div class="sm:col-span-2">
+                            <x-input-string title="Arquivo do Cliente" name="archive" :errors="$errors->first('archive')" />
+                        </div>
+                    </div>
+                </section>
 
-                                        powerBracketInput.addEventListener('change', async function() {
+                    <section id="dadoscontador" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Dados do Contador') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Preencha tensões, identificadores e estado documental do contador.') }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Tensão" name="tariff_id" :collection="$tariffs" :errors="$errors->first('tariff_id')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Potência:1,15->41,41" name="power_bracket_id" :collection="$powerBrackets" :errors="$errors->first('power_bracket_id')" />
+                            </div>
+                            <div class="sm:col-span-2" hidden id="powerParent">
+                                <x-input-string title="Potência MT/AT" id="power" name="power" :errors="$errors->first('power')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-string title="NIF" name="nif" :errors="$errors->first('nif')" id="nif" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Lista dos CPES" id="nif_list" name="nif_list" :errors="$errors->first('nif_list')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-string title="CPE/CUI" id="cpe" name="cpe" :errors="$errors->first('cpe')" />
+                            </div>
+                            <script>
+                                const powerBracketInput = document.getElementById('power_bracket_id');
+                                const powerParent = document.getElementById('powerParent');
 
-                                            if (powerBracketInput.value == 15) {
-                                                powerParent.removeAttribute('hidden');
-                                            } else {
-                                                powerParent.setAttribute('hidden', 'true');
-                                            }
+                                powerBracketInput.addEventListener('change', async function() {
+                                    if (powerBracketInput.value == 15) {
+                                        powerParent.removeAttribute('hidden');
+                                    } else {
+                                        powerParent.setAttribute('hidden', 'true');
+                                    }
+
+                                    const cpeInput = document.getElementById('cpe');
+
+                                    await fetch(`/mmeters/${powerBracketInput.value}`, {
+                                            method: 'GET',
+                                            headers: {
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                            },
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            const meterInput = document.getElementById('nif_list');
+                                            meterInput.innerHTML = '<option>Escolha CPE</option>';
+
+                                            data.forEach(item => {
+                                                const option = document.createElement('option');
+                                                option.value = item.nif;
+                                                option.text = `${item.cpe}`;
+                                                option.setAttribute('data-meter', item.id);
+                                                meterInput.appendChild(option);
+                                            });
+                                        })
+                                        .catch(error => {
+                                            console.error(error);
                                         });
-                                    </script>
+                                });
 
-                                    {{-- <script>
-                                            document.getElementById('nif').addEventListener('change', async function() {
+                                document.getElementById('nif_list').addEventListener('change', function() {
+                                    const selectedOption = this.options[this.selectedIndex];
+                                    const selectedValue = selectedOption.value;
+                                    const selectedMeter = selectedOption.getAttribute('data-meter');
 
-                                                const nifInput = document.getElementById('nif');
+                                    document.getElementById('nif').value = selectedValue;
+                                    document.getElementById('meter_id').value = selectedMeter;
+                                });
 
-                                                nifInput.a
-
-
-
-                                                console.log('aqui');
-                                                // var state = document.getElementById('mail_municipality_id');
-                                                // var url = "{{ route('municipality.index') }}";
-                                    // var params = "district_id=" + encodeURIComponent(this.value);
-
-                                    await fetch(`/cpe/getcpesbynif?nif=${nif}`)
-                                    .then(
-                                    return await response.json())
-                                    .then(
-
-                                    console.log(response);
-                                    // function(data) {
-                                    // state.innerHTML = '<option selected>Escolher Concelho</option>';
-                                    // for (var id in data) {
-                                    // if (data.hasOwnProperty(id)) {
-                                    // var value = data[id].title;
-                                    // var option = document.createElement('option');
-                                    // option.value = data[id].id;
-                                    // option.innerHTML = value;
-                                    // state.appendChild(option);
-                                    // }
-                                    // }
-                                    // }
-                                    )
-                                    .catch(function(error) {
-                                    console.error(error);
-                                    });
-                                    });
-                                    </script> --}}
-                                </div>
+                                document.getElementById('cpe').addEventListener('change', function() {
+                                    document.getElementById('meter_id').value = '';
+                                });
+                            </script>
+                        </div>
+                    </section>
+                    
+                    <section id="consumos" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Consumos') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Registe consumos elétricos e de gás para ajustar tarifas.') }}</p>
                             </div>
-                            <!--END Dados Contador-->
-
-                            <!--Consumos-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="consumos">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">Consumos</h1>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
                                     <div class="sm:col-span-2">
                                         <x-input-number title="Simples" name="flat" :errors="$errors->first('flat')" />
                                     </div>
@@ -413,17 +416,20 @@
                                     </div>
 
                                     <div class="sm:col-span-2">
-                                        <x-input-price title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" />
+                                <x-input-price title="Preço Energia" name="energy_price" :errors="$errors->first('energy_price')" />
                                     </div>
 
                                 </div>
-                            </div>
-                            <!--END Consumos-->
+                            </section>
 
-                            <!--Datas Contrato-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="datascontrato">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">Datas de contrato</h1>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <section id="datascontrato" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Datas de Contrato') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Registe as datas principais para acompanhar o ciclo de vida do contrato.') }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
                                     <div class="sm:col-span-2">
                                         <x-input-date title="Inserido" name="inserted_at" :errors="$errors->first('inserted_at')" />
                                     </div>
@@ -437,13 +443,17 @@
                                         <x-input-date title="Renovação" name="renewal_at" :errors="$errors->first('renewal_at')" />
                                     </div>
                                 </div>
+                    </section>
+
+                    <section id="dadoscliente" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Dados do Cliente') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Preencha os dados do cliente e morada de fornecimento.') }}</p>
                             </div>
+                        </div>
 
-                            <!--Dados Cliente-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="dadoscliente">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">Dados Cliente</h1>
-
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
                                     <input type="hidden" name="client_id" id="client_id">
                                     <div class="sm:col-span-2">
                                         {{-- <x-input-select title="CAE" id="cae_id" name="cae"
@@ -551,196 +561,180 @@
                                             });
                                         });
                                     </script>
-                                </div>
+                        </div>
+                    </section>
+
+                    <section id="pagamento" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Forma de Pagamento') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Indique o IBAN e preferências de faturação do cliente.') }}</p>
                             </div>
-                            <!--END Dados Cliente-->
+                        </div>
 
-                            <!--Forma Pagamento-->
-                            <section id="pagamento">
-                                <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="pagamento">
-                                    <h1 class="text-lg pb-4 text-gray-800 dark:text-gray-200">Forma de Pagamento</h1>
-                                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-
-                                        <div class="sm:col-span-2">
-                                            {{-- <x-input-string title="NIB" name="nib" :errors="$errors->first('nib')" /> --}}
-                                            <div class="sm:col-span-4">
-                                                <label for="nib" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIB</label>
-
-                                                <div class="mt-2">
-                                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                        <span class="flex select-none items-center pl-3 text-gray-800 dark:text-gray-200 sm:text-sm">PT50</span>
-                                                        <input type="text" name="nib" id="nib" class="dark:text-gray-200 block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-200 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="">
-                                                    </div>
-                                                </div>
-                                                @error('nib')
-                                                <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-select title="Entrega de fatura" name="invoice_type_id" id="invoice_type_id" :collection="$invoiceTypes" :errors="$errors->first('invoice_type_id')" />
-                                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
+                            <div class="sm:col-span-3">
+                                <label for="nib" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">NIB</label>
+                                <div class="mt-2">
+                                    <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                        <span class="flex select-none items-center pl-3 text-gray-700 dark:text-gray-200 sm:text-sm">PT50</span>
+                                        <input type="text" name="nib" id="nib" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 dark:bg-gray-700 dark:text-gray-200 sm:text-sm sm:leading-6" placeholder="" />
                                     </div>
                                 </div>
-                            </section>
-                            <!--END Forma Pagamento-->
-
-                            <!--Dados Correspondência-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="dadoscorespondencia">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">Dados de Correspondência</h1>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="Morada" name="mail_address" :errors="$errors->first('mail_address')" />
-                                    </div>
-                                    <div class="sm:col-span-1">
-                                        <x-input-string title="Andar" name="mail_floor" :errors="$errors->first('mail_floor')" />
-                                    </div>
-                                    <div class="sm:col-span-1">
-                                        <x-input-string title="Nº Porta" name="mail_door" :errors="$errors->first('mail_door')" />
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="Codigo Postal" name="mail_post_code" :errors="$errors->first('mail_post_code')" />
-                                    </div>
-
-                                    <div class="sm:col-span-2">
-
-                                        <x-input-select title="Distrito" name="mail_district_id" :errors="$errors->first('mail_district_id')" :collection="$districts" :errors="$errors->first('service_id')" />
-                                    </div>
-
-                                    <div class="sm:col-span-2">
-                                        <x-input-select title="Concelho" name="mail_municipality_id" :errors="$errors->first('mail_municipality_id')" />
-                                    </div>
-
-                                    <div class="sm:col-span-2">
-                                        <x-input-select title="Freguesia" name="mail_parish_id" :errors="$errors->first('mail_parish_id')" />
-                                    </div>
-
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="Email
-                                        Responsável" name="email" :errors="$errors->first('email')" />
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="Contacto
-                                                Telefónico" name="phone_number" :errors="$errors->first('phone_number')" />
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="NIF
-                                            Responsável" name="mail_nif" :errors="$errors->first('mail_nif')" />
-                                    </div>
-                                </div>
+                                @error('nib')
+                                    <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <!--END Dados Correspondência-->
 
-                            <!--Assinatura-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="assinatura">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">Assinatura</h1>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="Email
-                                                Assinatura" name="signatory_email" :errors="$errors->first('signatory_email')" />
-                                    </div>
-                                    <div class="sm:col-span-2">
-                                        <x-input-string title="Contacto
-                                            Assinatura" name="signatory_phone" :errors="$errors->first('signatory_phone')" />
-                                    </div>
-                                </div>
+                            <div class="sm:col-span-3">
+                                <x-input-select title="Entrega de fatura" name="invoice_type_id" id="invoice_type_id" :collection="$invoiceTypes" :errors="$errors->first('invoice_type_id')" />
                             </div>
-                            <!--END Assinatura-->
-
-                            <!--Comissões-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="comissoesdatas">
-                                <h1 class="text-md pb-4 dark:text-gray-200">Comissões, Data de Pagamento e
-                                    Devoluções</h1>
-                                <div class="grid grid-cols-3 gap-4">
-                                    <div>
-                                        <h3 class="text-lg pb-4 dark:text-gray-200">Comissões Parceiro</h3>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Valor Pago ao Parceiro" name="administrator_paid_amount" :errors="$errors->first('administrator_paid_amount')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title=" Data Pagamento ao Parceiro" name="administrator_payment_date" :errors="$errors->first('administrator_payment_date')" />
-                                        </div>
-                                        <div class="sm:col-span-2 mt-5">
-                                            <x-input-price title="Devolução ao Parceiro" name="refund_adminstrator_paid_amount" :errors="$errors->first('refund_adminstrator_paid_amount')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title="Data Devolução ao Parceiro" name="refund_administrator_payment_date" :errors="$errors->first('refund_administrator_payment_date')" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-md pb-4 dark:text-gray-200">Comissões Comercial</h3>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Valor Pago ao Comercial" name="commercial_paid_amount" :errors="$errors->first('commercial_paid_amount')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title="Data Pagamento ao Comercial" name="commercial_payment_date" :errors="$errors->first('commercial_payment_date')" />
-                                        </div>
-                                        <div class="sm:col-span-2 mt-5">
-                                            <x-input-price title="Devolução ao Comercial" name="refund_commercial_paid_amount" :errors="$errors->first('refund_commercial_paid_amount')" />
-
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title="Data Devolução ao Comercial" name="refund_commercial_payment_date" :errors="$errors->first('refund_commercial_payment_date')" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Valor Pago ao CVC" name="cvc_paid_amount" :errors="$errors->first('cvc_paid_amount')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title="Data Pagamento ao CVC" name="cvc_payment_date" :errors="$errors->first('cvc_payment_date')" />
-                                        </div>
-                                        <div class="sm:col-span-2 mt-5">
-                                            <x-input-price title="Devolução ao CVC" name="refund_cvc_paid_amount" :errors="$errors->first('refund_cvc_paid_amount')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title="Data Devolução ao CVC" name="refund_cvc_payment_date" :errors="$errors->first('refund_cvc_payment_date')" />
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                    </section>
+                    
+                    <section id="dadoscorespondencia" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Dados de Correspondência') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Morada e contactos para notificações e documentação.') }}</p>
                             </div>
-                            <!--END Comissões-->
+                        </div>
 
-                            <!--Comissões-->
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="comissoesdatas">
-                                <h1 class="text-md pb-4 dark:text-gray-200">
-                                    Comissões de Energia
-                                </h1>
-                                <div class="grid grid-cols-3 gap-4">
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
+                            <div class="sm:col-span-3">
+                                <x-input-string title="Morada" name="mail_address" :errors="$errors->first('mail_address')" />
+                            </div>
+                            <div class="sm:col-span-1">
+                                <x-input-string title="Andar" name="mail_floor" :errors="$errors->first('mail_floor')" />
+                            </div>
+                            <div class="sm:col-span-1">
+                                <x-input-string title="Nº Porta" name="mail_door" :errors="$errors->first('mail_door')" />
+                            </div>
+                            <div class="sm:col-span-1">
+                                <x-input-string title="Código Postal" name="mail_post_code" :errors="$errors->first('mail_post_code')" />
+                            </div>
 
-                                    <div>
-                                        <h3 class="text-md pb-4 dark:text-gray-200">Comissões CVC</h3>
-                                        <div class="sm:col-span-2">
-                                            <x-input-price title="Valor Pago ao CVC" name="energy_cvc_paid_amount" :errors="$errors->first('energy_cvc_paid_amount')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title="Data Pagamento ao CVC" name="energy_cvc_payment_date" :errors="$errors->first('energy_cvc_payment_date')" />
-                                        </div>
-                                        <div class="sm:col-span-2 mt-5">
-                                            <x-input-price title="Devolução ao CVC" name="refund_energy_cvc_paid_amount" :errors="$errors->first('refund_energy_cvc_paid_amount')" />
-                                        </div>
-                                        <div class="sm:col-span-2">
-                                            <x-input-date title="Data Devolução ao CVC" name="refund_energy_cvc_payment_date" :errors="$errors->first('refund_energy_cvc_payment_date')" />
-                                        </div>
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Distrito" name="mail_district_id" :collection="$districts" :errors="$errors->first('mail_district_id')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Concelho" name="mail_municipality_id" :errors="$errors->first('mail_municipality_id')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-select title="Freguesia" name="mail_parish_id" :errors="$errors->first('mail_parish_id')" />
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <x-input-string title="Email Responsável" name="email" :errors="$errors->first('email')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-string title="Contacto Telefónico" name="phone_number" :errors="$errors->first('phone_number')" />
+                            </div>
+                            <div class="sm:col-span-2">
+                                <x-input-string title="NIF Responsável" name="mail_nif" :errors="$errors->first('mail_nif')" />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="assinatura" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Assinatura') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Dados do signatário responsável pela formalização do contrato.') }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-6">
+                            <div class="sm:col-span-3">
+                                <x-input-string title="Email da Assinatura" name="signatory_email" :errors="$errors->first('signatory_email')" />
+                            </div>
+                            <div class="sm:col-span-3">
+                                <x-input-string title="Contacto da Assinatura" name="signatory_phone" :errors="$errors->first('signatory_phone')" />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="comissoesdatas" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Comissões, Datas e Devoluções') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Controle pagamentos e devoluções para parceiros, comerciais e CVC.') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 grid gap-6 lg:grid-cols-3">
+                            <article class="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/70">
+                                <h4 class="text-base font-semibold text-gray-800 dark:text-gray-100">{{ __('Comissões Parceiro') }}</h4>
+                                <div class="space-y-4">
+                                    <x-input-price title="Valor Pago ao Parceiro" name="administrator_paid_amount" :errors="$errors->first('administrator_paid_amount')" />
+                                    <x-input-date title="Data Pagamento ao Parceiro" name="administrator_payment_date" :errors="$errors->first('administrator_payment_date')" />
+                                    <x-input-price title="Devolução ao Parceiro" name="refund_adminstrator_paid_amount" :errors="$errors->first('refund_adminstrator_paid_amount')" />
+                                    <x-input-date title="Data Devolução ao Parceiro" name="refund_administrator_payment_date" :errors="$errors->first('refund_administrator_payment_date')" />
+                                </div>
+                            </article>
+
+                            <article class="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/70">
+                                <h4 class="text-base font-semibold text-gray-800 dark:text-gray-100">{{ __('Comissões Comercial') }}</h4>
+                                <div class="space-y-4">
+                                    <x-input-price title="Valor Pago ao Comercial" name="commercial_paid_amount" :errors="$errors->first('commercial_paid_amount')" />
+                                    <x-input-date title="Data Pagamento ao Comercial" name="commercial_payment_date" :errors="$errors->first('commercial_payment_date')" />
+                                    <x-input-price title="Devolução ao Comercial" name="refund_commercial_paid_amount" :errors="$errors->first('refund_commercial_paid_amount')" />
+                                    <x-input-date title="Data Devolução ao Comercial" name="refund_commercial_payment_date" :errors="$errors->first('refund_commercial_payment_date')" />
+                                </div>
+                            </article>
+
+                            <article class="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/70">
+                                <h4 class="text-base font-semibold text-gray-800 dark:text-gray-100">{{ __('Comissões CVC') }}</h4>
+                                <div class="space-y-4">
+                                    <x-input-price title="Valor Pago ao CVC" name="cvc_paid_amount" :errors="$errors->first('cvc_paid_amount')" />
+                                    <x-input-date title="Data Pagamento ao CVC" name="cvc_payment_date" :errors="$errors->first('cvc_payment_date')" />
+                                    <x-input-price title="Devolução ao CVC" name="refund_cvc_paid_amount" :errors="$errors->first('refund_cvc_paid_amount')" />
+                                    <x-input-date title="Data Devolução ao CVC" name="refund_cvc_payment_date" :errors="$errors->first('refund_cvc_payment_date')" />
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section id="comissoesenergia" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Comissões de Energia') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Controle pagamentos e devoluções associados à energia CVC.') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 grid gap-6 lg:grid-cols-3">
+                            <article class="flex flex-col gap-4 rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/70">
+                                <h4 class="text-base font-semibold text-gray-800 dark:text-gray-100">{{ __('Comissões CVC') }}</h4>
+                                <div class="space-y-4">
+                                    <x-input-price title="Valor Pago ao CVC" name="energy_cvc_paid_amount" :errors="$errors->first('energy_cvc_paid_amount')" />
+                                    <x-input-date title="Data Pagamento ao CVC" name="energy_cvc_payment_date" :errors="$errors->first('energy_cvc_payment_date')" />
+                                    <x-input-price title="Devolução ao CVC" name="refund_energy_cvc_paid_amount" :errors="$errors->first('refund_energy_cvc_paid_amount')" />
+                                    <x-input-date title="Data Devolução ao CVC" name="refund_energy_cvc_payment_date" :errors="$errors->first('refund_energy_cvc_payment_date')" />
+                                </div>
+                            </article>
+                        </div>
+                    </section>
+                    <section id="estado" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Estado do Contrato') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Selecione o estado atual e adicione observações, se necessário.') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 grid gap-6 sm:grid-cols-2">
+                            <x-input-select title="Status" name="status_id" :collection="$statuses" :errors="$errors->first('status_id')" />
+
+                            <div hidden class="grid grid-cols-1 gap-4" style="display: none" id="messageParent">
+                                <div>
+                                    <label for="message" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">{{ __('Observações') }}</label>
+                                    <div class="mt-2">
+                                        <textarea id="message" rows="4" name="text" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" placeholder=""></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <!--END Comissões-->
-
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800">
-                                <div class="sm:col-span-2">
-                                    <x-input-select title="Status" name="status_id" :collection="$statuses" :errors="$errors->first('status_id')" />
-                                </div>
-                                <div hidden class="grid grid-cols-1 gap-x-6 gap-y-8" style="display: none" id="messageParent">
-                                    <div class="sm:col-span-4">
-                                        <label for="message" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-200">Observações</label>
-                                        <div class="mt-2">
-                                            <textarea id="message" rows="4" name="text" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:dark:bg-gray-600 dark:focus:border-blue-500" placeholder=""></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </section>
                             <script>
                                 const select = document.getElementById('status_id');
                                 const message = document.getElementById('messageParent');
@@ -773,29 +767,40 @@
                             ];
                             @endphp
 
-                            <div class="mt-10 gap-x-10 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="comissoesmensais">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">Comissões Mensais</h1>
-                                <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
-                                    @foreach ($values as $label => $name)
-                                    <div class="grid grid-cols-2 gap-x-4">
-                                        <div>
-                                            <x-input-price title="{{ $label }}" name="{{ $name }}" :errors="$errors->first($name)" />
-                                        </div>
-                                        <div>
-                                            <x-input-date title="{{ $label }}" name="{{ 'date_' . $label }}" :errors="$errors->first($name)" />
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                </div>
+                    <section id="comissoesmensais" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Comissões Mensais') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Distribua valores e datas ao longo dos 12 meses do contrato.') }}</p>
                             </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                            @foreach ($values as $label => $name)
+                                <div class="grid grid-cols-2 gap-4 rounded-xl border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900/70">
+                                    <x-input-price title="{{ $label }}" name="{{ $name }}" :errors="$errors->first($name)" />
+                                    <x-input-date title="{{ $label }}" name="{{ 'date_' . $label }}" :errors="$errors->first($name)" />
+                                </div>
+                            @endforeach
+                        </div>
+                    </section>
 
                             <!--END comissões mensais-->
 
-                            <div class="mt-10 gap-x-6 gap-y-8 flex flex-col text-dark p-6 rounded-2xl bg-white dark:bg-gray-800">
-                                <h1 id="required-documents-h1" class="text-lg pb-4 dark:text-gray-200">Lista de
-                                    documentos necessarios:</h1>
-                                <div id="zone"></div>
+                    <section id="documentacao" data-step-section class="rounded-2xl border border-gray-200 bg-white px-6 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                            <div>
+                                <h3 id="required-documents-h1" class="text-lg font-semibold text-gray-800 dark:text-gray-100">{{ __('Documentação Necessária') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('A lista adapta-se automaticamente ao tipo de cliente e serviço selecionado.') }}</p>
                             </div>
+                        </div>
+                        <div id="zone" class="mt-4 space-y-1 text-sm text-gray-700 dark:text-gray-200"></div>
+
+                        <div class="mt-6 flex flex-col gap-3">
+                            <label for="documentos_upload" class="text-sm font-medium text-gray-700 dark:text-gray-200">{{ __('Anexar Documentos') }}</label>
+                            <input id="documentos_upload" type="file" class="filepond" name="filepond" multiple data-allow-reorder="true" credits="false">
+                            <p class="text-xs text-gray-500 dark:text-gray-400">{{ __('Arraste os ficheiros ou clique para selecionar. Formatos aceites: PDF, JPG, PNG.') }}</p>
+                        </div>
+                    </section>
                             <script>
                                 const clientTypeInput = document.getElementById('client_type_id');
                                 const servicesInput = document.getElementById('service_id');
@@ -949,16 +954,6 @@
                                 }
                             </script>
 
-                            <div class="mt-10 gap-x-6 gap-y-8 sm:grid-cols-6 p-6 rounded-2xl bg-white dark:bg-gray-800" id="documentacao">
-                                <h1 class="text-lg pb-4 dark:text-gray-200">Inserir Ficheiros</h1>
-                                <div class="sm:col-span-2">
-                                    <div class="mt-2">
-                                        <input type="file" class="filepond" name="filepond" multiple data-allow-reorder="true" credits="false">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancelar</button>
                     <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Guardar</button>
@@ -966,7 +961,6 @@
                 </form>
             </div>
         </div>
-    </div>
     </div>
 </x-app-layout>
 <script>
@@ -1341,7 +1335,7 @@
 
 <script>
     // Get a reference to the file input element
-    const inputElement = document.querySelector('input[type="file"]');
+    const inputElement = document.getElementById('documentos_upload');
 
     // Create a FilePond instance
     const pond = FilePond.create(inputElement);
@@ -1358,19 +1352,51 @@
 </script>
 
 <script>
+    const stepButtons = document.querySelectorAll('[data-step-target]');
+    const stepSections = document.querySelectorAll('[data-step-section]');
+    const stickyHeader = document.querySelector('header.sticky') || document.querySelector('header');
+    const headerOffset = stickyHeader ? stickyHeader.offsetHeight + 24 : 120;
+
     function scrollToSection(sectionId) {
         const section = document.getElementById(sectionId);
-        const scrollableColumn = document.getElementById('scrollableColumn');
+        if (!section) return;
+        const sectionPosition = section.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = Math.max(sectionPosition - headerOffset, 0);
 
-        scrollableColumn.scrollTop = section.offsetTop - scrollableColumn.offsetTop;
-        section.scrollIntoView({
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
 
-    const scrollableColumn = document.getElementById('scrollableColumn');
-    scrollableColumn.addEventListener('wheel', (event) => {
-        event.preventDefault();
-        scrollableColumn.scrollTop += event.deltaY;
+    stepButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const target = button.getAttribute('data-step-target');
+            scrollToSection(target);
+        });
     });
+
+    const observerOptions = {
+        root: null,
+        rootMargin: `-${headerOffset}px 0px -55% 0px`,
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                stepButtons.forEach((button) => {
+                    button.classList.toggle('bg-blue-50/80', button.getAttribute('data-step-target') === id);
+                    button.classList.toggle('dark:bg-blue-500/10', button.getAttribute('data-step-target') === id);
+                    button.classList.toggle('text-blue-600', button.getAttribute('data-step-target') === id);
+                    button.classList.toggle('dark:text-blue-300', button.getAttribute('data-step-target') === id);
+                    const numberBadge = button.querySelector('[data-step-number]');
+                    if (numberBadge) {
+                        numberBadge.classList.toggle('border-blue-500', button.getAttribute('data-step-target') === id);
+                        numberBadge.classList.toggle('text-blue-600', button.getAttribute('data-step-target') === id);
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    stepSections.forEach((section) => observer.observe(section));
 </script>

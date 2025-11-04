@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-6 bg-slate-100 dark:bg-gray-900">
+    <div class="py-2">
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
             @if (auth()->user()->roles()->min('id') != 4)
                 <div class="space-y-6 text-gray-800 dark:text-gray-100">
@@ -134,7 +134,7 @@
         </div>
     </div>
 
-        <div class="px-6 lg:px-10 pb-8 py-5">
+        <div class="pb-8 py-5">
             <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden sm:rounded-lg">
                     <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-4 py-4">
@@ -170,7 +170,7 @@
         
 
     @if (auth()->user()->roles()->min('id') != 4)
-        <div class="px-6 lg:px-10 pb-12">
+        <div class="pb-12">
             <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
                     @php

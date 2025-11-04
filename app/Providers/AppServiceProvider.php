@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('layouts.navigation', function ($view) {
+        View::composer(['layouts.navigation', 'layouts.header'], function ($view) {
             $user = auth()->user();
 
             if (! $user) {

@@ -86,7 +86,10 @@ class FinanceController extends Controller
         }
     
         // Pass the data to the view
-        return view("pages.finances.index", compact("clients", "contractsCount", "commissionsByProvider"));
+        return view(
+            "pages.finances.index",
+            compact("clients", "contractsCount", "commissionsByProvider")
+        );
     }
     
 
