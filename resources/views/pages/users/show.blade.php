@@ -1,350 +1,417 @@
 <x-app-layout>
     <x-slot name="header" class="pt-8">
-        <div class="flex items-center py-4 overflow-x-auto whitespace-nowrap">
-            <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
-            </a>
+        <div class="flex items-center justify-between flex-wrap gap-4">
+            <div>
+                <div class="flex items-center py-2 text-sm text-gray-500 dark:text-gray-300 space-x-2">
+                    <a href="{{ route('dashboard') }}" class="hover:text-blue-600 dark:hover:text-blue-300">Dashboard</a>
+                    <span>/</span>
+                    <a href="{{ route('users.index') }}" class="hover:text-blue-600 dark:hover:text-blue-300">Utilizadores</a>
+                    <span>/</span>
+                    <span class="text-blue-600 dark:text-blue-300 font-medium">Perfil 360º</span>
+                </div>
+                <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+                    {{ $user->name }}
+                    <span class="text-sm font-normal text-gray-500 dark:text-gray-300">
+                        · {{ $user->email }}
+                    </span>
+                </h1>
+                <div class="mt-1 flex flex-wrap gap-2">
+                    @forelse ($user->roles as $role)
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
+                            {{ $role->title }}
+                        </span>
+                    @empty
+                        <span class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-semibold">
+                            Sem role
+                        </span>
+                    @endforelse
+                </div>
+            </div>
 
-            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd" />
-                </svg>
-            </span>
-
-            <a href="{{ route('users.index') }}" class="text-gray-600 dark:text-gray-200 hover:underline">
-                {{ __('Utilizadores') }}
-            </a>
-
-            <span class="mx-5 text-gray-500 dark:text-gray-300 rtl:-scale-x-100">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd" />
-                </svg>
-            </span>
-
-            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">
-                {{ __('Detalhes do Utilizador') }}
-            </a>
-        </div>
-        <div class="flex items-end justify-between">
-            <h4 class="mr-4 text-xl	text-blue-600 dark:text-blue-100">{{ __(' Utilizador - ') }}{{ $user->name }}</h4>
-            <a href="{{ route('users.edit', $user->id) }}">
-                <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4">{{ __('Editar Utilizador') }}</button>
+            <a href="{{ route('users.edit', $user->id) }}"
+               class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-full transition">
+                Editar Utilizador
             </a>
         </div>
     </x-slot>
 
-    <!--Tables-->
-    <div class="p-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
-            <div class="gap-x-6 mt-4 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                <h1 class="text-lg pb-4 dark:text-gray-200">Contratos Associados ao Cliente</h1>
+    <div class="bg-slate-100 dark:bg-gray-900 py-8">
+        <div class="max-w-7xl mx-auto px-6 space-y-8 mb-8">
 
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead cass="bg-gray-50 dark:bg-gray-800">
-                        <tr>
-                            <th scope="col"
-                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <div class="flex items-center gap-x-3">
-                                    <span>CPE</span>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                @foreach ($summaryCards as $card)
+                    <div class="rounded-xl border border-slate-200 bg-white shadow-sm px-5 py-4 dark:border-gray-700 dark:bg-gray-800">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ $card['label'] }}</p>
+                        <p class="mt-2 text-2xl font-semibold text-gray-800 dark:text-gray-100">
+                            {{ number_format($card['value'], 0, ',', '.') }}
+                        </p>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <div class="xl:col-span-2 space-y-6">
+                    <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Dados do Cliente</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Informação principal e moradas associadas.</p>
+                        </div>
+                        <div class="px-6 py-5 space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                            <div class="grid gap-4 sm:grid-cols-2">
+                                <div>
+                                    <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Código interno</span>
+                                    <span class="text-base font-medium text-gray-800 dark:text-gray-100">{{ $user->id }}</span>
                                 </div>
-                            </th>
-                            <th scope="col"
-                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <div class="flex items-center gap-x-3">
-                                    <span>Name</span>
+                                <div>
+                                    <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Telefone</span>
+                                    <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                        {{ optional($user->client)->phone ?? '—' }}
+                                    </span>
                                 </div>
-                            </th>
-                            <th scope="col"
-                                class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <div class="flex items-center gap-x-3">
-                                    <span>NIF</span>
+                            </div>
+
+                            @if ($user->client)
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    <div>
+                                        <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Administrador</span>
+                                        <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                            {{ $user->client->administrator_name ?? '—' }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">NIF</span>
+                                        <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                            {{ $user->client->nif ?? '—' }}
+                                        </span>
+                                    </div>
                                 </div>
-                            </th>
-                            <th scope="col"
-                                class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <span>Status</span>
-                            </th>
 
-                            <th scope="col"
-                                class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <span>Terminar</span>
-                            </th>
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    <div>
+                                        <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Morada de fornecimento</span>
+                                        <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                            {{ $user->client->address ?? '—' }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Código Postal</span>
+                                        <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                            {{ $user->client->post_code ?? '—' }}
+                                        </span>
+                                    </div>
+                                </div>
 
-                            <th scope="col"
-                                class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <button class="flex items-center gap-x-2">
-                                    <span>Nivel Tensão (RPE)</span>
+                                <div class="grid gap-4 sm:grid-cols-3">
+                                    <div>
+                                        <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Distrito</span>
+                                        <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                            {{ optional($user->client->district)->title ?? '—' }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Concelho</span>
+                                        <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                            {{ optional($user->client->municipality)->title ?? '—' }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Freguesia</span>
+                                        <span class="text-base font-medium text-gray-800 dark:text-gray-100">
+                                            {{ optional($user->client->parish)->title ?? '—' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            @else
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Este utilizador ainda não está associado a um cliente.</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                    </svg>
-                                </button>
-                            </th>
+                <div class="space-y-6">
+                    <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Resumo Financeiro</h2>
+                        </div>
+                        <div class="px-6 py-5 space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                            <div class="flex justify-between">
+                                <span>Total pago pela CVC</span>
+                                <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                    € {{ number_format($financialSummary['totalCvc'], 2, ',', '.') }}
+                                </span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Total pago a Administradores</span>
+                                <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                    € {{ number_format($financialSummary['totalAdministrators'], 2, ',', '.') }}
+                                </span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Total pago a Comerciais</span>
+                                <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                    € {{ number_format($financialSummary['totalCommercials'], 2, ',', '.') }}
+                                </span>
+                            </div>
+                            <div class="flex justify-between border-t border-dashed border-slate-200 pt-3 dark:border-gray-600">
+                                <span class="font-semibold text-gray-700 dark:text-gray-200">Margem CVC</span>
+                                <span class="font-semibold {{ $financialSummary['companyProfit'] >= 0 ? 'text-emerald-600' : 'text-red-500' }}">
+                                    € {{ number_format($financialSummary['companyProfit'], 2, ',', '.') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 
-                            <th scope="col" class="relative py-3.5 px-4">
-                                <span class="sr-only">Edit</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    @if ($user->client)
-                        @foreach ($contracts as $contract)
-                            <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                                <tr>
-                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->meter ? $contract->meter->cpe : 'Sem informação' }}
+                    <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                        <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Atividade Recente</h2>
+                        </div>
+                        <div class="px-6 py-5 space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                            @forelse ($activities as $activity)
+                                <div class="flex items-start justify-between gap-3">
+                                    <div>
+                                        <p class="font-semibold text-gray-800 dark:text-gray-100">
+                                            {{ $activity->meter?->cpe ?? 'CPE não definido' }}
+                                        </p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                                            Estado: {{ $activity->statuses?->title ?? 'Sem estado' }}
+                                            · Fornecedor: {{ $activity->provider?->acronym ?? $activity->provider?->title ?? '—' }}
+                                        </p>
+                                    </div>
+                                    <span class="text-xs text-gray-500 dark:text-gray-400">
+                                        {{ optional($activity->updated_at)->format('d/m/Y H:i') }}
+                                    </span>
+                                </div>
+                            @empty
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Sem movimentos registados nos últimos contratos.</p>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Energia e Consumo</h2>
+                    </div>
+                    <div class="px-6 py-5 space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                        <div class="flex justify-between">
+                            <span>Potência contratada total</span>
+                            <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                {{ $consumptionSummary['totalPower'] ? number_format($consumptionSummary['totalPower'], 0, ',', '.') . ' kVA' : '—' }}
+                            </span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Preço médio de energia</span>
+                            <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                {{ $consumptionSummary['averageEnergyPrice'] ? '€ ' . number_format($consumptionSummary['averageEnergyPrice'], 4, ',', '.') : '—' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Estado dos Contratos</h2>
+                    </div>
+                    <div class="px-6 py-5 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                        @forelse ($statusBreakdown as $row)
+                            <div class="flex justify-between">
+                                <span>{{ $row->label }}</span>
+                                <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                    {{ number_format($row->total, 0, ',', '.') }}
+                                </span>
+                            </div>
+                        @empty
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Sem contratos registados.</p>
+                        @endforelse
+                    </div>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Distribuição por Serviço</h2>
+                    </div>
+                    <div class="px-6 py-5 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                        @forelse ($serviceBreakdown as $row)
+                            <div class="flex justify-between">
+                                <span>{{ $row->label }}</span>
+                                <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                    {{ number_format($row->total, 0, ',', '.') }}
+                                </span>
+                            </div>
+                        @empty
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Sem contratos registados.</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                        <div>
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Contratos do Cliente</h2>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Mostrando {{ $contracts->count() }} de {{ number_format($contracts->total(), 0, ',', '.') }} contratos.
+                            </p>
+                        </div>
+
+                        <form method="GET" class="w-full md:w-auto">
+                            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                                <div>
+                                    <label for="status_id" class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                                        Estado
+                                    </label>
+                                    <select id="status_id" name="status_id"
+                                            class="mt-1 w-full rounded-md border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                                        <option value="">Todos</option>
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status->id }}" @selected((string) $filters['status_id'] === (string) $status->id)>
+                                                {{ $status->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="service_id" class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                                        Serviço
+                                    </label>
+                                    <select id="service_id" name="service_id"
+                                            class="mt-1 w-full rounded-md border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                                        <option value="">Todos</option>
+                                        @foreach ($services as $service)
+                                            <option value="{{ $service->id }}" @selected((string) $filters['service_id'] === (string) $service->id)>
+                                                {{ $service->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="typology_id" class="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                                        Tipologia
+                                    </label>
+                                    <select id="typology_id" name="typology_id"
+                                            class="mt-1 w-full rounded-md border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100">
+                                        <option value="">Todas</option>
+                                        @foreach ($typologies as $typology)
+                                            <option value="{{ $typology->id }}" @selected((string) $filters['typology_id'] === (string) $typology->id)>
+                                                {{ $typology->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="flex items-end gap-2">
+                                    <button type="submit"
+                                            class="inline-flex justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-600 transition w-full">
+                                        Filtrar
+                                    </button>
+                                    <a href="{{ route('users.show', $user->id) }}"
+                                       class="inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-700 border border-gray-200 hover:bg-gray-50 transition dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+                                        Limpar
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="px-6 py-5 overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                        <thead class="bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-300 uppercase text-xs tracking-wide">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold">Contrato</th>
+                                <th class="px-4 py-3 text-left font-semibold">CPE / NIF</th>
+                                <th class="px-4 py-3 text-left font-semibold">Serviço</th>
+                                <th class="px-4 py-3 text-left font-semibold">Fornecedor</th>
+                                <th class="px-4 py-3 text-left font-semibold">Tipologias</th>
+                                <th class="px-4 py-3 text-right font-semibold">Comissão CVC</th>
+                                <th class="px-4 py-3 text-left font-semibold">Estado</th>
+                                <th class="px-4 py-3 text-left font-semibold">Atualizado em</th>
+                                <th class="px-4 py-3 text-right font-semibold">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-gray-700 dark:text-gray-200">
+                            @forelse ($contracts as $contract)
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/40 transition">
+                                    <td class="px-4 py-3 font-semibold text-gray-800 dark:text-gray-100">
+                                        {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::limit($contract->id, 12, '…')) }}
                                     </td>
-                                    <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                        <div class="inline-flex items-center gap-x-3">
-                                            <div class="flex items-center gap-x-2">
-                                                <div>
-                                                    <h2 class="font-medium text-gray-800 dark:text-white ">
-                                                        {{ $contract->client ? $contract->client->name : 'Sem informação' }}
-                                                    </h2>
-                                                </div>
+                                    <td class="px-4 py-3">
+                                        <div class="flex flex-col">
+                                            <span>{{ $contract->meter?->cpe ?? '—' }}</span>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">
+                                                {{ $contract->meter?->nif ?? 'NIF não definido' }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3">{{ $contract->service?->title ?? '—' }}</td>
+                                    <td class="px-4 py-3">{{ $contract->provider?->acronym ?? $contract->provider?->title ?? '—' }}</td>
+                                    <td class="px-4 py-3">
+                                        @if ($contract->typologies->isNotEmpty())
+                                            <div class="flex flex-wrap gap-1">
+                                                @foreach ($contract->typologies as $typology)
+                                                    <span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">
+                                                        {{ $typology->title }}
+                                                    </span>
+                                                @endforeach
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->meter ? $contract->meter->nif : 'Sem informação' }}
-
-                                    </td>
-                                    <td class="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                        @if ($contract->status)
-                                            <span>{{ $contract->status->title }}</span>
+                                        @else
+                                            <span class="text-xs text-gray-500 dark:text-gray-400">Sem tipologia</span>
                                         @endif
                                     </td>
-                                    <td
-                                        class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap flex justify-center">
-                                        @if ($contract->status === 1)
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                fill="#fb923c" viewBox="0 0 256 256">
-                                                <path
-                                                    d="M120,136V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0ZM232,91.55v72.9a15.86,15.86,0,0,1-4.69,11.31l-51.55,51.55A15.86,15.86,0,0,1,164.45,232H91.55a15.86,15.86,0,0,1-11.31-4.69L28.69,175.76A15.86,15.86,0,0,1,24,164.45V91.55a15.86,15.86,0,0,1,4.69-11.31L80.24,28.69A15.86,15.86,0,0,1,91.55,24h72.9a15.86,15.86,0,0,1,11.31,4.69l51.55,51.55A15.86,15.86,0,0,1,232,91.55Zm-16,0L164.45,40H91.55L40,91.55v72.9L91.55,216h72.9L216,164.45ZM128,160a12,12,0,1,0,12,12A12,12,0,0,0,128,160Z">
-                                                </path>
-                                            </svg>
-                                        @endif
+                                    <td class="px-4 py-3 text-right">
+                                        € {{ number_format($contract->commission->cvc_paid_amount ?? 0, 2, ',', '.') }}
                                     </td>
-                                    <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                        {{ $contract->meter && $contract->meter->tariff ? $contract->meter->tariff->title : '' }}
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
+                                            {{ $contract->statuses?->title ?? 'Sem estado' }}
+                                        </span>
                                     </td>
-                                    <td class="px-4 py-4 text-sm whitespace-nowrap">
-                                        <div class="flex items-center gap-x-6">
-
-                                            <a href="{{ route('contracts.show', $contract->id) }}">
-                                                <button
-                                                    class="text-gray-500 transition-colors duration-200 dark:hover:text-blue-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                        height="16" fill="currentColor" class="bi bi-eye"
-                                                        viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                                        <path
-                                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                                                    </svg>
-                                                </button>
-                                            </a>
-                                            @foreach (Auth()->user()->roles as $role)
-                                                @if ($role->id === 1 || $role->id === 2)
-                                                    <a href="{{ route('contracts.edit', $contract->id) }}"
-                                                        class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none">
-                                                        <button>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 24 24" stroke-width="1.5"
-                                                                stroke="currentColor" class="w-5 h-5">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                            </svg>
-                                                        </button>
-                                                    </a>
-
-                                                    <form action="{{ route('contracts.destroy', $contract->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button
-                                                            class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 24 24" stroke-width="1.5"
-                                                                stroke="currentColor" class="w-5 h-5">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            @endforeach
-                                        </div>
+                                    <td class="px-4 py-3">
+                                        {{ optional($contract->updated_at)->format('d/m/Y H:i') ?? '—' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-right">
+                                        <a href="{{ route('contracts.show', $contract->id) }}"
+                                           class="text-blue-600 hover:text-blue-800 font-semibold text-sm">
+                                            Ver contrato
+                                        </a>
                                     </td>
                                 </tr>
-                        @endforeach
-                    @endif
-                    </tbody>
-                </table>
+                            @empty
+                                <tr>
+                                    <td colspan="9" class="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+                                        Nenhum contrato encontrado para os filtros aplicados.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="px-6 pb-6">
+                    {{ $contracts->links() }}
+                </div>
             </div>
 
-            <div class="gap-x-6 mt-4 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                <h1 class="text-lg pb-4 dark:text-gray-200">Dados do Cliente</h1>
-                @if ($user->client)
-
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">CAE:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->cae }}
-                                </h4>
-                            @endif
+            <div class="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <div class="px-6 py-5 border-b border-slate-100 dark:border-gray-700">
+                    <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Distribuição por Tipologia</h2>
+                </div>
+                <div class="px-6 py-5 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                    @forelse ($typologyBreakdown as $row)
+                        <div class="flex justify-between">
+                            <span>{{ $row->label }}</span>
+                            <span class="font-semibold text-gray-800 dark:text-gray-100">
+                                {{ number_format($row->total, 0, ',', '.') }}
+                            </span>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Nome Cliente:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->administrator_name }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Morada de Fornecimento:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->address }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Andar/Fração:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->floor }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código Postal:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->post_code }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Código de Freguesia:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client->district && $user->client->municipality && $user->client->parish)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ str_replace(' ', '', $user->client->district->code) }}
-                                    {{ str_replace(' ', '', $user->client->municipality->code) }}
-                                    {{ str_replace(' ', '', $user->client->parish->code) }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Distrito:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client->district)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->district->title }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Concelho:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client->municipality)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->municipality->title }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-4 md:grid-cols-12 gap-4">
-                        <div class="p-4 dark:text-gray-200 col-span-4 md:col-span-4">Freguesia:</div>
-                        <div class="p-4 col-span-8 md:col-span-8">
-                            @if ($user->client->parish)
-                                <h4 class="text-blue-600 dark:text-blue-400">
-                                    {{ $user->client->parish->title ?? null }}
-                                </h4>
-                            @endif
-                        </div>
-                    </div>
-                @endif
-            </div>
-
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-4">
-                <div class="gap-x-6 gap-y-8 sm:grid-cols-6 bg-white p-6 rounded-2xl dark:bg-gray-800">
-                    <div class="flex p-4">
-                        <div class="w-1/2 dark:text-blue-400">
-                            <h4>{{ __('Identificador na Base de Dados: ') }}</h4>
-                        </div>
-                        <div class="w-1/2">
-                            @if ($user->name)
-                                <p class="text-blue-600 dark:text-blue-100">
-                                    {{ $user->id }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="flex p-4">
-                        <div class="w-1/2 dark:text-blue-400">
-                            <h4>{{ __('Nome do Utilizador: ') }}</h4>
-                        </div>
-                        <div class="w-1/2">
-                            @if ($user->name)
-                                <p class="text-blue-600 dark:text-blue-100">
-                                    {{ $user->name }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="flex p-4">
-                        <div class="w-1/2 dark:text-blue-400">
-                            <h4>{{ __('Email: ') }}</h4>
-                        </div>
-                        <div class="w-1/2">
-                            @if ($user->name)
-                                <p class="text-blue-600 dark:text-blue-100">
-                                    {{ $user->email }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="flex p-4">
-                        <div class="w-1/2 dark:text-blue-400">
-                            <h4>{{ __('Cargo: ') }}</h4>
-                        </div>
-                        <div class="w-1/2">
-                            @if ($user->roles->isEmpty())
-                                <td class="py-2 px-4 border-b border-gray-200 text-blue-600 dark:text-blue-100">
-                                    {{ 'No role' }}</td>
-                            @else
-                                @foreach ($user->roles as $role)
-                                    <p class="text-blue-600 dark:text-blue-100">
-                                        {{ $role->title }}
-                                    </p>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
+                    @empty
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Sem dados de tipologias associados aos contratos.</p>
+                    @endforelse
                 </div>
             </div>
 

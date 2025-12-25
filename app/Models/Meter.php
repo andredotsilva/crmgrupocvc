@@ -25,6 +25,9 @@ class Meter extends Model
         'gas',
         'fixed_price',
         'energy_price',
+        'energy_price_standard',
+        'energy_price_off_peak',
+        'energy_price_super_off_peak',
     ];
 
     public function tariff()

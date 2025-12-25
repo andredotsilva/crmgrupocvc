@@ -17,18 +17,8 @@ use App\Http\Controllers\EnergiagasController;
 use App\Http\Controllers\FilesUploadController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\FinanceController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::apiResource('/cpe', CPEController::class);
 
@@ -41,10 +31,25 @@ Route::get('/', function () {
 });
 Route::get('/cpe/getcpesbynif/{nif}', [CPEController::class, 'getCpesByNIF'])->name('cpe.getcpesbynif');
 
-Route::middleware('auth')->group(function () {
+Route::get('/contrato/simulacao/{id}', [ContractsController::class, 'viewSimulation'])->name('contracts.simulation');
+
+Route::middleware('auth', 'verified')->group(function () {
     Route::get('/plans/plansbyproviderid', [PlansController::class, 'plansbyproviderid'])->name('plansbyproviderid');
     Route::get('/contracts/fetchbycpe', [ContractsController::class, 'fetchbycpe'])->name('contacts.fetchbycpe');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+
+    Route::get('/dashboard/export/{segment}', [DashboardController::class, 'export'])
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard.export');
+
+    Route::post('/notifications/{notification}/read', [DashboardController::class, 'markNotification'])
+        ->middleware(['auth', 'verified'])
+        ->name('notifications.read');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -52,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/contracts/renew/{id}', [ContractsController::class, 'renew'])->name('contracts.renew');
     Route::get('/contracts/export', [ContractsController::class, 'export'])->name('contracts.export');
     Route::resource('/contracts', ContractsController::class);
+    Route::post('/contracts/upload-csv', [ContractsController::class, 'uploadCsv'])->name('contracts.uploadCsv');
 
     Route::post('/upload', [FilesUploadController::class, 'store']);
     Route::delete('/destroy', [FilesUploadController::class, 'destroy']);
@@ -77,6 +83,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
     //Route::get('/finances', [ContractsController::class, 'showFinances'])->name('finances.index');
     Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
+    
     Route::get('/finances/{contractId}', [FinanceController::class, 'show'])->name('finances.show');
     Route::get('/finances/{client}/contracts', [FinanceController::class, 'showContractsByClient'])->name('finances.showContractsByClient');
 

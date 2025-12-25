@@ -14,11 +14,16 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                gestorDark: '#0f172a',
+                gestorBlue: '#2563eb',
+            },
         },
     },
 
 
-
-    plugins: [require("tw-elements/dist/plugin.cjs")],
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [
+        require("tw-elements/dist/plugin.cjs"),
+        require('@tailwindcss/forms'),
+    ],
 };

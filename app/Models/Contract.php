@@ -42,6 +42,10 @@ class Contract extends Model
         // ASSINATURA
         'signatory_email',
         'signatory_phone',
+        'energy_price_standard',
+        'energy_price_off_peak',
+        'energy_price_super_off_peak',
+        'energy_price',
 
     ];
 

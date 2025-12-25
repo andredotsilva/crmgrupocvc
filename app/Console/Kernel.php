@@ -12,7 +12,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('dashboard:send-report')
+            ->monthlyOn(1, '08:00')
+            ->withoutOverlapping()
+            ->onOneServer();
+
+        $schedule->command('contracts:scan-lifecycle')
+            ->dailyAt('07:00')
+            ->withoutOverlapping()
+            ->onOneServer();
     }
 
     /**

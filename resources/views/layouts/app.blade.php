@@ -8,14 +8,13 @@
 
     <title>{{ config('app.name', 'CRM Energia do Condominio') }}</title>
 
-    <!-- Fonts -->
+    <!-- Fonts e estilos -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"> --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
@@ -27,11 +26,10 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
-
 </head>
 
-<body class="font-sans antialiased">
-    <!--MODAL DELETE-->
+<body class="font-sans antialiased bg-gray-100 dark:bg-gray-900 min-h-screen flex">
+    <!-- Global delete confirmation modal -->
     <div id="deleteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-8 rounded shadow-lg">
             <p>Are you sure you want to delete this contract?</p>
@@ -42,34 +40,28 @@
         </div>
     </div>
 
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.navigation')
+    @include('layouts.sidebar')
 
-        <!-- Page Heading -->
-        @if (isset($header))
-            <header class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-8xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+    <div class="flex-1 flex flex-col min-h-screen ml-0 lg:ml-72 transition-[margin] duration-300">
+        <div class="flex-1 flex flex-col">
+            <header class="bg-gray-100/90 dark:bg-gray-900/90 backdrop-blur supports-backdrop-blur sticky top-0 z-40">
+                <div class="py-6 px-4 sm:px-6 lg:px-12">
+                    @include('layouts.header', ['headerContent' => $header ?? null])
                 </div>
             </header>
-        @endif
 
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+            <main class="flex-1 py-6 px-4 sm:px-6 lg:px-12">
+                @hasSection('content')
+                    @yield('content')
+                @else
+                    {{ $slot }}
+                @endif
+            </main>
+        </div>
 
-        <footer
-            class="w-full h-8 bg-white
-            fixed left-0 bottom-0
-            flex justify-center items-center
-            text-sm text-gray-500 dark:bg-gray-700 dark:text-blue-400
-            ">
-            Desenvolvido pela CaseOf Creative Agency
-        </footer>
     </div>
+
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    {{-- <script src="../path/to/flowbite/dist/flowbite.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -77,6 +69,10 @@
             const deleteModal = document.getElementById('deleteModal');
             const cancelDelete = document.getElementById('cancelDelete');
             const confirmDelete = document.getElementById('confirmDelete');
+
+            if (!deleteButton || !deleteModal || !cancelDelete || !confirmDelete) {
+                return;
+            }
 
             deleteButton.addEventListener('click', function() {
                 deleteModal.classList.remove('hidden');

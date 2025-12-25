@@ -86,6 +86,10 @@ class StoreContractRequest extends FormRequest
             "standard" => ["nullable", "numeric"],
             "off_peak" => ["nullable", "numeric"],
             "super_off_peak" => ["nullable", "numeric"],
+            'energy_price_standard' => 'nullable|numeric',
+            'energy_price_off_peak' => 'nullable|numeric',
+            'energy_price_super_off_peak' => 'nullable|numeric',
+            'energy_price' => 'nullable|numeric',
             "gas" => ["nullable", "numeric"],
             "power_bracket_id" => ["nullable", "exists:power_brackets,id"],
 
@@ -97,7 +101,7 @@ class StoreContractRequest extends FormRequest
             "mail_parish_id" => ["nullable", "exists:parishes,id"],
             "mail_municipality_id" => ["nullable", "exists:municipalities,id"],
             "mail_district_id" => ["nullable", "exists:districts,id"],
-            "email" => ["email", "unique:users,email"],
+            "email" => ["email"],
             "phone_number" => ["nullable", "max:255"],
             "mail_nif" => ["nullable", "max:255"],
 
